@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/react-workout-app/static/css/main.9d5b29c0.chunk.css",
+    "main.js": "/react-workout-app/static/js/main.703b6e97.chunk.js",
+    "main.js.map": "/react-workout-app/static/js/main.703b6e97.chunk.js.map",
+    "runtime-main.js": "/react-workout-app/static/js/runtime-main.53a837bf.js",
+    "runtime-main.js.map": "/react-workout-app/static/js/runtime-main.53a837bf.js.map",
+    "static/js/2.c117dfd9.chunk.js": "/react-workout-app/static/js/2.c117dfd9.chunk.js",
+    "static/js/2.c117dfd9.chunk.js.map": "/react-workout-app/static/js/2.c117dfd9.chunk.js.map",
+    "static/js/3.cb616760.chunk.js": "/react-workout-app/static/js/3.cb616760.chunk.js",
+    "static/js/3.cb616760.chunk.js.map": "/react-workout-app/static/js/3.cb616760.chunk.js.map",
+    "index.html": "/react-workout-app/index.html",
+    "static/css/main.9d5b29c0.chunk.css.map": "/react-workout-app/static/css/main.9d5b29c0.chunk.css.map",
+    "static/js/2.c117dfd9.chunk.js.LICENSE.txt": "/react-workout-app/static/js/2.c117dfd9.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.53a837bf.js",
+    "static/js/2.c117dfd9.chunk.js",
+    "static/css/main.9d5b29c0.chunk.css",
+    "static/js/main.703b6e97.chunk.js"
+  ]
+}
