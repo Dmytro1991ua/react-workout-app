@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, keyframes } from "styled-components";
 
 //Global styles
 export const GlobalStyles = createGlobalStyle`
@@ -76,3 +76,66 @@ export const colors = {
   brightGreen: "#60f702 ",
   tomato: "#ff6347",
 };
+
+// Animations
+export const rotationA = keyframes`
+   0%,
+  25% {
+    transform: rotate(0deg);
+  }
+  50%,
+  75% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
+export const rotationB = keyframes`
+    0%,
+  25% {
+    transform: rotate(90deg);
+  }
+  50%,
+  75% {
+    transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(450deg);
+  }
+`;
+
+export const fadeInDown = keyframes`
+   from {
+        opacity:0;
+        -webkit-transform: translatey(-10px);
+        -moz-transform: translatey(-10px);
+        -o-transform: translatey(-10px);
+        transform: translatey(-10px);
+    }
+    to {
+        opacity:1;
+        -webkit-transform: translatey(0);
+        -moz-transform: translatey(0);
+        -o-transform: translatey(0);
+        transform: translatey(0);
+    }
+`;
+
+export const bounceInLeft = keyframes`
+   0% {
+      opacity: 0;
+      transform: translateX(-2000px);
+   }
+   60% {
+      opacity: 1;
+      transform: translateX(30px);
+   }
+   80% {
+      transform: translateX(-10px);
+   }
+   100% {
+      transform: translateX(0);
+   }
+`;

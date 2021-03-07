@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { colors } from "./GlobalStyles";
+import {fadeInDown, colors } from "./GlobalStyles";
 
 export const HeaderSection = styled.header`
   background-color: ${colors.lighterBlue};
@@ -9,6 +9,8 @@ export const HeaderSection = styled.header`
   width: 100%;
   z-index: 3;
   border-bottom: 4px solid ${colors.mantis};
+  transition: all 0.3s ease-out;
+  animation: ${fadeInDown} 0.4s ease-in-out;
 
   @media (min-width: 45em) {
     padding: 0.6rem 0rem;
@@ -31,6 +33,7 @@ export const HeaderSectionBody = styled.div`
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
+
   @media (min-width: 24em) {
     flex-direction: row;
   }
@@ -39,7 +42,7 @@ export const HeaderSectionBody = styled.div`
 // Navigation
 export const List = styled.ul`
   position: absolute;
-  top: 5.8rem;
+  top: 6.2rem;
   left: 0;
   height: 100vh;
   display: flex;
