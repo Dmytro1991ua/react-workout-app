@@ -23,8 +23,8 @@ export const Logo = styled.img`
   cursor: pointer;
 
   @media (min-width: 45em) {
-    width: 8rem;
-    height: 8rem;
+    width: 6.5rem;
+    height: 6.5rem;
   }
 `;
 

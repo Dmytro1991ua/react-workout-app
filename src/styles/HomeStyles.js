@@ -7,7 +7,7 @@ import { colors, bounceInLeft } from "./GlobalStyles";
 export const HomeSection = styled.section`
   min-height: 100vh;
   display: flex;
-  padding: 0 1rem;
+  flex-direction: column;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url(${imgSmall});
   background-position: 28%;
@@ -24,6 +24,7 @@ export const HomeSection = styled.section`
 `;
 
 export const HomeSectionBody = styled.div`
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,6 +32,13 @@ export const HomeSectionBody = styled.div`
   width: 100%;
   transition: all 0.3s ease-in-out;
   animation: ${bounceInLeft} 0.8s ease-in-out;
+  padding: 0 1rem;
+  margin-top: 5rem;
+
+   @media (min-width: 45em) {
+    margin-bottom: 5rem;
+    margin-top: 12rem;
+  } 
 `;
 
 export const HomeTitle = styled.div`

@@ -1,6 +1,13 @@
 import React from "react";
-import { HomeBtn, HomeSection, HomeSectionBody, HomeTitle } from "../styles/HomeStyles";
+import {
+  HomeBtn,
+  HomeSection,
+  HomeSectionBody,
+  HomeTitle,
+} from "../styles/HomeStyles";
 import SectionsTitle from "./SectionsTitle";
+import Slider from "./Slider";
+import "../styles/Slider.css";
 
 const Home = () => {
   return (
@@ -14,6 +21,7 @@ const Home = () => {
         </HomeTitle>
         <HomeBtn to="/workouts">Check Your Workout</HomeBtn>
       </HomeSectionBody>
+      <Slider />
     </HomeSection>
   );
 };
