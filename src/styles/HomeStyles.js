@@ -35,10 +35,10 @@ export const HomeSectionBody = styled.div`
   padding: 0 1rem;
   margin-top: 5rem;
 
-   @media (min-width: 45em) {
+  @media (min-width: 45em) {
     margin-bottom: 5rem;
     margin-top: 12rem;
-  } 
+  }
 `;
 
 export const HomeTitle = styled.div`

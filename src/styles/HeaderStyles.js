@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import {fadeInDown, colors } from "./GlobalStyles";
+import { fadeInDown, colors } from "./GlobalStyles";
 
 export const HeaderSection = styled.header`
   background-color: ${colors.lighterBlue};
@@ -12,7 +12,7 @@ export const HeaderSection = styled.header`
   transition: all 0.3s ease-out;
   animation: ${fadeInDown} 0.4s ease-in-out;
 
-  @media (min-width: 45em) {
+  @media (min-width: 48em) {
     padding: 0.6rem 0rem;
   }
 `;
@@ -22,7 +22,7 @@ export const Logo = styled.img`
   height: 5rem;
   cursor: pointer;
 
-  @media (min-width: 45em) {
+  @media (min-width: 48em) {
     width: 6.5rem;
     height: 6.5rem;
   }

@@ -6,7 +6,7 @@ import SwiperCore, {
   Autoplay,
   EffectCoverflow,
 } from "swiper";
-import { Image, SliderTitle } from "../styles/Slider";
+import { Image, SliderTitle } from "../styles/SliderStyles";
 
 //swiper styles
 import "swiper/swiper.scss";
