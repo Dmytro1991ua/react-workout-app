@@ -1,11 +1,16 @@
-import { useContext } from "react";
+import { lazy, Suspense, useContext } from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
-import Home from "./components/Home";
+//import Home from "./components/Home";
 import Preloader from "./components/Preloader";
-import Workouts from "./components/Workouts";
+import SectionLoader from "./components/SectionLoader";
+//import Workouts from "./components/Workouts";
 import { GlobalStyles, Wrapper } from "./styles/GlobalStyles";
 import { WorkoutsContext } from "./WorkoutsContext";
+
+// component's lazy loading while using React Routing
+const Home = lazy(() => import("./components/Home"));
+const Workouts = lazy(() => import("./components/Workouts"));
 
 function App() {
   //destructure preloader "state"
@@ -21,12 +26,14 @@ function App() {
         <Wrapper>
           <Header />
           <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/workouts">
-              <Workouts />
-            </Route>
+            <Suspense fallback={<SectionLoader />}>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/workouts">
+                <Workouts />
+              </Route>
+            </Suspense>
           </Switch>
         </Wrapper>
       )}

@@ -27,10 +27,11 @@ export const WorkoutsFeatures = styled.aside`
   background-color: ${colors.darkBlue};
   border-top-left-radius: 1.2rem;
   border-top-right-radius: 1.2rem;
+  padding: 0 1.2rem;
 
   @media (min-width: 62em) {
     min-height: 100vh;
-    flex: 0 1 34rem;
+    flex: 0 1 44rem;
     border-top-right-radius: 0rem;
     border-bottom-left-radius: 1.2rem;
   }

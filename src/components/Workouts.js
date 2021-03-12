@@ -6,6 +6,7 @@ import {
   WorkoutsSection,
   WorkoutsSectionBody,
 } from "../styles/WorkoutsStyles";
+import Form from "./Form";
 import WorkoutsMap from "./WorkoutsMap";
 
 const Workouts = () => {
@@ -14,6 +15,7 @@ const Workouts = () => {
       <WorkoutsSectionBody>
         <WorkoutsFeatures>
           <FeaturesTitle>Workouts Information</FeaturesTitle>
+          <Form />
         </WorkoutsFeatures>
         <Map>
           <WorkoutsMap />

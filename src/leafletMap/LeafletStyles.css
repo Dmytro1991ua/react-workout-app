@@ -4,4 +4,22 @@
   background-color: transparent;
   z-index: 2;
   border-top-right-radius: 1.2rem;
+  border-bottom-right-radius: 1.2rem;
+}
+
+.leaflet-popup .leaflet-popup-content-wrapper {
+  border-radius: 5px;
+  width: 25rem;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background-color: #090c1b;
+  color: #fff;
+}
+
+.leaflet-popup-content-wrapper .leaflet-popup-content {
+  font-size: 1.6rem;
+  margin: 2rem 2rem;
+  text-align: center;
 }

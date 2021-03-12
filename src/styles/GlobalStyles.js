@@ -78,6 +78,23 @@ export const colors = {
 };
 
 // Animations
+export const rotation = keyframes`
+  0%{
+    transform: rotate(0deg);
+    background-color:#09f;
+  }
+  50%{
+    margin-top:20px;
+    background-color:#fff;
+  }
+ 
+  100%{
+    transform: rotate(90deg);
+    background-color:#09f;
+  }
+  
+`;
+
 export const rotationA = keyframes`
    0%,
   25% {
@@ -138,4 +155,20 @@ export const bounceInLeft = keyframes`
    100% {
       transform: translateX(0);
    }
+`;
+
+export const gear = keyframes`
+    0%{
+      transform: rotate(0deg);
+      background-color:#71ba38;
+        }
+    50%{
+      margin-top:15px;
+      background-color:#fff;
+    }
+
+    100%{
+      transform: rotate(-90deg); 
+      background-color:#71ba38;
+    }
 `;
