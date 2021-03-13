@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "./GlobalStyles";
+import { colors, fadeInDown } from "./GlobalStyles";
 
 export const FormSection = styled.form`
   background-color: ${colors.lighterBlue};
@@ -7,24 +7,14 @@ export const FormSection = styled.form`
   padding: 1.2rem 1.2rem;
   margin-bottom: 1.75rem;
   display: grid;
-  //grid-template-columns: 1fr 1fr;
   gap: 1.5rem 2.5rem;
-  //height: 9.25rem;
   transition: all 0.5s, transform 1ms;
   border: 2px solid ${colors.mantis};
-
-  &.hidden {
-    transform: translateY(-30rem);
-    height: 0;
-    padding: 0 2.25rem;
-    margin-bottom: 0;
-    opacity: 0;
-  }
+  animation: ${fadeInDown} .3s ease-in-out;
 
   @media (min-width: 48em) {
     grid-template-columns: 1fr 1fr;
     padding: 1.5rem 2.75rem;
-    //height: 13.25rem;
   }
 `;
 
@@ -72,7 +62,7 @@ export const FormInput = styled.input`
 `;
 
 export const FormButton = styled.button`
-  width: 12rem;
+  width: 15rem;
   border: none;
   padding: 1rem 1.2rem;
   text-align: center;

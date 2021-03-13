@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   FeaturesTitle,
   WorkoutsFeatures,
@@ -6,16 +6,22 @@ import {
   WorkoutsSection,
   WorkoutsSectionBody,
 } from "../styles/WorkoutsStyles";
+import { WorkoutsContext } from "../WorkoutsContext";
+
 import Form from "./Form";
 import WorkoutsMap from "./WorkoutsMap";
 
 const Workouts = () => {
+  //destructure workout form related "state"
+  const { form } = useContext(WorkoutsContext);
+  const [showForm, setShowForm] = form;
+
   return (
     <WorkoutsSection>
       <WorkoutsSectionBody>
         <WorkoutsFeatures>
           <FeaturesTitle>Workouts Information</FeaturesTitle>
-          <Form />
+          {showForm && <Form />}
         </WorkoutsFeatures>
         <Map>
           <WorkoutsMap />

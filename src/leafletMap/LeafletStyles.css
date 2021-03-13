@@ -23,3 +23,10 @@
   margin: 2rem 2rem;
   text-align: center;
 }
+
+.running-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid #7ac142;
+}
+.cycling-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid #ff6347;
+}
