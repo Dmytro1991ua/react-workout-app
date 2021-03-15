@@ -25,43 +25,14 @@ const markerIcon = new L.Icon({
 });
 
 const WorkoutsMap = () => {
-  // destructure wokout form, selected workout "state"
-  const { form, select } = useContext(WorkoutsContext);
+  // destructure certain "states" from Context
+  const { form, select, description, workoutsData} = useContext(WorkoutsContext);
   const [showForm, setShowForm] = form;
   const [selectedValue, setSelectedValue] = select;
-  // const MarkerLocation = () => {
-  //   //destructure marker coordinates, form "state"
-  //   const { marker, show } = useContext(WorkoutsContext);
-  //   const [markerCoordinates, setMarkerCoodinates] = marker;
-
-  //   //   const map = useMapEvents({
-  //   //     click(event) {
-  //   //       const coordinates = event.latlng;
-  //   //       //const newMarker = [coordinates.lat, coordinates.lng]
-  //   //       setMarkerCoodinates((prevState) => [...prevState, coordinates]);
-  //   //       console.log(markerCoordinates);
-  //   //     },
-  //   //     updateMarker(event) {
-  //   //       console.log(markerCoordinates);
-  //   //     },
-  //   //   });
-
-  //   //   return markerCoordinates === null ? null : (
-  //   //     <>
-  //   //       {markerCoordinates.map((element, index) => {
-  //   //         <Marker position={currentPosition} icon={markerIcon}>
-  //   //           <Popup>
-  //   //             <p> 🏃‍♂️ Workout </p>
-  //   //           </Popup>
-  //   //         </Marker>;
-  //   //       })}
-  //   //     </>
-  //   //   );
-  //   // };
-  // };
+  const [workoutDescription] = description;
+  const [workouts, setWorkouts] = workoutsData;
 
   //geolocation custom hook
-
   const location = useGeolocation();
   const currentPosition = [location.coordinates.lat, location.coordinates.lng];
 
@@ -84,7 +55,7 @@ const WorkoutsMap = () => {
           <MapConsumer>
             {/* get access to a "map" object of a leaflet, get markers position based on click to a map and render with popop*/}
             {(map) => {
-              map.on("click", function (event) {
+             workouts.length > 1 && map.on("click", function (event) {
                 const { lat, lng } = event.latlng;
                 L.marker([lat, lng], { icon: markerIcon })
                   .addTo(map)
@@ -99,7 +70,9 @@ const WorkoutsMap = () => {
                     })
                   )
                   .setPopupContent(
-                    `${selectedValue === "running" ? "🏃‍♂️ Running" : "🚴‍♀️ Cycling"}`
+                    `${
+                      selectedValue === "running" ? "🏃‍♂️" : "🚴‍♀️"
+                    }  ${workoutDescription()}`
                   )
                   .openPopup();
               });

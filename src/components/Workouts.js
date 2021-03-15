@@ -9,12 +9,14 @@ import {
 import { WorkoutsContext } from "../WorkoutsContext";
 
 import Form from "./Form";
+import Workout from "./Workout";
 import WorkoutsMap from "./WorkoutsMap";
 
 const Workouts = () => {
-  //destructure workout form related "state"
-  const { form } = useContext(WorkoutsContext);
+  // destructure certain "states" from Context
+  const { form, workoutsData } = useContext(WorkoutsContext);
   const [showForm, setShowForm] = form;
+  const [workouts, setWorkouts] = workoutsData;
 
   return (
     <WorkoutsSection>
@@ -22,6 +24,9 @@ const Workouts = () => {
         <WorkoutsFeatures>
           <FeaturesTitle>Workouts Information</FeaturesTitle>
           {showForm && <Form />}
+          {workouts.map((workout) => (
+            <Workout key={workout.id} workout={workout} />
+          ))}
         </WorkoutsFeatures>
         <Map>
           <WorkoutsMap />
