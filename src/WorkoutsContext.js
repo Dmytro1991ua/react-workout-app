@@ -23,6 +23,10 @@ export const WorkoutsProvider = (props) => {
   const [elevationGain, setElevationGain] = useState("");
   // workouts data recieved from a workout form "state"
   const [workouts, setWorkouts] = useState([]);
+  // clicked leaflet marker's coordinates
+  const [markerCoordinates, setMakerCoordinates] = useState();
+  // "state" of a submitting form in order to render Marker later on
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   // run preloader
   useEffect(() => {
@@ -36,6 +40,7 @@ export const WorkoutsProvider = (props) => {
   const runningPace = () => {
     return Number((distance / duration).toFixed(1));
   };
+
   //calculate cycling speed
   const cyclingSpeed = () => {
     return Number((distance / (duration / 60)).toFixed(1));
@@ -68,13 +73,14 @@ export const WorkoutsProvider = (props) => {
     // workout data object(same for Running and Cycling) from workout form
     const workoutData = {
       id: (Date.now() + "").slice(-10),
-      date: new Date(),
+      date: new Date().toLocaleDateString(),
+      coordinates: markerCoordinates,
       selectedValue,
       distance,
       duration,
     };
 
-    setWorkouts([...workouts, workoutData]); // add newly create object from form to workouts array
+    setWorkouts([...workouts, workoutData]); // add newly created object from form to workouts array
 
     if (selectedType === "running") {
       setWorkouts([
@@ -116,6 +122,8 @@ export const WorkoutsProvider = (props) => {
         workoutsData: [workouts, setWorkouts],
         workoutRender: [getWorkoutData],
         description: [workoutDescription],
+        marker: [markerCoordinates, setMakerCoordinates],
+        submit: [isSubmitted, setIsSubmitted],
       }}
     >
       {props.children}

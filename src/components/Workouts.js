@@ -14,9 +14,10 @@ import WorkoutsMap from "./WorkoutsMap";
 
 const Workouts = () => {
   // destructure certain "states" from Context
-  const { form, workoutsData } = useContext(WorkoutsContext);
-  const [showForm, setShowForm] = form;
-  const [workouts, setWorkouts] = workoutsData;
+  const { form, workoutsData} = useContext(WorkoutsContext);
+  const [showForm] = form;
+  const [workouts] = workoutsData;
+ 
 
   return (
     <WorkoutsSection>

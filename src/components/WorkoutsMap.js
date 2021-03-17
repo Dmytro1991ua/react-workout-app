@@ -1,36 +1,20 @@
-import {
-  MapConsumer,
-  MapContainer,
-  Marker,
-  Popup,
-  TileLayer,
-  useMapEvents,
-} from "react-leaflet";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
+import React, { useContext } from "react";
 import { leafletDetails } from "../leafletMap/leafletMap";
-import L from "leaflet"; // import Leaflet object from a library
-import Form from "./Form";
 
 import "leaflet/dist/leaflet.css";
 import "../leafletMap/LeafletStyles.css";
 import useGeolocation from "../hooks/useGeolocation";
 import { WorkoutsContext } from "../WorkoutsContext";
-
-//create a leaflet map marker
-const markerIcon = new L.Icon({
-  iconUrl: require("../images/leaflet/marker.png").default,
-  iconSize: [50, 55],
-  iconAnchor: [0, 60],
-  popupAnchor: [23, -60],
-});
+import Marker from "./Marker";
 
 const WorkoutsMap = () => {
   // destructure certain "states" from Context
-  const { form, select, description, workoutsData} = useContext(WorkoutsContext);
+  const { form, marker, submit } = useContext(WorkoutsContext);
+
   const [showForm, setShowForm] = form;
-  const [selectedValue, setSelectedValue] = select;
-  const [workoutDescription] = description;
-  const [workouts, setWorkouts] = workoutsData;
+  const [markerCoordinates, setMakerCoordinates] = marker;
+  const [isSubmitted, setIsSubmitted] = submit;
 
   //geolocation custom hook
   const location = useGeolocation();
@@ -40,7 +24,19 @@ const WorkoutsMap = () => {
 
   //show workouts form onClick to a leaflet map
   const handleShowForm = () => {
-    setShowForm(!showForm);
+    setShowForm(true);
+  };
+
+  //get a clicked marker coordinates, store them in a "state" and show workout
+  const MarkerCoordinates = () => {
+    useMapEvents({
+      click: (e) => {
+        handleShowForm();
+        const { lat, lng } = e.latlng;
+        setMakerCoordinates([lat, lng]);
+      },
+    });
+    return null;
   };
 
   return (
@@ -52,34 +48,9 @@ const WorkoutsMap = () => {
             attribution={leafletDetails.attribution}
             url={leafletDetails.url}
           />
-          <MapConsumer>
-            {/* get access to a "map" object of a leaflet, get markers position based on click to a map and render with popop*/}
-            {(map) => {
-             workouts.length > 1 && map.on("click", function (event) {
-                const { lat, lng } = event.latlng;
-                L.marker([lat, lng], { icon: markerIcon })
-                  .addTo(map)
-                  .bindPopup(
-                    L.popup({
-                      autoClose: false,
-                      closeOnClick: false,
-                      className:
-                        selectedValue === "running"
-                          ? "running-popup"
-                          : "cycling-popup",
-                    })
-                  )
-                  .setPopupContent(
-                    `${
-                      selectedValue === "running" ? "🏃‍♂️" : "🚴‍♀️"
-                    }  ${workoutDescription()}`
-                  )
-                  .openPopup();
-              });
-              map.on("click", handleShowForm);
-              return null;
-            }}
-          </MapConsumer>
+          <MarkerCoordinates />
+          {/* render a Marker on map after submitting a workout form*/}
+          <>{isSubmitted && !showForm && <Marker />}</>
         </MapContainer>
       )}
     </>

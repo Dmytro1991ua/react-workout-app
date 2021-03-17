@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect} from "react";
 import { WorkoutsContext } from "../WorkoutsContext";
 
 //custom hook to get a user's current location
