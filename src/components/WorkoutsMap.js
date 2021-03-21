@@ -1,5 +1,5 @@
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { leafletDetails } from "../leafletMap/leafletMap";
 
 import "leaflet/dist/leaflet.css";
@@ -10,11 +10,14 @@ import Marker from "./Marker";
 
 const WorkoutsMap = () => {
   // destructure certain "states" from Context
-  const { form, marker, submit } = useContext(WorkoutsContext);
+  const { form, marker, submit, setStorage, workoutsData } = useContext(
+    WorkoutsContext
+  );
 
   const [showForm, setShowForm] = form;
   const [markerCoordinates, setMakerCoordinates] = marker;
   const [isSubmitted, setIsSubmitted] = submit;
+  const [workouts] = workoutsData;
 
   //geolocation custom hook
   const location = useGeolocation();
@@ -33,11 +36,35 @@ const WorkoutsMap = () => {
       click: (e) => {
         handleShowForm();
         const { lat, lng } = e.latlng;
-        setMakerCoordinates([lat, lng]);
+        console.log(e.latlng);
+        const coords = [lat, lng];
+        //setMakerCoordinates(coords);
+        setMakerCoordinates([...markerCoordinates, coords]);
+
+        localStorage.setItem(
+          "marker-coords",
+          JSON.stringify([...markerCoordinates, coords])
+        );
+        // const coords = [lat, lng];
+        // seStoredMarkerCoords([...storedMarkerCoods, coords]);
+        // console.log(storedMarkerCoods);
+        // localStorage.setItem(
+        //   "position-latitude",
+        //   JSON.stringify([...storedMarkerCoods, coords])
+        // );
+        // //localStorage.setItem("position-longitude", current.lng);
       },
     });
     return null;
   };
+
+  useEffect(() => {
+    const markerCoords = JSON.parse(localStorage.getItem("marker-coords"));
+
+    if (!markerCoords) return;
+
+    setMakerCoordinates(markerCoords);
+  }, []);
 
   return (
     <>
@@ -50,7 +77,13 @@ const WorkoutsMap = () => {
           />
           <MarkerCoordinates />
           {/* render a Marker on map after submitting a workout form*/}
-          <>{isSubmitted && !showForm && <Marker />}</>
+          <>
+            {isSubmitted &&
+              !showForm &&
+              markerCoordinates.map((coords, index) => (
+                <Marker key={index} position={coords} />
+              ))}
+          </>
         </MapContainer>
       )}
     </>

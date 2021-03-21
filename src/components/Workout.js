@@ -1,13 +1,24 @@
+import { map } from "leaflet";
+import { useRef, useState, useEffect, useContext } from "react";
+import { MapConsumer, MapContainer, Marker, useMapEvents } from "react-leaflet";
+import L from "leaflet"; // import Leaflet object from a library
+
 import {
+  RemoveBtn,
   WorkoutDetails,
+  WorkoutHeader,
   WorkoutIcon,
   WorkoutSection,
   WorkoutTitle,
   WorkoutUnit,
   WorkoutValue,
 } from "../styles/WorkoutStyles";
+import { WorkoutsContext } from "../WorkoutsContext";
 
 const Workout = ({ workout }) => {
+  const { workoutsData, setStorage } = useContext(WorkoutsContext);
+  const [workouts, setWorkouts] = workoutsData;
+  const [setLocaleStorage] = setStorage;
   const {
     description,
     selectedValue,
@@ -16,39 +27,84 @@ const Workout = ({ workout }) => {
     speed,
     pace,
     cadence,
-     elevationGain,
-    id
+    elevationGain,
+    id,
   } = workout;
+
+  const mapRef = useRef();
+
+  const handleClick = (event) => {
+    const clickedWorkout = workouts.find(
+      (workout) => workout.id === event.currentTarget.getAttribute("data-id")
+    );
+    console.log(clickedWorkout.coordinates);
+    console.log(event.currentTarget.getAttribute("data-id"));
+    console.log(workout.id);
+
+    // map.setView(clickedWorkout.coordinates, 13, {
+    //   animate: true,
+    //   pan: {
+    //     duration: 1,
+    //   },
+    // });
+  };
+
+  useEffect(() => {
+    // set the initialized map to the ref
+    // mapRef.current = L.map("map").flyTo(clickedWorkout.coordinates, 13, {
+    //   animate: true,
+    //   pan: {
+    //     duration: 1,
+    //   },
+    // });
+    console.log(mapRef.current);
+  }, []);
+
+  // delete a particular clicked workout from UI as well as localStorage
+  const handleRemoveWorkout = (workout) => {
+    const removedWorkout = workouts.filter(clickedWorkout => clickedWorkout.id !== workout.id)
+    setWorkouts(removedWorkout);
+    setLocaleStorage(removedWorkout);
+  }
   return (
-    <WorkoutSection className={selectedValue === "running" ? "running" : "cycling"} id={id}>
-      <WorkoutTitle>{description}</WorkoutTitle>
-      <WorkoutDetails>
-        <WorkoutIcon>{selectedValue === "running" ? "🏃‍♂️" : "🚴‍♀️"}</WorkoutIcon>
-        <WorkoutValue>{distance}</WorkoutValue>
-        <WorkoutUnit>km</WorkoutUnit>
-      </WorkoutDetails>
-      <WorkoutDetails>
-        <WorkoutIcon>⏱</WorkoutIcon>
-        <WorkoutValue>{duration}</WorkoutValue>
-        <WorkoutUnit>min</WorkoutUnit>
-      </WorkoutDetails>
-      <WorkoutDetails>
-        <WorkoutIcon>⚡️</WorkoutIcon>
-        <WorkoutValue>
-          {selectedValue === "running" ? pace : speed}
-        </WorkoutValue>
-        <WorkoutUnit>
-          {selectedValue === "running" ? "min/km" : "km/h"}
-        </WorkoutUnit>
-      </WorkoutDetails>
-      <WorkoutDetails>
-        <WorkoutIcon>{selectedValue === "running" ? "🦶🏼" : "⛰"}</WorkoutIcon>
-        <WorkoutValue>
-          {selectedValue === "running" ? cadence : elevationGain}
-        </WorkoutValue>
-        <WorkoutUnit>{selectedValue === "running" ? "spm" : "m"}</WorkoutUnit>
-      </WorkoutDetails>
-    </WorkoutSection>
+    <>
+      <WorkoutSection
+        className={selectedValue === "running" ? "running" : "cycling"}
+        data-id={id}
+         onClick={handleClick}
+      >
+        <WorkoutHeader>
+          <WorkoutTitle>{description}</WorkoutTitle>
+          <RemoveBtn onClick={() => handleRemoveWorkout(workout)} />
+        </WorkoutHeader>
+        <WorkoutDetails>
+          <WorkoutIcon>{selectedValue === "running" ? "🏃‍♂️" : "🚴‍♀️"}</WorkoutIcon>
+          <WorkoutValue>{distance}</WorkoutValue>
+          <WorkoutUnit>km</WorkoutUnit>
+        </WorkoutDetails>
+        <WorkoutDetails>
+          <WorkoutIcon>⏱</WorkoutIcon>
+          <WorkoutValue>{duration}</WorkoutValue>
+          <WorkoutUnit>min</WorkoutUnit>
+        </WorkoutDetails>
+        <WorkoutDetails>
+          <WorkoutIcon>⚡️</WorkoutIcon>
+          <WorkoutValue>
+            {selectedValue === "running" ? pace : speed}
+          </WorkoutValue>
+          <WorkoutUnit>
+            {selectedValue === "running" ? "min/km" : "km/h"}
+          </WorkoutUnit>
+        </WorkoutDetails>
+        <WorkoutDetails>
+          <WorkoutIcon>{selectedValue === "running" ? "🦶🏼" : "⛰"}</WorkoutIcon>
+          <WorkoutValue>
+            {selectedValue === "running" ? cadence : elevationGain}
+          </WorkoutValue>
+          <WorkoutUnit>{selectedValue === "running" ? "spm" : "m"}</WorkoutUnit>
+        </WorkoutDetails>
+      </WorkoutSection>
+    </>
   );
 };
 

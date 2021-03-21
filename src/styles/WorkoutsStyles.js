@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "./GlobalStyles";
+import { colors, fadeInDown } from "./GlobalStyles";
 
 export const WorkoutsSection = styled.section`
   min-height: 100vh;
@@ -7,6 +7,7 @@ export const WorkoutsSection = styled.section`
   border: 5px solid ${colors.mantis};
   border-radius: 1.2rem;
   overscroll-behavior-y: none;
+  animation: ${fadeInDown} .3s ease-in-out;
   @media (min-width: 48em) {
     margin: 10rem 1.2rem 1.2rem 1.2rem;
   }

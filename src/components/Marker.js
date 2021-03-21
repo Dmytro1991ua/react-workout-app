@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { MapConsumer} from "react-leaflet";
+import { MapConsumer } from "react-leaflet";
 import L from "leaflet"; // import Leaflet object from a library
 
 import "leaflet/dist/leaflet.css";
@@ -14,18 +14,18 @@ const markerIcon = new L.Icon({
   popupAnchor: [23, -60],
 });
 
-const Marker = () => {
-  const { marker, description, select } = useContext(WorkoutsContext);
+const Marker = ({ position }) => {
+  const { marker, description, select} = useContext(WorkoutsContext);
 
   const [markerCoordinates] = marker;
   const [workoutDescription] = description;
   const [selectedValue] = select;
- 
+  
   return (
     <MapConsumer>
       {/* get access to a "map" object of a leaflet, get markers position based on click to a map and render with popup*/}
       {(map) => {
-        L.marker(markerCoordinates, { icon: markerIcon })
+        L.marker(position, { icon: markerIcon })
           .addTo(map)
           .bindPopup(
             L.popup({

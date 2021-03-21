@@ -22,11 +22,13 @@ export const WorkoutsProvider = (props) => {
   const [cadence, setCadence] = useState("");
   const [elevationGain, setElevationGain] = useState("");
   // workouts data recieved from a workout form "state"
-  const [workouts, setWorkouts] = useState([]);
+ const [workouts, setWorkouts] = useState([]);
   // clicked leaflet marker's coordinates
-  const [markerCoordinates, setMakerCoordinates] = useState();
+  const [markerCoordinates, setMakerCoordinates] = useState([]);
+  console.log(markerCoordinates)
   // "state" of a submitting form in order to render Marker later on
   const [isSubmitted, setIsSubmitted] = useState(false);
+
 
   // run preloader
   useEffect(() => {
@@ -74,7 +76,7 @@ export const WorkoutsProvider = (props) => {
     const workoutData = {
       id: (Date.now() + "").slice(-10),
       date: new Date().toLocaleDateString(),
-      coordinates: markerCoordinates,
+      coordinates: markerCoordinates.flat(),
       selectedValue,
       distance,
       duration,
@@ -84,6 +86,15 @@ export const WorkoutsProvider = (props) => {
 
     if (selectedType === "running") {
       setWorkouts([
+        ...workouts,
+        {
+          ...workoutData,
+          cadence,
+          pace: runningPace(),
+          description: workoutDescription(),
+        },
+      ]);
+      setLocaleStorage([
         ...workouts,
         {
           ...workoutData,
@@ -104,8 +115,34 @@ export const WorkoutsProvider = (props) => {
           description: workoutDescription(),
         },
       ]);
+      setLocaleStorage([
+        ...workouts,
+        {
+          ...workoutData,
+          elevationGain,
+          speed: cyclingSpeed(),
+          description: workoutDescription(),
+        },
+      ]);
     }
   };
+
+  // set workout array with objects to a locale storage (Running and Cycling objects)
+  const setLocaleStorage = (workoutData) => {
+    localStorage.setItem("workouts", JSON.stringify(workoutData));
+  };
+
+  //get(retrieve) workouts array with objects  from a localStorage and render it when a react app is loaded
+  const getLocalstorage = () => {
+    const workoutsData = JSON.parse(localStorage.getItem("workouts"));
+
+    if (!workoutsData) return;
+
+    setWorkouts(workoutsData);
+  };
+  useEffect(() => {
+    getLocalstorage();
+  }, []);
 
   return (
     <WorkoutsContext.Provider
@@ -124,6 +161,8 @@ export const WorkoutsProvider = (props) => {
         description: [workoutDescription],
         marker: [markerCoordinates, setMakerCoordinates],
         submit: [isSubmitted, setIsSubmitted],
+        setStorage: [setLocaleStorage],
+        getStorage: [getLocalstorage],
       }}
     >
       {props.children}
