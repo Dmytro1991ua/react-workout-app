@@ -22,6 +22,11 @@ const Navigation = () => {
           Workouts
         </ListLink>
       </ListItem>
+      <ListItem>
+        <ListLink to="/login" onClick={handleClick}>
+          Login
+        </ListLink>
+      </ListItem>
     </List>
   );
 };

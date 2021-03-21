@@ -1,6 +1,7 @@
 import { lazy, Suspense, useContext } from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
+import LoginForm from "./components/LoginForm";
 //import Home from "./components/Home";
 import Preloader from "./components/Preloader";
 import SectionLoader from "./components/SectionLoader";
@@ -32,6 +33,9 @@ function App() {
               </Route>
               <Route path="/workouts">
                 <Workouts />
+              </Route>
+              <Route path="/login">
+                <LoginForm />
               </Route>
             </Suspense>
           </Switch>
