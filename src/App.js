@@ -2,10 +2,10 @@ import { lazy, Suspense, useContext } from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import LoginForm from "./components/LoginForm";
-//import Home from "./components/Home";
 import Preloader from "./components/Preloader";
+import PrivateRoute from "./components/PrivateRoutes";
 import SectionLoader from "./components/SectionLoader";
-//import Workouts from "./components/Workouts";
+import SignUp from "./components/SignUp";
 import { GlobalStyles, Wrapper } from "./styles/GlobalStyles";
 import { WorkoutsContext } from "./WorkoutsContext";
 
@@ -17,7 +17,7 @@ function App() {
   //destructure preloader "state"
   const { loader } = useContext(WorkoutsContext);
   const [preloader] = loader;
-
+ 
   return (
     <Router>
       <GlobalStyles />
@@ -31,12 +31,13 @@ function App() {
               <Route exact path="/">
                 <Home />
               </Route>
-              <Route path="/workouts">
-                <Workouts />
-              </Route>
-              <Route path="/login">
+              <Route exact path="/login">
                 <LoginForm />
               </Route>
+              <Route exact path="/signup">
+                <SignUp />
+              </Route>
+              <PrivateRoute exact path="/workouts" component={Workouts} />
             </Suspense>
           </Switch>
         </Wrapper>

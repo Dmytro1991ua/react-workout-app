@@ -1,32 +1,30 @@
 import React from "react";
 import {
-  LoginFormSection,
-  LoginFormDetails,
-  LoginFormLabel,
-  LoginFormInput,
-  LoginFormBtn,
-  LoginFormBody,
+  FormSection,
+  FormDetails,
+  FormLabel,
+  FormInput,
+  FormBtn,
+  FormBody,
+  FormLink,
 } from "../styles/LoginStyles";
 
 const LoginForm = () => {
   return (
-    <LoginFormSection>
-      <LoginFormBody>
-        <LoginFormDetails>
-          <LoginFormLabel htmlFor="email"></LoginFormLabel>
-          <LoginFormInput type="email" id="email" placeholder="Email" />
-        </LoginFormDetails>
-        <LoginFormDetails>
-          <LoginFormLabel htmlFor="password"></LoginFormLabel>
-          <LoginFormInput
-            type="password"
-            id="password"
-            placeholder="Password"
-          />
-        </LoginFormDetails>
-        <LoginFormBtn>Login</LoginFormBtn>
-      </LoginFormBody>
-    </LoginFormSection>
+    <FormSection>
+      <FormBody>
+        <FormDetails>
+          <FormLabel htmlFor="email"></FormLabel>
+          <FormInput type="email" id="email" placeholder="Email*" />
+        </FormDetails>
+        <FormDetails>
+          <FormLabel htmlFor="password"></FormLabel>
+          <FormInput type="password" id="password" placeholder="Password*" />
+        </FormDetails>
+        <FormBtn>Sign In</FormBtn>
+        <FormLink to="/signup">Don't have an account?</FormLink>
+      </FormBody>
+    </FormSection>
   );
 };
 

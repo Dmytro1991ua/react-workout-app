@@ -34,7 +34,7 @@ export const HeaderSectionBody = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  @media (min-width: 24em) {
+  @media (min-width: 28em) {
     flex-direction: row;
   }
 `;
@@ -55,7 +55,7 @@ export const List = styled.ul`
   transform: ${({ open }) => (open ? "translateX(0)" : "translateX(-200%)")};
   transition: all 0.3s ease-in-out;
 
-  @media (min-width: 24em) {
+  @media (min-width: 28em) {
     position: relative;
     top: 0;
     flex-direction: row;
@@ -73,7 +73,7 @@ export const ListItem = styled.li`
   &:not(:last-child) {
     margin-bottom: 2rem;
   }
-  @media (min-width: 24em) {
+  @media (min-width: 28em) {
     &:not(:last-child) {
       margin-right: 1rem;
       margin-bottom: 0rem;
@@ -123,7 +123,7 @@ export const BurgerMenu = styled.div`
     }
   }
 
-  @media (min-width: 24em) {
+  @media (min-width: 28em) {
     display: none;
   }
 `;

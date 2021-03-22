@@ -24,7 +24,12 @@ const Navigation = () => {
       </ListItem>
       <ListItem>
         <ListLink to="/login" onClick={handleClick}>
-          Login
+          Sign In
+        </ListLink>
+      </ListItem>
+      <ListItem>
+        <ListLink to="/signup" onClick={handleClick}>
+          Sign Up
         </ListLink>
       </ListItem>
     </List>

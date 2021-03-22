@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { fadeInDown, colors } from "./GlobalStyles";
+import { colors } from "./GlobalStyles";
 import { WorkoutsSection } from "./WorkoutsStyles";
 
-export const LoginFormSection = styled(WorkoutsSection)`
+export const FormSection = styled(WorkoutsSection)`
   border: none;
   margin: 0;
   background-color: ${colors.darkBlue};
@@ -11,8 +12,7 @@ export const LoginFormSection = styled(WorkoutsSection)`
   justify-content: center;
   align-items: center;
 `;
-
-export const LoginFormBody = styled.div`
+export const FormBody = styled.div`
   max-width: 28rem;
   width: 100%;
   border: 5px solid ${colors.lighterBlue};
@@ -29,16 +29,16 @@ export const LoginFormBody = styled.div`
   }
 `;
 
-export const LoginFormDetails = styled.div`
+export const FormDetails = styled.div`
   margin-bottom: 5rem;
   &:last-of-type {
     margin-bottom: 3rem;
   }
 `;
 
-export const LoginFormLabel = styled.label``;
+export const FormLabel = styled.label``;
 
-export const LoginFormInput = styled.input`
+export const FormInput = styled.input`
   width: 100%;
   border: none;
   background-color: transparent;
@@ -48,13 +48,12 @@ export const LoginFormInput = styled.input`
   padding: 1.2rem 1rem;
 
   &::placeholder {
-     font-size: 1.6rem;
-     color: ${colors.white};
+    font-size: 1.6rem;
+    color: ${colors.white};
   }
-
 `;
 
-export const LoginFormBtn = styled.button`
+export const FormBtn = styled.button`
   width: 100%;
   font-size: 1.7rem;
   text-transform: uppercase;
@@ -63,10 +62,18 @@ export const LoginFormBtn = styled.button`
   border-radius: 1.2rem;
   background-color: ${colors.mantisDarker};
   color: ${colors.white};
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   cursor: pointer;
+  margin-bottom: 2rem;
 
   &:hover {
-     background-color: ${colors.mantis};
+    background-color: ${colors.mantis};
   }
+`;
+
+export const FormLink = styled(Link)`
+  display: block;
+  color: ${colors.white};
+  text-align: center;
+  text-decoration: underline;
 `;

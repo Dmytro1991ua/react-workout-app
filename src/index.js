@@ -1,14 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import { AuthContextProvider } from "./AuthContext";
 import reportWebVitals from "./reportWebVitals";
 import { WorkoutsProvider } from "./WorkoutsContext";
 
 ReactDOM.render(
   <WorkoutsProvider>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <AuthContextProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </AuthContextProvider>
   </WorkoutsProvider>,
   document.getElementById("root")
 );
