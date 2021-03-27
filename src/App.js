@@ -1,5 +1,6 @@
 import { lazy, Suspense, useContext } from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import ForgotPassword from "./components/ForgotPassword";
 import Header from "./components/Header";
 import LoginForm from "./components/LoginForm";
 import Preloader from "./components/Preloader";
@@ -33,6 +34,9 @@ function App() {
               </Route>
               <Route exact path="/login">
                 <LoginForm />
+              </Route>
+              <Route exact path="/forgot-password">
+                <ForgotPassword />
               </Route>
               <Route exact path="/signup">
                 <SignUp />

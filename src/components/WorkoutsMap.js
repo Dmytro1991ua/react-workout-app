@@ -10,14 +10,13 @@ import Marker from "./Marker";
 
 const WorkoutsMap = () => {
   // destructure certain "states" from Context
-  const { form, marker, submit, setStorage, workoutsData } = useContext(
+  const { form, marker, submit, workoutsData } = useContext(
     WorkoutsContext
   );
 
   const [showForm, setShowForm] = form;
   const [markerCoordinates, setMakerCoordinates] = marker;
   const [isSubmitted, setIsSubmitted] = submit;
-  const [workouts] = workoutsData;
 
   //geolocation custom hook
   const location = useGeolocation();

@@ -17,7 +17,6 @@ const markerIcon = new L.Icon({
 const Marker = ({ position }) => {
   const { marker, description, select} = useContext(WorkoutsContext);
 
-  const [markerCoordinates] = marker;
   const [workoutDescription] = description;
   const [selectedValue] = select;
   

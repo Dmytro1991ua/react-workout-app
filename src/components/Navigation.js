@@ -1,14 +1,43 @@
 import React, { useContext } from "react";
-import { List, ListItem, ListLink } from "../styles/HeaderStyles";
+import { LinkLogout, List, ListItem, ListLink } from "../styles/HeaderStyles";
 import { WorkoutsContext } from "../WorkoutsContext";
+import { useAuth } from "../AuthContext";
+import { useHistory } from "react-router-dom";
 
 const Navigation = () => {
   //destructure burger menu and navigation "state"
   const { show } = useContext(WorkoutsContext);
   const [open, setOpen] = show;
+  const { logout } = useAuth();
+  const history = useHistory();
 
   const handleClick = () => {
     setOpen(!open);
+  };
+
+  // const handleLogout = () => {
+  //   localStorage.clear();
+  //   window.location.href = "/";
+  // }
+
+  /*
+
+ <ListItem>
+        <ListLink to="/login" onClick={handleClick}>
+          Sign In
+        </ListLink>
+      </ListItem>
+      <ListItem>
+        <ListLink to="/signup" onClick={handleClick}>
+          Sign Up
+        </ListLink>
+      </ListItem>
+
+  */
+
+  const handleLogout = () => {
+    logout();
+    history.push("/login");
   };
   return (
     <List open={open}>
@@ -23,14 +52,15 @@ const Navigation = () => {
         </ListLink>
       </ListItem>
       <ListItem>
-        <ListLink to="/login" onClick={handleClick}>
-          Sign In
-        </ListLink>
-      </ListItem>
-      <ListItem>
-        <ListLink to="/signup" onClick={handleClick}>
-          Sign Up
-        </ListLink>
+        <LinkLogout
+          href="#"
+          onClick={() => {
+            handleClick();
+            handleLogout();
+          }}
+        >
+          Logout
+        </LinkLogout>
       </ListItem>
     </List>
   );

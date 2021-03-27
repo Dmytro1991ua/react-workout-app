@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import {
   FormSection,
@@ -12,27 +11,28 @@ import {
   FormLink,
   Form,
   FormError,
+  FormSuccess,
 } from "../styles/LoginStyles";
 
-const LoginForm = () => {
+const ForgotPassword = () => {
   const emailRef = useRef();
-  const passwordRef = useRef();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
-  const history = useHistory();
+  const [message, setMessage] = useState("");
+  const { resetPassword } = useAuth();
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     try {
+      setMessage("");
       setError("");
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      history.push("/workouts"); // after user done login in and it was successfull => redirect to workouts page
+      await resetPassword(emailRef.current.value);
+      emailRef.current.value = "";
+      setMessage("Check your inbox for further instructions");
     } catch (error) {
-      console.log(error);
-      setError("Failed to sign in");
+      setError("Failed to reset password");
     }
 
     setLoading(false);
@@ -40,8 +40,9 @@ const LoginForm = () => {
 
   return (
     <FormSection>
-      <FormSectionTitle>Log In</FormSectionTitle>
+      <FormSectionTitle>Password Reset</FormSectionTitle>
       {error && <FormError>{error}</FormError>}
+      {message && <FormSuccess>{message}</FormSuccess>}
       <Form onSubmit={handleSubmit}>
         <FormBody>
           <FormDetails>
@@ -55,26 +56,15 @@ const LoginForm = () => {
               ref={emailRef}
             />
           </FormDetails>
-          <FormDetails>
-            <FormLabel htmlFor="password"></FormLabel>
-            <FormInput
-              type="password"
-              id="password"
-              minlength="6"
-              placeholder="Password*"
-              required
-              ref={passwordRef}
-            />
-          </FormDetails>
           <FormBtn disabled={loading} type="submit">
-            Sign In
+            Reset Password
           </FormBtn>
+          <FormLink to="/login">Log In</FormLink>
           <FormLink to="/signup">Don't have an account?</FormLink>
-          <FormLink to="/forgot-password">Forgot a password?</FormLink>
         </FormBody>
       </Form>
     </FormSection>
   );
 };
 
-export default LoginForm;
+export default ForgotPassword;

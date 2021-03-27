@@ -90,6 +90,16 @@ export const ListLink = styled(Link)`
   }
 `;
 
+export const LinkLogout = styled.a`
+  font-size: clamp(1.2rem, 1.8rem, 4rem);
+  color: ${colors.mantis};
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  :hover {
+    color: ${colors.white};
+  }
+`;
+
 // Burger Menu
 export const BurgerMenu = styled.div`
   width: 2rem;

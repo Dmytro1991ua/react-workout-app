@@ -75,6 +75,8 @@ export const colors = {
   lighterBlue: "#153c6b",
   brightGreen: "#60f702 ",
   tomato: "#ff6347",
+  errorBg: "#f27f6b",
+  error: "#821805",
 };
 
 // Animations

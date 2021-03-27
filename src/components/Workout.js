@@ -1,7 +1,4 @@
-import { map } from "leaflet";
-import { useRef, useState, useEffect, useContext } from "react";
-import { MapConsumer, MapContainer, Marker, useMapEvents } from "react-leaflet";
-import L from "leaflet"; // import Leaflet object from a library
+import { useRef, useEffect, useContext } from "react";
 
 import {
   RemoveBtn,

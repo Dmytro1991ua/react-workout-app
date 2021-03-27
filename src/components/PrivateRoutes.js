@@ -4,12 +4,14 @@ import { useAuth } from "../AuthContext";
 
 // blueprint for all private routes ==> if the user logged in a needed component will be displayed
 const PrivateRoute = ({ component: Component, ...rest }) => {
-   const isAuthenticated = useAuth(); // useAuth() will always return false
+  //const { authTokens } = useAuth(); // destructure a authTokens key that holds authentication token
+  const { currentUser } = useAuth();
+
   return (
     <Route
       {...rest}
       render={(props) =>
-        isAuthenticated ? <Component {...props} /> : <Redirect to="/login" />
+        currentUser ? <Component {...props} /> : <Redirect to="/login" />
       }
     />
   );

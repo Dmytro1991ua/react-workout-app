@@ -22,13 +22,11 @@ export const WorkoutsProvider = (props) => {
   const [cadence, setCadence] = useState("");
   const [elevationGain, setElevationGain] = useState("");
   // workouts data recieved from a workout form "state"
- const [workouts, setWorkouts] = useState([]);
+  const [workouts, setWorkouts] = useState([]);
   // clicked leaflet marker's coordinates
   const [markerCoordinates, setMakerCoordinates] = useState([]);
-  console.log(markerCoordinates)
   // "state" of a submitting form in order to render Marker later on
   const [isSubmitted, setIsSubmitted] = useState(false);
-
 
   // run preloader
   useEffect(() => {
