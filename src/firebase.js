@@ -14,4 +14,4 @@ const app = firebase.initializeApp({
 //get auth instance from firebase
 export const auth = app.auth()
 
-export default app
+export default appgit status
