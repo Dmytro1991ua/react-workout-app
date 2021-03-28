@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/react-workout-app/static/js/main.b35a2bcd.chunk.js",
-    "main.js.map": "/react-workout-app/static/js/main.b35a2bcd.chunk.js.map",
+    "main.js": "/react-workout-app/static/js/main.cffdb087.chunk.js",
+    "main.js.map": "/react-workout-app/static/js/main.cffdb087.chunk.js.map",
     "runtime-main.js": "/react-workout-app/static/js/runtime-main.943b7547.js",
     "runtime-main.js.map": "/react-workout-app/static/js/runtime-main.943b7547.js.map",
-    "static/js/2.a56ee75e.chunk.js": "/react-workout-app/static/js/2.a56ee75e.chunk.js",
-    "static/js/2.a56ee75e.chunk.js.map": "/react-workout-app/static/js/2.a56ee75e.chunk.js.map",
+    "static/js/2.c9cf4827.chunk.js": "/react-workout-app/static/js/2.c9cf4827.chunk.js",
+    "static/js/2.c9cf4827.chunk.js.map": "/react-workout-app/static/js/2.c9cf4827.chunk.js.map",
     "static/css/3.3628a79a.chunk.css": "/react-workout-app/static/css/3.3628a79a.chunk.css",
     "static/js/3.b3abc7e6.chunk.js": "/react-workout-app/static/js/3.b3abc7e6.chunk.js",
     "static/js/3.b3abc7e6.chunk.js.map": "/react-workout-app/static/js/3.b3abc7e6.chunk.js.map",
@@ -25,7 +25,7 @@
     "static/css/4.c1e28d34.chunk.css.map": "/react-workout-app/static/css/4.c1e28d34.chunk.css.map",
     "static/css/5.932018a8.chunk.css.map": "/react-workout-app/static/css/5.932018a8.chunk.css.map",
     "static/css/6.690de173.chunk.css.map": "/react-workout-app/static/css/6.690de173.chunk.css.map",
-    "static/js/2.a56ee75e.chunk.js.LICENSE.txt": "/react-workout-app/static/js/2.a56ee75e.chunk.js.LICENSE.txt",
+    "static/js/2.c9cf4827.chunk.js.LICENSE.txt": "/react-workout-app/static/js/2.c9cf4827.chunk.js.LICENSE.txt",
     "static/js/4.8264ae31.chunk.js.LICENSE.txt": "/react-workout-app/static/js/4.8264ae31.chunk.js.LICENSE.txt",
     "static/media/aerobics.jpg": "/react-workout-app/static/media/aerobics.a7361990.jpg",
     "static/media/battle-ropes.jpg": "/react-workout-app/static/media/battle-ropes.a2ae5dda.jpg",
@@ -40,7 +40,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.943b7547.js",
-    "static/js/2.a56ee75e.chunk.js",
-    "static/js/main.b35a2bcd.chunk.js"
+    "static/js/2.c9cf4827.chunk.js",
+    "static/js/main.cffdb087.chunk.js"
   ]
 }
