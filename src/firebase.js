@@ -1,5 +1,5 @@
-import firebase from "firebase/app"
-import 'firebase/auth'
+import firebase from "firebase/app";
+import "firebase/auth";
 
 // create and initializes a Firebase app instance
 const app = firebase.initializeApp({
@@ -12,6 +12,6 @@ const app = firebase.initializeApp({
 });
 
 //get auth instance from firebase
-export const auth = app.auth()
+export const auth = app.auth();
 
-export default appgit status
+export default app;
