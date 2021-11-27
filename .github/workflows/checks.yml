@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
-   steps:
+    steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
 
@@ -37,22 +37,22 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-           node-version: '${{ steps.nvm.outputs.NVMRC }}'
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
 
       - name: Install Node.js dependencies
         run: npm install
 
-     - name: eslint check
-       uses: reviewdog/action-eslint@v1
-       with:
+      - name: eslint check
+        uses: reviewdog/action-eslint@v1
+        with:
           reporter: github-pr-review
           eslint_flags: 'src/'
 
-     - name: prettier check
-       run: npm run prettier
+      - name: prettier check
+        run: npm run prettier
 
-     - name: stylelint
-       run: npm run stylelint
+      - name: stylelint
+        run: npm run stylelint
 
-     - name: Generate build
-       run: npm run build
+      - name: Generate build
+        run: npm run build
