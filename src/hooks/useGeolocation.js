@@ -1,5 +1,6 @@
-import { useContext, useEffect} from "react";
-import { WorkoutsContext } from "../WorkoutsContext";
+import { useContext, useEffect } from 'react';
+
+import { WorkoutsContext } from '../WorkoutsContext';
 
 //custom hook to get a user's current location
 const useGeolocation = () => {
@@ -28,7 +29,7 @@ const useGeolocation = () => {
     if (!navigator.geolocation)
       return onError({
         code: 0,
-        errorMessage: "Geolocation not suppoeted",
+        errorMessage: 'Geolocation not suppoeted',
       });
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
   }, []);

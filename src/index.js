@@ -1,9 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import { AuthContextProvider } from "./AuthContext";
-import reportWebVitals from "./reportWebVitals";
-import { WorkoutsProvider } from "./WorkoutsContext";
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import App from './App';
+import { AuthContextProvider } from './AuthContext';
+import { WorkoutsProvider } from './WorkoutsContext';
 
 ReactDOM.render(
   <WorkoutsProvider>
@@ -13,7 +13,5 @@ ReactDOM.render(
       </React.StrictMode>
     </AuthContextProvider>
   </WorkoutsProvider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
-
-reportWebVitals();

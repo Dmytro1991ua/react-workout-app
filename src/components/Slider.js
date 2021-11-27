@@ -1,17 +1,11 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, {
-  Mousewheel,
-  Scrollbar,
-  Autoplay,
-  EffectCoverflow,
-} from "swiper";
-import { Image, SliderTitle } from "../styles/SliderStyles";
+import React from 'react';
+import SwiperCore, { Autoplay, EffectCoverflow, Mousewheel, Scrollbar } from 'swiper';
+import 'swiper/components/scrollbar/scrollbar.scss';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.min.css';
+import 'swiper/swiper.scss';
 
-//swiper styles
-import "swiper/swiper.scss";
-import "swiper/swiper-bundle.min.css";
-import "swiper/components/scrollbar/scrollbar.scss";
+import { Image, SliderTitle } from '../styles/SliderStyles';
 
 const Slider = () => {
   // install Swiper modules
@@ -25,10 +19,10 @@ const Slider = () => {
       autoplay={{
         delay: 2500,
       }}
-      slideActiveClass="swiper-slider-active"
-      grabCursor="true"
-      observer="true"
-      observeParents="true"
+      slideActiveClass='swiper-slider-active'
+      grabCursor='true'
+      observer='true'
+      observeParents='true'
       scrollbar={{ draggable: true }}
       mousewheel={{ invert: true }}
       breakpoints={{
@@ -49,83 +43,34 @@ const Slider = () => {
           slidesPerView: 4,
         },
       }}
-      effect="coverflow"
+      effect='coverflow'
       coverflowEffect={{
         rotate: 35,
         slideShadows: true,
-      }}
-    >
-      <SwiperSlide
-        tag="a"
-        href="https://en.wikipedia.org/wiki/Cycling"
-        target="_blank"
-        rel="noreferrer"
-      >
-        {" "}
-        <Image
-          src={require("../images/slider/cycling.jpg").default}
-          alt="cycling"
-        />
+      }}>
+      <SwiperSlide tag='a' href='https://en.wikipedia.org/wiki/Cycling' target='_blank' rel='noreferrer'>
+        {' '}
+        <Image src={require('../images/slider/cycling.jpg').default} alt='cycling' />
         <SliderTitle>Cycling</SliderTitle>
       </SwiperSlide>
-      <SwiperSlide
-        tag="a"
-        href="https://en.wikipedia.org/wiki/Running"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <Image
-          src={require("../images/slider/running.jpg").default}
-          alt="Running"
-        />
+      <SwiperSlide tag='a' href='https://en.wikipedia.org/wiki/Running' target='_blank' rel='noreferrer'>
+        <Image src={require('../images/slider/running.jpg').default} alt='Running' />
         <SliderTitle>Running</SliderTitle>
       </SwiperSlide>
-      <SwiperSlide
-        tag="a"
-        href="https://en.wikipedia.org/wiki/Swimming_(sport)"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <Image
-          src={require("../images/slider/swimming.jpg").default}
-          alt="swimming"
-        />
+      <SwiperSlide tag='a' href='https://en.wikipedia.org/wiki/Swimming_(sport)' target='_blank' rel='noreferrer'>
+        <Image src={require('../images/slider/swimming.jpg').default} alt='swimming' />
         <SliderTitle>Swimming</SliderTitle>
       </SwiperSlide>
-      <SwiperSlide
-        tag="a"
-        href="https://en.wikipedia.org/wiki/Weight_training"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <Image
-          src={require("../images/slider/gym-workout.jpg").default}
-          alt="gym-workout"
-        />
+      <SwiperSlide tag='a' href='https://en.wikipedia.org/wiki/Weight_training' target='_blank' rel='noreferrer'>
+        <Image src={require('../images/slider/gym-workout.jpg').default} alt='gym-workout' />
         <SliderTitle>Gym Workout</SliderTitle>
       </SwiperSlide>
-      <SwiperSlide
-        tag="a"
-        href="https://en.wikipedia.org/wiki/Battling_ropes"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <Image
-          src={require("../images/slider/battle-ropes.jpg").default}
-          alt="battle-rope"
-        />
+      <SwiperSlide tag='a' href='https://en.wikipedia.org/wiki/Battling_ropes' target='_blank' rel='noreferrer'>
+        <Image src={require('../images/slider/battle-ropes.jpg').default} alt='battle-rope' />
         <SliderTitle>Battle Ropes</SliderTitle>
       </SwiperSlide>
-      <SwiperSlide
-        tag="a"
-        href="https://en.wikipedia.org/wiki/Aerobics"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <Image
-          src={require("../images/slider/aerobics.jpg").default}
-          alt="aerobics"
-        />
+      <SwiperSlide tag='a' href='https://en.wikipedia.org/wiki/Aerobics' target='_blank' rel='noreferrer'>
+        <Image src={require('../images/slider/aerobics.jpg').default} alt='aerobics' />
         <SliderTitle>Aerobics</SliderTitle>
       </SwiperSlide>
     </Swiper>

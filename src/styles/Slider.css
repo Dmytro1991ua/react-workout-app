@@ -26,7 +26,7 @@
 }
 
 .swiper-scrollbar {
-  background-color: rgb(90, 128, 61, .3);
+  background-color: rgb(90, 128, 61, 0.3);
 }
 .swiper-scrollbar-drag {
   cursor: pointer;
