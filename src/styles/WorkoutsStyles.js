@@ -1,5 +1,6 @@
-import styled from "styled-components";
-import { colors, fadeInDown } from "./GlobalStyles";
+import styled from 'styled-components';
+
+import { colors, fadeInDown } from './GlobalStyles';
 
 export const WorkoutsSection = styled.section`
   min-height: 100vh;
@@ -7,7 +8,7 @@ export const WorkoutsSection = styled.section`
   border: 5px solid ${colors.mantis};
   border-radius: 1.2rem;
   overscroll-behavior-y: none;
-  animation: ${fadeInDown} .3s ease-in-out;
+  animation: ${fadeInDown} 0.3s ease-in-out;
   @media (min-width: 48em) {
     margin: 10rem 1.2rem 1.2rem 1.2rem;
   }
@@ -44,7 +45,7 @@ export const WorkoutsFeatures = styled.aside`
 
 export const FeaturesTitle = styled.h3`
   font-size: 2.5rem;
-  font-family: "Akaya Telivigala", cursive;
+  font-family: 'Akaya Telivigala', cursive;
   color: ${colors.white};
   text-align: center;
   padding: 1rem 0 0 0;

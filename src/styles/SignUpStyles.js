@@ -1,6 +1,7 @@
-import styled from "styled-components";
-import { colors } from "./GlobalStyles";
-import { FormBody, FormBtn, FormInput } from "./LoginStyles";
+import styled from 'styled-components';
+
+import { colors } from './GlobalStyles';
+import { FormBody, FormBtn, FormInput } from './LoginStyles';
 
 export const SignUpBody = styled(FormBody)`
   border: 5px solid ${colors.mantisDarker};

@@ -1,5 +1,6 @@
-import styled from "styled-components";
-import { colors } from "./GlobalStyles";
+import styled from 'styled-components';
+
+import { colors } from './GlobalStyles';
 
 export const Image = styled.img`
   max-width: 100%;
@@ -12,7 +13,7 @@ export const Image = styled.img`
 
 export const SliderTitle = styled.h3`
   font-size: 2.5rem;
-  font-family: "Akaya Telivigala", cursive;
-  letter-spacing: .1rem;
+  font-family: 'Akaya Telivigala', cursive;
+  letter-spacing: 0.1rem;
   color: ${colors.white};
 `;

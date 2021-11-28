@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
-import { LinkLogout, List, ListItem, ListLink } from "../styles/HeaderStyles";
-import { WorkoutsContext } from "../WorkoutsContext";
-import { useAuth } from "../AuthContext";
-import { useHistory } from "react-router-dom";
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { useAuth } from '../AuthContext';
+import { LinkLogout, List, ListItem, ListLink } from '../styles/HeaderStyles';
+import { WorkoutsContext } from '../WorkoutsContext';
 
 const Navigation = () => {
   //destructure burger menu and navigation "state"
@@ -37,28 +38,27 @@ const Navigation = () => {
 
   const handleLogout = () => {
     logout();
-    history.push("/login");
+    history.push('/login');
   };
   return (
     <List open={open}>
       <ListItem>
-        <ListLink to="/" onClick={handleClick}>
+        <ListLink to='/' onClick={handleClick}>
           Home
         </ListLink>
       </ListItem>
       <ListItem>
-        <ListLink to="/workouts" onClick={handleClick}>
+        <ListLink to='/workouts' onClick={handleClick}>
           Workouts
         </ListLink>
       </ListItem>
       <ListItem>
         <LinkLogout
-          href="#"
+          href='#'
           onClick={() => {
             handleClick();
             handleLogout();
-          }}
-        >
+          }}>
           Logout
         </LinkLogout>
       </ListItem>

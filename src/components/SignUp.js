@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { useAuth } from "../AuthContext";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
 import {
   FormSection,
   FormDetails,
@@ -9,17 +9,17 @@ import {
   Form,
   FormError,
   FormSectionTitle,
-} from "../styles/LoginStyles";
-import { SignUpBody, SignUpInput, SignUpBtn } from "../styles/SignUpStyles";
+} from '../styles/LoginStyles';
+import { SignUpBody, SignUpInput, SignUpBtn } from '../styles/SignUpStyles';
 
 const SignUp = () => {
   const [formValues, setFormValues] = useState({
-    email: "",
-    password: "",
-    confirmedPassword: "",
+    email: '',
+    password: '',
+    confirmedPassword: '',
   });
 
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { signup } = useAuth();
   const history = useHistory();
@@ -34,17 +34,15 @@ const SignUp = () => {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if (formValues.password !== formValues.confirmedPassword)
-      return setError("Password do not match");
+    if (formValues.password !== formValues.confirmedPassword) return setError('Password do not match');
 
     try {
-      setError("");
+      setError('');
       setLoading(true);
       await signup(formValues.email, formValues.password);
-      history.push("/login"); // after user done sign up and it was successfull => redirect to workouts page
+      history.push('/login'); // after user done sign up and it was successfull => redirect to workouts page
     } catch (error) {
-      console.log(error);
-      setError("Failed to create an account");
+      setError('Failed to create an account');
     }
 
     setLoading(false);
@@ -57,45 +55,45 @@ const SignUp = () => {
       <Form onSubmit={handleSubmit}>
         <SignUpBody>
           <FormDetails>
-            <FormLabel htmlFor="email" />
+            <FormLabel htmlFor='email' />
             <SignUpInput
-              type="email"
-              name="email"
+              type='email'
+              name='email'
               value={formValues.email}
               onChange={handleFormValuesChange}
-              id="email"
-              placeholder="Email*"
+              id='email'
+              placeholder='Email*'
               required
             />
           </FormDetails>
           <FormDetails>
-            <FormLabel htmlFor="password" />
+            <FormLabel htmlFor='password' />
             <SignUpInput
-              type="password"
-              id="password"
-              name="password"
+              type='password'
+              id='password'
+              name='password'
               value={formValues.password}
               onChange={handleFormValuesChange}
-              placeholder="Password*"
+              placeholder='Password*'
               required
             />
           </FormDetails>
           <FormDetails>
-            <FormLabel htmlFor="confirm-password" />
+            <FormLabel htmlFor='confirm-password' />
             <SignUpInput
-              type="password"
-              id="confirm-password"
-              placeholder="Confirm Password*"
-              name="confirmedPassword"
+              type='password'
+              id='confirm-password'
+              placeholder='Confirm Password*'
+              name='confirmedPassword'
               value={formValues.confirmedPassword}
               onChange={handleFormValuesChange}
               required
             />
           </FormDetails>
-          <SignUpBtn disabled={loading} type="submit">
+          <SignUpBtn disabled={loading} type='submit'>
             Sign Up
           </SignUpBtn>
-          <FormLink to="/login">Already have an account?</FormLink>
+          <FormLink to='/login'>Already have an account?</FormLink>
         </SignUpBody>
       </Form>
     </FormSection>

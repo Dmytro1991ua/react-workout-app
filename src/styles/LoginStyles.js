@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { colors, fadeInDown } from "./GlobalStyles";
-import { WorkoutsSection } from "./WorkoutsStyles";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+import { colors, fadeInDown } from './GlobalStyles';
+import { WorkoutsSection } from './WorkoutsStyles';
 
 export const FormSection = styled(WorkoutsSection)`
   border: none;
@@ -15,7 +16,7 @@ export const FormSection = styled(WorkoutsSection)`
 
 export const FormSectionTitle = styled.h2`
   color: ${colors.white};
-  letter-spacing: .1rem;
+  letter-spacing: 0.1rem;
   margin-bottom: 1.3rem;
 `;
 
@@ -112,7 +113,6 @@ export const FormError = styled.p`
     max-width: 38rem;
   }
 `;
-
 
 export const FormSuccess = styled(FormError)`
   background-color: ${colors.mantis};
