@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import {
@@ -15,12 +15,19 @@ import {
 } from "../styles/LoginStyles";
 
 const LoginForm = () => {
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const [formValues, setFormValues] = useState({ email: "", password: "" });
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const history = useHistory();
+
+  function handleFormValuesChange(event) {
+    setFormValues((formValues) => ({
+      ...formValues,
+      [event.target.name]: event.target.value,
+    }));
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -28,7 +35,7 @@ const LoginForm = () => {
     try {
       setError("");
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
+      await login(formValues.email, formValues.password);
       history.push("/workouts"); // after user done login in and it was successfull => redirect to workouts page
     } catch (error) {
       console.log(error);
@@ -45,31 +52,35 @@ const LoginForm = () => {
       <Form onSubmit={handleSubmit}>
         <FormBody>
           <FormDetails>
-            <FormLabel htmlFor="email"></FormLabel>
+            <FormLabel htmlFor="email" />
             <FormInput
               type="email"
               id="email"
+              name="email"
               minlength="8"
               placeholder="Email*"
               required
-              ref={emailRef}
+              onChange={handleFormValuesChange}
+              value={formValues.email}
             />
           </FormDetails>
           <FormDetails>
-            <FormLabel htmlFor="password"></FormLabel>
+            <FormLabel htmlFor="password" />
             <FormInput
               type="password"
               id="password"
+              name="password"
               minlength="6"
               placeholder="Password*"
               required
-              ref={passwordRef}
+              onChange={handleFormValuesChange}
+              value={formValues.password}
             />
           </FormDetails>
           <FormBtn disabled={loading} type="submit">
             Sign In
           </FormBtn>
-          <FormLink to="/signup">Don't have an account?</FormLink>
+          <FormLink to="/signup">Don&apos;t have an account?</FormLink>
           <FormLink to="/forgot-password">Forgot a password?</FormLink>
         </FormBody>
       </Form>
