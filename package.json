@@ -35,14 +35,13 @@
     "prettier": "prettier --write src/**/*.js",
     "format": "npm run prettier:fix && npm run lint:fix",
     "prettier:fix": "npm run prettier -- --write",
-    "postinstall": "husky install && cd app && npm install"
+    "postinstall": "husky install && cd app && npm install",
+    "prepare": "husky install"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "eslint --ext .tsx --ext .ts --ext .js ./src --fix"
-    ],
-    "./src/**": [
-      "prettier --write ."
+    "**/*.{js,jsx,ts,tsx, json, html}": [
+      "prettier --write",
+      "git add"
     ]
   },
   "husky": {
@@ -73,8 +72,12 @@
     "eslint-plugin-react": "^7.27.1",
     "express": "^4.17.1",
     "gh-pages": "^3.1.0",
-    "husky": "^7.0.4",
+    "husky": "^4.3.8",
     "lint-staged": "^12.1.2",
-    "prettier": "^2.5.0"
+    "prettier": "^2.5.0",
+    "stylelint": "^14.1.0",
+    "stylelint-config-standard": "^24.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.10.0"
   }
 }
