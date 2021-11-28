@@ -1,14 +1,15 @@
-import styled from "styled-components";
-import { FormSection } from "./FormStyles";
-import { colors } from "./GlobalStyles";
-import { TimesCircle } from "@styled-icons/fa-solid";
+import { TimesCircle } from '@styled-icons/fa-solid';
+import styled from 'styled-components';
+
+import { FormSection } from './FormStyles';
+import { colors } from './GlobalStyles';
 
 export const WorkoutSection = styled(FormSection)`
   grid-template-columns: 1fr 1fr;
   border: none;
   padding: 1.5rem 2rem;
   position: relative;
- 
+
   &.running {
     border-left: 5px solid ${colors.mantis};
   }
@@ -34,7 +35,7 @@ export const WorkoutHeader = styled.div`
 export const WorkoutTitle = styled.h3`
   font-size: 2.3rem;
   font-weight: 700;
-  font-family: "Akaya Telivigala", cursive;
+  font-family: 'Akaya Telivigala', cursive;
   color: ${colors.white};
   letter-spacing: 0.1rem;
   //grid-column: 1 / -1;
@@ -54,7 +55,6 @@ export const RemoveBtn = styled(TimesCircle)`
     transform: scale(1.1);
   }
 `;
-
 
 export const WorkoutDetails = styled.div`
   display: flex;
@@ -79,4 +79,3 @@ export const WorkoutUnit = styled.span`
   text-transform: uppercase;
   font-weight: 800;
 `;
-

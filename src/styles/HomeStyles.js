@@ -1,15 +1,15 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import imgBig from "../images/home/home-big.jpg";
-import imgSmall from "../images/home/home-small.jpg";
-import { colors, bounceInLeft } from "./GlobalStyles";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+import imgBig from '../images/home/home-big.jpg';
+import imgSmall from '../images/home/home-small.jpg';
+import { colors, bounceInLeft } from './GlobalStyles';
 
 export const HomeSection = styled.section`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url(${imgSmall});
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${imgSmall});
   background-position: 28%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -18,8 +18,7 @@ export const HomeSection = styled.section`
     (min-width: 125em),
     only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.9em),
     only screen and (min-width: 125em) {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-      url(${imgBig});
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${imgBig});
   }
 `;
 
