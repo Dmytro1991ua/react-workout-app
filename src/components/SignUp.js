@@ -13,26 +13,35 @@ import {
 import { SignUpBody, SignUpInput, SignUpBtn } from "../styles/SignUpStyles";
 
 const SignUp = () => {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const confirmedPasswordRef = useRef();
+  const [formValues, setFormValues] = useState({
+    email: "",
+    password: "",
+    confirmedPassword: "",
+  });
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { signup } = useAuth();
   const history = useHistory();
 
+  function handleFormValuesChange(event) {
+    setFormValues((formValues) => ({
+      ...formValues,
+      [event.target.name]: event.target.value,
+    }));
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if (passwordRef.current.value !== confirmedPasswordRef.current.value)
+    if (formValues.password !== formValues.confirmedPassword)
       return setError("Password do not match");
 
     try {
       setError("");
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-      history.push("/workouts"); // after user done sign up and it was successfull => redirect to workouts page
+      await signup(formValues.email, formValues.password);
+      history.push("/login"); // after user done sign up and it was successfull => redirect to workouts page
     } catch (error) {
       console.log(error);
       setError("Failed to create an account");
@@ -48,33 +57,39 @@ const SignUp = () => {
       <Form onSubmit={handleSubmit}>
         <SignUpBody>
           <FormDetails>
-            <FormLabel htmlFor="email"></FormLabel>
+            <FormLabel htmlFor="email" />
             <SignUpInput
               type="email"
+              name="email"
+              value={formValues.email}
+              onChange={handleFormValuesChange}
               id="email"
               placeholder="Email*"
               required
-              ref={emailRef}
             />
           </FormDetails>
           <FormDetails>
-            <FormLabel htmlFor="password"></FormLabel>
+            <FormLabel htmlFor="password" />
             <SignUpInput
               type="password"
               id="password"
+              name="password"
+              value={formValues.password}
+              onChange={handleFormValuesChange}
               placeholder="Password*"
               required
-              ref={passwordRef}
             />
           </FormDetails>
           <FormDetails>
-            <FormLabel htmlFor="confirm-password"></FormLabel>
+            <FormLabel htmlFor="confirm-password" />
             <SignUpInput
               type="password"
               id="confirm-password"
               placeholder="Confirm Password*"
+              name="confirmedPassword"
+              value={formValues.confirmedPassword}
+              onChange={handleFormValuesChange}
               required
-              ref={confirmedPasswordRef}
             />
           </FormDetails>
           <SignUpBtn disabled={loading} type="submit">
