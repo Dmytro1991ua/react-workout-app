@@ -1,6 +1,7 @@
-import styled from "styled-components";
-import { colors, gear, rotation } from "./GlobalStyles";
-import { PreloaderContainer } from "./PreloaderStyles";
+import styled from 'styled-components';
+
+import { colors, gear, rotation } from './GlobalStyles';
+import { PreloaderContainer } from './PreloaderStyles';
 
 export const LoaderContainer = styled(PreloaderContainer)`
   background-color: ${colors.lighterBlue};

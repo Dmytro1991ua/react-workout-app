@@ -19,6 +19,7 @@
     "react-scripts": "4.0.3",
     "styled-components": "^5.2.1",
     "swiper": "^6.5.0",
+    "typescript": "^4.5.2",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
@@ -27,13 +28,26 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "pre-commit": "lint-staged",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "prettier --write src/**/*.js",
+    "format": "npm run prettier:fix && npm run lint:fix",
+    "prettier:fix": "npm run prettier -- --write",
+    "postinstall": "husky install && cd app && npm install",
+    "prepare": "husky install"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx, json, html}": [
+      "prettier --write",
+      "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "browserslist": {
     "production": [
@@ -48,8 +62,22 @@
     ]
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
     "cors": "^2.8.5",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.27.1",
     "express": "^4.17.1",
-    "gh-pages": "^3.1.0"
+    "gh-pages": "^3.1.0",
+    "husky": "^4.3.8",
+    "lint-staged": "^12.1.2",
+    "prettier": "^2.5.0",
+    "stylelint": "^14.1.0",
+    "stylelint-config-standard": "^24.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.10.0"
   }
 }

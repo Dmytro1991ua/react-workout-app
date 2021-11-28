@@ -1,5 +1,6 @@
-import styled from "styled-components";
-import { colors, fadeInDown } from "./GlobalStyles";
+import styled from 'styled-components';
+
+import { colors, fadeInDown } from './GlobalStyles';
 
 export const FormSection = styled.form`
   background-color: ${colors.lighterBlue};
@@ -10,7 +11,7 @@ export const FormSection = styled.form`
   gap: 1.5rem 2.5rem;
   transition: all 0.5s, transform 1ms;
   border: 2px solid ${colors.mantis};
-  animation: ${fadeInDown} .3s ease-in-out;
+  animation: ${fadeInDown} 0.3s ease-in-out;
 
   @media (min-width: 48em) {
     grid-template-columns: 1fr 1fr;

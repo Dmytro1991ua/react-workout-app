@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { useAuth } from "../AuthContext";
+import React, { useRef, useState } from 'react';
+import { useAuth } from '../AuthContext';
 import {
   FormSection,
   FormSectionTitle,
@@ -12,27 +12,27 @@ import {
   Form,
   FormError,
   FormSuccess,
-} from "../styles/LoginStyles";
+} from '../styles/LoginStyles';
 
 const ForgotPassword = () => {
   const emailRef = useRef();
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const { resetPassword } = useAuth();
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     try {
-      setMessage("");
-      setError("");
+      setMessage('');
+      setError('');
       setLoading(true);
       await resetPassword(emailRef.current.value);
-      emailRef.current.value = "";
-      setMessage("Check your inbox for further instructions");
+      emailRef.current.value = '';
+      setMessage('Check your inbox for further instructions');
     } catch (error) {
-      setError("Failed to reset password");
+      setError('Failed to reset password');
     }
 
     setLoading(false);
@@ -46,21 +46,14 @@ const ForgotPassword = () => {
       <Form onSubmit={handleSubmit}>
         <FormBody>
           <FormDetails>
-            <FormLabel htmlFor="email"></FormLabel>
-            <FormInput
-              type="email"
-              id="email"
-              minlength="8"
-              placeholder="Email*"
-              required
-              ref={emailRef}
-            />
+            <FormLabel htmlFor='email' />
+            <FormInput type='email' id='email' minlength='8' placeholder='Email*' required ref={emailRef} />
           </FormDetails>
-          <FormBtn disabled={loading} type="submit">
+          <FormBtn disabled={loading} type='submit'>
             Reset Password
           </FormBtn>
-          <FormLink to="/login">Log In</FormLink>
-          <FormLink to="/signup">Don't have an account?</FormLink>
+          <FormLink to='/login'>Log In</FormLink>
+          <FormLink to='/signup'>Don&apos;t have an account?</FormLink>
         </FormBody>
       </Form>
     </FormSection>

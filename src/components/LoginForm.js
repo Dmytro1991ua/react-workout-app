@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { useAuth } from "../AuthContext";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
 import {
   FormSection,
   FormSectionTitle,
@@ -12,12 +12,12 @@ import {
   FormLink,
   Form,
   FormError,
-} from "../styles/LoginStyles";
+} from '../styles/LoginStyles';
 
 const LoginForm = () => {
-  const [formValues, setFormValues] = useState({ email: "", password: "" });
+  const [formValues, setFormValues] = useState({ email: '', password: '' });
 
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const history = useHistory();
@@ -33,13 +33,12 @@ const LoginForm = () => {
     event.preventDefault();
 
     try {
-      setError("");
+      setError('');
       setLoading(true);
       await login(formValues.email, formValues.password);
-      history.push("/workouts"); // after user done login in and it was successfull => redirect to workouts page
+      history.push('/workouts'); // after user done login in and it was successfull => redirect to workouts page
     } catch (error) {
-      console.log(error);
-      setError("Failed to sign in");
+      setError('Failed to sign in');
     }
 
     setLoading(false);
@@ -52,36 +51,36 @@ const LoginForm = () => {
       <Form onSubmit={handleSubmit}>
         <FormBody>
           <FormDetails>
-            <FormLabel htmlFor="email" />
+            <FormLabel htmlFor='email' />
             <FormInput
-              type="email"
-              id="email"
-              name="email"
-              minlength="8"
-              placeholder="Email*"
+              type='email'
+              id='email'
+              name='email'
+              minlength='8'
+              placeholder='Email*'
               required
               onChange={handleFormValuesChange}
               value={formValues.email}
             />
           </FormDetails>
           <FormDetails>
-            <FormLabel htmlFor="password" />
+            <FormLabel htmlFor='password' />
             <FormInput
-              type="password"
-              id="password"
-              name="password"
-              minlength="6"
-              placeholder="Password*"
+              type='password'
+              id='password'
+              name='password'
+              minlength='6'
+              placeholder='Password*'
               required
               onChange={handleFormValuesChange}
               value={formValues.password}
             />
           </FormDetails>
-          <FormBtn disabled={loading} type="submit">
+          <FormBtn disabled={loading} type='submit'>
             Sign In
           </FormBtn>
-          <FormLink to="/signup">Don&apos;t have an account?</FormLink>
-          <FormLink to="/forgot-password">Forgot a password?</FormLink>
+          <FormLink to='/signup'>Don&apos;t have an account?</FormLink>
+          <FormLink to='/forgot-password'>Forgot a password?</FormLink>
         </FormBody>
       </Form>
     </FormSection>

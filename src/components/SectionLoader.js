@@ -1,5 +1,5 @@
-import React from "react";
-import { Box1, Box2, LoaderContainer } from "../styles/SectionLoaderStyles";
+import React from 'react';
+import { Box1, Box2, LoaderContainer } from '../styles/SectionLoaderStyles';
 
 const SectionLoader = () => {
   return (

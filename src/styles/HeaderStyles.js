@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { fadeInDown, colors } from "./GlobalStyles";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+import { fadeInDown, colors } from './GlobalStyles';
 
 export const HeaderSection = styled.header`
   background-color: ${colors.lighterBlue};
@@ -52,7 +53,7 @@ export const List = styled.ul`
   background-color: ${colors.lighterBlue};
   border-right: 5px solid ${colors.mantis};
   padding: 7rem 2rem 2rem 2rem;
-  transform: ${({ open }) => (open ? "translateX(0)" : "translateX(-200%)")};
+  transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-200%)')};
   transition: all 0.3s ease-in-out;
 
   @media (min-width: 28em) {
@@ -117,19 +118,19 @@ export const BurgerMenu = styled.div`
     display: inline-block;
     width: 3rem;
     height: 0.25rem;
-    background-color: ${({ open }) => (open ? "#ffff" : "#7ac142")};
+    background-color: ${({ open }) => (open ? '#ffff' : '#7ac142')};
     transform-origin: 3.5px;
     transition: all 0.3s linear;
 
     &:nth-child(1) {
-      transform: ${({ open }) => (open ? "rotate(45deg)" : "rotate(0)")};
+      transform: ${({ open }) => (open ? 'rotate(45deg)' : 'rotate(0)')};
     }
     &:nth-child(2) {
-      transform: ${({ open }) => (open ? "translateX(100%)" : "translateX(0)")};
+      transform: ${({ open }) => (open ? 'translateX(100%)' : 'translateX(0)')};
       opacity: ${({ open }) => (open ? 0 : 1)};
     }
     &:nth-child(3) {
-      transform: ${({ open }) => (open ? "rotate(-45deg)" : "rotate(0)")};
+      transform: ${({ open }) => (open ? 'rotate(-45deg)' : 'rotate(0)')};
     }
   }
 

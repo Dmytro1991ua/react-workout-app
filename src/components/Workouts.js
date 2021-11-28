@@ -1,16 +1,10 @@
-import React, { useContext } from "react";
-import {
-  FeaturesTitle,
-  WorkoutsFeatures,
-  Map,
-  WorkoutsSection,
-  WorkoutsSectionBody,
-} from "../styles/WorkoutsStyles";
-import { WorkoutsContext } from "../WorkoutsContext";
+import React, { useContext } from 'react';
+import { FeaturesTitle, WorkoutsFeatures, Map, WorkoutsSection, WorkoutsSectionBody } from '../styles/WorkoutsStyles';
+import { WorkoutsContext } from '../WorkoutsContext';
 
-import Form from "./Form";
-import Workout from "./Workout";
-import WorkoutsMap from "./WorkoutsMap";
+import Form from './Form';
+import Workout from './Workout';
+import WorkoutsMap from './WorkoutsMap';
 
 const Workouts = () => {
   // destructure certain "states" from Context
@@ -20,7 +14,7 @@ const Workouts = () => {
 
   // sort out a workouts array with object in order to display last added object to an array as a first in a list
   const sortedWorkouts = workouts.sort((obj1, obj2) => obj2.id - obj1.id);
- 
+
   return (
     <WorkoutsSection>
       <WorkoutsSectionBody>

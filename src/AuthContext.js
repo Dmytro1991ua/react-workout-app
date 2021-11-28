@@ -1,5 +1,6 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "./firebase";
+import { createContext, useContext, useEffect, useState } from 'react';
+
+import { auth } from './firebase';
 
 export const AuthContext = createContext();
 
@@ -22,7 +23,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const resetPassword = (email) => {
     return auth.sendPasswordResetEmail(email);
-  }
+  };
 
   useEffect(() => {
     // set a current signed-in user with firebase
@@ -42,11 +43,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   // if a loading is false then we render app (already got a current user from firebase)
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
 };
 
 export function useAuth() {

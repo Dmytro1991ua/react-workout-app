@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from 'react';
 
 export const WorkoutsContext = createContext();
 
@@ -10,17 +10,17 @@ export const WorkoutsProvider = (props) => {
   // current location (geolocation) "state"
   const [location, setLocation] = useState({
     loaded: false,
-    coordinates: { lat: "", lng: "" },
+    coordinates: { lat: '', lng: '' },
   });
   // show workout form "state"
   const [showForm, setShowForm] = useState(false);
   // selected workout value from a from
-  const [selectedValue, setSelectedValue] = useState("running");
+  const [selectedValue, setSelectedValue] = useState('running');
   // workout form's(inputs values) releated "states"
-  const [distance, setDistance] = useState("");
-  const [duration, setDuration] = useState("");
-  const [cadence, setCadence] = useState("");
-  const [elevationGain, setElevationGain] = useState("");
+  const [distance, setDistance] = useState('');
+  const [duration, setDuration] = useState('');
+  const [cadence, setCadence] = useState('');
+  const [elevationGain, setElevationGain] = useState('');
   // workouts data recieved from a workout form "state"
   const [workouts, setWorkouts] = useState([]);
   // clicked leaflet marker's coordinates
@@ -72,7 +72,7 @@ export const WorkoutsProvider = (props) => {
   const getWorkoutData = (selectedType) => {
     // workout data object(same for Running and Cycling) from workout form
     const workoutData = {
-      id: (Date.now() + "").slice(-10),
+      id: (String(Date.now()) + '').slice(-10),
       date: new Date().toLocaleDateString(),
       coordinates: markerCoordinates.flat(),
       selectedValue,
@@ -82,7 +82,7 @@ export const WorkoutsProvider = (props) => {
 
     setWorkouts([...workouts, workoutData]); // add newly created object from form to workouts array
 
-    if (selectedType === "running") {
+    if (selectedType === 'running') {
       setWorkouts([
         ...workouts,
         {
@@ -103,7 +103,7 @@ export const WorkoutsProvider = (props) => {
       ]);
     }
 
-    if (selectedType === "cycling") {
+    if (selectedType === 'cycling') {
       setWorkouts([
         ...workouts,
         {
@@ -127,12 +127,12 @@ export const WorkoutsProvider = (props) => {
 
   // set workout array with objects to a locale storage (Running and Cycling objects)
   const setLocaleStorage = (workoutData) => {
-    localStorage.setItem("workouts", JSON.stringify(workoutData));
+    localStorage.setItem('workouts', JSON.stringify(workoutData));
   };
 
   //get(retrieve) workouts array with objects  from a localStorage and render it when a react app is loaded
   const getLocalstorage = () => {
-    const workoutsData = JSON.parse(localStorage.getItem("workouts"));
+    const workoutsData = JSON.parse(localStorage.getItem('workouts'));
 
     if (!workoutsData) return;
 
@@ -161,8 +161,7 @@ export const WorkoutsProvider = (props) => {
         submit: [isSubmitted, setIsSubmitted],
         setStorage: [setLocaleStorage],
         getStorage: [getLocalstorage],
-      }}
-    >
+      }}>
       {props.children}
     </WorkoutsContext.Provider>
   );
