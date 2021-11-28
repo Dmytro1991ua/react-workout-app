@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import {
@@ -15,9 +15,6 @@ import {
 } from "../styles/LoginStyles";
 
 const LoginForm = () => {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-
   const [formValues, setFormValues] = useState({ email: "", password: "" });
 
   const [error, setError] = useState("");
