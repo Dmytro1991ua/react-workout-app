@@ -52,7 +52,8 @@ const Workout = ({ workout }) => {
       <WorkoutSection
         className={selectedValue === 'running' ? 'running' : 'cycling'}
         data-id={id}
-        onClick={handleClick}>
+        onClick={handleClick}
+      >
         <WorkoutHeader>
           <WorkoutTitle>{description}</WorkoutTitle>
           <RemoveBtn onClick={() => handleRemoveWorkout(workout)} />

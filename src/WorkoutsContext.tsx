@@ -161,7 +161,8 @@ export const WorkoutsProvider = (props) => {
         submit: [isSubmitted, setIsSubmitted],
         setStorage: [setLocaleStorage],
         getStorage: [getLocalstorage],
-      }}>
+      }}
+    >
       {props.children}
     </WorkoutsContext.Provider>
   );

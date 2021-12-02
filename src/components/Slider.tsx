@@ -1,6 +1,7 @@
 import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Mousewheel, Scrollbar, Autoplay, EffectCoverflow } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
 import { Image, SliderTitle } from '../styles/SliderStyles';
 
 //swiper styles
@@ -48,7 +49,8 @@ const Slider = () => {
       coverflowEffect={{
         rotate: 35,
         slideShadows: true,
-      }}>
+      }}
+    >
       <SwiperSlide tag='a' href='https://en.wikipedia.org/wiki/Cycling' target='_blank' rel='noreferrer'>
         {' '}
         <Image src={require('../images/slider/cycling.jpg').default} alt='cycling' />

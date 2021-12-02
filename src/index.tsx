@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import { AuthContextProvider } from './AuthContext';
-import reportWebVitals from './reportWebVitals';
 import { WorkoutsProvider } from './WorkoutsContext';
 
 ReactDOM.render(
@@ -16,5 +15,3 @@ ReactDOM.render(
   </WorkoutsProvider>,
   document.getElementById('root')
 );
-
-reportWebVitals();

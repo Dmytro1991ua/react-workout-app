@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { colors, fadeInDown } from './GlobalStyles';
-import { WorkoutsSection } from './WorkoutsStyles';
+import { WorkoutsSection } from './WorkoutsStyles.styled';
 
 export const FormSection = styled(WorkoutsSection)`
   border: none;

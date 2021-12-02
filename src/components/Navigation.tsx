@@ -58,7 +58,8 @@ const Navigation = () => {
           onClick={() => {
             handleClick();
             handleLogout();
-          }}>
+          }}
+        >
           Logout
         </LinkLogout>
       </ListItem>

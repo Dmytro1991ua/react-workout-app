@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { FormButton, FormInput, FormLabel, FormRow, FormSection, FormSelect } from '../styles/FormStyles';
+import { FormButton, FormInput, FormLabel, FormRow, FormSection, FormSelect } from '../styles/FormStyles.styled';
 import { WorkoutsContext } from '../WorkoutsContext';
 
 import 'leaflet/dist/leaflet.css';
