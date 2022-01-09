@@ -1,5 +1,6 @@
+import { LatLngExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 
 import useGeolocation from '../hooks/useGeolocation';
@@ -18,7 +19,7 @@ const WorkoutsMap = () => {
 
   //geolocation custom hook
   const location = useGeolocation();
-  const currentPosition = [location.coordinates.lat, location.coordinates.lng];
+  const currentPosition: LatLngExpression = [location.coordinates.lat, location.coordinates.lng];
 
   const ZOOM_LEVEL = 13; //default zoom level
 
@@ -34,11 +35,9 @@ const WorkoutsMap = () => {
         handleShowForm();
         const { lat, lng } = e.latlng;
         const coords = [lat, lng];
-        //setMakerCoordinates(coords);
         setMakerCoordinates([...markerCoordinates, coords]);
 
         localStorage.setItem('marker-coords', JSON.stringify([...markerCoordinates, coords]));
-        // const coords = [lat, lng];
         // seStoredMarkerCoords([...storedMarkerCoods, coords]);
         // console.log(storedMarkerCoods);
         // localStorage.setItem(
@@ -52,7 +51,7 @@ const WorkoutsMap = () => {
   };
 
   useEffect(() => {
-    const markerCoords = JSON.parse(localStorage.getItem('marker-coords'));
+    const markerCoords = JSON.parse(localStorage.getItem('marker-coords') || '[]');
 
     if (!markerCoords) return;
 
@@ -70,7 +69,7 @@ const WorkoutsMap = () => {
           <>
             {isSubmitted &&
               !showForm &&
-              markerCoordinates.map((coords, index) => <Marker key={index} position={coords} />)}
+              markerCoordinates.map((coords: any, index: any) => <Marker key={index} position={coords} />)}
           </>
         </MapContainer>
       )}

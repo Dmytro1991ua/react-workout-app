@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+
 import { useAuth } from '../AuthContext';
 import {
   FormSection,
@@ -9,8 +10,8 @@ import {
   Form,
   FormError,
   FormSectionTitle,
-} from '../styles/LoginStyles';
-import { SignUpBody, SignUpInput, SignUpBtn } from '../styles/SignUpStyles';
+} from '../styles/LoginStyles.styled';
+import { SignUpBody, SignUpInput, SignUpBtn } from '../styles/SignUpStyles.styled';
 
 const SignUp = () => {
   const [formValues, setFormValues] = useState({
@@ -24,14 +25,14 @@ const SignUp = () => {
   const { signup } = useAuth();
   const history = useHistory();
 
-  function handleFormValuesChange(event) {
+  function handleFormValuesChange(event: React.ChangeEvent<HTMLInputElement>) {
     setFormValues((formValues) => ({
       ...formValues,
       [event.target.name]: event.target.value,
     }));
   }
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (formValues.password !== formValues.confirmedPassword) return setError('Password do not match');

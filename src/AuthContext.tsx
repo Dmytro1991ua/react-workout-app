@@ -1,19 +1,24 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import firebase from 'firebase/app';
+import { createContext, ReactElement, useContext, useEffect, useState } from 'react';
 
 import { auth } from './firebase';
 
-export const AuthContext = createContext();
+interface AuthContextProviderProps {
+  children: React.ReactNode;
+}
 
-export const AuthContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState();
+export const AuthContext = createContext({} as any);
+
+export const AuthContextProvider = ({ children }: AuthContextProviderProps): ReactElement => {
+  const [currentUser, setCurrentUser] = useState<firebase.User | null>();
   const [loading, setLoading] = useState(true); // initial value is true, so firebase does varification and set a current signed in user
 
   //login(create new account) a user in firebase
-  const signup = (email, password) => {
+  const signup = (email: string, password: string) => {
     return auth.createUserWithEmailAndPassword(email, password); // create a new user and return a Promise to work with
   };
 
-  const login = (email, password) => {
+  const login = (email: string, password: string) => {
     return auth.signInWithEmailAndPassword(email, password);
   };
 
@@ -21,14 +26,16 @@ export const AuthContextProvider = ({ children }) => {
     return auth.signOut();
   };
 
-  const resetPassword = (email) => {
+  const resetPassword = (email: string) => {
     return auth.sendPasswordResetEmail(email);
   };
 
   useEffect(() => {
     // set a current signed-in user with firebase
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
+      if (user) {
+        setCurrentUser(user);
+      }
       setLoading(false);
     });
     return unsubscribe; // unsubscribe from frirebase's onAuthStateChanged listener

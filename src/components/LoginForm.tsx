@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+
 import { useAuth } from '../AuthContext';
 import {
   FormSection,
@@ -12,7 +13,7 @@ import {
   FormLink,
   Form,
   FormError,
-} from '../styles/LoginStyles';
+} from '../styles/LoginStyles.styled';
 
 const LoginForm = () => {
   const [formValues, setFormValues] = useState({ email: '', password: '' });
@@ -22,14 +23,14 @@ const LoginForm = () => {
   const { login } = useAuth();
   const history = useHistory();
 
-  function handleFormValuesChange(event) {
+  function handleFormValuesChange(event: React.ChangeEvent<HTMLInputElement>) {
     setFormValues((formValues) => ({
       ...formValues,
       [event.target.name]: event.target.value,
     }));
   }
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     try {
@@ -56,7 +57,7 @@ const LoginForm = () => {
               type='email'
               id='email'
               name='email'
-              minlength='8'
+              minLength={8}
               placeholder='Email*'
               required
               onChange={handleFormValuesChange}
@@ -69,7 +70,7 @@ const LoginForm = () => {
               type='password'
               id='password'
               name='password'
-              minlength='6'
+              minLength={8}
               placeholder='Password*'
               required
               onChange={handleFormValuesChange}

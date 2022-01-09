@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import L, { LatLngTuple } from 'leaflet'; // import Leaflet object from a library
+import React, { ReactElement, useContext } from 'react';
 import { MapConsumer } from 'react-leaflet';
-import L from 'leaflet'; // import Leaflet object from a library
 
 import 'leaflet/dist/leaflet.css';
 import '../leafletMap/LeafletStyles.css';
@@ -14,7 +14,11 @@ const markerIcon = new L.Icon({
   popupAnchor: [23, -60],
 });
 
-const Marker = ({ position }) => {
+interface MarkerProps {
+  position: LatLngTuple;
+}
+
+const Marker = ({ position }: MarkerProps): ReactElement => {
   const { marker, description, select } = useContext(WorkoutsContext);
 
   const [workoutDescription] = description;

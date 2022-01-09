@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { BurgerMenu } from '../styles/HeaderStyles';
+import { BurgerMenu } from '../styles/HeaderStyles.styled';
 import { WorkoutsContext } from '../WorkoutsContext';
 
 const BurgerIcon = () => {
@@ -13,11 +13,20 @@ const BurgerIcon = () => {
   };
 
   return (
-    <BurgerMenu open={open} onClick={handleClick}>
-      <span />
-      <span />
-      <span />
-    </BurgerMenu>
+    <>
+      {open && (
+        <BurgerMenu onClick={handleClick}>
+          <span />
+          <span />
+          <span />
+        </BurgerMenu>
+      )}
+    </>
+    //  <BurgerMenu open={open} onClick={handleClick}>
+    //   <span />
+    //   <span />
+    //   <span />
+    // </BurgerMenu>
   );
 };
 

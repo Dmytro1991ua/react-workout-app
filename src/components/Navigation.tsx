@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useAuth } from '../AuthContext';
-import { LinkLogout, List, ListItem, ListLink } from '../styles/HeaderStyles';
+import { LinkLogout, List, ListItem, ListLink } from '../styles/HeaderStyles.styled';
 import { WorkoutsContext } from '../WorkoutsContext';
 
 const Navigation = () => {

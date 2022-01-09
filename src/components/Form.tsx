@@ -20,7 +20,11 @@ const Form = () => {
   const [showForm, setShowForm] = form;
   const [isSubmitted, setIsSubmitted] = submit;
 
-  const handleSubmit = (event) => {
+  function handleInputChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setSelectedValue(event.target.value);
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     getWorkoutData(selectedValue); //get workout data from form based on a select value
@@ -39,7 +43,7 @@ const Form = () => {
       <FormSection onSubmit={handleSubmit}>
         <FormRow>
           <FormLabel>Type</FormLabel>
-          <FormSelect onChange={(event) => setSelectedValue(event.target.value)} required value={selectedValue}>
+          <FormSelect onChange={handleInputChange} required value={selectedValue}>
             <option value='running'>Running</option>
             <option value='cycling'>Cycling</option>
           </FormSelect>
@@ -49,7 +53,7 @@ const Form = () => {
           <FormInput
             value={distance}
             placeholder='km'
-            onChange={(event) => setDistance(parseInt(event.target.value) || '')}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setDistance(parseInt(event.target.value) || '')}
             required
           />
         </FormRow>
@@ -58,7 +62,7 @@ const Form = () => {
           <FormInput
             value={duration}
             placeholder='min'
-            onChange={(event) => setDuration(parseInt(event.target.value) || '')}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setDuration(parseInt(event.target.value) || '')}
             required
           />
         </FormRow>
@@ -71,7 +75,9 @@ const Form = () => {
                 <FormInput
                   value={cadence}
                   placeholder='step/min'
-                  onChange={(event) => setCadence(parseInt(event.target.value) || '')}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    setCadence(parseInt(event.target.value) || '')
+                  }
                   required
                 />
               </>
@@ -82,7 +88,9 @@ const Form = () => {
                 <FormInput
                   value={elevationGain}
                   placeholder='meters'
-                  onChange={(event) => setElevationGain(parseInt(event.target.value) || '')}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    setElevationGain(parseInt(event.target.value) || '')
+                  }
                   required
                 />
               </>

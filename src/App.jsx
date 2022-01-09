@@ -8,7 +8,7 @@ import Preloader from './components/Preloader';
 import PrivateRoute from './components/PrivateRoutes';
 import SectionLoader from './components/SectionLoader';
 import SignUp from './components/SignUp';
-import { GlobalStyles, Wrapper } from './styles/GlobalStyles';
+import { GlobalStyles, Wrapper } from './styles/GlobalStyles.styled';
 import { WorkoutsContext } from './WorkoutsContext';
 
 // component's lazy loading while using React Routing

@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import SwiperCore, { Mousewheel, Scrollbar, Autoplay, EffectCoverflow } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { Image, SliderTitle } from '../styles/SliderStyles';
+import { Image, SliderTitle } from '../styles/SliderStyles.styled';
 
 //swiper styles
 import 'swiper/swiper.scss';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/components/scrollbar/scrollbar.scss';
 
-const Slider = () => {
+const Slider = (): ReactElement => {
   // install Swiper modules
   SwiperCore.use([Mousewheel, Scrollbar, Autoplay, EffectCoverflow]);
 
@@ -22,9 +22,9 @@ const Slider = () => {
         delay: 2500,
       }}
       slideActiveClass='swiper-slider-active'
-      grabCursor='true'
-      observer='true'
-      observeParents='true'
+      grabCursor={true}
+      observer={true}
+      observeParents={true}
       scrollbar={{ draggable: true }}
       mousewheel={{ invert: true }}
       breakpoints={{
@@ -52,7 +52,6 @@ const Slider = () => {
       }}
     >
       <SwiperSlide tag='a' href='https://en.wikipedia.org/wiki/Cycling' target='_blank' rel='noreferrer'>
-        {' '}
         <Image src={require('../images/slider/cycling.jpg').default} alt='cycling' />
         <SliderTitle>Cycling</SliderTitle>
       </SwiperSlide>

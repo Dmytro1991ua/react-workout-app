@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { colors, fadeInDown } from './GlobalStyles';
+import { colors, fadeInDown } from './GlobalStyles.styled';
 
 export const FormSection = styled.form`
   background-color: ${colors.lighterBlue};

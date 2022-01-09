@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { fadeInDown, colors } from './GlobalStyles';
+import { fadeInDown, colors } from './GlobalStyles.styled';
+
+interface LinkProps {
+  open?: boolean;
+}
 
 export const HeaderSection = styled.header`
   background-color: ${colors.lighterBlue};
@@ -41,7 +45,7 @@ export const HeaderSectionBody = styled.div`
 `;
 
 // Navigation
-export const List = styled.ul`
+export const List = styled('ul')<LinkProps>`
   position: absolute;
   top: 6.2rem;
   left: 0;
@@ -102,7 +106,7 @@ export const LinkLogout = styled.a`
 `;
 
 // Burger Menu
-export const BurgerMenu = styled.div`
+export const BurgerMenu = styled('div')<LinkProps>`
   width: 2rem;
   height: 2.5rem;
   position: fixed;

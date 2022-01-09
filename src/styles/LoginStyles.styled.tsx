@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { colors, fadeInDown } from './GlobalStyles';
+import { colors, fadeInDown } from './GlobalStyles.styled';
 import { WorkoutsSection } from './WorkoutsStyles.styled';
 
 export const FormSection = styled(WorkoutsSection)`

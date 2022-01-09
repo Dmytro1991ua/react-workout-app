@@ -8,7 +8,7 @@ const useGeolocation = () => {
   const { currentLocation } = useContext(WorkoutsContext);
   const [location, setLocation] = currentLocation;
 
-  const onSuccess = (location) => {
+  const onSuccess = (location: any) => {
     setLocation({
       loaded: true,
       coordinates: {
@@ -18,7 +18,7 @@ const useGeolocation = () => {
     });
   };
 
-  const onError = (errorMessage) => {
+  const onError = (errorMessage: any) => {
     setLocation({
       loaded: true,
       errorMessage,

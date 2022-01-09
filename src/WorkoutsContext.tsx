@@ -1,12 +1,27 @@
 import { createContext, useEffect, useState } from 'react';
 
-export const WorkoutsContext = createContext();
+interface WorkoutsProps {
+  id: string;
+  date: string;
+  coordinates: number[];
+  selectedValue: string;
+  distance: number;
+  duration: number;
+  cadence?: string;
+  elevationGain?: string;
+  pace?: number;
+  description?: string;
+  speed?: number;
+}
 
-export const WorkoutsProvider = (props) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const WorkoutsContext = createContext({} as any);
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const WorkoutsProvider = (props: any) => {
   // preloader "state"
   const [preloader, setPreloader] = useState(false);
   // burger menu, navigation, form "state"
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
   // current location (geolocation) "state"
   const [location, setLocation] = useState({
     loaded: false,
@@ -17,12 +32,12 @@ export const WorkoutsProvider = (props) => {
   // selected workout value from a from
   const [selectedValue, setSelectedValue] = useState('running');
   // workout form's(inputs values) releated "states"
-  const [distance, setDistance] = useState('');
-  const [duration, setDuration] = useState('');
+  const [distance, setDistance] = useState(0); // ''
+  const [duration, setDuration] = useState(0); // ''
   const [cadence, setCadence] = useState('');
   const [elevationGain, setElevationGain] = useState('');
   // workouts data recieved from a workout form "state"
-  const [workouts, setWorkouts] = useState([]);
+  const [workouts, setWorkouts] = useState<WorkoutsProps[]>([]);
   // clicked leaflet marker's coordinates
   const [markerCoordinates, setMakerCoordinates] = useState([]);
   // "state" of a submitting form in order to render Marker later on
@@ -69,9 +84,9 @@ export const WorkoutsProvider = (props) => {
   };
 
   // get a workout data from form inputs based on selected workout (either Running or Cycling)
-  const getWorkoutData = (selectedType) => {
+  const getWorkoutData = (selectedType: any) => {
     // workout data object(same for Running and Cycling) from workout form
-    const workoutData = {
+    const workoutData: WorkoutsProps = {
       id: (String(Date.now()) + '').slice(-10),
       date: new Date().toLocaleDateString(),
       coordinates: markerCoordinates.flat(),
@@ -126,13 +141,13 @@ export const WorkoutsProvider = (props) => {
   };
 
   // set workout array with objects to a locale storage (Running and Cycling objects)
-  const setLocaleStorage = (workoutData) => {
+  const setLocaleStorage = (workoutData: any) => {
     localStorage.setItem('workouts', JSON.stringify(workoutData));
   };
 
   //get(retrieve) workouts array with objects  from a localStorage and render it when a react app is loaded
   const getLocalstorage = () => {
-    const workoutsData = JSON.parse(localStorage.getItem('workouts'));
+    const workoutsData = JSON.parse(localStorage.getItem('workouts') || '[]');
 
     if (!workoutsData) return;
 

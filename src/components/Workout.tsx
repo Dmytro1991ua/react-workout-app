@@ -9,10 +9,10 @@ import {
   WorkoutTitle,
   WorkoutUnit,
   WorkoutValue,
-} from '../styles/WorkoutStyles';
+} from '../styles/WorkoutStyles.styled';
 import { WorkoutsContext } from '../WorkoutsContext';
 
-const Workout = ({ workout }) => {
+const Workout = ({ workout }: any) => {
   const { workoutsData, setStorage } = useContext(WorkoutsContext);
   const [workouts, setWorkouts] = workoutsData;
   const [setLocaleStorage] = setStorage;
@@ -20,8 +20,8 @@ const Workout = ({ workout }) => {
 
   const mapRef = useRef();
 
-  const handleClick = (event) => {
-    const clickedWorkout = workouts.find((workout) => workout.id === event.currentTarget.getAttribute('data-id'));
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    const clickedWorkout = workouts.find((workout: any) => workout.id === event.currentTarget.getAttribute('data-id'));
 
     // map.setView(clickedWorkout.coordinates, 13, {
     //   animate: true,
@@ -42,8 +42,8 @@ const Workout = ({ workout }) => {
   }, []);
 
   // delete a particular clicked workout from UI as well as localStorage
-  const handleRemoveWorkout = (workout) => {
-    const removedWorkout = workouts.filter((clickedWorkout) => clickedWorkout.id !== workout.id);
+  const handleRemoveWorkout = (workout: any) => {
+    const removedWorkout = workouts.filter((clickedWorkout: any) => clickedWorkout.id !== workout.id);
     setWorkouts(removedWorkout);
     setLocaleStorage(removedWorkout);
   };

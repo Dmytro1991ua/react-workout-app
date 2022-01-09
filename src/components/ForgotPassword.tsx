@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+
 import { useAuth } from '../AuthContext';
 import {
   FormSection,
@@ -12,24 +13,30 @@ import {
   Form,
   FormError,
   FormSuccess,
-} from '../styles/LoginStyles';
+} from '../styles/LoginStyles.styled';
 
 const ForgotPassword = () => {
   const emailRef = useRef();
   const [error, setError] = useState('');
+
+  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const { resetPassword } = useAuth();
 
-  async function handleSubmit(event) {
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    const email = event.target.value;
+    setEmail(email);
+  }
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
 
     try {
       setMessage('');
       setError('');
       setLoading(true);
-      await resetPassword(emailRef.current.value);
-      emailRef.current.value = '';
+      await resetPassword(email);
+      setEmail('');
       setMessage('Check your inbox for further instructions');
     } catch (error) {
       setError('Failed to reset password');
@@ -47,7 +54,7 @@ const ForgotPassword = () => {
         <FormBody>
           <FormDetails>
             <FormLabel htmlFor='email' />
-            <FormInput type='email' id='email' minlength='8' placeholder='Email*' required ref={emailRef} />
+            <FormInput type='email' id='email' placeholder='Email*' required onChange={handleInputChange} />
           </FormDetails>
           <FormBtn disabled={loading} type='submit'>
             Reset Password
