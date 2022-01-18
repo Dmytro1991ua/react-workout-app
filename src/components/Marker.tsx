@@ -5,10 +5,11 @@ import { MapConsumer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import '../leafletMap/LeafletStyles.css';
 import { WorkoutsContext } from '../WorkoutsContext';
+import MarkerImg from '../assets/images/leaflet/marker.png';
 
 //create a leaflet map marker
 const markerIcon = new L.Icon({
-  iconUrl: require('../images/leaflet/marker.png').default,
+  iconUrl: MarkerImg,
   iconSize: [50, 55],
   iconAnchor: [0, 60],
   popupAnchor: [23, -60],

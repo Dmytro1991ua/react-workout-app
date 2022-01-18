@@ -4,6 +4,7 @@ import { Container } from '../styles/GlobalStyles.styled';
 import { HeaderSection, HeaderSectionBody, Logo } from '../styles/HeaderStyles.styled';
 import BurgerIcon from './BurgerIcon';
 import Navigation from './Navigation';
+import LogoImg from '../assets/images/logo.png';
 
 const Header = () => {
   return (
@@ -11,7 +12,7 @@ const Header = () => {
       <Container>
         <HeaderSectionBody>
           <Link to='/'>
-            <Logo src={require('../images/logo.png').default} />
+            <Logo src={LogoImg} />
           </Link>
           <BurgerIcon />
           <Navigation />

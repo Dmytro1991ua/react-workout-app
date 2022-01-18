@@ -18,8 +18,6 @@ const Workout = ({ workout }: any) => {
   const [setLocaleStorage] = setStorage;
   const { description, selectedValue, distance, duration, speed, pace, cadence, elevationGain, id } = workout;
 
-  const mapRef = useRef();
-
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     const clickedWorkout = workouts.find((workout: any) => workout.id === event.currentTarget.getAttribute('data-id'));
 

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { ReactElement, useContext } from 'react';
 
 import {
   FeaturesTitle,
@@ -12,7 +12,7 @@ import Form from './Form';
 import Workout from './Workout';
 import WorkoutsMap from './WorkoutsMap';
 
-const Workouts = () => {
+const Workouts = (): ReactElement => {
   // destructure certain "states" from Context
   const { form, workoutsData } = useContext(WorkoutsContext);
   const [showForm] = form;

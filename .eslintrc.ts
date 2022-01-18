@@ -41,6 +41,7 @@ module.exports = {
         allow: ['warn', 'error'],
       },
     ],
+    '@typescript-eslint/no-explicit-any': ['error'],
     'react/display-name': 'off',
     'react/self-closing-comp': [
       'error',
