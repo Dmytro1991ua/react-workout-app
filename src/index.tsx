@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './App';
-import { AuthContextProvider } from './AuthContext';
-import { WorkoutsProvider } from './WorkoutsContext';
+import { AuthContextProvider } from './context/AuthContext';
+import { WorkoutsProvider } from './context/WorkoutsContext';
 
 ReactDOM.render(
   <WorkoutsProvider>

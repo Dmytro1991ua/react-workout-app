@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 
-import { WorkoutsContext } from '../WorkoutsContext';
+import { WorkoutsContext } from '../context/WorkoutsContext';
 
 //custom hook to get a user's current location
 const useGeolocation = () => {

@@ -55,6 +55,11 @@
       "pre-commit": "lint-staged"
     }
   },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
