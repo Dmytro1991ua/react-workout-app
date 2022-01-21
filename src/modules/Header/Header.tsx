@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
-import { Container } from '../../styles/GlobalStyles.styled';
-import { HeaderSection, HeaderSectionBody, Logo } from '../../styles/HeaderStyles.styled';
+import { Container } from '../../global-styles/GlobalStyles.styled';
+import { HeaderSection, HeaderSectionBody, Logo } from './HeaderStyles.styled';
 import BurgerIcon from './components/BurgerIcon/BurgerIcon';
 import Navigation from './components/Navigation/Navigation';
 import LogoImg from '../../assets/images/logo.png';

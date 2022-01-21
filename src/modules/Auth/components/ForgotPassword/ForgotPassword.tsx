@@ -14,7 +14,7 @@ import {
   Form,
   FormError,
   FormSuccess,
-} from '../../../../styles/LoginStyles.styled';
+} from '../LoginForm/LoginStyles.styled';
 
 const ForgotPassword = () => {
   const emailRef = useRef();

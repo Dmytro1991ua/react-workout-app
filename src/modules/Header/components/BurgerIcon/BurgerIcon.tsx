@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { BurgerMenu } from '../../../../styles/HeaderStyles.styled';
+import { BurgerMenu } from '../../HeaderStyles.styled';
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 
 const BurgerIcon = () => {

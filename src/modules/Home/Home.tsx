@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 
-import { HomeBtn, HomeSection, HomeSectionBody, HomeTitle } from '../../styles/HomeStyles.styled';
+import { HomeBtn, HomeSection, HomeSectionBody, HomeTitle } from './HomeStyles.styled';
 
 import Slider from './components/Slider/Slider';
-import '../../styles/Slider.css';
+import './components/Slider/Slider.css';
 import SectionsTitle from '../../components/SectionTitle/SectionsTitle';
 
 const Home = (): ReactElement => {

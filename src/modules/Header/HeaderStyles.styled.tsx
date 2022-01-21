@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { fadeInDown, colors } from './GlobalStyles.styled';
+import { fadeInDown, colors } from '../../global-styles/GlobalStyles.styled';
 
 interface LinkProps {
   open?: boolean;

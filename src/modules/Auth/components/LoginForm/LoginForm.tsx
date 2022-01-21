@@ -14,7 +14,7 @@ import {
   FormLink,
   Form,
   FormError,
-} from '../../../../styles/LoginStyles.styled';
+} from './LoginStyles.styled';
 
 const LoginForm = () => {
   const [formValues, setFormValues] = useState({ email: '', password: '' });

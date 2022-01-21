@@ -9,7 +9,7 @@ import {
   WorkoutTitle,
   WorkoutUnit,
   WorkoutValue,
-} from '../../../../styles/WorkoutStyles.styled';
+} from './WorkoutStyles.styled';
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 
 const Workout = ({ workout }: any) => {
