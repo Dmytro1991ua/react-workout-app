@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
-import { HomeBtn, HomeSection, HomeSectionBody, HomeTitle } from '../styles/HomeStyles.styled';
-import SectionsTitle from './SectionsTitle';
-import Slider from './Slider';
-import '../styles/Slider.css';
+import { HomeBtn, HomeSection, HomeSectionBody, HomeTitle } from '../../styles/HomeStyles.styled';
 
-const Home = () => {
+import Slider from './components/Slider/Slider';
+import '../../styles/Slider.css';
+import SectionsTitle from '../../components/SectionTitle/SectionsTitle';
+
+const Home = (): ReactElement => {
   return (
     <HomeSection>
       <HomeSectionBody>

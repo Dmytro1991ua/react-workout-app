@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
-import { BurgerMenu } from '../styles/HeaderStyles.styled';
-import { WorkoutsContext } from '../WorkoutsContext';
+import { BurgerMenu } from '../../../../styles/HeaderStyles.styled';
+import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 
 const BurgerIcon = () => {
   //destructure burger menu and navigation "state"

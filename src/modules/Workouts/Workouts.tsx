@@ -6,11 +6,11 @@ import {
   Map,
   WorkoutsSection,
   WorkoutsSectionBody,
-} from '../styles/WorkoutsStyles.styled';
-import { WorkoutsContext } from '../WorkoutsContext';
-import Form from './Form';
-import Workout from './Workout';
-import WorkoutsMap from './WorkoutsMap';
+} from '../../styles/WorkoutsStyles.styled';
+import { WorkoutsContext } from '../../context/WorkoutsContext';
+import Form from './components/WorkoutForm/Form';
+import Workout from './components/Workout/Workout';
+import WorkoutsMap from './components/WorkoutsMap';
 
 const Workouts = (): ReactElement => {
   // destructure certain "states" from Context

@@ -9,8 +9,8 @@ import {
   WorkoutTitle,
   WorkoutUnit,
   WorkoutValue,
-} from '../styles/WorkoutStyles.styled';
-import { WorkoutsContext } from '../WorkoutsContext';
+} from '../../../../styles/WorkoutStyles.styled';
+import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 
 const Workout = ({ workout }: any) => {
   const { workoutsData, setStorage } = useContext(WorkoutsContext);

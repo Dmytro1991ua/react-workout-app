@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { AppRoutes } from '../../../../App.enums';
 
-import { useAuth } from '../AuthContext';
+import { useAuth } from '../../../../context/AuthContext';
 import {
   FormSection,
   FormSectionTitle,
@@ -13,7 +14,7 @@ import {
   FormLink,
   Form,
   FormError,
-} from '../styles/LoginStyles.styled';
+} from '../../../../styles/LoginStyles.styled';
 
 const LoginForm = () => {
   const [formValues, setFormValues] = useState({ email: '', password: '' });
@@ -37,7 +38,7 @@ const LoginForm = () => {
       setError('');
       setLoading(true);
       await login(formValues.email, formValues.password);
-      history.push('/workouts'); // after user done login in and it was successfull => redirect to workouts page
+      history.push(AppRoutes.Workouts); // after user done login in and it was successfull => redirect to workouts page
     } catch (error) {
       setError('Failed to sign in');
     }
@@ -80,8 +81,8 @@ const LoginForm = () => {
           <FormBtn disabled={loading} type='submit'>
             Sign In
           </FormBtn>
-          <FormLink to='/signup'>Don&apos;t have an account?</FormLink>
-          <FormLink to='/forgot-password'>Forgot a password?</FormLink>
+          <FormLink to={{ pathname: AppRoutes.SignUp }}>Don&apos;t have an account?</FormLink>
+          <FormLink to={{ pathname: AppRoutes.ForgotPassword }}>Forgot a password?</FormLink>
         </FormBody>
       </Form>
     </FormSection>

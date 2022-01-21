@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import { createContext, ReactElement, useContext, useEffect, useState } from 'react';
 
-import { auth } from './firebase';
+import { auth } from '../firebase';
 
 interface AuthContextProviderProps {
   children: React.ReactNode;

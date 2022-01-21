@@ -3,11 +3,11 @@ import 'leaflet/dist/leaflet.css';
 import React, { useContext, useEffect } from 'react';
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 
-import useGeolocation from '../hooks/useGeolocation';
-import { leafletDetails } from '../leafletMap/leafletMap';
-import '../leafletMap/LeafletStyles.css';
-import { WorkoutsContext } from '../WorkoutsContext';
-import Marker from './Marker';
+import useGeolocation from '../../../hooks/useGeolocation';
+import { leafletDetails } from '../../leafletMap/leafletMap';
+import '../../leafletMap/leafletStyles.css';
+import { WorkoutsContext } from '../../../context/WorkoutsContext';
+import Marker from './Marker/Marker';
 
 const WorkoutsMap = () => {
   // destructure certain "states" from Context

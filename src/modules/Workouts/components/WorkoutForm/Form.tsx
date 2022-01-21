@@ -1,10 +1,17 @@
 import React, { useContext } from 'react';
 
-import { FormButton, FormInput, FormLabel, FormRow, FormSection, FormSelect } from '../styles/FormStyles.styled';
-import { WorkoutsContext } from '../WorkoutsContext';
+import {
+  FormButton,
+  FormInput,
+  FormLabel,
+  FormRow,
+  FormSection,
+  FormSelect,
+} from '../../../../styles/FormStyles.styled';
+import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 
 import 'leaflet/dist/leaflet.css';
-import '../leafletMap/LeafletStyles.css';
+import '../../../leafletMap/leafletStyles.css';
 
 const Form = () => {
   // destructure selected workout's value, workouts data "states"

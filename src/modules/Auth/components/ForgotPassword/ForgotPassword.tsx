@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
+import { AppRoutes } from '../../../../App.enums';
 
-import { useAuth } from '../AuthContext';
+import { useAuth } from '../../../../context/AuthContext';
 import {
   FormSection,
   FormSectionTitle,
@@ -13,7 +14,7 @@ import {
   Form,
   FormError,
   FormSuccess,
-} from '../styles/LoginStyles.styled';
+} from '../../../../styles/LoginStyles.styled';
 
 const ForgotPassword = () => {
   const emailRef = useRef();
@@ -59,8 +60,8 @@ const ForgotPassword = () => {
           <FormBtn disabled={loading} type='submit'>
             Reset Password
           </FormBtn>
-          <FormLink to='/login'>Log In</FormLink>
-          <FormLink to='/signup'>Don&apos;t have an account?</FormLink>
+          <FormLink to={{ pathname: AppRoutes.Login }}>Log In</FormLink>
+          <FormLink to={{ pathname: AppRoutes.SignUp }}>Don&apos;t have an account?</FormLink>
         </FormBody>
       </Form>
     </FormSection>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { AppRoutes } from '../../../../App.enums';
 
-import { useAuth } from '../AuthContext';
+import { useAuth } from '../../../../context/AuthContext';
 import {
   FormSection,
   FormDetails,
@@ -10,8 +11,8 @@ import {
   Form,
   FormError,
   FormSectionTitle,
-} from '../styles/LoginStyles.styled';
-import { SignUpBody, SignUpInput, SignUpBtn } from '../styles/SignUpStyles.styled';
+} from '../../../../styles/LoginStyles.styled';
+import { SignUpBody, SignUpInput, SignUpBtn } from '../../../../styles/SignUpStyles.styled';
 
 const SignUp = () => {
   const [formValues, setFormValues] = useState({
@@ -41,7 +42,7 @@ const SignUp = () => {
       setError('');
       setLoading(true);
       await signup(formValues.email, formValues.password);
-      history.push('/login'); // after user done sign up and it was successfull => redirect to workouts page
+      history.push(AppRoutes.Login); // after user done sign up and it was successfull => redirect to workouts page
     } catch (error) {
       setError('Failed to create an account');
     }
@@ -94,7 +95,7 @@ const SignUp = () => {
           <SignUpBtn disabled={loading} type='submit'>
             Sign Up
           </SignUpBtn>
-          <FormLink to='/login'>Already have an account?</FormLink>
+          <FormLink to={{ pathname: AppRoutes.Login }}>Already have an account?</FormLink>
         </SignUpBody>
       </Form>
     </FormSection>

@@ -3,9 +3,9 @@ import React, { ReactElement, useContext } from 'react';
 import { MapConsumer } from 'react-leaflet';
 
 import 'leaflet/dist/leaflet.css';
-import '../leafletMap/LeafletStyles.css';
-import { WorkoutsContext } from '../WorkoutsContext';
-import MarkerImg from '../assets/images/leaflet/marker.png';
+import '../../../leafletMap/leafletStyles.css';
+import { WorkoutsContext } from '../../../../context/WorkoutsContext';
+import MarkerImg from '../../../../assets/images/leaflet/marker.png';
 
 //create a leaflet map marker
 const markerIcon = new L.Icon({
