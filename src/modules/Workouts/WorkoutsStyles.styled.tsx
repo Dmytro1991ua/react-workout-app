@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { colors, fadeInDown } from './GlobalStyles.styled';
+import { colors, fadeInDown } from '../../global-styles/GlobalStyles.styled';
 
 export const WorkoutsSection = styled.section`
   min-height: 100vh;

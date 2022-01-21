@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { colors, fadeInDown } from './GlobalStyles.styled';
-import { WorkoutsSection } from './WorkoutsStyles.styled';
+import { colors, fadeInDown } from '../../../../global-styles/GlobalStyles.styled';
+import { WorkoutsSection } from '../../../Workouts/WorkoutsStyles.styled';
 
 export const FormSection = styled(WorkoutsSection)`
   border: none;
@@ -45,6 +45,7 @@ export const FormBody = styled.div`
 
 export const FormDetails = styled.div`
   margin-bottom: 5rem;
+
   &:last-of-type {
     margin-bottom: 3rem;
   }

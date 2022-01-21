@@ -94,7 +94,6 @@ export const rotation = keyframes`
     transform: rotate(90deg);
     background-color:#09f;
   }
-  
 `;
 
 export const rotationA = keyframes`

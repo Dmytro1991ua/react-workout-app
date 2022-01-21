@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import HeroImgBig from '../assets/images/home/home-big.jpg';
-import HeroImgSmall from '../assets/images/home/home-small.jpg';
-import { colors, bounceInLeft } from './GlobalStyles.styled';
+import HeroImgBig from '../../assets/images/home/home-big.jpg';
+import HeroImgSmall from '../../assets/images/home/home-small.jpg';
+import { colors, bounceInLeft } from '../../global-styles/GlobalStyles.styled';
 
 export const HomeSection = styled.section`
   min-height: 100vh;

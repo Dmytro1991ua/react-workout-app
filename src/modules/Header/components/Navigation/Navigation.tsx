@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useAuth } from '../../../../context/AuthContext';
-import { LinkLogout, List, ListItem, ListLink } from '../../../../styles/HeaderStyles.styled';
+import { LinkLogout, List, ListItem, ListLink } from '../../HeaderStyles.styled';
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 import { AppRoutes } from '../../../../App.enums';
 

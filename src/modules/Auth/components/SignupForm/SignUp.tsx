@@ -11,8 +11,8 @@ import {
   Form,
   FormError,
   FormSectionTitle,
-} from '../../../../styles/LoginStyles.styled';
-import { SignUpBody, SignUpInput, SignUpBtn } from '../../../../styles/SignUpStyles.styled';
+} from '../LoginForm/LoginStyles.styled';
+import { SignUpBody, SignUpInput, SignUpBtn } from './SignUpStyles.styled';
 
 const SignUp = () => {
   const [formValues, setFormValues] = useState({
