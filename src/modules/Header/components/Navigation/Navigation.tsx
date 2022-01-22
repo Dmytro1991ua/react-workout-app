@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { useAuth } from '../../../../context/AuthContext';
-import { LinkLogout, List, ListItem, ListLink } from '../../HeaderStyles.styled';
+import { CustomDumbbellIcon, CustomHomeIcon, CustomLogoutIcon, List, ListItem } from '../../HeaderStyles.styled';
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 import { AppRoutes } from '../../../../App.enums';
 
@@ -39,31 +39,30 @@ const Navigation = () => {
 
   const handleLogout = () => {
     logout();
-    history.push(AppRoutes.Login);
+    // history.push(AppRoutes.Login);
   };
 
   return (
     <List open={open}>
       <ListItem>
-        <ListLink to={{ pathname: AppRoutes.Home }} onClick={handleClick}>
-          Home
-        </ListLink>
+        <Link to={{ pathname: AppRoutes.Home }}>
+          <CustomHomeIcon />
+        </Link>
       </ListItem>
       <ListItem>
-        <ListLink to={{ pathname: AppRoutes.Workouts }} onClick={handleClick}>
-          Workouts
-        </ListLink>
+        <Link to={{ pathname: AppRoutes.Workouts }}>
+          <CustomDumbbellIcon />
+        </Link>
       </ListItem>
       <ListItem>
-        <LinkLogout
-          href='#'
+        <Link
+          to={{ pathname: AppRoutes.Login }}
           onClick={() => {
-            handleClick();
             handleLogout();
           }}
         >
-          Logout
-        </LinkLogout>
+          <CustomLogoutIcon />
+        </Link>
       </ListItem>
     </List>
   );

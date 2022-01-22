@@ -1,11 +1,24 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Dumbbell } from '@styled-icons/fluentui-system-filled/Dumbbell';
 
 import { fadeInDown, colors } from '../../global-styles/GlobalStyles.styled';
+
+import { LogOut } from 'styled-icons/boxicons-regular';
+import { Home } from 'styled-icons/entypo';
 
 interface LinkProps {
   open?: boolean;
 }
+
+const CommonNavigationIconStyles = `
+  fill: ${colors.mantis};
+  width: 3rem;
+  transition: all 0.3s ease-in-out;
+
+  :hover {
+    fill: ${colors.white};
+}`;
 
 export const HeaderSection = styled.header`
   background-color: ${colors.lighterBlue};
@@ -80,29 +93,22 @@ export const ListItem = styled.li`
   }
   @media (min-width: 28em) {
     &:not(:last-child) {
-      margin-right: 1rem;
+      margin-right: 3rem;
       margin-bottom: 0rem;
     }
   }
 `;
-export const ListLink = styled(Link)`
-  font-size: clamp(1.2rem, 1.8rem, 4rem);
-  color: ${colors.mantis};
-  transition: all 0.3s ease-in-out;
-  text-transform: uppercase;
-  :hover {
-    color: ${colors.white};
-  }
+
+export const CustomDumbbellIcon = styled(Dumbbell)`
+  ${CommonNavigationIconStyles}
 `;
 
-export const LinkLogout = styled.a`
-  font-size: clamp(1.2rem, 1.8rem, 4rem);
-  color: ${colors.mantis};
-  transition: all 0.3s ease-in-out;
-  text-transform: uppercase;
-  :hover {
-    color: ${colors.white};
-  }
+export const CustomHomeIcon = styled(Home)`
+  ${CommonNavigationIconStyles}
+`;
+
+export const CustomLogoutIcon = styled(LogOut)`
+  ${CommonNavigationIconStyles}
 `;
 
 // Burger Menu
