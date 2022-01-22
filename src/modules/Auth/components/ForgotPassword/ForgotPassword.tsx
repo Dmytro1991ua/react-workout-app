@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { AppRoutes } from '../../../../App.enums';
 
-import { useAuth } from '../../../../context/AuthContext';
+import { authService } from '../Auth.service';
 import {
   FormSection,
   FormSectionTitle,
@@ -23,7 +23,6 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const { resetPassword } = useAuth();
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const email = event.target.value;
@@ -36,7 +35,7 @@ const ForgotPassword = () => {
       setMessage('');
       setError('');
       setLoading(true);
-      await resetPassword(email);
+      await authService.resetPassword(email);
       setEmail('');
       setMessage('Check your inbox for further instructions');
     } catch (error) {

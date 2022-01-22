@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppRoutes } from '../../../../App.enums';
 
-import { useAuth } from '../../../../context/AuthContext';
+import { authService } from '../Auth.service';
 import {
   FormSection,
   FormSectionTitle,
@@ -21,7 +21,6 @@ const LoginForm = () => {
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
   const history = useHistory();
 
   function handleFormValuesChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -37,7 +36,7 @@ const LoginForm = () => {
     try {
       setError('');
       setLoading(true);
-      await login(formValues.email, formValues.password);
+      await authService.login(formValues.email, formValues.password);
       history.push(AppRoutes.Workouts); // after user done login in and it was successfull => redirect to workouts page
     } catch (error) {
       setError('Failed to sign in');

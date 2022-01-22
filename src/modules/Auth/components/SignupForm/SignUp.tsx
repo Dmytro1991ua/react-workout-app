@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppRoutes } from '../../../../App.enums';
 
-import { useAuth } from '../../../../context/AuthContext';
+import { authService } from '../Auth.service';
 import {
   FormSection,
   FormDetails,
@@ -23,7 +23,6 @@ const SignUp = () => {
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signup } = useAuth();
   const history = useHistory();
 
   function handleFormValuesChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -41,7 +40,7 @@ const SignUp = () => {
     try {
       setError('');
       setLoading(true);
-      await signup(formValues.email, formValues.password);
+      await authService.signUp(formValues.email, formValues.password);
       history.push(AppRoutes.Login); // after user done sign up and it was successfull => redirect to workouts page
     } catch (error) {
       setError('Failed to create an account');
