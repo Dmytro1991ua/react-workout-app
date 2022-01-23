@@ -29,7 +29,7 @@ const useGeolocation = () => {
     if (!navigator.geolocation)
       return onError({
         code: 0,
-        errorMessage: 'Geolocation not suppoeted',
+        errorMessage: 'Geolocation not supported',
       });
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
   }, []);

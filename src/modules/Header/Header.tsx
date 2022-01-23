@@ -1,20 +1,29 @@
 import { Link } from 'react-router-dom';
 
-import { Container } from '../../global-styles/GlobalStyles.styled';
+import { colors, Container } from '../../global-styles/GlobalStyles.styled';
 import { HeaderSection, HeaderSectionBody, Logo } from './HeaderStyles.styled';
 import BurgerIcon from './components/BurgerIcon/BurgerIcon';
 import Navigation from './components/Navigation/Navigation';
 import LogoImg from '../../assets/images/logo.png';
 import { AppRoutes } from '../../App.enums';
+import Tooltip from '../../components/Tooltip/Tooltip';
 
 const Header = () => {
   return (
     <HeaderSection>
       <Container>
         <HeaderSectionBody>
-          <Link to={{ pathname: AppRoutes.Home }}>
+          <Link data-tip='Your workout buddy' to={{ pathname: AppRoutes.Home }}>
             <Logo src={LogoImg} />
           </Link>
+          <Tooltip
+            effect='solid'
+            backgroundColor={colors.mantisDarker}
+            textColor={colors.darkBlue}
+            border={true}
+            borderColor={colors.white}
+            arrowColor={colors.mantisDarker}
+          />
           <BurgerIcon />
           <Navigation />
         </HeaderSectionBody>
