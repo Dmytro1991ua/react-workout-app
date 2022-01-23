@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { List, ListItem } from '../../HeaderStyles.styled';
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 import { navigationConfig } from './Navigation.config';
+import Tooltip from './../../../../components/Tooltip/Tooltip';
+import { colors } from '../../../../global-styles/GlobalStyles.styled';
 
 const Navigation = () => {
   //destructure burger menu and navigation "state"
@@ -15,9 +17,22 @@ const Navigation = () => {
       {navigationConfig.map((navLink) => {
         return (
           <ListItem>
-            <Link key={navLink.id} to={{ pathname: navLink.url }} onClick={navLink.onClick}>
+            <Link
+              key={navLink.id}
+              data-tip={navLink['data-tip']}
+              to={{ pathname: navLink.url }}
+              onClick={navLink.onClick}
+            >
               {navLink.navigationIcon}
             </Link>
+            <Tooltip
+              effect='solid'
+              backgroundColor={colors.mantisDarker}
+              textColor={colors.darkBlue}
+              border={true}
+              borderColor={colors.white}
+              arrowColor={colors.mantisDarker}
+            />
           </ListItem>
         );
       })}

@@ -17,7 +17,7 @@ class AuthService {
     }
   }
 
-  async logout() {
+  async logout(): Promise<void> {
     try {
       await auth.signOut();
     } catch (error) {
@@ -25,7 +25,7 @@ class AuthService {
     }
   }
 
-  async resetPassword(email: string) {
+  async resetPassword(email: string): Promise<void> {
     try {
       await auth.sendPasswordResetEmail(email);
     } catch (error) {
