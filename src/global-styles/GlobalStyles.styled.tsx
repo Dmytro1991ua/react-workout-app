@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle, keyframes } from 'styled-components';
+import { ToastContainer } from 'react-toastify';
 
 //Global styles
 export const GlobalStyles = createGlobalStyle`
@@ -48,6 +49,20 @@ export const GlobalStyles = createGlobalStyle`
   }
 `;
 
+export const colors = {
+  black: '#000',
+  white: '#fff',
+  powderAsh: '#c1c7c5',
+  darkBlue: '#090c1b',
+  mantis: '#7ac142',
+  mantisDarker: ' #5a803d',
+  lighterBlue: '#153c6b',
+  brightGreen: '#60f702 ',
+  tomato: '#ff6347',
+  errorBg: '#f27f6b',
+  error: '#821805',
+};
+
 export const Wrapper = styled.div`
   min-height: 100vh;
   overflow: hidden;
@@ -65,19 +80,29 @@ export const Container = styled.div`
   }
 `;
 
-export const colors = {
-  black: '#000',
-  white: '#fff',
-  powderAsh: '#c1c7c5',
-  darkBlue: '#090c1b',
-  mantis: '#7ac142',
-  mantisDarker: ' #5a803d',
-  lighterBlue: '#153c6b',
-  brightGreen: '#60f702 ',
-  tomato: '#ff6347',
-  errorBg: '#f27f6b',
-  error: '#821805',
-};
+export const CustomToastContainer = styled(ToastContainer)`
+  &.Toastify__toast-container {
+    width: fit-content;
+    min-width: 350px;
+    padding: 0;
+  }
+
+  .Toastify__toast-theme--dark {
+    background-color: ${colors.darkBlue};
+    border-radius: 1.2rem;
+    border: 3px solid ${colors.mantisDarker};
+  }
+
+  .Toastify__close-button {
+    align-self: center;
+    color: ${colors.mantisDarker};
+  }
+
+  .Toastify__close-button > svg {
+    width: 2rem;
+    height: 2.2rem;
+  }
+`;
 
 // Animations
 export const rotation = keyframes`

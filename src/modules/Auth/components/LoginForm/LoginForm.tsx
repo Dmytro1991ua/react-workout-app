@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppRoutes } from '../../../../App.enums';
 
-import { authService } from '../Auth.service';
+import { authService } from '../../Auth.service';
 import {
   FormSection,
   FormSectionTitle,
@@ -13,14 +13,11 @@ import {
   FormBody,
   FormLink,
   Form,
-  FormError,
 } from './LoginStyles.styled';
 
 const LoginForm = () => {
   const [formValues, setFormValues] = useState({ email: '', password: '' });
 
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   function handleFormValuesChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -33,22 +30,13 @@ const LoginForm = () => {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    try {
-      setError('');
-      setLoading(true);
-      await authService.login(formValues.email, formValues.password);
-      history.push(AppRoutes.Workouts); // after user done login in and it was successfull => redirect to workouts page
-    } catch (error) {
-      setError('Failed to sign in');
-    }
-
-    setLoading(false);
+    await authService.login(formValues.email, formValues.password);
+    history.push(AppRoutes.Workouts);
   }
 
   return (
     <FormSection>
       <FormSectionTitle>Log In</FormSectionTitle>
-      {error && <FormError>{error}</FormError>}
       <Form onSubmit={handleSubmit}>
         <FormBody>
           <FormDetails>
@@ -77,9 +65,7 @@ const LoginForm = () => {
               value={formValues.password}
             />
           </FormDetails>
-          <FormBtn disabled={loading} type='submit'>
-            Sign In
-          </FormBtn>
+          <FormBtn type='submit'>Sign In</FormBtn>
           <FormLink to={{ pathname: AppRoutes.SignUp }}>Don&apos;t have an account?</FormLink>
           <FormLink to={{ pathname: AppRoutes.ForgotPassword }}>Forgot a password?</FormLink>
         </FormBody>
