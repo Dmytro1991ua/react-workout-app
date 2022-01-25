@@ -16,7 +16,7 @@ const Navigation = () => {
     <List open={open}>
       {navigationConfig.map((navLink) => {
         return (
-          <ListItem>
+          <ListItem key={navLink.id}>
             <Link
               key={navLink.id}
               data-tip={navLink['data-tip']}

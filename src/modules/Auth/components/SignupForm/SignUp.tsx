@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppRoutes } from '../../../../App.enums';
+import { PASSWORD_MISMATCH } from '../../Auth.constants';
 
-import { authService } from '../Auth.service';
+import { authService } from '../../Auth.service';
 import {
   FormSection,
   FormDetails,
@@ -22,7 +23,7 @@ const SignUp = () => {
   });
 
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+
   const history = useHistory();
 
   function handleFormValuesChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -35,18 +36,10 @@ const SignUp = () => {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (formValues.password !== formValues.confirmedPassword) return setError('Password do not match');
+    if (formValues.password !== formValues.confirmedPassword) return setError(PASSWORD_MISMATCH);
 
-    try {
-      setError('');
-      setLoading(true);
-      await authService.signUp(formValues.email, formValues.password);
-      history.push(AppRoutes.Login); // after user done sign up and it was successfull => redirect to workouts page
-    } catch (error) {
-      setError('Failed to create an account');
-    }
-
-    setLoading(false);
+    await authService.signUp(formValues.email, formValues.password);
+    history.push(AppRoutes.Login);
   }
 
   return (
@@ -91,9 +84,7 @@ const SignUp = () => {
               required
             />
           </FormDetails>
-          <SignUpBtn disabled={loading} type='submit'>
-            Sign Up
-          </SignUpBtn>
+          <SignUpBtn type='submit'>Sign Up</SignUpBtn>
           <FormLink to={{ pathname: AppRoutes.Login }}>Already have an account?</FormLink>
         </SignUpBody>
       </Form>
