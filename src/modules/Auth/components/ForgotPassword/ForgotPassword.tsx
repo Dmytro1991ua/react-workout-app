@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AppRoutes } from '../../../../App.enums';
+import Button from '../../../../components/Button/Button';
 
 import { authService } from '../../Auth.service';
 import {
@@ -8,7 +9,6 @@ import {
   FormDetails,
   FormLabel,
   FormInput,
-  FormBtn,
   FormBody,
   FormLink,
   Form,
@@ -22,9 +22,7 @@ const ForgotPassword = () => {
     setEmail(email);
   }
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>): Promise<void> {
-    event.preventDefault();
-
+  async function handleSubmit(): Promise<void> {
     await authService.resetPassword(email);
   }
 
@@ -37,7 +35,16 @@ const ForgotPassword = () => {
             <FormLabel htmlFor='email' />
             <FormInput type='email' id='email' placeholder='Email*' required onChange={handleInputChange} />
           </FormDetails>
-          <FormBtn type='submit'>Reset Password</FormBtn>
+          <Button
+            type='submit'
+            fullWidth
+            backgroundColor='mantis'
+            hoverColor='mantisDarker'
+            color='white'
+            onClick={handleSubmit}
+          >
+            Reset Password
+          </Button>
           <FormLink to={{ pathname: AppRoutes.Login }}>Log In</FormLink>
           <FormLink to={{ pathname: AppRoutes.SignUp }}>Don&apos;t have an account?</FormLink>
         </FormBody>

@@ -63,6 +63,7 @@ export const HomeBtn = styled(Link)`
   &:active {
     transform: translateY(0rem);
   }
+
   @media (min-width: 45em) {
     padding: 2rem 2.2rem;
     font-weight: 700;
