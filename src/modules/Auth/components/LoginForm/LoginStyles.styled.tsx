@@ -68,30 +68,14 @@ export const FormInput = styled.input`
   }
 `;
 
-export const FormBtn = styled.button`
-  width: 100%;
-  font-size: 1.7rem;
-  text-transform: uppercase;
-  border: none;
-  padding: 1rem;
-  border-radius: 1.2rem;
-  background-color: ${colors.mantisDarker};
-  color: ${colors.white};
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
-  margin-bottom: 2rem;
-
-  &:hover {
-    background-color: ${colors.mantis};
-  }
-`;
-
 export const FormLink = styled(Link)`
   display: block;
   color: ${colors.white};
   text-align: center;
   text-decoration: underline;
+
   &:not(:last-child) {
+    margin-top: 2rem;
     margin-bottom: 1rem;
   }
 `;

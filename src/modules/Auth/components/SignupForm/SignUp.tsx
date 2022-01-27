@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppRoutes } from '../../../../App.enums';
+import Button from '../../../../components/Button/Button';
 import { PASSWORD_MISMATCH } from '../../Auth.constants';
 
 import { authService } from '../../Auth.service';
@@ -8,12 +9,11 @@ import {
   FormSection,
   FormDetails,
   FormLabel,
-  FormLink,
   Form,
   FormError,
   FormSectionTitle,
 } from '../LoginForm/LoginStyles.styled';
-import { SignUpBody, SignUpInput, SignUpBtn } from './SignUpStyles.styled';
+import { SignUpBody, SignUpInput, SignUpLink } from './SignUpStyles.styled';
 
 const SignUp = () => {
   const [formValues, setFormValues] = useState({
@@ -26,16 +26,14 @@ const SignUp = () => {
 
   const history = useHistory();
 
-  function handleFormValuesChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleFormValuesChange(event: React.ChangeEvent<HTMLInputElement>): void {
     setFormValues((formValues) => ({
       ...formValues,
       [event.target.name]: event.target.value,
     }));
   }
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
+  async function handleSubmit(): Promise<void> {
     if (formValues.password !== formValues.confirmedPassword) return setError(PASSWORD_MISMATCH);
 
     await authService.signUp(formValues.email, formValues.password);
@@ -84,8 +82,17 @@ const SignUp = () => {
               required
             />
           </FormDetails>
-          <SignUpBtn type='submit'>Sign Up</SignUpBtn>
-          <FormLink to={{ pathname: AppRoutes.Login }}>Already have an account?</FormLink>
+          <Button
+            type='submit'
+            fullWidth
+            backgroundColor='lighterBlue'
+            hoverColor='mantisDarker'
+            color='white'
+            onClick={handleSubmit}
+          >
+            Sign Up
+          </Button>
+          <SignUpLink to={{ pathname: AppRoutes.Login }}>Already have an account?</SignUpLink>
         </SignUpBody>
       </Form>
     </FormSection>

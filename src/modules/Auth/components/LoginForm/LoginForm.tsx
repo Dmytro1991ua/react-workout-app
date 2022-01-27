@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppRoutes } from '../../../../App.enums';
+import Button from '../../../../components/Button/Button';
 
 import { authService } from '../../Auth.service';
 import {
@@ -9,7 +10,6 @@ import {
   FormDetails,
   FormLabel,
   FormInput,
-  FormBtn,
   FormBody,
   FormLink,
   Form,
@@ -20,16 +20,14 @@ const LoginForm = () => {
 
   const history = useHistory();
 
-  function handleFormValuesChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleFormValuesChange(event: React.ChangeEvent<HTMLInputElement>): void {
     setFormValues((formValues) => ({
       ...formValues,
       [event.target.name]: event.target.value,
     }));
   }
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
+  async function handleSubmit(): Promise<void> {
     await authService.login(formValues.email, formValues.password);
     history.push(AppRoutes.Workouts);
   }
@@ -65,7 +63,16 @@ const LoginForm = () => {
               value={formValues.password}
             />
           </FormDetails>
-          <FormBtn type='submit'>Sign In</FormBtn>
+          <Button
+            type='submit'
+            fullWidth
+            backgroundColor='mantisDarker'
+            hoverColor='mantis'
+            color='white'
+            onClick={handleSubmit}
+          >
+            Sign In
+          </Button>
           <FormLink to={{ pathname: AppRoutes.SignUp }}>Don&apos;t have an account?</FormLink>
           <FormLink to={{ pathname: AppRoutes.ForgotPassword }}>Forgot a password?</FormLink>
         </FormBody>
