@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { colors } from '../../../../global-styles/GlobalStyles.styled';
-import { FormBody, FormInput, FormLink } from '../LoginForm/LoginStyles.styled';
+import { FormBody, FormLink } from '../LoginForm/LoginStyles.styled';
 
 export const SignUpBody = styled(FormBody)`
   border: 5px solid ${colors.mantisDarker};
@@ -10,10 +10,6 @@ export const SignUpBody = styled(FormBody)`
   @media (min-width: 48em) {
     margin-bottom: -12rem;
   }
-`;
-
-export const SignUpInput = styled(FormInput)`
-  border-bottom: 2px solid ${colors.lighterBlue};
 `;
 
 export const SignUpLink = styled(FormLink)`

@@ -5,15 +5,9 @@ import Button from '../../../../components/Button/Button';
 import { PASSWORD_MISMATCH } from '../../Auth.constants';
 
 import { authService } from '../../Auth.service';
-import {
-  FormSection,
-  FormDetails,
-  FormLabel,
-  Form,
-  FormError,
-  FormSectionTitle,
-} from '../LoginForm/LoginStyles.styled';
-import { SignUpBody, SignUpInput, SignUpLink } from './SignUpStyles.styled';
+import { FormSection, FormDetails, Form, FormError, FormSectionTitle } from '../LoginForm/LoginStyles.styled';
+import { SignUpBody, SignUpLink } from './SignUpStyles.styled';
+import Input from './../../../../components/Input/Input';
 
 const SignUp = () => {
   const [formValues, setFormValues] = useState({
@@ -47,39 +41,42 @@ const SignUp = () => {
       <Form onSubmit={handleSubmit}>
         <SignUpBody>
           <FormDetails>
-            <FormLabel htmlFor='email' />
-            <SignUpInput
+            <Input
               type='email'
               name='email'
               value={formValues.email}
               onChange={handleFormValuesChange}
               id='email'
               placeholder='Email*'
-              required
+              isRequired
+              borderColor='lighterBlue'
+              fullWidth
             />
           </FormDetails>
           <FormDetails>
-            <FormLabel htmlFor='password' />
-            <SignUpInput
+            <Input
               type='password'
               id='password'
               name='password'
               value={formValues.password}
               onChange={handleFormValuesChange}
               placeholder='Password*'
-              required
+              isRequired
+              borderColor='lighterBlue'
+              fullWidth
             />
           </FormDetails>
           <FormDetails>
-            <FormLabel htmlFor='confirm-password' />
-            <SignUpInput
+            <Input
               type='password'
               id='confirm-password'
               placeholder='Confirm Password*'
               name='confirmedPassword'
               value={formValues.confirmedPassword}
               onChange={handleFormValuesChange}
-              required
+              isRequired
+              borderColor='lighterBlue'
+              fullWidth
             />
           </FormDetails>
           <Button
