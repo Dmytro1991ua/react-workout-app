@@ -61,21 +61,3 @@ export const FormInput = styled.input`
     background-color: #fff;
   }
 `;
-
-export const FormButton = styled.button`
-  width: 15rem;
-  border: none;
-  padding: 1rem 1.2rem;
-  text-align: center;
-  border-radius: 1.2rem;
-  background-color: ${colors.mantis};
-  font-size: 1.5rem;
-  color: ${colors.white};
-  transition: all 0.3s ease-out;
-  text-transform: uppercase;
-  margin-top: 1rem;
-  cursor: pointer;
-  &:hover {
-    background-color: ${colors.mantisDarker};
-  }
-`;

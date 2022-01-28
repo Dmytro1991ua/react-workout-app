@@ -1,19 +1,11 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppRoutes } from '../../../../App.enums';
-import Button from '../../../../components/Button/Button';
 
+import Button from '../../../../components/Button/Button';
+import Input from '../../../../components/Input/Input';
 import { authService } from '../../Auth.service';
-import {
-  FormSection,
-  FormSectionTitle,
-  FormDetails,
-  FormLabel,
-  FormInput,
-  FormBody,
-  FormLink,
-  Form,
-} from './LoginStyles.styled';
+import { FormSection, FormSectionTitle, FormDetails, FormBody, FormLink, Form } from './LoginStyles.styled';
 
 const LoginForm = () => {
   const [formValues, setFormValues] = useState({ email: '', password: '' });
@@ -38,29 +30,31 @@ const LoginForm = () => {
       <Form onSubmit={handleSubmit}>
         <FormBody>
           <FormDetails>
-            <FormLabel htmlFor='email' />
-            <FormInput
+            <label htmlFor='email' />
+            <Input
               type='email'
               id='email'
               name='email'
-              minLength={8}
               placeholder='Email*'
-              required
+              isRequired
               onChange={handleFormValuesChange}
               value={formValues.email}
+              borderColor='mantis'
+              fullWidth
             />
           </FormDetails>
           <FormDetails>
-            <FormLabel htmlFor='password' />
-            <FormInput
+            <label htmlFor='password' />
+            <Input
               type='password'
               id='password'
               name='password'
-              minLength={8}
               placeholder='Password*'
-              required
+              isRequired
               onChange={handleFormValuesChange}
               value={formValues.password}
+              borderColor='mantis'
+              fullWidth
             />
           </FormDetails>
           <Button

@@ -5,10 +5,10 @@ import { colors, fadeInDown } from '../../global-styles/GlobalStyles.styled';
 export const WorkoutsSection = styled.section`
   min-height: 100vh;
   margin: 8rem 1.2rem 1.2rem 1.2rem;
-  border: 5px solid ${colors.mantis};
-  border-radius: 1.2rem;
   overscroll-behavior-y: none;
   animation: ${fadeInDown} 0.3s ease-in-out;
+  filter: drop-shadow(7px 8px 4px ${colors.darkBlue});
+
   @media (min-width: 48em) {
     margin: 10rem 1.2rem 1.2rem 1.2rem;
   }
@@ -33,7 +33,7 @@ export const WorkoutsFeatures = styled.aside`
 
   @media (min-width: 62em) {
     min-height: 100vh;
-    flex: 0 1 44rem;
+    flex: 0 1 50rem;
     border-top-right-radius: 0rem;
     border-bottom-left-radius: 1.2rem;
   }

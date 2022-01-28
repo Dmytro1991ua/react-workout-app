@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 
-import { FormButton, FormInput, FormLabel, FormRow, FormSection, FormSelect } from './FormStyles.styled';
+import { FormInput, FormLabel, FormRow, FormSection, FormSelect } from './FormStyles.styled';
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 
 import 'leaflet/dist/leaflet.css';
 import '../../../leafletMap/leafletStyles.css';
+import Button from '../../../../components/Button/Button';
 
 const Form = () => {
   // destructure selected workout's value, workouts data "states"
@@ -24,9 +25,7 @@ const Form = () => {
     setSelectedValue(event.target.value);
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const handleSubmit = () => {
     getWorkoutData(selectedValue); //get workout data from form based on a select value
 
     setDistance('');
@@ -98,7 +97,16 @@ const Form = () => {
           </>
         </FormRow>
         <FormRow>
-          <FormButton>Add workout</FormButton>
+          <Button
+            type='submit'
+            fullWidth
+            backgroundColor='mantis'
+            hoverColor='mantisDarker'
+            color='white'
+            onClick={handleSubmit}
+          >
+            Add Workout
+          </Button>
         </FormRow>
       </FormSection>
     </>

@@ -51,23 +51,6 @@ export const FormDetails = styled.div`
   }
 `;
 
-export const FormLabel = styled.label``;
-
-export const FormInput = styled.input`
-  width: 100%;
-  border: none;
-  background-color: transparent;
-  border-bottom: 2px solid ${colors.mantis};
-  border-radius: 1.2rem;
-  color: ${colors.white};
-  padding: 1.2rem 1rem;
-
-  &::placeholder {
-    font-size: 1.6rem;
-    color: ${colors.white};
-  }
-`;
-
 export const FormLink = styled(Link)`
   display: block;
   color: ${colors.white};

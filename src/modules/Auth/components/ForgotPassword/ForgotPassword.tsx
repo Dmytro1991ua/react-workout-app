@@ -1,18 +1,10 @@
 import React, { useState } from 'react';
 import { AppRoutes } from '../../../../App.enums';
-import Button from '../../../../components/Button/Button';
 
+import Button from '../../../../components/Button/Button';
+import Input from '../../../../components/Input/Input';
 import { authService } from '../../Auth.service';
-import {
-  FormSection,
-  FormSectionTitle,
-  FormDetails,
-  FormLabel,
-  FormInput,
-  FormBody,
-  FormLink,
-  Form,
-} from '../LoginForm/LoginStyles.styled';
+import { FormSection, FormSectionTitle, FormDetails, FormBody, FormLink, Form } from '../LoginForm/LoginStyles.styled';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -32,8 +24,16 @@ const ForgotPassword = () => {
       <Form onSubmit={handleSubmit}>
         <FormBody>
           <FormDetails>
-            <FormLabel htmlFor='email' />
-            <FormInput type='email' id='email' placeholder='Email*' required onChange={handleInputChange} />
+            <Input
+              type='email'
+              id='email'
+              placeholder='Email*'
+              isRequired
+              onChange={handleInputChange}
+              borderColor='mantis'
+              value={email}
+              fullWidth
+            />
           </FormDetails>
           <Button
             type='submit'
