@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react';
-import { colors } from '../../global-styles/GlobalStyles.styled';
+import { colors } from '../../global-styles/Global.styled';
 import { CustomButton } from './Buton.styled';
 
 export interface ButtonProps {

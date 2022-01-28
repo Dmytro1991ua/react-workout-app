@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react';
 import Header from '../modules/Header/Header';
-import { Wrapper } from '../global-styles/GlobalStyles.styled';
+import { Wrapper } from '../global-styles/Global.styled';
 
 interface MainLayoutProps {
   children?: ReactNode;

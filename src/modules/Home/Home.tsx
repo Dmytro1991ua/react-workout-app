@@ -1,12 +1,12 @@
 import React, { ReactElement } from 'react';
 
-import { HomeBtn, HomeSection, HomeSectionBody, HomeTitle } from './HomeStyles.styled';
+import { HomeBtn, HomeSection, HomeSectionBody, HomeTitle } from './Home.styled';
 
 import Slider from './components/Slider/Slider';
 import './components/Slider/Slider.css';
 import SectionsTitle from '../../components/SectionTitle/SectionsTitle';
 import { AppRoutes } from '../../App.enums';
-import { colors } from '../../global-styles/GlobalStyles.styled';
+import { colors } from '../../global-styles/Global.styled';
 
 const Home = (): ReactElement => {
   return (

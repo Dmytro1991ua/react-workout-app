@@ -3,7 +3,7 @@ import React, { ReactElement, useContext } from 'react';
 import { MapConsumer } from 'react-leaflet';
 
 import 'leaflet/dist/leaflet.css';
-import '../../../leafletMap/leafletStyles.css';
+import '../../../leafletMap/leaflet.css';
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 import MarkerImg from '../../../../assets/images/leaflet/marker.png';
 

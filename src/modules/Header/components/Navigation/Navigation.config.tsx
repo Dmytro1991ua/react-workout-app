@@ -1,6 +1,6 @@
 import { AppRoutes } from '../../../../App.enums';
 import { authService } from '../../../Auth/Auth.service';
-import { CustomDumbbellIcon, CustomHomeIcon, CustomLogoutIcon } from '../../HeaderStyles.styled';
+import { CustomDumbbellIcon, CustomHomeIcon, CustomLogoutIcon } from '../../Header.styled';
 import { NavigationConfiguration } from './Navigation.interface';
 
 export const navigationConfig: NavigationConfiguration[] = [

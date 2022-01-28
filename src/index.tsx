@@ -6,7 +6,7 @@ import App from './App';
 import { AuthContextProvider } from './context/AuthContext';
 import { WorkoutsProvider } from './context/WorkoutsContext';
 import 'react-toastify/dist/ReactToastify.css';
-import { CustomToastContainer } from './global-styles/GlobalStyles.styled';
+import { CustomToastContainer } from './global-styles/Global.styled';
 
 ReactDOM.render(
   <WorkoutsProvider>

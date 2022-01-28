@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 
-import { FormInput, FormLabel, FormRow, FormSection, FormSelect } from './FormStyles.styled';
+import { FormInput, FormLabel, FormRow, FormSection, FormSelect } from './Form.styled';
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 
 import 'leaflet/dist/leaflet.css';
-import '../../../leafletMap/leafletStyles.css';
+import '../../../leafletMap/leaflet.css';
 import Button from '../../../../components/Button/Button';
 
 const Form = () => {

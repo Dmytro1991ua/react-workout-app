@@ -1,8 +1,8 @@
 import { TimesCircle } from '@styled-icons/fa-solid';
 import styled from 'styled-components';
 
-import { FormSection } from '../WorkoutForm/FormStyles.styled';
-import { colors } from '../../../../global-styles/GlobalStyles.styled';
+import { FormSection } from '../WorkoutForm/Form.styled';
+import { colors } from '../../../../global-styles/Global.styled';
 
 export const WorkoutSection = styled(FormSection)`
   grid-template-columns: 1fr 1fr;

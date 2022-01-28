@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext } from 'react';
 
-import { FeaturesTitle, WorkoutsFeatures, Map, WorkoutsSection, WorkoutsSectionBody } from './WorkoutsStyles.styled';
+import { FeaturesTitle, WorkoutsFeatures, Map, WorkoutsSection, WorkoutsSectionBody } from './Workouts.styled';
 import { WorkoutsContext } from '../../context/WorkoutsContext';
 import Form from './components/WorkoutForm/Form';
 import Workout from './components/Workout/Workout';

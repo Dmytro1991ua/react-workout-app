@@ -4,7 +4,7 @@ import { AppRoutes } from '../../../../App.enums';
 import Button from '../../../../components/Button/Button';
 import Input from '../../../../components/Input/Input';
 import { authService } from '../../Auth.service';
-import { FormSection, FormSectionTitle, FormDetails, FormBody, FormLink, Form } from '../LoginForm/LoginStyles.styled';
+import { FormSection, FormSectionTitle, FormDetails, FormBody, FormLink, Form } from '../LoginForm/Login.styled';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');

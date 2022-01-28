@@ -9,7 +9,7 @@ import PrivateRoute from './components/Routes/PrivateRoutes';
 import SectionLoader from './components/SectionLoader/SectionLoader';
 import SignUp from './modules/Auth/components/SignupForm/SignUp';
 
-import { GlobalStyles, Wrapper } from './global-styles/GlobalStyles.styled';
+import { GlobalStyles, Wrapper } from './global-styles/Global.styled';
 import { WorkoutsContext } from './context/WorkoutsContext';
 import MainLayout from './layouts/MainLayout';
 import { AppRoutes } from './App.enums';

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Dumbbell } from '@styled-icons/fluentui-system-filled/Dumbbell';
 
-import { fadeInDown, colors } from '../../global-styles/GlobalStyles.styled';
+import { fadeInDown, colors } from '../../global-styles/Global.styled';
 
 import { LogOut } from 'styled-icons/boxicons-regular';
 import { Home } from 'styled-icons/entypo';

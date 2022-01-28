@@ -5,8 +5,8 @@ import Button from '../../../../components/Button/Button';
 import { PASSWORD_MISMATCH } from '../../Auth.constants';
 
 import { authService } from '../../Auth.service';
-import { FormSection, FormDetails, Form, FormError, FormSectionTitle } from '../LoginForm/LoginStyles.styled';
-import { SignUpBody, SignUpLink } from './SignUpStyles.styled';
+import { FormSection, FormDetails, Form, FormError, FormSectionTitle } from '../LoginForm/Login.styled';
+import { SignUpBody, SignUpLink } from './SignUp.styled';
 import Input from './../../../../components/Input/Input';
 
 const SignUp = () => {

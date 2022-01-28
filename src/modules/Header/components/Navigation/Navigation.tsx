@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { List, ListItem } from '../../HeaderStyles.styled';
+import { List, ListItem } from '../../Header.styled';
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 import { navigationConfig } from './Navigation.config';
 import Tooltip from './../../../../components/Tooltip/Tooltip';
-import { colors } from '../../../../global-styles/GlobalStyles.styled';
+import { colors } from '../../../../global-styles/Global.styled';
 
 const Navigation = () => {
   //destructure burger menu and navigation "state"

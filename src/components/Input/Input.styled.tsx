@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors } from '../../global-styles/GlobalStyles.styled';
+import { colors } from '../../global-styles/Global.styled';
 
 export const CustomInput = styled('input')<{ borderColor?: string; fullWidth?: boolean }>`
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'fit-content')};
