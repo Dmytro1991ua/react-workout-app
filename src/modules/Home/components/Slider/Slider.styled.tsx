@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { colors } from '../../../../global-styles/GlobalStyles.styled';
+import { colors } from '../../../../global-styles/Global.styled';
 
 export const Image = styled.img`
   max-width: 100%;

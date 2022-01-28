@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { colors } from '../../global-styles/GlobalStyles.styled';
+import { colors } from '../../global-styles/Global.styled';
 import { CustomInput } from './Input.styled';
 
 interface InputProps {

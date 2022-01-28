@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { colors, rotationA, rotationB } from '../../global-styles/GlobalStyles.styled';
+import { colors, rotationA, rotationB } from '../../global-styles/Global.styled';
 
 export const PreloaderContainer = styled.div`
   position: fixed;

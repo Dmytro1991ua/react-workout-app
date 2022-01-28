@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 
 import useGeolocation from '../../../hooks/useGeolocation';
 import { leafletDetails } from '../../leafletMap/leafletMap';
-import '../../leafletMap/leafletStyles.css';
+import '../../leafletMap/leaflet.css';
 import { WorkoutsContext } from '../../../context/WorkoutsContext';
 import Marker from './Marker/Marker';
 

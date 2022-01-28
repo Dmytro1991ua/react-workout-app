@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Loader, PreloaderContainer } from './PreloaderStyles.styled';
+import { Loader, PreloaderContainer } from './Preloade.styled';
 
 const Preloader = () => {
   return (

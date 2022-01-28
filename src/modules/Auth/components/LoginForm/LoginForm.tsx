@@ -5,7 +5,7 @@ import { AppRoutes } from '../../../../App.enums';
 import Button from '../../../../components/Button/Button';
 import Input from '../../../../components/Input/Input';
 import { authService } from '../../Auth.service';
-import { FormSection, FormSectionTitle, FormDetails, FormBody, FormLink, Form } from './LoginStyles.styled';
+import { FormSection, FormSectionTitle, FormDetails, FormBody, FormLink, Form } from './Login.styled';
 
 const LoginForm = () => {
   const [formValues, setFormValues] = useState({ email: '', password: '' });

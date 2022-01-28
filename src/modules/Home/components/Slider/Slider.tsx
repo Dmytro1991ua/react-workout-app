@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import SwiperCore, { Mousewheel, Scrollbar, Autoplay, EffectCoverflow } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { Image, SliderTitle } from './SliderStyles.styled';
+import { Image, SliderTitle } from './Slider.styled';
 
 //swiper styles
 import 'swiper/swiper.scss';

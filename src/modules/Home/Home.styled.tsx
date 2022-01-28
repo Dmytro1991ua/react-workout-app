@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import HeroImgBig from '../../assets/images/home/home-big.jpg';
 import HeroImgSmall from '../../assets/images/home/home-small.jpg';
-import { colors, bounceInLeft } from '../../global-styles/GlobalStyles.styled';
+import { colors, bounceInLeft } from '../../global-styles/Global.styled';
 
 export const HomeSection = styled.section`
   min-height: 100vh;
