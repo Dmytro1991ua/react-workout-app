@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { colors } from '../../global-styles/Global.styled';
 
-export const CustomInput = styled('input')<{ borderColor?: string; fullWidth?: boolean }>`
+export const CustomInput = styled('input')<{ borderColor?: string; fullWidth?: boolean; hasError?: boolean }>`
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'fit-content')};
   border: none;
   background-color: transparent;
@@ -12,6 +12,11 @@ export const CustomInput = styled('input')<{ borderColor?: string; fullWidth?: b
 
   &::placeholder {
     font-size: 1.6rem;
-    color: ${colors.white};
-  }
+    color: ${({ hasError }) => (hasError ? `${colors.tomato}` : `${colors.white}`)} 
+`;
+
+export const FieldError = styled.p`
+  font-size: 13px;
+  color: ${colors.tomato};
+  margin-top: 20px;
 `;

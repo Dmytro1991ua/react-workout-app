@@ -1,49 +1,52 @@
-import React, { useState } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { FieldValues, useForm } from 'react-hook-form';
 import { AppRoutes } from '../../../../App.enums';
 
 import Button from '../../../../components/Button/Button';
 import Input from '../../../../components/Input/Input';
 import { authService } from '../../Auth.service';
+import { FORGOT_PASSWORD_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
 import { FormSection, FormSectionTitle, FormDetails, FormBody, FormLink, Form } from '../LoginForm/Login.styled';
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState('');
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset,
+  } = useForm({
+    mode: 'onBlur',
+    resolver: yupResolver(FORGOT_PASSWORD_VALIDATION_SCHEMA),
+  });
 
-  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    const email = event.target.value;
-    setEmail(email);
-  }
+  async function handleForgotPasswordFormSubmit(formData: FieldValues): Promise<void> {
+    const { email } = formData;
 
-  async function handleSubmit(): Promise<void> {
-    await authService.resetPassword(email);
+    await authService.forgotPassword(email);
+
+    reset();
   }
 
   return (
     <FormSection>
       <FormSectionTitle>Password Reset</FormSectionTitle>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit(handleForgotPasswordFormSubmit)}>
         <FormBody>
           <FormDetails>
             <Input
               type='email'
               id='email'
+              register={register}
+              error={errors.email}
+              name='email'
               placeholder='Email*'
               isRequired
-              onChange={handleInputChange}
               borderColor='mantis'
-              value={email}
               fullWidth
             />
           </FormDetails>
-          <Button
-            type='submit'
-            fullWidth
-            backgroundColor='mantis'
-            hoverColor='mantisDarker'
-            color='white'
-            onClick={handleSubmit}
-          >
-            Reset Password
+          <Button type='submit' fullWidth backgroundColor='mantis' hoverColor='mantisDarker' color='white'>
+            Submit
           </Button>
           <FormLink to={{ pathname: AppRoutes.Login }}>Log In</FormLink>
           <FormLink to={{ pathname: AppRoutes.SignUp }}>Don&apos;t have an account?</FormLink>

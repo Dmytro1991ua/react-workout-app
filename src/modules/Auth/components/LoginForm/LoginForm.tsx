@@ -1,70 +1,65 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { AppRoutes } from '../../../../App.enums';
+import React, { ReactElement } from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
+import { AppRoutes } from '../../../../App.enums';
 import Button from '../../../../components/Button/Button';
 import Input from '../../../../components/Input/Input';
 import { authService } from '../../Auth.service';
+import { LOGIN_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
 import { FormSection, FormSectionTitle, FormDetails, FormBody, FormLink, Form } from './Login.styled';
 
-const LoginForm = () => {
-  const [formValues, setFormValues] = useState({ email: '', password: '' });
+const LoginForm = (): ReactElement => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset,
+  } = useForm({
+    mode: 'onBlur',
+    resolver: yupResolver(LOGIN_VALIDATION_SCHEMA),
+  });
 
-  const history = useHistory();
+  async function handleFromSubmit(formData: FieldValues): Promise<void> {
+    const { email, password } = formData;
 
-  function handleFormValuesChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setFormValues((formValues) => ({
-      ...formValues,
-      [event.target.name]: event.target.value,
-    }));
-  }
+    await authService.login(email, password);
 
-  async function handleSubmit(): Promise<void> {
-    await authService.login(formValues.email, formValues.password);
-    history.push(AppRoutes.Workouts);
+    reset();
   }
 
   return (
     <FormSection>
       <FormSectionTitle>Log In</FormSectionTitle>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit(handleFromSubmit)}>
         <FormBody>
           <FormDetails>
-            <label htmlFor='email' />
             <Input
               type='email'
               id='email'
+              register={register}
+              error={errors.email}
               name='email'
               placeholder='Email*'
               isRequired
-              onChange={handleFormValuesChange}
-              value={formValues.email}
               borderColor='mantis'
               fullWidth
             />
           </FormDetails>
           <FormDetails>
-            <label htmlFor='password' />
             <Input
               type='password'
               id='password'
+              register={register}
+              error={errors.password}
               name='password'
               placeholder='Password*'
               isRequired
-              onChange={handleFormValuesChange}
-              value={formValues.password}
               borderColor='mantis'
               fullWidth
             />
           </FormDetails>
-          <Button
-            type='submit'
-            fullWidth
-            backgroundColor='mantisDarker'
-            hoverColor='mantis'
-            color='white'
-            onClick={handleSubmit}
-          >
+          <Button type='submit' fullWidth backgroundColor='mantisDarker' hoverColor='mantis' color='white'>
             Sign In
           </Button>
           <FormLink to={{ pathname: AppRoutes.SignUp }}>Don&apos;t have an account?</FormLink>

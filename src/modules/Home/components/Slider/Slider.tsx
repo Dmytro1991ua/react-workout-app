@@ -53,7 +53,7 @@ const Slider = (): ReactElement => {
       }}
     >
       {SliderConfig.map((slide) => (
-        <SwiperSlide tag={slide.tag} href={slide.href} target={slide.target} rel={slide.rel}>
+        <SwiperSlide key={slide.id} tag={slide.tag} href={slide.href} target={slide.target} rel={slide.rel}>
           <Image src={slide.ImgSrc} alt={slide.alt} />
           <SliderTitle>{slide.label}</SliderTitle>
         </SwiperSlide>
