@@ -1,51 +1,45 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
 import { AppRoutes } from '../../../../App.enums';
 import Button from '../../../../components/Button/Button';
-import { PASSWORD_MISMATCH } from '../../Auth.constants';
-
 import { authService } from '../../Auth.service';
-import { FormSection, FormDetails, Form, FormError, FormSectionTitle } from '../LoginForm/Login.styled';
+import { FormSection, FormDetails, Form, FormSectionTitle } from '../LoginForm/Login.styled';
 import { SignUpBody, SignUpLink } from './SignUp.styled';
 import Input from './../../../../components/Input/Input';
+import { SIGN_UP_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
 
 const SignUp = () => {
-  const [formValues, setFormValues] = useState({
-    email: '',
-    password: '',
-    confirmedPassword: '',
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset,
+  } = useForm({
+    mode: 'onBlur',
+    resolver: yupResolver(SIGN_UP_VALIDATION_SCHEMA),
   });
 
-  const [error, setError] = useState('');
+  async function handleSignUpSubmit(formData: FieldValues): Promise<void> {
+    const { email, password } = formData;
 
-  const history = useHistory();
+    await authService.signUp(email, password);
 
-  function handleFormValuesChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setFormValues((formValues) => ({
-      ...formValues,
-      [event.target.name]: event.target.value,
-    }));
-  }
-
-  async function handleSubmit(): Promise<void> {
-    if (formValues.password !== formValues.confirmedPassword) return setError(PASSWORD_MISMATCH);
-
-    await authService.signUp(formValues.email, formValues.password);
-    history.push(AppRoutes.Login);
+    reset();
   }
 
   return (
     <FormSection>
       <FormSectionTitle>Sign Up</FormSectionTitle>
-      {error && <FormError>{error}</FormError>}
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit(handleSignUpSubmit)}>
         <SignUpBody>
           <FormDetails>
             <Input
               type='email'
               name='email'
-              value={formValues.email}
-              onChange={handleFormValuesChange}
+              register={register}
+              error={errors.email}
               id='email'
               placeholder='Email*'
               isRequired
@@ -58,8 +52,8 @@ const SignUp = () => {
               type='password'
               id='password'
               name='password'
-              value={formValues.password}
-              onChange={handleFormValuesChange}
+              register={register}
+              error={errors.password}
               placeholder='Password*'
               isRequired
               borderColor='lighterBlue'
@@ -72,21 +66,14 @@ const SignUp = () => {
               id='confirm-password'
               placeholder='Confirm Password*'
               name='confirmedPassword'
-              value={formValues.confirmedPassword}
-              onChange={handleFormValuesChange}
+              register={register}
+              error={errors.confirmedPassword}
               isRequired
               borderColor='lighterBlue'
               fullWidth
             />
           </FormDetails>
-          <Button
-            type='submit'
-            fullWidth
-            backgroundColor='lighterBlue'
-            hoverColor='mantisDarker'
-            color='white'
-            onClick={handleSubmit}
-          >
+          <Button type='submit' fullWidth backgroundColor='lighterBlue' hoverColor='mantisDarker' color='white'>
             Sign Up
           </Button>
           <SignUpLink to={{ pathname: AppRoutes.Login }}>Already have an account?</SignUpLink>

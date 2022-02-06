@@ -62,27 +62,3 @@ export const FormLink = styled(Link)`
     margin-bottom: 1rem;
   }
 `;
-
-export const FormError = styled.p`
-  background-color: ${colors.errorBg};
-  color: ${colors.error};
-  padding: 1.2rem 2rem;
-  max-width: 26rem;
-  width: 100%;
-  text-align: center;
-  margin-bottom: 0.7rem;
-  animation: ${fadeInDown} 0.2s ease-in-out;
-
-  @media (min-width: 48em) {
-    max-width: 30rem;
-  }
-
-  @media (min-width: 62em) {
-    max-width: 38rem;
-  }
-`;
-
-export const FormSuccess = styled(FormError)`
-  background-color: ${colors.mantis};
-  color: ${colors.mantisDarker};
-`;
