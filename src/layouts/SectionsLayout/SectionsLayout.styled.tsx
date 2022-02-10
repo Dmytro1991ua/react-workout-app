@@ -3,13 +3,20 @@ import styled from 'styled-components';
 
 import HeroImgBig from '../../assets/images/home/home-big.jpg';
 import HeroImgSmall from '../../assets/images/home/home-small.jpg';
+import NotFountImageBig from '../../assets/images/not-found/workout-big.jpg';
+import NotFountImageSmall from '../../assets/images/not-found/workout-small.jpg';
 import { colors, bounceInLeft } from '../../global-styles/Global.styled';
 
-export const HomeSection = styled.section`
+export const CommonSectionsContainer = styled('section')<{
+  sectionName?: string;
+}>`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${HeroImgSmall});
+  background-image: ${({ sectionName }) =>
+    sectionName === 'Home'
+      ? `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${HeroImgSmall})`
+      : `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${NotFountImageSmall})`};
   background-position: 28%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -18,11 +25,14 @@ export const HomeSection = styled.section`
     (min-width: 125em),
     only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.9em),
     only screen and (min-width: 125em) {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${HeroImgBig});
+    background-image: ${({ sectionName }) =>
+      sectionName === 'Home'
+        ? `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${HeroImgBig})`
+        : `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${NotFountImageBig})`};
   }
 `;
 
-export const HomeSectionBody = styled.div`
+export const CommonSectionsBody = styled.div`
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
@@ -40,14 +50,18 @@ export const HomeSectionBody = styled.div`
   }
 `;
 
-export const HomeTitle = styled.div`
+export const CommonSectionsTitle = styled.div`
   margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
-export const HomeBtn = styled(Link)`
+export const CommonSectionsBtn = styled(Link)<{ sectionName?: string }>`
   display: inline-block;
   padding: 1.4rem 1.8rem;
-  background-color: ${colors.mantisDarker};
+  background-color: ${({ sectionName }) =>
+    sectionName === 'Not Found' ? `${colors.lighterBlue}` : `${colors.mantisDarker}`};
   color: ${colors.white};
   border-radius: 1.2rem;
   text-transform: uppercase;
@@ -56,7 +70,8 @@ export const HomeBtn = styled(Link)`
   filter: drop-shadow(7px 8px 4px ${colors.darkBlue});
 
   &:hover {
-    background-color: ${colors.mantis};
+    background-color: ${({ sectionName }) =>
+      sectionName === 'Not Found' ? `${colors.mantisDarker}` : `${colors.mantis}`};
     transform: translateY(-0.2rem);
   }
 

@@ -15,7 +15,6 @@ import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 const Workout = ({ workout }: any) => {
   const { workoutsData, setStorage } = useContext(WorkoutsContext);
   const [workouts, setWorkouts] = workoutsData;
-  const [setLocaleStorage] = setStorage;
   const { description, selectedValue, distance, duration, speed, pace, cadence, elevationGain, id } = workout;
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -43,7 +42,6 @@ const Workout = ({ workout }: any) => {
   const handleRemoveWorkout = (workout: any) => {
     const removedWorkout = workouts.filter((clickedWorkout: any) => clickedWorkout.id !== workout.id);
     setWorkouts(removedWorkout);
-    setLocaleStorage(removedWorkout);
   };
   return (
     <>
