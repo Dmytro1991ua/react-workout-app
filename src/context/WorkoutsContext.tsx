@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 interface WorkoutsProps {
   id: string;
@@ -37,9 +38,9 @@ export const WorkoutsProvider = (props: any) => {
   const [cadence, setCadence] = useState('');
   const [elevationGain, setElevationGain] = useState('');
   // workouts data recieved from a workout form "state"
-  const [workouts, setWorkouts] = useState<WorkoutsProps[]>([]);
+  const [workouts, setWorkouts] = useLocalStorage<WorkoutsProps[]>('workouts', []);
   // clicked leaflet marker's coordinates
-  const [markerCoordinates, setMakerCoordinates] = useState([]);
+  const [markerCoordinates, setMakerCoordinates] = useLocalStorage<number[]>('marker-coords', []);
   // "state" of a submitting form in order to render Marker later on
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -107,15 +108,6 @@ export const WorkoutsProvider = (props: any) => {
           description: workoutDescription(),
         },
       ]);
-      setLocaleStorage([
-        ...workouts,
-        {
-          ...workoutData,
-          cadence,
-          pace: runningPace(),
-          description: workoutDescription(),
-        },
-      ]);
     }
 
     if (selectedType === 'cycling') {
@@ -128,34 +120,8 @@ export const WorkoutsProvider = (props: any) => {
           description: workoutDescription(),
         },
       ]);
-      setLocaleStorage([
-        ...workouts,
-        {
-          ...workoutData,
-          elevationGain,
-          speed: cyclingSpeed(),
-          description: workoutDescription(),
-        },
-      ]);
     }
   };
-
-  // set workout array with objects to a locale storage (Running and Cycling objects)
-  const setLocaleStorage = (workoutData: any) => {
-    localStorage.setItem('workouts', JSON.stringify(workoutData));
-  };
-
-  //get(retrieve) workouts array with objects  from a localStorage and render it when a react app is loaded
-  const getLocalstorage = () => {
-    const workoutsData = JSON.parse(localStorage.getItem('workouts') || '[]');
-
-    if (!workoutsData) return;
-
-    setWorkouts(workoutsData);
-  };
-  useEffect(() => {
-    getLocalstorage();
-  }, []);
 
   return (
     <WorkoutsContext.Provider
@@ -174,8 +140,6 @@ export const WorkoutsProvider = (props: any) => {
         description: [workoutDescription],
         marker: [markerCoordinates, setMakerCoordinates],
         submit: [isSubmitted, setIsSubmitted],
-        setStorage: [setLocaleStorage],
-        getStorage: [getLocalstorage],
       }}
     >
       {props.children}

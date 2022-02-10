@@ -37,7 +37,6 @@ const WorkoutsMap = () => {
         const coords = [lat, lng];
         setMakerCoordinates([...markerCoordinates, coords]);
 
-        localStorage.setItem('marker-coords', JSON.stringify([...markerCoordinates, coords]));
         // seStoredMarkerCoords([...storedMarkerCoods, coords]);
         // console.log(storedMarkerCoods);
         // localStorage.setItem(

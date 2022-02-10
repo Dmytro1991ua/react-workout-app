@@ -1,6 +1,7 @@
 import { AppRoutes } from '../../App.enums';
 import { auth } from '../../firebase';
 import history from '../../services/History.service';
+
 import { toastService } from '../../services/Toast.service';
 import {
   SUCCESSFUL_FORGOT_PASSWORD_MESSAGE,
@@ -22,7 +23,13 @@ class AuthService {
 
   async login(email: string, password: string): Promise<void> {
     try {
-      await auth.signInWithEmailAndPassword(email, password);
+      const userData = await auth.signInWithEmailAndPassword(email, password);
+      const token = await userData?.user?.getIdToken(true);
+
+      if (token) {
+        this.setToken(token);
+      }
+
       history.push(AppRoutes.Workouts);
       toastService.success(SUCCESSFUL_SIGN_IN_MESSAGE);
     } catch (error) {
@@ -33,7 +40,9 @@ class AuthService {
   async logout(): Promise<void> {
     try {
       await auth.signOut();
+      this.removeToken();
       toastService.success(SUCCESSFUL_LOGOUT_MESSAGE);
+      history.push(AppRoutes.Login);
     } catch (error) {
       toastService.error((error as Error).message);
     }
@@ -56,6 +65,18 @@ class AuthService {
     } catch (error) {
       toastService.error((error as Error).message);
     }
+  }
+
+  private getToken(token: string): string {
+    return localStorage.getItem(token) || '';
+  }
+
+  private setToken(token: string): void {
+    localStorage.setItem('workout-app-token', token);
+  }
+
+  private removeToken(): void {
+    localStorage.removeItem('workout-app-token');
   }
 }
 
