@@ -85,8 +85,8 @@ class AuthService {
     }
   }
 
-  private getToken(token: string): string {
-    return localStorage.getItem(token) || '';
+  getToken(): string {
+    return localStorage.getItem('workout-app-token') || '';
   }
 
   private setToken(token: string): void {
