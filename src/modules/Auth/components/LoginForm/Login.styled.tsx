@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Button from '../../../../components/Button/Button';
 
-import { colors, fadeInDown } from '../../../../global-styles/Global.styled';
+import { colors } from '../../../../global-styles/Global.styled';
 import { WorkoutsSection } from '../../../Workouts/Workouts.styled';
 
 export const FormSection = styled(WorkoutsSection)`
@@ -49,6 +50,10 @@ export const FormDetails = styled.div`
   &:last-of-type {
     margin-bottom: 3rem;
   }
+`;
+
+export const FormSubmitBtn = styled(Button)`
+  margin-bottom: 2rem;
 `;
 
 export const FormLink = styled(Link)`

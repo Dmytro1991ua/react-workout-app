@@ -11,6 +11,7 @@ export interface ButtonProps {
   color?: keyof MainPalette;
   onClick?: () => Promise<void> | void;
   disabled?: boolean;
+  className?: string;
 }
 
 const Button = ({
@@ -22,6 +23,7 @@ const Button = ({
   hoverColor,
   color,
   disabled,
+  className,
 }: ButtonProps): ReactElement => {
   const getButtonBackgroundColorBasedOnProps = backgroundColor && colors[backgroundColor];
   const getButtonHoverColorBasedOnProps = hoverColor && colors[hoverColor];
@@ -35,6 +37,7 @@ const Button = ({
       hoverColor={getButtonHoverColorBasedOnProps}
       color={getButtonColorBasedOnProps}
       disabled={disabled}
+      className={className}
       onClick={
         disabled || !onClick
           ? undefined

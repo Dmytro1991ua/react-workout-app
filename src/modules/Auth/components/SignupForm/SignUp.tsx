@@ -1,22 +1,21 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { AppRoutes } from '../../../../App.enums';
-import Button from '../../../../components/Button/Button';
 import { authService } from '../../Auth.service';
-import { FormSection, FormDetails, Form, FormSectionTitle } from '../LoginForm/Login.styled';
+import { FormSection, FormDetails, Form, FormSectionTitle, FormSubmitBtn } from '../LoginForm/Login.styled';
 import { SignUpBody, SignUpLink } from './SignUp.styled';
 import Input from './../../../../components/Input/Input';
 import { SIGN_UP_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
 
-const SignUp = () => {
+const SignUp = (): ReactElement => {
   const {
     handleSubmit,
     register,
     formState: { errors },
     reset,
-  } = useForm({
+  } = useForm<FieldValues>({
     mode: 'onBlur',
     resolver: yupResolver(SIGN_UP_VALIDATION_SCHEMA),
   });
@@ -27,6 +26,10 @@ const SignUp = () => {
     await authService.signUp(email, password);
 
     reset();
+  }
+
+  async function handleSignInViaGoogle(): Promise<void> {
+    await authService.signInViaGoogle();
   }
 
   return (
@@ -73,9 +76,19 @@ const SignUp = () => {
               fullWidth
             />
           </FormDetails>
-          <Button type='submit' fullWidth backgroundColor='lighterBlue' hoverColor='mantisDarker' color='white'>
+          <FormSubmitBtn type='submit' fullWidth backgroundColor='lighterBlue' hoverColor='mantisDarker' color='white'>
             Sign Up
-          </Button>
+          </FormSubmitBtn>
+          <FormSubmitBtn
+            type='button'
+            fullWidth
+            backgroundColor='white'
+            hoverColor='lighterBlue'
+            color='mantis'
+            onClick={handleSignInViaGoogle}
+          >
+            Sign In via Google
+          </FormSubmitBtn>
           <SignUpLink to={{ pathname: AppRoutes.Login }}>Already have an account?</SignUpLink>
         </SignUpBody>
       </Form>

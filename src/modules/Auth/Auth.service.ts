@@ -1,12 +1,14 @@
+import firebase from 'firebase';
+
 import { AppRoutes } from '../../App.enums';
 import { auth } from '../../firebase';
 import history from '../../services/History.service';
-
 import { toastService } from '../../services/Toast.service';
 import {
   SUCCESSFUL_FORGOT_PASSWORD_MESSAGE,
   SUCCESSFUL_LOGOUT_MESSAGE,
   SUCCESSFUL_SIGN_IN_MESSAGE,
+  SUCCESSFUL_SIGN_IN_VIA_GOOGLE_MESSAGE,
   SUCCESSFUL_SIGN_UP_MESSAGE,
 } from './Auth.constants';
 
@@ -62,6 +64,22 @@ class AuthService {
       await auth.confirmPasswordReset(oobCode, newPassword);
       history.push(AppRoutes.Login);
       toastService.success(SUCCESSFUL_FORGOT_PASSWORD_MESSAGE);
+    } catch (error) {
+      toastService.error((error as Error).message);
+    }
+  }
+
+  async signInViaGoogle(): Promise<void> {
+    try {
+      const userData = await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+      const token = await userData?.user?.getIdToken(true);
+
+      if (token) {
+        this.setToken(token);
+      }
+
+      history.push(AppRoutes.Workouts);
+      toastService.success(SUCCESSFUL_SIGN_IN_VIA_GOOGLE_MESSAGE);
     } catch (error) {
       toastService.error((error as Error).message);
     }
