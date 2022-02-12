@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ToastContainer } from 'react-toastify';
 
 import App from './App';
 import { AuthContextProvider } from './context/AuthContext';
 import { WorkoutsProvider } from './context/WorkoutsContext';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import { CustomToastContainer } from './global-styles/Global.styled';
 
 ReactDOM.render(
