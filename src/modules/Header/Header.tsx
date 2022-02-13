@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 import { colors, Container } from '../../global-styles/Global.styled';
 import { HeaderSection, HeaderSectionBody, Logo } from './Header.styled';
@@ -9,6 +10,12 @@ import { AppRoutes } from '../../App.enums';
 import Tooltip from '../../components/Tooltip/Tooltip';
 
 const Header = () => {
+  const [isBurgerIconOpened, setIsBurgerIconOpened] = useState(false);
+
+  function handleOpenBurgerMenu(): void {
+    setIsBurgerIconOpened(!isBurgerIconOpened);
+  }
+
   return (
     <HeaderSection>
       <Container>
@@ -24,8 +31,8 @@ const Header = () => {
             borderColor={colors.white}
             arrowColor={colors.mantisDarker}
           />
-          <BurgerIcon />
-          <Navigation />
+          <BurgerIcon isOpen={isBurgerIconOpened} onClick={handleOpenBurgerMenu} />
+          <Navigation isOpen={isBurgerIconOpened} />
         </HeaderSectionBody>
       </Container>
     </HeaderSection>
