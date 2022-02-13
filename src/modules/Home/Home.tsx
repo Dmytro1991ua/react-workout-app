@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
 
-import './components/Slider/Slider.css';
 import SectionsTitle from '../../components/SectionTitle/SectionsTitle';
 import { AppRoutes } from '../../App.enums';
 import { colors } from '../../global-styles/Global.styled';

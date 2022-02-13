@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import SwiperCore, { Mousewheel, Scrollbar, Autoplay, EffectCoverflow } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { SwiperSlide } from 'swiper/react';
 
 import { Image, SliderTitle } from './Slider.styled';
 
@@ -9,13 +9,16 @@ import 'swiper/swiper.scss';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/components/scrollbar/scrollbar.scss';
 import { SliderConfig } from './Slider.config';
+import { CustomSwiper } from '../../../../global-styles/SwiperGlobal.styles';
 
 const Slider = (): ReactElement => {
   // install Swiper modules
   SwiperCore.use([Mousewheel, Scrollbar, Autoplay, EffectCoverflow]);
 
+  const sortedSlides = SliderConfig.sort((a, b) => a.label.localeCompare(b.label, 'en', { numeric: true }));
+
   return (
-    <Swiper
+    <CustomSwiper
       spaceBetween={30}
       slidesPerView={1}
       loop={true}
@@ -52,13 +55,13 @@ const Slider = (): ReactElement => {
         slideShadows: true,
       }}
     >
-      {SliderConfig.map((slide) => (
+      {sortedSlides.map((slide) => (
         <SwiperSlide key={slide.id} tag={slide.tag} href={slide.href} target={slide.target} rel={slide.rel}>
           <Image src={slide.ImgSrc} alt={slide.alt} />
           <SliderTitle>{slide.label}</SliderTitle>
         </SwiperSlide>
       ))}
-    </Swiper>
+    </CustomSwiper>
   );
 };
 

@@ -1,5 +1,4 @@
 import styled, { createGlobalStyle, keyframes } from 'styled-components';
-import { ToastContainer } from 'react-toastify';
 
 //Global styles
 export const GlobalStyles = createGlobalStyle`
@@ -56,6 +55,7 @@ export const colors = {
   darkBlue: '#090c1b',
   mantis: '#7ac142',
   mantisDarker: ' #5a803d',
+  transparentMantisDarker: 'rgba(90, 128, 61, 0.3)',
   lighterBlue: '#153c6b',
   brightGreen: '#60f702 ',
   tomato: '#ff6347',
@@ -77,30 +77,6 @@ export const Container = styled.div`
 
   @media (min-width: 90em) {
     max-width: 120rem;
-  }
-`;
-
-export const CustomToastContainer = styled(ToastContainer)`
-  &.Toastify__toast-container {
-    width: fit-content;
-    min-width: 350px;
-    padding: 0;
-  }
-
-  .Toastify__toast-theme--dark {
-    background-color: ${colors.darkBlue};
-    border-radius: 1.2rem;
-    border: 3px solid ${colors.mantisDarker};
-  }
-
-  .Toastify__close-button {
-    align-self: center;
-    color: ${colors.mantisDarker};
-  }
-
-  .Toastify__close-button > svg {
-    width: 2rem;
-    height: 2.2rem;
   }
 `;
 
