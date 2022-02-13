@@ -1,23 +1,23 @@
-import React, { useContext } from 'react';
+import React, { ReactElement, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { List, ListItem } from '../../Header.styled';
-import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 import { navigationConfig } from './Navigation.config';
 import Tooltip from './../../../../components/Tooltip/Tooltip';
 import { colors } from '../../../../global-styles/Global.styled';
 import { AuthContext } from './../../../../context/AuthContext';
 
-const Navigation = () => {
-  //destructure burger menu and navigation "state"
+interface NavigationProps {
+  isOpen: boolean;
+}
+
+const Navigation = ({ isOpen }: NavigationProps): ReactElement => {
   const { currentUser } = useContext(AuthContext);
-  const { show } = useContext(WorkoutsContext);
-  const [open] = show;
 
   const navigationConfigs = navigationConfig(currentUser);
 
   return (
-    <List open={open}>
+    <List open={isOpen}>
       {navigationConfigs.map((navLink) => {
         return (
           <ListItem key={navLink && navLink.id}>

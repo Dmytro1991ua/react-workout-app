@@ -7,10 +7,6 @@ import { fadeInDown, colors } from '../../global-styles/Global.styled';
 import { LogOut } from 'styled-icons/boxicons-regular';
 import { Home } from 'styled-icons/entypo';
 
-interface LinkProps {
-  open?: boolean;
-}
-
 const CommonNavigationIconStyles = `
   fill: ${colors.mantis};
   width: 3rem;
@@ -58,7 +54,7 @@ export const HeaderSectionBody = styled.div`
 `;
 
 // Navigation
-export const List = styled('ul')<LinkProps>`
+export const List = styled('ul')<{ open?: boolean }>`
   position: absolute;
   top: 6.2rem;
   left: 0;
@@ -87,6 +83,7 @@ export const List = styled('ul')<LinkProps>`
     transition: none;
   }
 `;
+
 export const ListItem = styled.li`
   &:not(:last-child) {
     margin-bottom: 2rem;
@@ -109,42 +106,4 @@ export const CustomHomeIcon = styled(Home)`
 
 export const CustomLogoutIcon = styled(LogOut)`
   ${CommonNavigationIconStyles}
-`;
-
-// Burger Menu
-export const BurgerMenu = styled('div')<LinkProps>`
-  width: 2rem;
-  height: 2.5rem;
-  position: fixed;
-  top: 1.6rem;
-  left: 1.4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  z-index: 4;
-
-  span {
-    display: inline-block;
-    width: 3rem;
-    height: 0.25rem;
-    background-color: ${({ open }) => (open ? '#ffff' : '#7ac142')};
-    transform-origin: 3.5px;
-    transition: all 0.3s linear;
-
-    &:nth-child(1) {
-      transform: ${({ open }) => (open ? 'rotate(45deg)' : 'rotate(0)')};
-    }
-    &:nth-child(2) {
-      transform: ${({ open }) => (open ? 'translateX(100%)' : 'translateX(0)')};
-      opacity: ${({ open }) => (open ? 0 : 1)};
-    }
-    &:nth-child(3) {
-      transform: ${({ open }) => (open ? 'rotate(-45deg)' : 'rotate(0)')};
-    }
-  }
-
-  @media (min-width: 28em) {
-    display: none;
-  }
 `;

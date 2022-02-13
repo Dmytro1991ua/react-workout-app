@@ -21,8 +21,6 @@ export const WorkoutsContext = createContext({} as any);
 export const WorkoutsProvider = (props: any) => {
   // preloader "state"
   const [preloader, setPreloader] = useState(false);
-  // burger menu, navigation, form "state"
-  const [open, setOpen] = useState<boolean>(false);
   // current location (geolocation) "state"
   const [location, setLocation] = useState({
     loaded: false,
@@ -127,7 +125,6 @@ export const WorkoutsProvider = (props: any) => {
     <WorkoutsContext.Provider
       value={{
         loader: [preloader, setPreloader],
-        show: [open, setOpen],
         currentLocation: [location, setLocation],
         form: [showForm, setShowForm],
         select: [selectedValue, setSelectedValue],

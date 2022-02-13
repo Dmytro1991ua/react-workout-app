@@ -1,32 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { BurgerMenu } from '../../Header.styled';
-import { WorkoutsContext } from '../../../../context/WorkoutsContext';
+import { BurgerMenu } from './BurgerIcon.styled';
 
-const BurgerIcon = () => {
-  //destructure burger menu and navigation "state"
-  const { show } = useContext(WorkoutsContext);
-  const [open, setOpen] = show;
+interface BurgerIconProps {
+  isOpen: boolean;
+  onClick: () => void;
+}
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
+const BurgerIcon = ({ isOpen, onClick }: BurgerIconProps) => {
   return (
-    <>
-      {open && (
-        <BurgerMenu onClick={handleClick}>
-          <span />
-          <span />
-          <span />
-        </BurgerMenu>
-      )}
-    </>
-    //  <BurgerMenu open={open} onClick={handleClick}>
-    //   <span />
-    //   <span />
-    //   <span />
-    // </BurgerMenu>
+    <BurgerMenu open={isOpen} onClick={onClick}>
+      <span />
+      <span />
+      <span />
+    </BurgerMenu>
   );
 };
 
