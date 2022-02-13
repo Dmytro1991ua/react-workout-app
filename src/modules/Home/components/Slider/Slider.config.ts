@@ -6,6 +6,7 @@ import BattleRopesSliderImg from '../../../../assets/images/slider/battle-ropes.
 import GymWorkoutSliderImg from '../../../../assets/images/slider/gym-workout.jpg';
 import RunningSliderImg from '../../../../assets/images/slider/running.jpg';
 import SwimmingSliderImg from '../../../../assets/images/slider/swimming.jpg';
+import YogaSliderImg from '../../../../assets/images/slider/yoga.jpg';
 
 export const SliderConfig: SliderConfiguration[] = [
   {
@@ -30,13 +31,13 @@ export const SliderConfig: SliderConfiguration[] = [
   },
   {
     id: uuidv4(),
-    label: 'Cycling',
+    label: 'Yoga',
     tag: 'a',
-    href: 'https://en.wikipedia.org/wiki/Cycling',
+    href: 'https://en.wikipedia.org/wiki/Yoga',
     target: '_blank',
     rel: 'noreferrer',
-    ImgSrc: CyclingSliderImg,
-    alt: 'cycling',
+    ImgSrc: YogaSliderImg,
+    alt: 'yoga',
   },
   {
     id: uuidv4(),
