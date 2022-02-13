@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import SwiperCore, { Mousewheel, Scrollbar, Autoplay, EffectCoverflow } from 'swiper';
+
 import { SwiperSlide } from 'swiper/react';
 
 import { Image, SliderTitle } from './Slider.styled';
