@@ -16,9 +16,11 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps): Rea
   useEffect(() => {
     // set a current signed-in user with firebase
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setCurrentUser(user);
+      if (!user) {
+        setCurrentUser(null);
       }
+
+      setCurrentUser(user);
       setLoading(false);
     });
     return unsubscribe; // unsubscribe from frirebase's onAuthStateChanged listener
