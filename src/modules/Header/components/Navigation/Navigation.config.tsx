@@ -24,7 +24,7 @@ export function navigationConfig(currentUser: firebase.User): NavigationConfigur
       navigationIcon: <CustomLogoutIcon />,
       url: AppRoutes.Login,
       'data-tip': 'Logout',
-      onClick: () => authService.logout(),
+      onClick: async () => await authService.logout(),
     },
   ];
 }
