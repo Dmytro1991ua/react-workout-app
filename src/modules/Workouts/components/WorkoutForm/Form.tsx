@@ -1,15 +1,21 @@
 import React, { useContext } from 'react';
 
-import { FormInput, FormLabel, FormRow, FormSection, FormSelect } from './Form.styled';
+import { FormInput, FormLabel, FormRow, FormSelect } from './Form.styled';
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 
 import 'leaflet/dist/leaflet.css';
 import '../../../leafletMap/leaflet.css';
 import Button from '../../../../components/Button/Button';
+import { FormAndFallbackMessageWrapper } from '../../CommonStyles.styled';
 
-const Form = () => {
+interface FormProps {
+  onStopPropagation: (e: React.MouseEvent) => void;
+  onCloseWorkoutForm: () => void;
+}
+
+const Form = ({ onStopPropagation, onCloseWorkoutForm }: FormProps) => {
   // destructure selected workout's value, workouts data "states"
-  const { select, distanceData, durationData, cadenceData, elevationGainData, workoutRender, form, submit } =
+  const { select, distanceData, durationData, cadenceData, elevationGainData, workoutRender, submit } =
     useContext(WorkoutsContext);
 
   const [selectedValue, setSelectedValue] = select;
@@ -18,7 +24,6 @@ const Form = () => {
   const [cadence, setCadence] = cadenceData;
   const [elevationGain, setElevationGain] = elevationGainData;
   const [getWorkoutData] = workoutRender;
-  const [showForm, setShowForm] = form;
   const [isSubmitted, setIsSubmitted] = submit;
 
   function handleInputChange(event: React.ChangeEvent<HTMLSelectElement>): void {
@@ -33,13 +38,13 @@ const Form = () => {
     setCadence('');
     setElevationGain('');
 
-    setShowForm(false); // hide Form component onSubmit a form
+    onCloseWorkoutForm(); // hide Form component onSubmit a form
     setIsSubmitted(true);
   };
 
   return (
     <>
-      <FormSection onSubmit={handleSubmit}>
+      <FormAndFallbackMessageWrapper onSubmit={handleSubmit} onClick={onStopPropagation}>
         <FormRow>
           <FormLabel>Type</FormLabel>
           <FormSelect onChange={handleInputChange} required value={selectedValue}>
@@ -108,7 +113,7 @@ const Form = () => {
             Add Workout
           </Button>
         </FormRow>
-      </FormSection>
+      </FormAndFallbackMessageWrapper>
     </>
   );
 };
