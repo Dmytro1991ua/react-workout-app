@@ -9,11 +9,16 @@ import '../../leafletMap/leaflet.css';
 import { WorkoutsContext } from '../../../context/WorkoutsContext';
 import Marker from './Marker/Marker';
 
-const WorkoutsMap = () => {
+interface WorkoutMapProps {
+  onShowWorkoutForm: () => void;
+  showForm: boolean;
+}
+
+const WorkoutsMap = ({ onShowWorkoutForm, showForm }: WorkoutMapProps) => {
   // destructure certain "states" from Context
   const { form, marker, submit, workoutsData } = useContext(WorkoutsContext);
 
-  const [showForm, setShowForm] = form;
+  // const [showForm, setShowForm] = form;
   const [markerCoordinates, setMakerCoordinates] = marker;
   const [isSubmitted, setIsSubmitted] = submit;
 
@@ -23,9 +28,8 @@ const WorkoutsMap = () => {
 
   const ZOOM_LEVEL = 13; //default zoom level
 
-  //show workouts form onClick to a leaflet map
   const handleShowForm = () => {
-    setShowForm(true);
+    onShowWorkoutForm();
   };
 
   //get a clicked marker coordinates, store them in a "state" and show workout

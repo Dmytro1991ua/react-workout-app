@@ -1,10 +1,10 @@
 import { TimesCircle } from '@styled-icons/fa-solid';
 import styled from 'styled-components';
 
-import { FormSection } from '../WorkoutForm/Form.styled';
 import { colors } from '../../../../global-styles/Global.styled';
+import { FormAndFallbackMessageWrapper } from '../../CommonStyles.styled';
 
-export const WorkoutSection = styled(FormSection)`
+export const WorkoutSection = styled(FormAndFallbackMessageWrapper)`
   grid-template-columns: 1fr 1fr;
   border: none;
   padding: 1.5rem 2rem;
@@ -13,6 +13,7 @@ export const WorkoutSection = styled(FormSection)`
   &.running {
     border-left: 5px solid ${colors.mantis};
   }
+
   &.cycling {
     border-left: 5px solid ${colors.tomato};
   }

@@ -26,8 +26,7 @@ export const WorkoutsProvider = (props: any) => {
     loaded: false,
     coordinates: { lat: '', lng: '' },
   });
-  // show workout form "state"
-  const [showForm, setShowForm] = useState(false);
+
   // selected workout value from a from
   const [selectedValue, setSelectedValue] = useState('running');
   // workout form's(inputs values) releated "states"
@@ -126,7 +125,6 @@ export const WorkoutsProvider = (props: any) => {
       value={{
         loader: [preloader, setPreloader],
         currentLocation: [location, setLocation],
-        form: [showForm, setShowForm],
         select: [selectedValue, setSelectedValue],
         distanceData: [distance, setDistance],
         durationData: [duration, setDuration],

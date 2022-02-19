@@ -1,23 +1,6 @@
 import styled from 'styled-components';
 
-import { colors, fadeInDown } from '../../../../global-styles/Global.styled';
-
-export const FormSection = styled.form`
-  background-color: ${colors.lighterBlue};
-  border-radius: 5px;
-  padding: 1.2rem 1.2rem;
-  margin-bottom: 1.75rem;
-  display: grid;
-  gap: 1.5rem 2.5rem;
-  transition: all 0.5s, transform 1ms;
-  border: 2px solid ${colors.mantis};
-  animation: ${fadeInDown} 0.3s ease-in-out;
-
-  @media (min-width: 48em) {
-    grid-template-columns: 1fr 1fr;
-    padding: 1.5rem 2.75rem;
-  }
-`;
+import { colors } from '../../../../global-styles/Global.styled';
 
 export const FormRow = styled.div`
   display: flex;
