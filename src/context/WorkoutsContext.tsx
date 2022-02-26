@@ -1,11 +1,15 @@
 import { createContext, useEffect, useState } from 'react';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import { FieldValues } from 'react-hook-form';
+import { v4 as uuidv4 } from 'uuid';
 
-interface WorkoutsProps {
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import { WorkoutFormInitialValues } from '../modules/Workouts/components/WorkoutForm/Form.interfaces';
+
+export interface WorkoutsProps {
   id: string;
   date: string;
   coordinates: number[];
-  selectedValue: string;
+  selectedValue?: string;
   distance: number;
   duration: number;
   cadence?: string;
@@ -29,12 +33,14 @@ export const WorkoutsProvider = (props: any) => {
 
   // selected workout value from a from
   const [selectedValue, setSelectedValue] = useState('running');
-  // workout form's(inputs values) releated "states"
-  const [distance, setDistance] = useState(0); // ''
-  const [duration, setDuration] = useState(0); // ''
-  const [cadence, setCadence] = useState('');
-  const [elevationGain, setElevationGain] = useState('');
-  // workouts data recieved from a workout form "state"
+  const [workoutFormValues, setWorkoutFormValues] = useState<WorkoutFormInitialValues>({
+    workoutType: 'running',
+    distance: 0,
+    duration: 0,
+    cadence: '',
+    elevationGain: '',
+  });
+
   const [workouts, setWorkouts] = useLocalStorage<WorkoutsProps[]>('workouts', []);
   // clicked leaflet marker's coordinates
   const [markerCoordinates, setMakerCoordinates] = useLocalStorage<number[]>('marker-coords', []);
@@ -50,17 +56,17 @@ export const WorkoutsProvider = (props: any) => {
   }, []);
 
   // calculate running pace
-  const runningPace = () => {
-    return Number((distance / duration).toFixed(1));
+  const runningPace = (distance: number, duration: number): number => {
+    return Number((duration / distance).toFixed(1));
   };
 
   //calculate cycling speed
-  const cyclingSpeed = () => {
+  const cyclingSpeed = (distance: number, duration: number): number => {
     return Number((distance / (duration / 60)).toFixed(1));
   };
 
   // create a workout description based on a type of workout and currrent date
-  const workoutDescription = () => {
+  const workoutDescription = (workoutType: string, distance: number) => {
     // prettier-ignore
     const months = [
       "January",
@@ -76,45 +82,45 @@ export const WorkoutsProvider = (props: any) => {
       "November",
       "December",
     ];
-    return `${selectedValue[0].toUpperCase()}${selectedValue.slice(1)} on ${
+    return `${workoutType[0].toUpperCase()}${workoutType?.slice(1)} ${distance} km on ${
       months[new Date().getMonth()]
     } ${new Date().getDate()}`;
   };
 
   // get a workout data from form inputs based on selected workout (either Running or Cycling)
-  const getWorkoutData = (selectedType: any) => {
+  const getWorkoutData = (formData: FieldValues) => {
     // workout data object(same for Running and Cycling) from workout form
     const workoutData: WorkoutsProps = {
-      id: (String(Date.now()) + '').slice(-10),
+      id: uuidv4(),
       date: new Date().toLocaleDateString(),
       coordinates: markerCoordinates.flat(),
-      selectedValue,
-      distance,
-      duration,
+      selectedValue: formData.workoutType,
+      distance: formData.distance,
+      duration: formData.duration,
     };
 
     setWorkouts([...workouts, workoutData]); // add newly created object from form to workouts array
 
-    if (selectedType === 'running') {
+    if (formData.workoutType === 'running') {
       setWorkouts([
         ...workouts,
         {
           ...workoutData,
-          cadence,
-          pace: runningPace(),
-          description: workoutDescription(),
+          cadence: formData.cadence,
+          pace: runningPace(formData.duration, formData.distance),
+          description: workoutDescription(formData.workoutType, formData.distance),
         },
       ]);
     }
 
-    if (selectedType === 'cycling') {
+    if (formData.workoutType === 'cycling') {
       setWorkouts([
         ...workouts,
         {
           ...workoutData,
-          elevationGain,
-          speed: cyclingSpeed(),
-          description: workoutDescription(),
+          elevationGain: formData.elevationGain,
+          speed: cyclingSpeed(formData.duration, formData.distance),
+          description: workoutDescription(formData.workoutType, formData.distance),
         },
       ]);
     }
@@ -126,15 +132,12 @@ export const WorkoutsProvider = (props: any) => {
         loader: [preloader, setPreloader],
         currentLocation: [location, setLocation],
         select: [selectedValue, setSelectedValue],
-        distanceData: [distance, setDistance],
-        durationData: [duration, setDuration],
-        cadenceData: [cadence, setCadence],
-        elevationGainData: [elevationGain, setElevationGain],
         workoutsData: [workouts, setWorkouts],
         workoutRender: [getWorkoutData],
         description: [workoutDescription],
         marker: [markerCoordinates, setMakerCoordinates],
         submit: [isSubmitted, setIsSubmitted],
+        workoutForm: [workoutFormValues, setWorkoutFormValues],
       }}
     >
       {props.children}

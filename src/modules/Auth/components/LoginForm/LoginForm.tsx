@@ -14,15 +14,13 @@ const LoginForm = (): ReactElement => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
-    formState,
   } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(LOGIN_VALIDATION_SCHEMA),
   });
 
-  const { isSubmitting } = formState;
   const [isSignInViaGoogleLoading, setIsSignInViaGoogleLoading] = useState<boolean>(false);
 
   async function handleFromSubmit(formData: FieldValues): Promise<void> {

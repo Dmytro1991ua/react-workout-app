@@ -15,16 +15,14 @@ const ResetPasswordForm = (): ReactElement => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
-    formState,
   } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(RESET_PASSWORD_VALIDATION_SCHEMA),
   });
 
   const queryParams = useQueryParams();
-  const { isSubmitting } = formState;
 
   //TODO when new updates will be deployed to github-pages i need to update Firebase reset action URL https://console.firebase.google.com/u/0/project/auth-development-a6e59/authentication/emails from http://localhost:3001/react-workout-app#/auth/reset-password to http://dmytro1991ua.github.io/react-workout-app#/auth/reset-password
 

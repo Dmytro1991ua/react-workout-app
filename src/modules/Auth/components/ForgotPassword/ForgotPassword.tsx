@@ -14,15 +14,13 @@ const ForgotPassword = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
     formState,
   } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(FORGOT_PASSWORD_VALIDATION_SCHEMA),
   });
-
-  const { isSubmitting } = formState;
 
   async function handleForgotPasswordFormSubmit(formData: FieldValues): Promise<void> {
     const { email } = formData;

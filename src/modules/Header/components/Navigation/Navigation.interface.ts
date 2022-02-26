@@ -1,7 +1,7 @@
 import { AppRoutes } from '../../../../App.enums';
 
 export interface NavigationConfiguration {
-  id: number;
+  id: string;
   navigationIcon: JSX.Element;
   url: AppRoutes;
   ['data-tip']: string;

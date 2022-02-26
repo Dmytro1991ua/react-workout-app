@@ -1,12 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { BallTriangle } from 'react-loader-spinner';
 
-import { FormInput, FormLabel, FormRow, FormSelect } from './Form.styled';
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
+import Button from '../../../../components/Button/Button';
+import { WORKOUT_FORM_VALIDATION_SCHEMA } from './FormValidations.schema';
+import { Select } from '../../../../components/Select/Select';
+import FormInput from '../FormInput/FormInput';
 
 import 'leaflet/dist/leaflet.css';
 import '../../../leafletMap/leaflet.css';
-import Button from '../../../../components/Button/Button';
 import { FormAndFallbackMessageWrapper } from '../../CommonStyles.styled';
+import { FieldInputWrapper, FormLabel, FormRow, WorkoutForm } from './Form.styled';
+import { colors } from '../../../../global-styles/Global.styled';
 
 interface FormProps {
   onStopPropagation: (e: React.MouseEvent) => void;
@@ -15,28 +22,51 @@ interface FormProps {
 
 const Form = ({ onStopPropagation, onCloseWorkoutForm }: FormProps) => {
   // destructure selected workout's value, workouts data "states"
-  const { select, distanceData, durationData, cadenceData, elevationGainData, workoutRender, submit } =
-    useContext(WorkoutsContext);
+  const { workoutRender, submit, workoutForm } = useContext(WorkoutsContext);
 
-  const [selectedValue, setSelectedValue] = select;
-  const [distance, setDistance] = distanceData;
-  const [duration, setDuration] = durationData;
-  const [cadence, setCadence] = cadenceData;
-  const [elevationGain, setElevationGain] = elevationGainData;
   const [getWorkoutData] = workoutRender;
   const [isSubmitted, setIsSubmitted] = submit;
+  const [workoutFormValues, setWorkoutFormValues] = workoutForm;
 
-  function handleInputChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setSelectedValue(event.target.value);
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+    reset,
+    getValues,
+    setValue,
+  } = useForm({
+    mode: 'all',
+    resolver: yupResolver(WORKOUT_FORM_VALIDATION_SCHEMA),
+  });
+
+  const [selectedValue, setSelectedValue] = useState('running');
+
+  const workoutTypeSelectOptions = [
+    { id: 0, value: 'running' },
+    { id: 1, value: 'cycling' },
+  ];
+
+  function handleSelectChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setValue('workoutType', event.target.value);
+    const getSelectFieldValue = getValues('workoutType');
+
+    setSelectedValue(getSelectFieldValue);
   }
 
-  const handleSubmit = () => {
-    getWorkoutData(selectedValue); //get workout data from form based on a select value
+  function handleKeyDownOnInputField(event: React.KeyboardEvent<HTMLFormElement | HTMLInputElement>): boolean {
+    return ['e', 'E', '+', '-'].includes(event.key);
+  }
 
-    setDistance('');
-    setDuration('');
-    setCadence('');
-    setElevationGain('');
+  const handleWorkoutFormSubmit = (formData: FieldValues): void => {
+    getWorkoutData(formData); //get workout data from form based on a select value
+    console.warn(selectedValue);
+    setWorkoutFormValues({
+      ...formData,
+      workoutType: selectedValue,
+    });
+
+    reset();
 
     onCloseWorkoutForm(); // hide Form component onSubmit a form
     setIsSubmitted(true);
@@ -44,75 +74,107 @@ const Form = ({ onStopPropagation, onCloseWorkoutForm }: FormProps) => {
 
   return (
     <>
-      <FormAndFallbackMessageWrapper onSubmit={handleSubmit} onClick={onStopPropagation}>
-        <FormRow>
-          <FormLabel>Type</FormLabel>
-          <FormSelect onChange={handleInputChange} required value={selectedValue}>
-            <option value='running'>Running</option>
-            <option value='cycling'>Cycling</option>
-          </FormSelect>
-        </FormRow>
-        <FormRow>
-          <FormLabel>Distance</FormLabel>
-          <FormInput
-            value={distance}
-            placeholder='km'
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setDistance(parseInt(event.target.value) || '')}
-            required
-          />
-        </FormRow>
-        <FormRow>
-          <FormLabel>Duration</FormLabel>
-          <FormInput
-            value={duration}
-            placeholder='min'
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setDuration(parseInt(event.target.value) || '')}
-            required
-          />
-        </FormRow>
-        <FormRow>
-          {/* Render either "Cadence" or 'Elevation Gain' based on selected value */}
-          <>
-            {selectedValue === 'running' && (
-              <>
-                <FormLabel>Cadence</FormLabel>
+      <FormAndFallbackMessageWrapper onClick={onStopPropagation}>
+        {isSubmitting ? (
+          <BallTriangle color={colors.mantis} height={100} width={100} />
+        ) : (
+          <WorkoutForm>
+            <FormRow>
+              <FormLabel>Type</FormLabel>
+              <Select
+                options={workoutTypeSelectOptions}
+                name='workoutType'
+                id='workoutType'
+                register={register}
+                error={errors.workoutType}
+                onChange={handleSelectChange}
+              />
+            </FormRow>
+            <FormRow>
+              <FormLabel>Distance</FormLabel>
+              <FieldInputWrapper>
                 <FormInput
-                  value={cadence}
-                  placeholder='step/min'
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    setCadence(parseInt(event.target.value) || '')
-                  }
-                  required
+                  placeholder='km'
+                  name='distance'
+                  id='distance'
+                  type='number'
+                  min={0}
+                  max={10000}
+                  register={register}
+                  error={errors.distance}
+                  onKeyDown={handleKeyDownOnInputField}
+                  isRequired
                 />
-              </>
-            )}
-            {selectedValue === 'cycling' && (
-              <>
-                <FormLabel>Elev Gain</FormLabel>
+              </FieldInputWrapper>
+            </FormRow>
+            <FormRow>
+              <FormLabel>Duration</FormLabel>
+              <FieldInputWrapper>
                 <FormInput
-                  value={elevationGain}
-                  placeholder='meters'
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    setElevationGain(parseInt(event.target.value) || '')
-                  }
-                  required
+                  placeholder='min'
+                  name='duration'
+                  id='duration'
+                  min={0}
+                  max={10000}
+                  type='number'
+                  register={register}
+                  onKeyDown={handleKeyDownOnInputField}
+                  error={errors.duration}
+                  isRequired
                 />
+              </FieldInputWrapper>
+            </FormRow>
+            <FormRow>
+              {/* Render either "Cadence" or 'Elevation Gain' based on selected value */}
+              <>
+                {selectedValue === 'running' && (
+                  <>
+                    <FormLabel>Cadence</FormLabel>
+                    <FormInput
+                      name='cadence'
+                      id='cadence'
+                      type='number'
+                      min={0}
+                      max={10000}
+                      onKeyDown={handleKeyDownOnInputField}
+                      register={register}
+                      error={errors.cadence}
+                      placeholder='step/min'
+                    />
+                  </>
+                )}
+                {selectedValue === 'cycling' && (
+                  <>
+                    <FormLabel>Elev Gain</FormLabel>
+                    <FormInput
+                      name='elevationGain'
+                      id='elevationGainData'
+                      type='number'
+                      min={0}
+                      max={10000}
+                      onKeyDown={handleKeyDownOnInputField}
+                      register={register}
+                      error={errors.cadence}
+                      placeholder='meters'
+                    />
+                  </>
+                )}
               </>
-            )}
-          </>
-        </FormRow>
-        <FormRow>
-          <Button
-            type='submit'
-            fullWidth
-            backgroundColor='mantis'
-            hoverColor='mantisDarker'
-            color='white'
-            onClick={handleSubmit}
-          >
-            Add Workout
-          </Button>
-        </FormRow>
+            </FormRow>
+            <FormRow>
+              <Button
+                type='submit'
+                fullWidth
+                backgroundColor='mantis'
+                hoverColor='mantisDarker'
+                color='white'
+                onClick={handleSubmit(handleWorkoutFormSubmit)}
+              >
+                Add Workout
+              </Button>
+            </FormRow>
+          </WorkoutForm>
+        )}
       </FormAndFallbackMessageWrapper>
     </>
   );

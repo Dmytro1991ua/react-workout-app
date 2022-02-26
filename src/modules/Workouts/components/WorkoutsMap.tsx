@@ -6,7 +6,7 @@ import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 import useGeolocation from '../../../hooks/useGeolocation';
 import { leafletDetails } from '../../leafletMap/leafletMap';
 import '../../leafletMap/leaflet.css';
-import { WorkoutsContext } from '../../../context/WorkoutsContext';
+import { WorkoutsContext, WorkoutsProps } from '../../../context/WorkoutsContext';
 import Marker from './Marker/Marker';
 
 interface WorkoutMapProps {
@@ -21,6 +21,12 @@ const WorkoutsMap = ({ onShowWorkoutForm, showForm }: WorkoutMapProps) => {
   // const [showForm, setShowForm] = form;
   const [markerCoordinates, setMakerCoordinates] = marker;
   const [isSubmitted, setIsSubmitted] = submit;
+  const [workouts] = workoutsData;
+
+  // TODO Check later on an probably use it to render Marker with coords that we store to each workout instead of markerCoordinates
+  console.warn(
+    workouts.map((workout: WorkoutsProps) => workout.coordinates).flatMap((coordinates: number[]) => coordinates)
+  );
 
   //geolocation custom hook
   const location = useGeolocation();
