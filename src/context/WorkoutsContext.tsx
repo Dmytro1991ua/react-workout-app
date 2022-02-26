@@ -108,7 +108,7 @@ export const WorkoutsProvider = (props: any) => {
           ...workoutData,
           cadence: formData.cadence,
           pace: runningPace(formData.duration, formData.distance),
-          description: workoutDescription(formData.workoutType, formData.duration),
+          description: workoutDescription(formData.workoutType, formData.distance),
         },
       ]);
     }
@@ -120,7 +120,7 @@ export const WorkoutsProvider = (props: any) => {
           ...workoutData,
           elevationGain: formData.elevationGain,
           speed: cyclingSpeed(formData.duration, formData.distance),
-          description: workoutDescription(formData.workoutType, formData.duration),
+          description: workoutDescription(formData.workoutType, formData.distance),
         },
       ]);
     }
