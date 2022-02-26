@@ -2,9 +2,14 @@ import styled from 'styled-components';
 
 import { colors } from '../../../../global-styles/Global.styled';
 
+export const WorkoutForm = styled.form`
+  display: grid;
+  gap: 1.5rem 2.5rem;
+`;
+
 export const FormRow = styled.div`
   display: flex;
-  align-items: center;
+  align-items: baseline;
 `;
 
 export const FormLabel = styled.label`
@@ -15,32 +20,6 @@ export const FormLabel = styled.label`
   color: ${colors.mantis};
 `;
 
-export const FormSelect = styled.select`
+export const FieldInputWrapper = styled.div`
   width: 100%;
-  background-color: ${colors.powderAsh};
-  padding: 0.3rem 0rem;
-  cursor: pointer;
-
-  &:focus {
-    outline: none;
-    background-color: #fff;
-  }
-`;
-
-export const FormInput = styled.input`
-  width: 100%;
-  padding: 0.3rem 1.1rem;
-  font-family: inherit;
-  font-size: 1.4rem;
-  border: none;
-  border-radius: 3px;
-  background-color: ${colors.powderAsh};
-  transition: all 0.2s ease-in-out;
-  border: 2px solid ${colors.mantisDarker};
-  cursor: pointer;
-
-  &:focus {
-    outline: none;
-    background-color: #fff;
-  }
 `;

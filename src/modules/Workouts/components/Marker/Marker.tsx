@@ -20,10 +20,11 @@ interface MarkerProps {
 }
 
 const Marker = ({ position }: MarkerProps): ReactElement => {
-  const { marker, description, select } = useContext(WorkoutsContext);
+  const { marker, description, select, workoutForm } = useContext(WorkoutsContext);
 
   const [workoutDescription] = description;
   const [selectedValue] = select;
+  const [workoutFormValues] = workoutForm;
 
   return (
     <MapConsumer>
@@ -38,7 +39,12 @@ const Marker = ({ position }: MarkerProps): ReactElement => {
               className: selectedValue === 'running' ? 'running-popup' : 'cycling-popup',
             })
           )
-          .setPopupContent(`${selectedValue === 'running' ? '🏃‍♂️' : '🚴‍♀️'}  ${workoutDescription()}`)
+          .setPopupContent(
+            `${selectedValue === 'running' ? '🏃‍♂️' : '🚴‍♀️'}  ${workoutDescription(
+              workoutFormValues.workoutType,
+              workoutFormValues.distance
+            )}`
+          )
           .openPopup();
         return null;
       }}
