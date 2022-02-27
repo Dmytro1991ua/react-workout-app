@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { List, ListItem } from '../../Header.styled';
 import { navigationConfig } from './Navigation.config';
 import Tooltip from './../../../../components/Tooltip/Tooltip';
-import { colors } from '../../../../global-styles/Global.styled';
+
 import { AuthContext } from './../../../../context/AuthContext';
+import { colors } from '../../../../global-styles/ColorsPalette';
 
 interface NavigationProps {
   isOpen: boolean;

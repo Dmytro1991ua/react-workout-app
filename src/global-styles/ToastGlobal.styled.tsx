@@ -1,6 +1,7 @@
 import { ToastContainer } from 'react-toastify';
 import styled from 'styled-components';
-import { colors } from './Global.styled';
+
+import { colors } from './ColorsPalette';
 
 export const CustomToastContainer = styled(ToastContainer)`
   &.Toastify__toast-container {

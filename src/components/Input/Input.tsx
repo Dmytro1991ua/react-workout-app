@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
-import { colors } from '../../global-styles/Global.styled';
+import { colors } from '../../global-styles/ColorsPalette';
+
 import { CustomInput, FieldError } from './Input.styled';
 
 interface InputProps {

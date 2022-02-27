@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../../../components/Button/Button';
+import { colors } from '../../../../global-styles/ColorsPalette';
 
-import { colors } from '../../../../global-styles/Global.styled';
 import { WorkoutsSection } from '../../../Workouts/Workouts.styled';
 
 export const FormSection = styled(WorkoutsSection)`

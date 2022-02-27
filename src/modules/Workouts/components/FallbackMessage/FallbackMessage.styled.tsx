@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { colors } from '../../../../global-styles/Global.styled';
+
+import { colors } from '../../../../global-styles/ColorsPalette';
 
 export const FallbackMessageTitle = styled('h2')`
   color: ${colors.white};

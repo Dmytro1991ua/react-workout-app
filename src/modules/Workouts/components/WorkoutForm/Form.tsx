@@ -13,7 +13,7 @@ import 'leaflet/dist/leaflet.css';
 import '../../../leafletMap/leaflet.css';
 import { FormAndFallbackMessageWrapper } from '../../CommonStyles.styled';
 import { FieldInputWrapper, FormLabel, FormRow, WorkoutForm } from './Form.styled';
-import { colors } from '../../../../global-styles/Global.styled';
+import { colors } from '../../../../global-styles/ColorsPalette';
 
 interface FormProps {
   onStopPropagation: (e: React.MouseEvent) => void;
@@ -60,7 +60,7 @@ const Form = ({ onStopPropagation, onCloseWorkoutForm }: FormProps) => {
 
   const handleWorkoutFormSubmit = (formData: FieldValues): void => {
     getWorkoutData(formData); //get workout data from form based on a select value
-    console.warn(selectedValue);
+
     setWorkoutFormValues({
       ...formData,
       workoutType: selectedValue,

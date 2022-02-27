@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { colors, fadeInDown } from '../../global-styles/Global.styled';
+import { colors } from '../../global-styles/ColorsPalette';
+import { fadeInDown } from '../../global-styles/Global.styled';
 
 export const FormAndFallbackMessageWrapper = styled('section')`
   background-color: ${colors.lighterBlue};

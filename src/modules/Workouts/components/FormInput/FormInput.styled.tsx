@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { FieldError } from '../../../../components/Input/Input.styled';
-import { colors } from '../../../../global-styles/Global.styled';
+import { colors } from '../../../../global-styles/ColorsPalette';
 
 export const WorkoutFormInput = styled.input`
   width: 100%;

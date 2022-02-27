@@ -5,7 +5,8 @@ import HeroImgBig from '../../assets/images/home/home-big.jpg';
 import HeroImgSmall from '../../assets/images/home/home-small.jpg';
 import NotFountImageBig from '../../assets/images/not-found/workout-big.jpg';
 import NotFountImageSmall from '../../assets/images/not-found/workout-small.jpg';
-import { colors, bounceInLeft } from '../../global-styles/Global.styled';
+import { colors } from '../../global-styles/ColorsPalette';
+import { bounceInLeft } from '../../global-styles/Global.styled';
 
 export const CommonSectionsContainer = styled('section')<{
   sectionName?: string;

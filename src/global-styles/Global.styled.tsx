@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle, keyframes } from 'styled-components';
+import { colors } from './ColorsPalette';
 
 //Global styles
 export const GlobalStyles = createGlobalStyle`
@@ -10,6 +11,21 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: inherit;
   }
 
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+
+  ::-webkit-scrollbar-track {
+    background: ${colors.white};
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${colors.powderAsh};
+  }
+
+  
   h1,
   h2,
   h3,
@@ -48,23 +64,8 @@ export const GlobalStyles = createGlobalStyle`
   }
 `;
 
-export const colors = {
-  black: '#000',
-  white: '#fff',
-  powderAsh: '#c1c7c5',
-  darkBlue: '#090c1b',
-  mantis: '#7ac142',
-  mantisDarker: ' #5a803d',
-  transparentMantisDarker: 'rgba(90, 128, 61, 0.3)',
-  lighterBlue: '#153c6b',
-  brightGreen: '#60f702 ',
-  tomato: '#ff6347',
-  errorBg: '#f27f6b',
-  error: '#821805',
-};
-
 export const Wrapper = styled.div`
-  min-height: 100vh;
+  height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -84,16 +85,16 @@ export const Container = styled.div`
 export const rotation = keyframes`
   0%{
     transform: rotate(0deg);
-    background-color:#09f;
+    background-color: ${colors.pureBlue};
   }
   50%{
-    margin-top:20px;
-    background-color:#fff;
+    margin-top:2rem;
+    background-color: ${colors.white};
   }
  
   100%{
     transform: rotate(90deg);
-    background-color:#09f;
+    background-color: ${colors.pureBlue};
   }
 `;
 
@@ -162,15 +163,15 @@ export const bounceInLeft = keyframes`
 export const gear = keyframes`
     0%{
       transform: rotate(0deg);
-      background-color:#71ba38;
+      background-color:${colors.mantis};
         }
     50%{
       margin-top:15px;
-      background-color:#fff;
+      background-color:${colors.white};
     }
 
     100%{
       transform: rotate(-90deg); 
-      background-color:#71ba38;
+      background-color:${colors.mantis};
     }
 `;

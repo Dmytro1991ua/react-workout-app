@@ -9,7 +9,7 @@ export interface WorkoutsProps {
   id: string;
   date: string;
   coordinates: number[];
-  selectedValue?: string;
+  selectedValue: string;
   distance: number;
   duration: number;
   cadence?: string;
@@ -56,12 +56,12 @@ export const WorkoutsProvider = (props: any) => {
   }, []);
 
   // calculate running pace
-  const runningPace = (distance: number, duration: number): number => {
+  const runningPace = (duration: number, distance: number): number => {
     return Number((duration / distance).toFixed(1));
   };
 
   //calculate cycling speed
-  const cyclingSpeed = (distance: number, duration: number): number => {
+  const cyclingSpeed = (duration: number, distance: number): number => {
     return Number((distance / (duration / 60)).toFixed(1));
   };
 

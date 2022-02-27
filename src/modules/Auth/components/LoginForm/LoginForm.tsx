@@ -8,7 +8,7 @@ import Input from '../../../../components/Input/Input';
 import { authService } from '../../Auth.service';
 import { LOGIN_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
 import { FormSection, FormSectionTitle, FormDetails, FormBody, FormLink, Form, FormSubmitBtn } from './Login.styled';
-import { colors } from '../../../../global-styles/Global.styled';
+import { colors } from '../../../../global-styles/ColorsPalette';
 
 const LoginForm = (): ReactElement => {
   const {
