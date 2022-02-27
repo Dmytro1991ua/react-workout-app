@@ -9,7 +9,7 @@ import Input from './../../../../components/Input/Input';
 import { RESET_PASSWORD_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
 import { useQueryParams } from '../../../../hooks/useQueryParams';
 import { authService } from '../../Auth.service';
-import { colors } from '../../../../global-styles/Global.styled';
+import { colors } from '../../../../global-styles/ColorsPalette';
 
 const ResetPasswordForm = (): ReactElement => {
   const {

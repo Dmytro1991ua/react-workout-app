@@ -1,8 +1,22 @@
 import { TimesCircle } from '@styled-icons/fa-solid';
 import styled from 'styled-components';
+import { Edit } from 'styled-icons/boxicons-regular';
+import { DeleteDismiss } from 'styled-icons/fluentui-system-filled';
+import { colors } from '../../../../global-styles/ColorsPalette';
 
-import { colors } from '../../../../global-styles/Global.styled';
 import { FormAndFallbackMessageWrapper } from '../../CommonStyles.styled';
+
+const CommonIconStyles = `
+   width: 2.2rem;
+   height: 2.2rem;
+   color: ${colors.mantis};
+   transition: all 0.3s ease-in-out;
+   cursor: pointer;
+
+   &:hover {
+    transform: scale(1.1);
+   }
+}`;
 
 export const WorkoutSection = styled(FormAndFallbackMessageWrapper)`
   grid-template-columns: 1fr 1fr;
@@ -12,10 +26,12 @@ export const WorkoutSection = styled(FormAndFallbackMessageWrapper)`
 
   &.running {
     border-left: 5px solid ${colors.mantis};
+    border-right: 5px solid ${colors.mantis};
   }
 
   &.cycling {
     border-left: 5px solid ${colors.tomato};
+    border-right: 5px solid ${colors.tomato};
   }
 
   @media (min-width: 48em) {
@@ -24,7 +40,7 @@ export const WorkoutSection = styled(FormAndFallbackMessageWrapper)`
   }
 `;
 
-export const WorkoutHeader = styled.div`
+export const Header = styled.div`
   grid-column: 1 / -1;
   display: flex;
   justify-content: space-between;
@@ -39,25 +55,20 @@ export const WorkoutTitle = styled.h3`
   font-family: 'Akaya Telivigala', cursive;
   color: ${colors.white};
   letter-spacing: 0.1rem;
-  //grid-column: 1 / -1;
 `;
 
-export const RemoveBtn = styled(TimesCircle)`
-  width: 2rem;
-  height: 2rem;
+export const RemoveBtn = styled(DeleteDismiss)`
+  ${CommonIconStyles}
   color: ${colors.tomato};
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
-  @media (min-width: 48em) {
-    width: 3rem;
-    height: 3rem;
-  }
-  &:hover {
-    transform: scale(1.1);
-  }
+  margin-right: 1rem;
 `;
 
-export const WorkoutDetails = styled.div`
+export const EditBtn = styled(Edit)`
+  ${CommonIconStyles}
+  color: ${colors.mantis};
+`;
+
+export const Details = styled.div`
   display: flex;
   align-items: baseline;
 `;

@@ -9,7 +9,7 @@ import { FormSection, FormDetails, Form, FormSectionTitle, FormSubmitBtn } from 
 import { SignUpBody, SignUpLink } from './SignUp.styled';
 import Input from './../../../../components/Input/Input';
 import { SIGN_UP_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
-import { colors } from '../../../../global-styles/Global.styled';
+import { colors } from '../../../../global-styles/ColorsPalette';
 
 const SignUp = (): ReactElement => {
   const {

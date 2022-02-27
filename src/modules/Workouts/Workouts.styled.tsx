@@ -1,13 +1,15 @@
 import styled from 'styled-components';
+import { colors } from '../../global-styles/ColorsPalette';
 
-import { colors, fadeInDown } from '../../global-styles/Global.styled';
+import { fadeInDown } from '../../global-styles/Global.styled';
 
 export const WorkoutsSection = styled.section`
-  min-height: 100vh;
+  height: 100vh;
   margin: 8rem 1.2rem 1.2rem 1.2rem;
   overscroll-behavior-y: none;
   animation: ${fadeInDown} 0.3s ease-in-out;
   filter: drop-shadow(7px 8px 4px ${colors.darkBlue});
+  overflow: hidden;
 
   @media (min-width: 48em) {
     margin: 10rem 1.2rem 1.2rem 1.2rem;
@@ -29,10 +31,11 @@ export const WorkoutsFeatures = styled.aside`
   background-color: ${colors.darkBlue};
   border-top-left-radius: 1.2rem;
   border-top-right-radius: 1.2rem;
-  padding: 0 1.2rem;
+  padding: 0 1.2rem 10rem 1.2rem;
+  overflow: auto;
 
   @media (min-width: 62em) {
-    min-height: 100vh;
+    height: 100vh;
     flex: 0 1 50rem;
     border-top-right-radius: 0rem;
     border-bottom-left-radius: 1.2rem;

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import SectionsTitle from '../../components/SectionTitle/SectionsTitle';
 import { AppRoutes } from '../../App.enums';
-import { colors } from '../../global-styles/Global.styled';
+
 import {
   CommonSectionsBody,
   CommonSectionsBtn,
@@ -10,6 +10,7 @@ import {
 } from '../../layouts/SectionsLayout/SectionsLayout.styled';
 import SectionsLayout from '../../layouts/SectionsLayout/SectionsLayout';
 import Slider from './components/Slider/Slider';
+import { colors } from '../../global-styles/ColorsPalette';
 
 const Home = (): ReactElement => {
   return (

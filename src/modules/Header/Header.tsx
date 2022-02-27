@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-import { colors, Container } from '../../global-styles/Global.styled';
+import { Container } from '../../global-styles/Global.styled';
 import { HeaderSection, HeaderSectionBody, Logo } from './Header.styled';
 import BurgerIcon from './components/BurgerIcon/BurgerIcon';
 import Navigation from './components/Navigation/Navigation';
 import LogoImg from '../../assets/images/logo.png';
 import { AppRoutes } from '../../App.enums';
 import Tooltip from '../../components/Tooltip/Tooltip';
+import { colors } from '../../global-styles/ColorsPalette';
 
 const Header = () => {
   const [isBurgerIconOpened, setIsBurgerIconOpened] = useState(false);

@@ -1,20 +1,20 @@
 import { useRef, useEffect, useContext } from 'react';
 
-import {
-  RemoveBtn,
-  WorkoutDetails,
-  WorkoutHeader,
-  WorkoutIcon,
-  WorkoutSection,
-  WorkoutTitle,
-  WorkoutUnit,
-  WorkoutValue,
-} from './Workout.styled';
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
+import { WorkoutsProps } from './../../../../context/WorkoutsContext';
+import { toastService } from './../../../../services/Toast.service';
+import WorkoutHeader from './components/WorkoutHeader/WorkoutHeader';
+import { WorkoutSection } from './Workout.styled';
+import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails';
 
-const Workout = ({ workout }: any) => {
+interface WorkoutProps {
+  workout: WorkoutsProps;
+}
+
+const Workout = ({ workout }: WorkoutProps) => {
   const { workoutsData, setStorage } = useContext(WorkoutsContext);
   const [workouts, setWorkouts] = workoutsData;
+
   const { description, selectedValue, distance, duration, speed, pace, cadence, elevationGain, id } = workout;
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -39,43 +39,33 @@ const Workout = ({ workout }: any) => {
   }, []);
 
   // delete a particular clicked workout from UI as well as localStorage
-  const handleRemoveWorkout = (workout: any) => {
-    const removedWorkout = workouts.filter((clickedWorkout: any) => clickedWorkout.id !== workout.id);
+  const handleRemoveWorkout = () => {
+    const removedWorkout = workouts.filter((clickedWorkout: WorkoutsProps) => clickedWorkout.id !== workout.id);
+
     setWorkouts(removedWorkout);
   };
+
+  const handleEditWorkout = () => {
+    return toastService.info('Not implemented yet');
+  };
+
   return (
-    <>
-      <WorkoutSection
-        className={selectedValue === 'running' ? 'running' : 'cycling'}
-        data-id={id}
-        onClick={handleClick}
-      >
-        <WorkoutHeader>
-          <WorkoutTitle>{description}</WorkoutTitle>
-          <RemoveBtn onClick={() => handleRemoveWorkout(workout)} />
-        </WorkoutHeader>
-        <WorkoutDetails>
-          <WorkoutIcon>{selectedValue === 'running' ? '🏃‍♂️' : '🚴‍♀️'}</WorkoutIcon>
-          <WorkoutValue>{distance}</WorkoutValue>
-          <WorkoutUnit>km</WorkoutUnit>
-        </WorkoutDetails>
-        <WorkoutDetails>
-          <WorkoutIcon>⏱</WorkoutIcon>
-          <WorkoutValue>{duration}</WorkoutValue>
-          <WorkoutUnit>min</WorkoutUnit>
-        </WorkoutDetails>
-        <WorkoutDetails>
-          <WorkoutIcon>⚡️</WorkoutIcon>
-          <WorkoutValue>{selectedValue === 'running' ? pace : speed}</WorkoutValue>
-          <WorkoutUnit>{selectedValue === 'running' ? 'min/km' : 'km/h'}</WorkoutUnit>
-        </WorkoutDetails>
-        <WorkoutDetails>
-          <WorkoutIcon>{selectedValue === 'running' ? '🦶🏼' : '⛰'}</WorkoutIcon>
-          <WorkoutValue>{selectedValue === 'running' ? cadence : elevationGain}</WorkoutValue>
-          <WorkoutUnit>{selectedValue === 'running' ? 'spm' : 'm'}</WorkoutUnit>
-        </WorkoutDetails>
-      </WorkoutSection>
-    </>
+    <WorkoutSection className={selectedValue === 'running' ? 'running' : 'cycling'} data-id={id} onClick={handleClick}>
+      <WorkoutHeader
+        description={description}
+        onWorkoutEdit={handleEditWorkout}
+        onWorkoutDelete={handleRemoveWorkout}
+      />
+      <WorkoutDetails
+        selectedValue={selectedValue}
+        distance={distance}
+        duration={duration}
+        cadence={cadence}
+        elevationGain={elevationGain}
+        pace={pace}
+        speed={speed}
+      />
+    </WorkoutSection>
   );
 };
 

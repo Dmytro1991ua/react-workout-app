@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Swiper } from 'swiper/react';
-import { colors } from './Global.styled';
+import { colors } from './ColorsPalette';
 
 export const CustomSwiper = styled(Swiper)`
   &.swiper-container {

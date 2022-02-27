@@ -5,7 +5,7 @@ import { Bars } from 'react-loader-spinner';
 import { AppRoutes } from '../../../../App.enums';
 import Button from '../../../../components/Button/Button';
 import Input from '../../../../components/Input/Input';
-import { colors } from '../../../../global-styles/Global.styled';
+import { colors } from '../../../../global-styles/ColorsPalette';
 import { authService } from '../../Auth.service';
 import { FORGOT_PASSWORD_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
 import { FormSection, FormSectionTitle, FormDetails, FormBody, FormLink, Form } from '../LoginForm/Login.styled';

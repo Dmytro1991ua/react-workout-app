@@ -1,0 +1,15 @@
+export const colors = {
+  black: '#000',
+  white: '#fff',
+  powderAsh: '#c1c7c5',
+  darkBlue: '#090c1b',
+  mantis: '#7ac142',
+  mantisDarker: ' #5a803d',
+  transparentMantisDarker: 'rgba(90, 128, 61, 0.3)',
+  lighterBlue: '#153c6b',
+  brightGreen: '#60f702 ',
+  tomato: '#ff6347',
+  errorBg: '#f27f6b',
+  error: '#821805',
+  pureBlue: '#09f',
+};
