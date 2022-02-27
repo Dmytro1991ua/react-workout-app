@@ -1,11 +1,12 @@
-import { useRef, useEffect, useContext } from 'react';
+import { useRef, useEffect, useContext, useState } from 'react';
 
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 import { WorkoutsProps } from './../../../../context/WorkoutsContext';
 import { toastService } from './../../../../services/Toast.service';
 import WorkoutHeader from './components/WorkoutHeader/WorkoutHeader';
-import { WorkoutSection } from './Workout.styled';
+import { ModalContentTitle, WorkoutSection, ModalContentSubtitle } from './Workout.styled';
 import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails';
+import CustomModal from '../../../../components/CustomModal/CustomModal';
 
 interface WorkoutProps {
   workout: WorkoutsProps;
@@ -16,6 +17,8 @@ const Workout = ({ workout }: WorkoutProps) => {
   const [workouts, setWorkouts] = workoutsData;
 
   const { description, selectedValue, distance, duration, speed, pace, cadence, elevationGain, id } = workout;
+
+  const [isDeleteConfirmationModalOpened, setIsDeleteConfirmationModalOpened] = useState(false);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     const clickedWorkout = workouts.find((workout: any) => workout.id === event.currentTarget.getAttribute('data-id'));
@@ -39,33 +42,57 @@ const Workout = ({ workout }: WorkoutProps) => {
   }, []);
 
   // delete a particular clicked workout from UI as well as localStorage
-  const handleRemoveWorkout = () => {
+  function handleRemoveWorkout(): void {
     const removedWorkout = workouts.filter((clickedWorkout: WorkoutsProps) => clickedWorkout.id !== workout.id);
 
     setWorkouts(removedWorkout);
-  };
+  }
 
-  const handleEditWorkout = () => {
+  function handleEditWorkout(): void {
     return toastService.info('Not implemented yet');
-  };
+  }
+
+  function handleOpenDeleteConfirmationModal(): void {
+    setIsDeleteConfirmationModalOpened(true);
+  }
+
+  function handleCloseDeleteConfirmationModal(): void {
+    setIsDeleteConfirmationModalOpened(false);
+  }
 
   return (
-    <WorkoutSection className={selectedValue === 'running' ? 'running' : 'cycling'} data-id={id} onClick={handleClick}>
-      <WorkoutHeader
-        description={description}
-        onWorkoutEdit={handleEditWorkout}
-        onWorkoutDelete={handleRemoveWorkout}
-      />
-      <WorkoutDetails
-        selectedValue={selectedValue}
-        distance={distance}
-        duration={duration}
-        cadence={cadence}
-        elevationGain={elevationGain}
-        pace={pace}
-        speed={speed}
-      />
-    </WorkoutSection>
+    <>
+      <CustomModal
+        isOpen={isDeleteConfirmationModalOpened}
+        onClose={handleCloseDeleteConfirmationModal}
+        onSubmit={handleRemoveWorkout}
+        shouldCloseOnOverlayClick
+        title='Workout deletion'
+      >
+        <ModalContentTitle>Are you sure you want to delete this workout?</ModalContentTitle>
+        <ModalContentSubtitle>You will not be able to recover it</ModalContentSubtitle>
+      </CustomModal>
+      <WorkoutSection
+        className={selectedValue === 'running' ? 'running' : 'cycling'}
+        data-id={id}
+        onClick={handleClick}
+      >
+        <WorkoutHeader
+          description={description}
+          onWorkoutEdit={handleEditWorkout}
+          onOpenModal={handleOpenDeleteConfirmationModal}
+        />
+        <WorkoutDetails
+          selectedValue={selectedValue}
+          distance={distance}
+          duration={duration}
+          cadence={cadence}
+          elevationGain={elevationGain}
+          pace={pace}
+          speed={speed}
+        />
+      </WorkoutSection>
+    </>
   );
 };
 

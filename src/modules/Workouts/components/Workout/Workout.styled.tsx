@@ -1,4 +1,3 @@
-import { TimesCircle } from '@styled-icons/fa-solid';
 import styled from 'styled-components';
 import { Edit } from 'styled-icons/boxicons-regular';
 import { DeleteDismiss } from 'styled-icons/fluentui-system-filled';
@@ -90,4 +89,14 @@ export const WorkoutUnit = styled.span`
   color: ${colors.powderAsh};
   text-transform: uppercase;
   font-weight: 800;
+`;
+
+export const ModalContentTitle = styled('h2')`
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+`;
+
+export const ModalContentSubtitle = styled('h2')`
+  font-size: 1.5rem;
+  opacity: 0.8;
 `;
