@@ -37,6 +37,7 @@ export const WorkoutsFeatures = styled.aside`
 
   @media (min-width: 62em) {
     height: 100vh;
+    flex: 0 1 50rem;
     border-top-right-radius: 0rem;
     border-bottom-left-radius: 1.2rem;
   }
