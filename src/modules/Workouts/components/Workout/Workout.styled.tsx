@@ -49,11 +49,19 @@ export const Header = styled.div`
 `;
 
 export const WorkoutTitle = styled.h3`
-  font-size: 2.3rem;
+  font-size: 1.6rem;
   font-weight: 700;
   font-family: 'Akaya Telivigala', cursive;
   color: ${colors.white};
   letter-spacing: 0.1rem;
+
+  @media (min-width: 62em) {
+    font-size: 1.8rem;
+  }
+
+  @media (min-width: 75em) {
+    font-size: 2.2rem;
+  }
 `;
 
 export const RemoveBtn = styled(DeleteDismiss)`
