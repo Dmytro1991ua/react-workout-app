@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { WorkoutFormInitialValues } from '../modules/Workouts/components/WorkoutForm/Form.interfaces';
+import { MONTHS_LIST } from '../modules/Workouts/Workouts.constants';
 
 export interface WorkoutsProps {
   id: string;
@@ -67,24 +68,9 @@ export const WorkoutsProvider = (props: any) => {
 
   // create a workout description based on a type of workout and currrent date
   const workoutDescription = (workoutType: string, distance: number) => {
-    // prettier-ignore
-    const months = [
-      "January",
-      "Fabruary",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
     return `${workoutType[0].toUpperCase()}${workoutType?.slice(1)} ${distance} km on ${
-      months[new Date().getMonth()]
-    } ${new Date().getDate()}`;
+      MONTHS_LIST[new Date().getMonth()]
+    } ${new Date().getDate()} at ${new Date().toLocaleTimeString()}`;
   };
 
   // get a workout data from form inputs based on selected workout (either Running or Cycling)

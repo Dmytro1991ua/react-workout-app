@@ -7,6 +7,7 @@ import WorkoutHeader from './components/WorkoutHeader/WorkoutHeader';
 import { ModalContentTitle, WorkoutSection, ModalContentSubtitle } from './Workout.styled';
 import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails';
 import CustomModal from '../../../../components/CustomModal/CustomModal';
+import { WORKOUT_SUCCESS_DELETE_MESSAGE } from '../../Workouts.constants';
 
 interface WorkoutProps {
   workout: WorkoutsProps;
@@ -46,6 +47,8 @@ const Workout = ({ workout }: WorkoutProps) => {
     const removedWorkout = workouts.filter((clickedWorkout: WorkoutsProps) => clickedWorkout.id !== workout.id);
 
     setWorkouts(removedWorkout);
+
+    toastService.success(WORKOUT_SUCCESS_DELETE_MESSAGE);
   }
 
   function handleEditWorkout(): void {

@@ -27,6 +27,7 @@ export const WorkoutsSectionBody = styled.div`
 
 //WorkoutsFeatures
 export const WorkoutsFeatures = styled.aside`
+  flex: 0 1 50rem;
   min-height: 10rem;
   background-color: ${colors.darkBlue};
   border-top-left-radius: 1.2rem;
@@ -42,7 +43,7 @@ export const WorkoutsFeatures = styled.aside`
   }
 
   @media (min-width: 75em) {
-    flex: 0 1 50rem;
+    flex: 0 1 60rem;
   }
 `;
 
