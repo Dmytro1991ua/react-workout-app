@@ -1,11 +1,12 @@
 import React, { ReactElement, useContext, useState } from 'react';
 
 import { FeaturesTitle, WorkoutsFeatures, Map, WorkoutsSection, WorkoutsSectionBody } from './Workouts.styled';
-import { WorkoutsContext } from '../../context/WorkoutsContext';
+import { WorkoutsContext, WorkoutsProps } from '../../context/WorkoutsContext';
 import Form from './components/WorkoutForm/Form';
 import Workout from './components/Workout/Workout';
 import WorkoutsMap from './components/WorkoutsMap';
 import FallbackMessage from './components/FallbackMessage/FallbackMessage';
+import { LatLngTuple } from 'leaflet';
 
 const Workouts = (): ReactElement => {
   // destructure certain "states" from Context
@@ -14,6 +15,8 @@ const Workouts = (): ReactElement => {
   const [workouts] = workoutsData;
 
   const [isFormShown, setIsFormShown] = useState(false);
+
+  const [clickedMapCoordinates, setClickedMapCoordinates] = useState<LatLngTuple | null>(null);
 
   function showWorkoutForm(): void {
     setIsFormShown(true);
@@ -35,14 +38,20 @@ const Workouts = (): ReactElement => {
       <WorkoutsSectionBody>
         <WorkoutsFeatures onClick={hideWorkoutForm}>
           <FeaturesTitle>Workouts Information</FeaturesTitle>
-          {isFormShown && <Form onStopPropagation={stopWorkoutFormPropagation} onCloseWorkoutForm={hideWorkoutForm} />}
+          {isFormShown && (
+            <Form
+              onStopPropagation={stopWorkoutFormPropagation}
+              onCloseWorkoutForm={hideWorkoutForm}
+              mapCoords={clickedMapCoordinates}
+            />
+          )}
           {sortedWorkouts.length <= 0 && <FallbackMessage />}
-          {sortedWorkouts.map((workout: any) => (
+          {sortedWorkouts.map((workout: WorkoutsProps) => (
             <Workout key={workout.id} workout={workout} />
           ))}
         </WorkoutsFeatures>
         <Map>
-          <WorkoutsMap onShowWorkoutForm={showWorkoutForm} showForm={isFormShown} />
+          <WorkoutsMap onShowWorkoutForm={showWorkoutForm} setMapCoords={setClickedMapCoordinates} />
         </Map>
       </WorkoutsSectionBody>
     </WorkoutsSection>
