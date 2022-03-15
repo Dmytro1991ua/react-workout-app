@@ -46,7 +46,7 @@ const WorkoutsMap = ({ onShowWorkoutForm, setMapCoords }: WorkoutMapProps): Reac
     return (
       workouts &&
       workouts.map((workout: WorkoutsProps) => {
-        return isSubmitted && <MapMarker key={workout.id} position={workout.coordinates} />;
+        return isSubmitted && <MapMarker key={workout.id} currentWorkout={workout} />;
       })
     );
   };

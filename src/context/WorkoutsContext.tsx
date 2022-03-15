@@ -4,7 +4,7 @@ import { FieldValues } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { WorkoutFormInitialValues } from '../modules/Workouts/components/WorkoutForm/Form.interfaces';
+
 import { MONTHS_LIST } from '../modules/Workouts/Workouts.constants';
 
 export interface WorkoutsProps {
@@ -35,13 +35,6 @@ export const WorkoutsProvider = (props: any) => {
 
   // selected workout value from a from
   const [selectedValue, setSelectedValue] = useState('running');
-  const [workoutFormValues, setWorkoutFormValues] = useState<WorkoutFormInitialValues>({
-    workoutType: 'running',
-    distance: 0,
-    duration: 0,
-    cadence: '',
-    elevationGain: '',
-  });
 
   const [workouts, setWorkouts] = useLocalStorage<WorkoutsProps[]>('workouts', []);
 
@@ -126,7 +119,6 @@ export const WorkoutsProvider = (props: any) => {
         workoutRender: [getWorkoutData],
         description: [workoutDescription],
         submit: [isSubmitted, setIsSubmitted],
-        workoutForm: [workoutFormValues, setWorkoutFormValues],
       }}
     >
       {props.children}

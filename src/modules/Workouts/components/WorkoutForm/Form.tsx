@@ -25,11 +25,10 @@ interface FormProps {
 
 const Form = ({ onStopPropagation, onCloseWorkoutForm, mapCoords }: FormProps) => {
   // destructure selected workout's value, workouts data "states"
-  const { workoutRender, submit, workoutForm } = useContext(WorkoutsContext);
+  const { workoutRender, submit } = useContext(WorkoutsContext);
 
   const [getWorkoutData] = workoutRender;
   const [isSubmitted, setIsSubmitted] = submit;
-  const [workoutFormValues, setWorkoutFormValues] = workoutForm;
 
   const {
     handleSubmit,
@@ -58,11 +57,6 @@ const Form = ({ onStopPropagation, onCloseWorkoutForm, mapCoords }: FormProps) =
 
   const handleWorkoutFormSubmit = (formData: FieldValues): void => {
     getWorkoutData(formData, mapCoords); //get workout data from form based on a select value
-
-    setWorkoutFormValues({
-      ...formData,
-      workoutType: selectedValue,
-    });
 
     reset();
 

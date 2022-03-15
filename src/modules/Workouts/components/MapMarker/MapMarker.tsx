@@ -5,7 +5,7 @@ import { Marker, Popup, useMap } from 'react-leaflet';
 
 import 'leaflet/dist/leaflet.css';
 import '../../../leafletMap/leaflet.css';
-import { WorkoutsContext } from '../../../../context/WorkoutsContext';
+import { WorkoutsContext, WorkoutsProps } from '../../../../context/WorkoutsContext';
 
 import { MAX_MARKER_POP_UP_WIDTH, MIN_MARKER_POP_UP_WIDTH } from './../../Workouts.constants';
 import { workoutMarkerIcon } from '../../Workouts.utils';
@@ -13,20 +13,19 @@ import { workoutMarkerIcon } from '../../Workouts.utils';
 //create a leaflet map marker
 
 interface MarkerProps {
-  position: LatLngTuple;
+  currentWorkout: WorkoutsProps;
 }
 
-const MapMarker = ({ position }: MarkerProps): ReactElement => {
-  const { description, workoutForm } = useContext(WorkoutsContext);
+const MapMarker = ({ currentWorkout }: MarkerProps): ReactElement => {
+  const { description } = useContext(WorkoutsContext);
   const [workoutDescription] = description;
-  const [workoutFormValues] = workoutForm;
 
   const workoutMap = useMap();
 
   const [marker, setMarker] = useState<L.Marker<any> | null>(null);
 
   const determineStylesBasedOnWorkoutType =
-    workoutFormValues.workoutType === 'running' ? 'running-popup' : 'cycling-popup';
+    currentWorkout.selectedValue === 'running' ? 'running-popup' : 'cycling-popup';
 
   useEffect(() => {
     marker?.addTo(workoutMap).openPopup();
@@ -34,8 +33,8 @@ const MapMarker = ({ position }: MarkerProps): ReactElement => {
 
   return (
     <Marker
-      position={position}
-      icon={workoutMarkerIcon(workoutFormValues.workoutType)}
+      position={currentWorkout.coordinates}
+      icon={workoutMarkerIcon(currentWorkout.selectedValue)}
       ref={(markerRef) => setMarker(markerRef)}
     >
       <Popup
@@ -44,11 +43,11 @@ const MapMarker = ({ position }: MarkerProps): ReactElement => {
         className={determineStylesBasedOnWorkoutType}
         minWidth={MIN_MARKER_POP_UP_WIDTH}
         maxWidth={MAX_MARKER_POP_UP_WIDTH}
-        position={position}
+        position={currentWorkout.coordinates}
         autoPan={false}
       >
-        {workoutFormValues.workoutType === 'running' ? '🏃‍♂️' : '🚴‍♀️'}
-        {workoutDescription(workoutFormValues.workoutType, workoutFormValues.distance)}
+        {currentWorkout.selectedValue === 'running' ? '🏃‍♂️' : '🚴‍♀️'}
+        {workoutDescription(currentWorkout.selectedValue, currentWorkout.distance)}
       </Popup>
     </Marker>
   );
