@@ -14,19 +14,21 @@ import '../../../leafletMap/leaflet.css';
 import { FormAndFallbackMessageWrapper } from '../../CommonStyles.styled';
 import { FieldInputWrapper, FormLabel, FormRow, WorkoutForm } from './Form.styled';
 import { colors } from '../../../../global-styles/ColorsPalette';
+import { WORKOUT_TYPE_SELECTION_OPTIONS_MOCK } from '../../Workouts.constants';
+import { LatLngTuple } from 'leaflet';
 
 interface FormProps {
   onStopPropagation: (e: React.MouseEvent) => void;
   onCloseWorkoutForm: () => void;
+  mapCoords: LatLngTuple | null;
 }
 
-const Form = ({ onStopPropagation, onCloseWorkoutForm }: FormProps) => {
+const Form = ({ onStopPropagation, onCloseWorkoutForm, mapCoords }: FormProps) => {
   // destructure selected workout's value, workouts data "states"
-  const { workoutRender, submit, workoutForm } = useContext(WorkoutsContext);
+  const { workoutRender, submit } = useContext(WorkoutsContext);
 
   const [getWorkoutData] = workoutRender;
   const [isSubmitted, setIsSubmitted] = submit;
-  const [workoutFormValues, setWorkoutFormValues] = workoutForm;
 
   const {
     handleSubmit,
@@ -42,11 +44,6 @@ const Form = ({ onStopPropagation, onCloseWorkoutForm }: FormProps) => {
 
   const [selectedValue, setSelectedValue] = useState('running');
 
-  const workoutTypeSelectOptions = [
-    { id: 0, value: 'running' },
-    { id: 1, value: 'cycling' },
-  ];
-
   function handleSelectChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     setValue('workoutType', event.target.value);
     const getSelectFieldValue = getValues('workoutType');
@@ -59,17 +56,12 @@ const Form = ({ onStopPropagation, onCloseWorkoutForm }: FormProps) => {
   }
 
   const handleWorkoutFormSubmit = (formData: FieldValues): void => {
-    getWorkoutData(formData); //get workout data from form based on a select value
-
-    setWorkoutFormValues({
-      ...formData,
-      workoutType: selectedValue,
-    });
+    getWorkoutData(formData, mapCoords); //get workout data from form based on a select value
 
     reset();
 
-    onCloseWorkoutForm(); // hide Form component onSubmit a form
     setIsSubmitted(true);
+    onCloseWorkoutForm(); // hide Form component onSubmit a form
   };
 
   return (
@@ -82,7 +74,7 @@ const Form = ({ onStopPropagation, onCloseWorkoutForm }: FormProps) => {
             <FormRow>
               <FormLabel>Type</FormLabel>
               <Select
-                options={workoutTypeSelectOptions}
+                options={WORKOUT_TYPE_SELECTION_OPTIONS_MOCK}
                 name='workoutType'
                 id='workoutType'
                 register={register}

@@ -20,6 +20,7 @@ const CustomModal = (props: CustomModalProps): ReactElement => {
       isOpen={props.isOpen}
       shouldCloseOnOverlayClick={props.shouldCloseOnOverlayClick}
       onRequestClose={props.onClose}
+      ariaHideApp={false}
       className='_'
       overlayClassName='_'
       contentElement={(props, children) => <GlobalModal {...props}>{children}</GlobalModal>}
