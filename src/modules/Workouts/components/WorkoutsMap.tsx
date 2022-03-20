@@ -1,8 +1,7 @@
 import { LatLngExpression, LatLngTuple } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { v4 as uuidv4 } from 'uuid';
-import React, { ReactElement, useContext } from 'react';
-import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
+import React, { ReactElement, useContext, useEffect } from 'react';
+import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 
 import useGeolocation from '../../../hooks/useGeolocation';
 import { leafletDetails } from '../../leafletMap/leafletMap';
@@ -10,13 +9,15 @@ import '../../leafletMap/leaflet.css';
 import { WorkoutsContext, WorkoutsProps } from '../../../context/WorkoutsContext';
 import MapMarker from './MapMarker/MapMarker';
 import { ZOOM_LEVEL } from '../Workouts.constants';
+import InitialMapMarker from './MapMarker/InitialMapMarker';
 
 interface WorkoutMapProps {
   onShowWorkoutForm: () => void;
   setMapCoords: React.Dispatch<React.SetStateAction<LatLngTuple | null>>;
+  isFormShown: boolean;
 }
 
-const WorkoutsMap = ({ onShowWorkoutForm, setMapCoords }: WorkoutMapProps): ReactElement => {
+const WorkoutsMap = ({ onShowWorkoutForm, setMapCoords, isFormShown }: WorkoutMapProps): ReactElement => {
   // destructure certain "states" from Context
   const { submit, workoutsData } = useContext(WorkoutsContext);
 
@@ -31,15 +32,15 @@ const WorkoutsMap = ({ onShowWorkoutForm, setMapCoords }: WorkoutMapProps): Reac
   const GetMapCoordsAndRenderMarker = (): ReactElement => {
     const map = useMapEvents({
       click: (e) => {
-        map.locate();
+        map.locate().on('locationfound', function () {
+          map.flyTo(e.latlng, map.getZoom(), { animate: true });
+        });
 
         onShowWorkoutForm();
 
         const { lat, lng } = e.latlng;
         const coords: LatLngTuple = [lat, lng];
         setMapCoords(coords);
-
-        map.flyTo(coords, map.getZoom(), { animate: true });
       },
     });
 
@@ -51,6 +52,21 @@ const WorkoutsMap = ({ onShowWorkoutForm, setMapCoords }: WorkoutMapProps): Reac
     );
   };
 
+  function RenderMarkerWithCurrentPosition() {
+    const map = useMap();
+
+    useEffect(() => {
+      map.locate().on('locationfound', function (e) {
+        map.flyTo(e.latlng, map.getZoom(), { animate: true });
+      });
+      return function cleanup() {
+        map.stopLocate();
+      };
+    }, [map]);
+
+    return currentPosition === null ? null : <InitialMapMarker position={currentPosition} />;
+  }
+
   return (
     <>
       {/* Render leaflet map when current location is loaded and there is no error*/}
@@ -58,6 +74,7 @@ const WorkoutsMap = ({ onShowWorkoutForm, setMapCoords }: WorkoutMapProps): Reac
         <MapContainer center={currentPosition} zoom={ZOOM_LEVEL} closePopupOnClick={false}>
           <TileLayer attribution={leafletDetails.attribution} url={leafletDetails.url} />
           <GetMapCoordsAndRenderMarker />
+          {!workouts.length && !isFormShown && <RenderMarkerWithCurrentPosition />}
         </MapContainer>
       )}
     </>

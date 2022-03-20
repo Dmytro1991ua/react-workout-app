@@ -67,7 +67,7 @@ export const WorkoutsProvider = (props: any) => {
   };
 
   // get a workout data from form inputs based on selected workout (either Running or Cycling)
-  const getWorkoutData = (formData: FieldValues, mapCoords: LatLngTuple) => {
+  const getWorkoutData = (formData: FieldValues, mapCoords: LatLngTuple): void => {
     // workout data object(same for Running and Cycling) from workout form
     const workoutData: WorkoutsProps = {
       id: uuidv4(),

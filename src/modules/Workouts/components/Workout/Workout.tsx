@@ -1,4 +1,4 @@
-import { useRef, useEffect, useContext, useState } from 'react';
+import { useEffect, useContext, useState } from 'react';
 
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 import { WorkoutsProps } from './../../../../context/WorkoutsContext';
