@@ -1,6 +1,13 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react';
 
-import { FeaturesTitle, WorkoutsFeatures, Map, WorkoutsSection, WorkoutsSectionBody } from './Workouts.styled';
+import {
+  FeaturesTitle,
+  WorkoutsFeatures,
+  Map,
+  WorkoutsSection,
+  WorkoutsSectionBody,
+  ActionsPanel,
+} from './Workouts.styled';
 import { WorkoutsContext, WorkoutsProps } from '../../context/WorkoutsContext';
 import Form from './components/WorkoutForm/Form';
 import Workout from './components/Workout/Workout';
@@ -9,6 +16,7 @@ import FallbackMessage from './components/FallbackMessage/FallbackMessage';
 import { LatLngExpression, LatLngTuple } from 'leaflet';
 import useGeolocation from '../../hooks/useGeolocation';
 import InitialMapMarker from './components/MapMarker/InitialMapMarker';
+import { WorkoutsActionsPanel } from './components/WorkoutsActionsPanel/WorkoutsActionsPanel';
 
 const Workouts = (): ReactElement => {
   // destructure certain "states" from Context
@@ -45,7 +53,12 @@ const Workouts = (): ReactElement => {
     <WorkoutsSection>
       <WorkoutsSectionBody>
         <WorkoutsFeatures onClick={hideWorkoutForm}>
-          <FeaturesTitle>Workouts Information</FeaturesTitle>
+          <FeaturesTitle hasWorkouts={!!workouts.length}>Workouts Information</FeaturesTitle>
+          {workouts.length && (
+            <ActionsPanel>
+              <WorkoutsActionsPanel />
+            </ActionsPanel>
+          )}
           {isFormShown && (
             <Form
               onStopPropagation={stopWorkoutFormPropagation}

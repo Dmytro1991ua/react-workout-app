@@ -11,3 +11,8 @@ declare interface MainPalette {
   errorBg: string;
   error: string;
 }
+
+declare interface SelectOptions {
+  id: number | string;
+  value: string;
+}

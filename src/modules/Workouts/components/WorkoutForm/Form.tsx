@@ -42,7 +42,7 @@ const Form = ({ onStopPropagation, onCloseWorkoutForm, mapCoords }: FormProps) =
     resolver: yupResolver(WORKOUT_FORM_VALIDATION_SCHEMA),
   });
 
-  const [selectedValue, setSelectedValue] = useState('running');
+  const [selectedValue, setSelectedValue] = useState('');
 
   function handleSelectChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     setValue('workoutType', event.target.value);
@@ -80,6 +80,7 @@ const Form = ({ onStopPropagation, onCloseWorkoutForm, mapCoords }: FormProps) =
                 register={register}
                 error={errors.workoutType}
                 onChange={handleSelectChange}
+                optionLabel='Select workout type:'
               />
             </FormRow>
             <FormRow>
@@ -96,6 +97,7 @@ const Form = ({ onStopPropagation, onCloseWorkoutForm, mapCoords }: FormProps) =
                   error={errors.distance}
                   onKeyDown={handleKeyDownOnInputField}
                   isRequired
+                  disabled={selectedValue === ''}
                 />
               </FieldInputWrapper>
             </FormRow>
@@ -113,6 +115,7 @@ const Form = ({ onStopPropagation, onCloseWorkoutForm, mapCoords }: FormProps) =
                   onKeyDown={handleKeyDownOnInputField}
                   error={errors.duration}
                   isRequired
+                  disabled={selectedValue === ''}
                 />
               </FieldInputWrapper>
             </FormRow>
@@ -161,6 +164,7 @@ const Form = ({ onStopPropagation, onCloseWorkoutForm, mapCoords }: FormProps) =
                 hoverColor='mantisDarker'
                 color='white'
                 onClick={handleSubmit(handleWorkoutFormSubmit)}
+                disabled={selectedValue === ''}
               >
                 Add Workout
               </Button>

@@ -47,13 +47,13 @@ export const WorkoutsFeatures = styled.aside`
   }
 `;
 
-export const FeaturesTitle = styled.h3`
+export const FeaturesTitle = styled('h3')<{ hasWorkouts?: boolean }>`
   font-size: 2.5rem;
   font-family: 'Akaya Telivigala', cursive;
   color: ${colors.white};
   text-align: center;
   padding: 1rem 0 0 0;
-  margin-bottom: 2rem;
+  margin-bottom: ${({ hasWorkouts }) => (hasWorkouts ? '4rem' : '2rem')};
   letter-spacing: 0.1rem;
 
   @media (min-width: 62em) {
@@ -68,4 +68,12 @@ export const Map = styled.div`
   background: ${colors.powderAsh};
   overflow: hidden;
   height: 100vh;
+`;
+
+export const ActionsPanel = styled('div')`
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid ${colors.mantis};
+  transition: all 0.3s ease-out;
+  animation: ${fadeInDown} 0.4s ease-in-out;
 `;

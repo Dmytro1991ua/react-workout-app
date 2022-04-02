@@ -4,13 +4,7 @@ import { WorkoutType } from '../../modules/Workouts/components/WorkoutForm/Form.
 import { FieldError } from '../Input/Input.styled';
 import { FormSelect } from './Select.styled';
 
-interface SelectOptions {
-  id: number;
-  value: string;
-}
-
 interface SelectProps {
-  value?: WorkoutType;
   options: SelectOptions[];
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   name?: string;
@@ -18,6 +12,8 @@ interface SelectProps {
   isRequired?: boolean;
   register?: ReturnType<typeof useForm>['register'];
   error?: FieldErrors<FieldValues>;
+  actionPanelSelect?: boolean;
+  optionLabel?: string;
 }
 
 export const Select = (props: SelectProps): ReactElement => {
@@ -26,10 +22,18 @@ export const Select = (props: SelectProps): ReactElement => {
   };
 
   return (
-    <FormSelect value={props.value} {...getFormFieldByNameProp} id={props.id} onChange={props.onChange}>
-      {props.options.map((workoutType) => (
-        <option key={workoutType.id} value={workoutType.value}>
-          {workoutType.value}
+    <FormSelect
+      {...getFormFieldByNameProp}
+      id={props.id}
+      onChange={props.onChange}
+      actionPanelSelect={props.actionPanelSelect}
+    >
+      <option value='' hidden>
+        {props.optionLabel}
+      </option>
+      {props.options.map((item) => (
+        <option key={item.id} value={item.value}>
+          {item.value}
         </option>
       ))}
       {props.error && <FieldError>{props.error.message}</FieldError>}

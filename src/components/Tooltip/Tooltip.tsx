@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import ReactTooltip, { Effect } from 'react-tooltip';
+import ReactTooltip, { Effect, Offset, Place } from 'react-tooltip';
 
 interface TooltipProps {
   effect?: Effect;
@@ -9,6 +9,8 @@ interface TooltipProps {
   borderColor?: string;
   arrowColor?: string;
   id?: string;
+  place?: Place;
+  offset?: Offset;
 }
 
 const Tooltip = (props: TooltipProps): ReactElement => {
@@ -21,6 +23,8 @@ const Tooltip = (props: TooltipProps): ReactElement => {
       border={props.border}
       borderColor={props.borderColor}
       arrowColor={props.borderColor}
+      place={props.place}
+      offset={props.offset}
     />
   );
 };
