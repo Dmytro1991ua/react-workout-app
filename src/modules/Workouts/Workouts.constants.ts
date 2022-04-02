@@ -38,8 +38,6 @@ export const SORT_BY_WORKOUT_INDICATORS_SELECTION_OPTIONS_MOCK = [
   { id: uuidv4(), value: '⚡️ Speed Or Pace' },
 ];
 
-export const MIN_MARKER_POP_UP_WIDTH = 250;
-export const MAX_MARKER_POP_UP_WIDTH = 350;
 export const ZOOM_LEVEL = 13; //default zoom level
 
 export const INITIAL_MAP_MARKER = new L.Icon({

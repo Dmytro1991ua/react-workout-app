@@ -9,7 +9,7 @@
 
 .leaflet-popup .leaflet-popup-content-wrapper {
   border-radius: 5px;
-  width: auto;
+  width: max-content;
 }
 
 .leaflet-popup-content-wrapper,
@@ -22,6 +22,7 @@
   font-size: 1.4rem;
   margin: 2rem 2rem;
   text-align: center;
+  width: max-content !important;
 }
 
 .running-popup .leaflet-popup-content-wrapper {

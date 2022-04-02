@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
-import { WorkoutType } from '../../modules/Workouts/components/WorkoutForm/Form.interfaces';
+
 import { FieldError } from '../Input/Input.styled';
 import { FormSelect } from './Select.styled';
 
