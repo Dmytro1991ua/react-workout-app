@@ -35,7 +35,7 @@ export const SORT_BY_WORKOUT_TYPE_SELECTION_OPTIONS_MOCK = [
 export const SORT_BY_WORKOUT_INDICATORS_SELECTION_OPTIONS_MOCK = [
   { id: uuidv4(), value: '🏃‍♂️/🚴‍♀️ Distance' },
   { id: uuidv4(), value: '⏱ Duration' },
-  { id: uuidv4(), value: '⚡️ Speed Or Pace' },
+  { id: uuidv4(), value: '⚡️ Cycling Speed Or Running Pace' },
 ];
 
 export const ZOOM_LEVEL = 13; //default zoom level

@@ -5,14 +5,14 @@ import { Marker, Popup, useMap } from 'react-leaflet';
 
 import 'leaflet/dist/leaflet.css';
 import '../../../leafletMap/leaflet.css';
-import { WorkoutsContext, WorkoutsProps } from '../../../../context/WorkoutsContext';
+import { WorkoutsContext, WorkoutItem } from '../../../../context/WorkoutsContext';
 
 import { workoutMarkerIcon } from '../../Workouts.utils';
 
 //create a leaflet map marker
 
 interface MarkerProps {
-  currentWorkout: WorkoutsProps;
+  currentWorkout: WorkoutItem;
 }
 
 const MapMarker = ({ currentWorkout }: MarkerProps): ReactElement => {

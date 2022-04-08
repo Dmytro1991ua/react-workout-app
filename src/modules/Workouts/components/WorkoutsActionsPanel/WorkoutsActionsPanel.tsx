@@ -1,17 +1,22 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Select } from '../../../../components/Select/Select';
 import Tooltip from '../../../../components/Tooltip/Tooltip';
+import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 import { colors } from '../../../../global-styles/ColorsPalette';
 import {
   SORT_BY_WORKOUT_INDICATORS_SELECTION_OPTIONS_MOCK,
   SORT_BY_WORKOUT_TYPE_SELECTION_OPTIONS_MOCK,
 } from '../../Workouts.constants';
+import { SortedWorkoutsByWorkoutType } from '../../Workouts.enums';
 
 import { ActionButton, ActionsPanelWrapper, ClearAllButtonIcon, DeleteButtonIcon } from './WorkoutsActionsPanel.styled';
 
 export const WorkoutsActionsPanel = (): ReactElement => {
+  const { selectedWorkoutTypeValue } = useContext(WorkoutsContext);
+  const [sortedByWorkoutTypeValue, setSortedByWorkoutTypeValue] = selectedWorkoutTypeValue;
+
   const config = [
     {
       id: uuidv4(),
@@ -27,12 +32,23 @@ export const WorkoutsActionsPanel = (): ReactElement => {
     },
   ];
 
+  function removeEmojiAndSpaceFromSelectedValue(selectedValue: string): string {
+    return selectedValue.replace(/[^\p{L}\p{N}\p{P}\p{Z}^$\n]/gu, '').trim();
+  }
+
+  function handleSortingByWorkoutTypeChange(event: React.ChangeEvent<HTMLSelectElement>) {
+    const selectedValue = removeEmojiAndSpaceFromSelectedValue(event.target.value);
+
+    setSortedByWorkoutTypeValue(selectedValue as SortedWorkoutsByWorkoutType);
+  }
+
   return (
     <ActionsPanelWrapper>
       <Select
         options={SORT_BY_WORKOUT_TYPE_SELECTION_OPTIONS_MOCK}
         actionPanelSelect
         optionLabel='Sort by workout type:'
+        onChange={handleSortingByWorkoutTypeChange}
       />
       <Select
         options={SORT_BY_WORKOUT_INDICATORS_SELECTION_OPTIONS_MOCK}
