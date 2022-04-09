@@ -5,7 +5,7 @@ import { Marker, Popup, useMap } from 'react-leaflet';
 
 import 'leaflet/dist/leaflet.css';
 import '../../../leafletMap/leaflet.css';
-import { WorkoutsContext, WorkoutItem } from '../../../../context/WorkoutsContext';
+import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 
 import { workoutMarkerIcon } from '../../Workouts.utils';
 

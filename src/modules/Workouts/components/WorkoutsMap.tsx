@@ -6,7 +6,7 @@ import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import useGeolocation from '../../../hooks/useGeolocation';
 import { leafletDetails } from '../../leafletMap/leafletMap';
 import '../../leafletMap/leaflet.css';
-import { WorkoutsContext, WorkoutItem } from '../../../context/WorkoutsContext';
+import { WorkoutsContext } from '../../../context/WorkoutsContext';
 import MapMarker from './MapMarker/MapMarker';
 import { ZOOM_LEVEL } from '../Workouts.constants';
 import InitialMapMarker from './MapMarker/InitialMapMarker';

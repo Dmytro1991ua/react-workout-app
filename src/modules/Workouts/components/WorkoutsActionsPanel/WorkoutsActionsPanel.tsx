@@ -5,55 +5,51 @@ import { Select } from '../../../../components/Select/Select';
 import Tooltip from '../../../../components/Tooltip/Tooltip';
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 import { colors } from '../../../../global-styles/ColorsPalette';
-import {
-  SORT_BY_WORKOUT_INDICATORS_SELECTION_OPTIONS_MOCK,
-  SORT_BY_WORKOUT_TYPE_SELECTION_OPTIONS_MOCK,
-} from '../../Workouts.constants';
-import { SortedWorkoutsByWorkoutType } from '../../Workouts.enums';
+import { SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS_MOCK } from '../../Workouts.constants';
+import { SortedWorkoutsByWorkoutTypeAndIndicator } from '../../Workouts.enums';
 
-import { ActionButton, ActionsPanelWrapper, ClearAllButtonIcon, DeleteButtonIcon } from './WorkoutsActionsPanel.styled';
+import { ActionButton, ActionsPanelWrapper, ResetButtonIcon, DeleteButtonIcon } from './WorkoutsActionsPanel.styled';
 
 export const WorkoutsActionsPanel = (): ReactElement => {
-  const { selectedWorkoutTypeValue } = useContext(WorkoutsContext);
-  const [sortedByWorkoutTypeValue, setSortedByWorkoutTypeValue] = selectedWorkoutTypeValue;
+  const { selectedWorkoutTypeValueAndIndicator } = useContext(WorkoutsContext);
+  const [sortedByWorkoutTypeValueAndIndicator, setSortedByWorkoutTypeValueAndIndicator] =
+    selectedWorkoutTypeValueAndIndicator;
 
   const config = [
+    {
+      id: uuidv4(),
+      icon: <ResetButtonIcon />,
+      'data-tip': 'Reset Workout Sorting',
+      'data-for': 'clearButton',
+    },
     {
       id: uuidv4(),
       icon: <DeleteButtonIcon />,
       'data-tip': 'Delete All',
       'data-for': 'deleteButton',
     },
-    {
-      id: uuidv4(),
-      icon: <ClearAllButtonIcon />,
-      'data-tip': 'Clear All',
-      'data-for': 'clearButton',
-    },
   ];
 
   function removeEmojiAndSpaceFromSelectedValue(selectedValue: string): string {
-    return selectedValue.replace(/[^\p{L}\p{N}\p{P}\p{Z}^$\n]/gu, '').trim();
+    return selectedValue
+      .replace(/[^\p{L}\p{N}\p{P}\p{Z}^$\n]/gu, '')
+      .replaceAll('/', '')
+      .trim();
   }
 
   function handleSortingByWorkoutTypeChange(event: React.ChangeEvent<HTMLSelectElement>) {
     const selectedValue = removeEmojiAndSpaceFromSelectedValue(event.target.value);
 
-    setSortedByWorkoutTypeValue(selectedValue as SortedWorkoutsByWorkoutType);
+    setSortedByWorkoutTypeValueAndIndicator(selectedValue as SortedWorkoutsByWorkoutTypeAndIndicator);
   }
 
   return (
     <ActionsPanelWrapper>
       <Select
-        options={SORT_BY_WORKOUT_TYPE_SELECTION_OPTIONS_MOCK}
+        options={SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS_MOCK}
         actionPanelSelect
         optionLabel='Sort by workout type:'
         onChange={handleSortingByWorkoutTypeChange}
-      />
-      <Select
-        options={SORT_BY_WORKOUT_INDICATORS_SELECTION_OPTIONS_MOCK}
-        actionPanelSelect
-        optionLabel='Sort by workout indicators:'
       />
       {config.map((item) => {
         return (

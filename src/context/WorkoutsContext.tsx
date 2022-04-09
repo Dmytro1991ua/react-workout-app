@@ -1,5 +1,4 @@
 import { LatLngTuple } from 'leaflet';
-import { filter, sortBy } from 'lodash';
 import { createContext, useEffect, useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,21 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
 import { MONTHS_LIST } from '../modules/Workouts/Workouts.constants';
-import { SortedWorkoutsByWorkoutType } from '../modules/Workouts/Workouts.enums';
-
-export interface WorkoutItem {
-  id: string;
-  date: string;
-  coordinates: LatLngTuple;
-  selectedValue: string;
-  distance: number;
-  duration: number;
-  cadence?: string;
-  elevationGain?: string;
-  pace?: number;
-  description?: string;
-  speed?: number;
-}
+import { SortedWorkoutsByWorkoutTypeAndIndicator } from '../modules/Workouts/Workouts.enums';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const WorkoutsContext = createContext({} as any);
@@ -39,8 +24,8 @@ export const WorkoutsProvider = (props: any) => {
   const [selectedValue, setSelectedValue] = useState('running');
 
   const [workouts, setWorkouts] = useLocalStorage<WorkoutItem[]>('workouts', []);
-  const [sortedByWorkoutTypeValue, setSortedByWorkoutTypeValue] = useState<SortedWorkoutsByWorkoutType | null>(null);
-  const [sortedWorkoutsByWorkoutType, setSortedWorkoutsByWorkoutType] = useState<WorkoutItem[] | null>(null);
+  const [sortedByWorkoutTypeValueAndIndicator, setSortedByWorkoutTypeValueAndIndicator] =
+    useState<SortedWorkoutsByWorkoutTypeAndIndicator | null>(null);
 
   // "state" of a submitting form in order to render Marker later on
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -120,8 +105,10 @@ export const WorkoutsProvider = (props: any) => {
         currentLocation: [location, setLocation],
         select: [selectedValue, setSelectedValue],
         workoutsData: [workouts, setWorkouts],
-        selectedWorkoutTypeValue: [sortedByWorkoutTypeValue, setSortedByWorkoutTypeValue],
-        workoutsByWorkoutType: [sortedWorkoutsByWorkoutType, setSortedWorkoutsByWorkoutType],
+        selectedWorkoutTypeValueAndIndicator: [
+          sortedByWorkoutTypeValueAndIndicator,
+          setSortedByWorkoutTypeValueAndIndicator,
+        ],
         workoutRender: [getWorkoutData],
         description: [workoutDescription],
         submit: [isSubmitted, setIsSubmitted],

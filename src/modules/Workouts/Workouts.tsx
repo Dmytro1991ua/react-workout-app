@@ -8,7 +8,7 @@ import {
   WorkoutsSectionBody,
   ActionsPanel,
 } from './Workouts.styled';
-import { WorkoutsContext, WorkoutItem } from '../../context/WorkoutsContext';
+import { WorkoutsContext } from '../../context/WorkoutsContext';
 import Form from './components/WorkoutForm/Form';
 import Workout from './components/Workout/Workout';
 import WorkoutsMap from './components/WorkoutsMap';
@@ -17,14 +17,14 @@ import { LatLngExpression, LatLngTuple } from 'leaflet';
 import useGeolocation from '../../hooks/useGeolocation';
 import InitialMapMarker from './components/MapMarker/InitialMapMarker';
 import { WorkoutsActionsPanel } from './components/WorkoutsActionsPanel/WorkoutsActionsPanel';
-import { SortedWorkoutsByWorkoutType } from './Workouts.enums';
+import { SortedWorkoutsByWorkoutTypeAndIndicator } from './Workouts.enums';
 import { filter, sortBy } from 'lodash';
 
 const Workouts = (): ReactElement => {
   // destructure certain "states" from Context
-  const { workoutsData, selectedWorkoutTypeValue } = useContext(WorkoutsContext);
+  const { workoutsData, selectedWorkoutTypeValueAndIndicator } = useContext(WorkoutsContext);
   const [workouts] = workoutsData;
-  const [sortedByWorkoutTypeValue] = selectedWorkoutTypeValue;
+  const [sortedByWorkoutTypeValueAndIndicator] = selectedWorkoutTypeValueAndIndicator;
 
   const location = useGeolocation();
   const currentPosition: LatLngExpression = [location.coordinates.lat, location.coordinates.lng];
@@ -37,23 +37,34 @@ const Workouts = (): ReactElement => {
     <InitialMapMarker position={currentPosition} />;
   }, []);
 
-  const SORTED_WORKOUTS_BY_WORKOUT_TYPE: Record<SortedWorkoutsByWorkoutType, WorkoutItem[]> = {
-    [SortedWorkoutsByWorkoutType.LastAdded]: sortBy(workouts, 'description'),
-    [SortedWorkoutsByWorkoutType.Running]: filter(workouts, (workout) => workout.selectedValue === 'running'),
-    [SortedWorkoutsByWorkoutType.Cycling]: filter(workouts, (workout) => workout.selectedValue === 'cycling'),
-    [SortedWorkoutsByWorkoutType.Favorite]: [],
-  };
-
-  const getWorkoutsByWorkoutType =
-    SORTED_WORKOUTS_BY_WORKOUT_TYPE[sortedByWorkoutTypeValue as SortedWorkoutsByWorkoutType];
-
-  const hasFavoritesWorkouts =
-    sortedByWorkoutTypeValue === SortedWorkoutsByWorkoutType.Favorite &&
-    !SORTED_WORKOUTS_BY_WORKOUT_TYPE[SortedWorkoutsByWorkoutType.Favorite].length;
+  const SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR: Record<SortedWorkoutsByWorkoutTypeAndIndicator, WorkoutItem[]> =
+    {
+      [SortedWorkoutsByWorkoutTypeAndIndicator.LastAdded]: sortBy(workouts, 'description', 'desc'),
+      [SortedWorkoutsByWorkoutTypeAndIndicator.Running]: filter(
+        workouts,
+        (workout) => workout.selectedValue === 'running'
+      ),
+      [SortedWorkoutsByWorkoutTypeAndIndicator.Cycling]: filter(
+        workouts,
+        (workout) => workout.selectedValue === 'cycling'
+      ),
+      [SortedWorkoutsByWorkoutTypeAndIndicator.Favorite]: [],
+      [SortedWorkoutsByWorkoutTypeAndIndicator.Distance]: sortBy(workouts, 'distance', 'desc'),
+      [SortedWorkoutsByWorkoutTypeAndIndicator.Duration]: sortBy(workouts, 'duration', 'desc'),
+    };
 
   const workoutsByLastAddedItem = [...workouts].reverse();
 
-  const getDefaultOrSortedWorkouts: WorkoutItem[] = sortedByWorkoutTypeValue
+  const getWorkoutsByWorkoutType =
+    SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR[
+      sortedByWorkoutTypeValueAndIndicator as SortedWorkoutsByWorkoutTypeAndIndicator
+    ];
+
+  const hasFavoritesWorkouts =
+    sortedByWorkoutTypeValueAndIndicator === SortedWorkoutsByWorkoutTypeAndIndicator.Favorite &&
+    !SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR[SortedWorkoutsByWorkoutTypeAndIndicator.Favorite].length;
+
+  const getDefaultOrSortedWorkouts: WorkoutItem[] = sortedByWorkoutTypeValueAndIndicator
     ? getWorkoutsByWorkoutType
     : workoutsByLastAddedItem;
 

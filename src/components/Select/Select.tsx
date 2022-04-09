@@ -5,7 +5,7 @@ import { FieldError } from '../Input/Input.styled';
 import { FormSelect } from './Select.styled';
 
 interface SelectProps {
-  options: SelectOptions[];
+  options: SelectedOption[];
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   name?: string;
   id?: string;

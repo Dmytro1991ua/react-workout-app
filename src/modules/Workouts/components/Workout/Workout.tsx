@@ -1,7 +1,6 @@
 import { useEffect, useContext, useState } from 'react';
 
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
-import { WorkoutItem } from './../../../../context/WorkoutsContext';
 import { toastService } from './../../../../services/Toast.service';
 import WorkoutHeader from './components/WorkoutHeader/WorkoutHeader';
 import { ModalContentTitle, WorkoutSection, ModalContentSubtitle } from './Workout.styled';
