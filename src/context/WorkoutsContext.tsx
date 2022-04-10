@@ -98,6 +98,11 @@ export const WorkoutsProvider = (props: any) => {
     }
   };
 
+  function deleteAllWorkouts(): void {
+    setWorkouts([]);
+    localStorage.removeItem('workouts');
+  }
+
   return (
     <WorkoutsContext.Provider
       value={{
@@ -112,6 +117,7 @@ export const WorkoutsProvider = (props: any) => {
         workoutRender: [getWorkoutData],
         description: [workoutDescription],
         submit: [isSubmitted, setIsSubmitted],
+        clearWorkouts: [deleteAllWorkouts],
       }}
     >
       {props.children}
