@@ -3,6 +3,10 @@
   "name": "react-workout-app",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "6.14.13",
+    "node": "14.17.0"
+  },
   "dependencies": {
     "@hookform/resolvers": "^2.8.8",
     "@styled-icons/fa-solid": "^10.26.0",
