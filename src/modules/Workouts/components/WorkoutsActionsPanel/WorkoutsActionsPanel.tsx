@@ -1,10 +1,11 @@
-import React, { ReactElement, useContext } from 'react';
+import React, { ReactElement, useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Select } from '../../../../components/Select/Select';
 import Tooltip from '../../../../components/Tooltip/Tooltip';
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 import { colors } from '../../../../global-styles/ColorsPalette';
+import { toastService } from '../../../../services/Toast.service';
 import { SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS_MOCK } from '../../Workouts.constants';
 import { SortedWorkoutsByWorkoutTypeAndIndicator } from '../../Workouts.enums';
 
@@ -15,18 +16,25 @@ export const WorkoutsActionsPanel = (): ReactElement => {
   const [sortedByWorkoutTypeValueAndIndicator, setSortedByWorkoutTypeValueAndIndicator] =
     selectedWorkoutTypeValueAndIndicator;
 
+  const [isDefaultOptionDisabled, setIsDefaultOptionDisabled] = useState(false);
+  const [selectedValue, setSelectedValue] = useState<SortedWorkoutsByWorkoutTypeAndIndicator>(
+    SortedWorkoutsByWorkoutTypeAndIndicator.Default
+  );
+
   const config = [
     {
       id: uuidv4(),
       icon: <ResetButtonIcon />,
       'data-tip': 'Reset Workout Sorting',
       'data-for': 'clearButton',
+      onClick: handleResetWorkoutSorting,
     },
     {
       id: uuidv4(),
       icon: <DeleteButtonIcon />,
       'data-tip': 'Delete All',
       'data-for': 'deleteButton',
+      onClick: handleDeleteAllWorkouts,
     },
   ];
 
@@ -41,6 +49,20 @@ export const WorkoutsActionsPanel = (): ReactElement => {
     const selectedValue = removeEmojiAndSpaceFromSelectedValue(event.target.value);
 
     setSortedByWorkoutTypeValueAndIndicator(selectedValue as SortedWorkoutsByWorkoutTypeAndIndicator);
+
+    setIsDefaultOptionDisabled(true);
+    setSelectedValue(event.target.value as SortedWorkoutsByWorkoutTypeAndIndicator);
+  }
+
+  function handleResetWorkoutSorting(): void {
+    setSortedByWorkoutTypeValueAndIndicator(SortedWorkoutsByWorkoutTypeAndIndicator.Default);
+
+    setIsDefaultOptionDisabled(false);
+    setSelectedValue(SortedWorkoutsByWorkoutTypeAndIndicator.Default);
+  }
+
+  function handleDeleteAllWorkouts(): void {
+    toastService.info('Will be implemented later on');
   }
 
   return (
@@ -48,13 +70,15 @@ export const WorkoutsActionsPanel = (): ReactElement => {
       <Select
         options={SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS_MOCK}
         actionPanelSelect
-        optionLabel='Sort by workout type:'
+        optionLabel='Sort by workout type or indicator:'
         onChange={handleSortingByWorkoutTypeChange}
+        value={selectedValue}
+        isDefaultOptionDisabled={isDefaultOptionDisabled}
       />
       {config.map((item) => {
         return (
           <li key={item.id}>
-            <ActionButton data-tip={item['data-tip']} data-for={item['data-for']}>
+            <ActionButton data-tip={item['data-tip']} data-for={item['data-for']} onClick={item.onClick}>
               {item.icon}
             </ActionButton>
             <Tooltip

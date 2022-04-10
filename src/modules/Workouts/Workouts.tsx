@@ -33,12 +33,15 @@ const Workouts = (): ReactElement => {
 
   const [clickedMapCoordinates, setClickedMapCoordinates] = useState<LatLngTuple | null>(null);
 
+  const workoutsByLastAddedItem = [...workouts].reverse();
+
   useEffect(() => {
     <InitialMapMarker position={currentPosition} />;
   }, []);
 
   const SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR: Record<SortedWorkoutsByWorkoutTypeAndIndicator, WorkoutItem[]> =
     {
+      [SortedWorkoutsByWorkoutTypeAndIndicator.Default]: workoutsByLastAddedItem,
       [SortedWorkoutsByWorkoutTypeAndIndicator.LastAdded]: sortBy(workouts, 'description', 'desc'),
       [SortedWorkoutsByWorkoutTypeAndIndicator.Running]: filter(
         workouts,
@@ -52,8 +55,6 @@ const Workouts = (): ReactElement => {
       [SortedWorkoutsByWorkoutTypeAndIndicator.Distance]: sortBy(workouts, 'distance', 'desc'),
       [SortedWorkoutsByWorkoutTypeAndIndicator.Duration]: sortBy(workouts, 'duration', 'desc'),
     };
-
-  const workoutsByLastAddedItem = [...workouts].reverse();
 
   const getWorkoutsByWorkoutType =
     SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR[

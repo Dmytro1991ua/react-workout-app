@@ -25,7 +25,7 @@ export const WorkoutsProvider = (props: any) => {
 
   const [workouts, setWorkouts] = useLocalStorage<WorkoutItem[]>('workouts', []);
   const [sortedByWorkoutTypeValueAndIndicator, setSortedByWorkoutTypeValueAndIndicator] =
-    useState<SortedWorkoutsByWorkoutTypeAndIndicator | null>(null);
+    useState<SortedWorkoutsByWorkoutTypeAndIndicator>(SortedWorkoutsByWorkoutTypeAndIndicator.Default);
 
   // "state" of a submitting form in order to render Marker later on
   const [isSubmitted, setIsSubmitted] = useState(false);

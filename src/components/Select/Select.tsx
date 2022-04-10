@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
+import { SortedWorkoutsByWorkoutTypeAndIndicator } from '../../modules/Workouts/Workouts.enums';
 
 import { FieldError } from '../Input/Input.styled';
 import { FormSelect } from './Select.styled';
@@ -14,6 +15,8 @@ interface SelectProps {
   error?: FieldErrors<FieldValues>;
   actionPanelSelect?: boolean;
   optionLabel?: string;
+  value?: SortedWorkoutsByWorkoutTypeAndIndicator;
+  isDefaultOptionDisabled?: boolean;
 }
 
 export const Select = (props: SelectProps): ReactElement => {
@@ -27,15 +30,18 @@ export const Select = (props: SelectProps): ReactElement => {
       id={props.id}
       onChange={props.onChange}
       actionPanelSelect={props.actionPanelSelect}
+      value={props.value}
     >
-      <option value='' hidden>
+      <option value={SortedWorkoutsByWorkoutTypeAndIndicator.Default} disabled={props.isDefaultOptionDisabled}>
         {props.optionLabel}
       </option>
-      {props.options.map((item) => (
-        <option key={item.id} value={item.value}>
-          {item.value}
-        </option>
-      ))}
+      {props.options.map((item) => {
+        return (
+          <option key={item.id} value={item.value}>
+            {item.value}
+          </option>
+        );
+      })}
       {props.error && <FieldError>{props.error.message}</FieldError>}
     </FormSelect>
   );
