@@ -6,20 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
 import { MONTHS_LIST } from '../modules/Workouts/Workouts.constants';
-
-export interface WorkoutsProps {
-  id: string;
-  date: string;
-  coordinates: LatLngTuple;
-  selectedValue: string;
-  distance: number;
-  duration: number;
-  cadence?: string;
-  elevationGain?: string;
-  pace?: number;
-  description?: string;
-  speed?: number;
-}
+import { SortedWorkoutsByWorkoutTypeAndIndicator } from '../modules/Workouts/Workouts.enums';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const WorkoutsContext = createContext({} as any);
@@ -36,7 +23,9 @@ export const WorkoutsProvider = (props: any) => {
   // selected workout value from a from
   const [selectedValue, setSelectedValue] = useState('running');
 
-  const [workouts, setWorkouts] = useLocalStorage<WorkoutsProps[]>('workouts', []);
+  const [workouts, setWorkouts] = useLocalStorage<WorkoutItem[]>('workouts', []);
+  const [sortedByWorkoutTypeValueAndIndicator, setSortedByWorkoutTypeValueAndIndicator] =
+    useState<SortedWorkoutsByWorkoutTypeAndIndicator>(SortedWorkoutsByWorkoutTypeAndIndicator.Default);
 
   // "state" of a submitting form in order to render Marker later on
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -69,7 +58,7 @@ export const WorkoutsProvider = (props: any) => {
   // get a workout data from form inputs based on selected workout (either Running or Cycling)
   const getWorkoutData = (formData: FieldValues, mapCoords: LatLngTuple): void => {
     // workout data object(same for Running and Cycling) from workout form
-    const workoutData: WorkoutsProps = {
+    const workoutData: WorkoutItem = {
       id: uuidv4(),
       date: new Date().toLocaleDateString(),
       coordinates: mapCoords,
@@ -109,6 +98,11 @@ export const WorkoutsProvider = (props: any) => {
     }
   };
 
+  function deleteAllWorkouts(): void {
+    setWorkouts([]);
+    localStorage.removeItem('workouts');
+  }
+
   return (
     <WorkoutsContext.Provider
       value={{
@@ -116,9 +110,14 @@ export const WorkoutsProvider = (props: any) => {
         currentLocation: [location, setLocation],
         select: [selectedValue, setSelectedValue],
         workoutsData: [workouts, setWorkouts],
+        selectedWorkoutTypeValueAndIndicator: [
+          sortedByWorkoutTypeValueAndIndicator,
+          setSortedByWorkoutTypeValueAndIndicator,
+        ],
         workoutRender: [getWorkoutData],
         description: [workoutDescription],
         submit: [isSubmitted, setIsSubmitted],
+        clearWorkouts: [deleteAllWorkouts],
       }}
     >
       {props.children}

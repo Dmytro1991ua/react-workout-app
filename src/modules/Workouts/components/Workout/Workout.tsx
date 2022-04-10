@@ -1,7 +1,6 @@
 import { useEffect, useContext, useState } from 'react';
 
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
-import { WorkoutsProps } from './../../../../context/WorkoutsContext';
 import { toastService } from './../../../../services/Toast.service';
 import WorkoutHeader from './components/WorkoutHeader/WorkoutHeader';
 import { ModalContentTitle, WorkoutSection, ModalContentSubtitle } from './Workout.styled';
@@ -10,7 +9,7 @@ import CustomModal from '../../../../components/CustomModal/CustomModal';
 import { WORKOUT_SUCCESS_DELETE_MESSAGE } from '../../Workouts.constants';
 
 interface WorkoutProps {
-  workout: WorkoutsProps;
+  workout: WorkoutItem;
 }
 
 const Workout = ({ workout }: WorkoutProps) => {
@@ -44,7 +43,7 @@ const Workout = ({ workout }: WorkoutProps) => {
 
   // delete a particular clicked workout from UI as well as localStorage
   function handleRemoveWorkout(): void {
-    const removedWorkout = workouts.filter((clickedWorkout: WorkoutsProps) => clickedWorkout.id !== workout.id);
+    const removedWorkout = workouts.filter((clickedWorkout: WorkoutItem) => clickedWorkout.id !== workout.id);
 
     setWorkouts(removedWorkout);
 

@@ -5,15 +5,14 @@ import { Marker, Popup, useMap } from 'react-leaflet';
 
 import 'leaflet/dist/leaflet.css';
 import '../../../leafletMap/leaflet.css';
-import { WorkoutsContext, WorkoutsProps } from '../../../../context/WorkoutsContext';
+import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 
-import { MAX_MARKER_POP_UP_WIDTH, MIN_MARKER_POP_UP_WIDTH } from './../../Workouts.constants';
 import { workoutMarkerIcon } from '../../Workouts.utils';
 
 //create a leaflet map marker
 
 interface MarkerProps {
-  currentWorkout: WorkoutsProps;
+  currentWorkout: WorkoutItem;
 }
 
 const MapMarker = ({ currentWorkout }: MarkerProps): ReactElement => {
@@ -41,8 +40,6 @@ const MapMarker = ({ currentWorkout }: MarkerProps): ReactElement => {
         autoClose={false}
         closeOnClick={false}
         className={determineStylesBasedOnWorkoutType}
-        minWidth={MIN_MARKER_POP_UP_WIDTH}
-        maxWidth={MAX_MARKER_POP_UP_WIDTH}
         position={currentWorkout.coordinates}
         autoPan={false}
       >

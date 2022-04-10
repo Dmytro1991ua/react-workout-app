@@ -18,6 +18,11 @@ export const WorkoutFormInput = styled.input`
     outline: none;
     background-color: ${colors.white};
   }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 `;
 
 export const CustomFieldError = styled(FieldError)`
