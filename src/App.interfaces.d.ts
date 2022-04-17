@@ -29,4 +29,5 @@ declare interface WorkoutItem {
   pace?: number;
   description?: string;
   speed?: number;
+  isFavorite?: boolean;
 }
