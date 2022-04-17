@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Heart } from 'styled-icons/bootstrap';
 import { Reset } from 'styled-icons/boxicons-regular';
 import { DeleteDismiss } from 'styled-icons/fluentui-system-filled';
 

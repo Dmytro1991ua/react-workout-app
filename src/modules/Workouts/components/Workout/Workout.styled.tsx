@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Heart } from 'styled-icons/bootstrap';
 import { Edit } from 'styled-icons/boxicons-regular';
 import { DeleteDismiss } from 'styled-icons/fluentui-system-filled';
 import { colors } from '../../../../global-styles/ColorsPalette';
@@ -67,12 +68,16 @@ export const WorkoutTitle = styled.h3`
 export const RemoveBtn = styled(DeleteDismiss)`
   ${CommonIconStyles}
   color: ${colors.tomato};
-  margin-right: 1rem;
 `;
 
 export const EditBtn = styled(Edit)`
   ${CommonIconStyles}
   color: ${colors.mantis};
+`;
+
+export const AddToFavorite = styled(Heart)`
+  ${CommonIconStyles}
+  fill: ${colors.tomato};
 `;
 
 export const Details = styled.div`

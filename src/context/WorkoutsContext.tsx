@@ -65,6 +65,7 @@ export const WorkoutsProvider = (props: any) => {
       selectedValue: formData.workoutType ?? '',
       distance: formData.distance as number,
       duration: formData.duration as number,
+      isFavorite: false,
     };
 
     setWorkouts([...new Set([...workouts, workoutData])]); // add newly created object from form to workouts array
