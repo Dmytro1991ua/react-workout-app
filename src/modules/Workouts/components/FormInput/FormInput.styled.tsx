@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FieldError } from '../../../../components/Input/Input.styled';
+import { FieldErrorMessage } from '../../../../components/Input/Input.styled';
 import { colors } from '../../../../global-styles/ColorsPalette';
 
 export const WorkoutFormInput = styled.input`
@@ -25,6 +25,6 @@ export const WorkoutFormInput = styled.input`
   }
 `;
 
-export const CustomFieldError = styled(FieldError)`
+export const CustomFieldError = styled(FieldErrorMessage)`
   margin-top: 1rem;
 `;

@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react';
+import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react';
 
 import {
   FeaturesTitle,
@@ -27,17 +27,21 @@ const Workouts = (): ReactElement => {
   const [sortedByWorkoutTypeValueAndIndicator] = selectedWorkoutTypeValueAndIndicator;
 
   const location = useGeolocation();
-  const currentPosition: LatLngExpression = [location.coordinates.lat, location.coordinates.lng];
-
-  const [isFormShown, setIsFormShown] = useState(false);
+  const currentPosition: LatLngExpression = useMemo(
+    () => [location.coordinates.lat, location.coordinates.lng],
+    [location.coordinates.lat, location.coordinates.lng]
+  );
 
   const [clickedMapCoordinates, setClickedMapCoordinates] = useState<LatLngTuple | null>(null);
+  const [isFormShown, setIsFormShown] = useState(false);
+  const [isFormShownOnWorkoutEdit, setIsFormShownOnWorkoutEdit] = useState(false);
+  const [editableWorkoutItem, setEditableWorkoutItem] = useState<WorkoutItem | null>(null);
 
-  const workoutsByLastAddedItem = [...workouts].reverse();
+  const workoutsByLastAddedItem: WorkoutItem[] = [...(workouts as WorkoutItem[])].reverse();
 
   useEffect(() => {
     <InitialMapMarker position={currentPosition} />;
-  }, []);
+  }, [currentPosition]);
 
   const SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR: Record<SortedWorkoutsByWorkoutTypeAndIndicator, WorkoutItem[]> =
     {
@@ -69,6 +73,10 @@ const Workouts = (): ReactElement => {
     ? getWorkoutsByWorkoutType
     : workoutsByLastAddedItem;
 
+  function stopWorkoutFormPropagation(e: React.MouseEvent): void {
+    e.stopPropagation();
+  }
+
   function showWorkoutForm(): void {
     setIsFormShown(true);
   }
@@ -77,8 +85,12 @@ const Workouts = (): ReactElement => {
     setIsFormShown(false);
   }
 
-  function stopWorkoutFormPropagation(e: React.MouseEvent): void {
-    e.stopPropagation();
+  function getEditableWorkoutItem(editableWorkoutItem: WorkoutItem | null): void {
+    if (!isFormShownOnWorkoutEdit) {
+      setEditableWorkoutItem(editableWorkoutItem);
+    } else {
+      setEditableWorkoutItem(null);
+    }
   }
 
   const renderActionsPanel = (
@@ -93,11 +105,14 @@ const Workouts = (): ReactElement => {
 
   const renderWorkoutForm = (
     <>
-      {isFormShown && (
+      {(isFormShown || isFormShownOnWorkoutEdit) && (
         <Form
           onStopPropagation={stopWorkoutFormPropagation}
           onCloseWorkoutForm={hideWorkoutForm}
           mapCoords={clickedMapCoordinates}
+          isFormShownOnWorkoutEdit={setIsFormShownOnWorkoutEdit}
+          editableWorkoutItem={editableWorkoutItem}
+          isFormShown={isFormShown}
         />
       )}
     </>
@@ -123,7 +138,13 @@ const Workouts = (): ReactElement => {
   const renderAvailableWorkouts = (
     <>
       {getDefaultOrSortedWorkouts.map((workout: WorkoutItem) => (
-        <Workout key={workout.id} workout={workout} />
+        <Workout
+          key={workout.id}
+          workout={workout}
+          isFormShownOnWorkoutEdit={setIsFormShownOnWorkoutEdit}
+          isFormShown={isFormShownOnWorkoutEdit}
+          setEditableWorkoutItem={getEditableWorkoutItem}
+        />
       ))}
     </>
   );
@@ -132,7 +153,7 @@ const Workouts = (): ReactElement => {
     <WorkoutsSection>
       <WorkoutsSectionBody>
         <WorkoutsFeatures onClick={hideWorkoutForm}>
-          <FeaturesTitle hasWorkouts={!!workouts.length}>Workouts Information</FeaturesTitle>
+          <FeaturesTitle hasWorkouts={!!workoutsByLastAddedItem.length}>Workouts Information</FeaturesTitle>
           {renderActionsPanel}
           {renderWorkoutForm}
           {renderFallbackMessageWhenNoWorkout}
@@ -144,6 +165,7 @@ const Workouts = (): ReactElement => {
             setMapCoords={setClickedMapCoordinates}
             isFormShown={isFormShown}
             workouts={getDefaultOrSortedWorkouts}
+            setEditableWorkoutItem={setEditableWorkoutItem}
           />
         </Map>
       </WorkoutsSectionBody>

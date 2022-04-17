@@ -16,9 +16,16 @@ interface WorkoutMapProps {
   setMapCoords: React.Dispatch<React.SetStateAction<LatLngTuple | null>>;
   isFormShown: boolean;
   workouts: WorkoutItem[];
+  setEditableWorkoutItem: (value: WorkoutItem | null) => void;
 }
 
-const WorkoutsMap = ({ onShowWorkoutForm, setMapCoords, isFormShown, workouts }: WorkoutMapProps): ReactElement => {
+const WorkoutsMap = ({
+  onShowWorkoutForm,
+  setMapCoords,
+  isFormShown,
+  workouts,
+  setEditableWorkoutItem,
+}: WorkoutMapProps): ReactElement => {
   // destructure certain "states" from Context
   const { submit } = useContext(WorkoutsContext);
 
@@ -37,6 +44,7 @@ const WorkoutsMap = ({ onShowWorkoutForm, setMapCoords, isFormShown, workouts }:
         });
 
         onShowWorkoutForm();
+        setEditableWorkoutItem(null);
 
         const { lat, lng } = e.latlng;
         const coords: LatLngTuple = [lat, lng];
