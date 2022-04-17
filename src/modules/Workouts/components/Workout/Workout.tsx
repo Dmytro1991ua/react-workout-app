@@ -10,10 +10,13 @@ import { WORKOUT_SUCCESS_DELETE_MESSAGE } from '../../Workouts.constants';
 
 interface WorkoutProps {
   workout: WorkoutItem;
+  isFormShownOnWorkoutEdit: (value: boolean) => void;
+  isFormShown: boolean;
+  setEditableWorkoutItem: (editableWorkout: WorkoutItem | null) => void;
 }
 
-const Workout = ({ workout }: WorkoutProps) => {
-  const { workoutsData, setStorage } = useContext(WorkoutsContext);
+const Workout = ({ workout, isFormShownOnWorkoutEdit, isFormShown, setEditableWorkoutItem }: WorkoutProps) => {
+  const { workoutsData } = useContext(WorkoutsContext);
   const [workouts, setWorkouts] = workoutsData;
 
   const { description, selectedValue, distance, duration, speed, pace, cadence, elevationGain, id } = workout;
@@ -43,15 +46,24 @@ const Workout = ({ workout }: WorkoutProps) => {
 
   // delete a particular clicked workout from UI as well as localStorage
   function handleRemoveWorkout(): void {
-    const removedWorkout = workouts.filter((clickedWorkout: WorkoutItem) => clickedWorkout.id !== workout.id);
+    const removedWorkout: WorkoutItem[] = workouts.filter(
+      (clickedWorkout: WorkoutItem) => clickedWorkout.id !== workout.id
+    );
 
     setWorkouts(removedWorkout);
+
+    setEditableWorkoutItem(null);
+    isFormShownOnWorkoutEdit(false);
 
     toastService.success(WORKOUT_SUCCESS_DELETE_MESSAGE);
   }
 
-  function handleEditWorkout(): void {
-    return toastService.info('Not implemented yet');
+  function handleEditWorkout(id: string): void {
+    isFormShownOnWorkoutEdit(!isFormShown);
+
+    const editableWorkout: WorkoutItem = workouts.find((workout: WorkoutItem) => workout.id === id);
+
+    setEditableWorkoutItem(editableWorkout);
   }
 
   function handleOpenDeleteConfirmationModal(): void {
@@ -83,6 +95,7 @@ const Workout = ({ workout }: WorkoutProps) => {
           description={description}
           onWorkoutEdit={handleEditWorkout}
           onOpenModal={handleOpenDeleteConfirmationModal}
+          workout={workout}
         />
         <WorkoutDetails
           selectedValue={selectedValue}

@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
-import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
+import { DeepMap, FieldError, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
 import { CustomFieldError, WorkoutFormInput } from './FormInput.styled';
 
-interface FormInputProps {
+type InputProps = {
   value?: string | number;
   id?: string;
   type?: 'text' | 'number';
@@ -15,14 +15,21 @@ interface FormInputProps {
   isRequired?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLFormElement | HTMLInputElement>) => void;
-  register?: ReturnType<typeof useForm>['register'];
-  error?: FieldErrors<FieldValues>;
-}
+};
 
-const FormInput = (props: FormInputProps): ReactElement => {
+type FormInputProps<TFormValues> = {
+  name: Path<TFormValues>;
+  rules?: RegisterOptions;
+  register?: UseFormRegister<TFormValues>;
+  errors?: Partial<DeepMap<TFormValues, FieldError>>;
+} & Omit<InputProps, 'name'>;
+
+const FormInput = <TFormValues extends Record<string, unknown>>(props: FormInputProps<TFormValues>): ReactElement => {
   const getFormFieldByNameProp = {
-    ...(props.register && props.register(props.name ?? '', { required: props.isRequired })),
+    ...(props.register && props.register(props.name, props.rules)),
   };
+
+  const errorMessage = props.errors && props.errors[props.name]?.message;
 
   return (
     <>
@@ -39,7 +46,7 @@ const FormInput = (props: FormInputProps): ReactElement => {
         onChange={props.onChange}
         onKeyDown={props.onKeyDown}
       />
-      {props.error && <CustomFieldError>{props.error.message}</CustomFieldError>}
+      {<CustomFieldError>{errorMessage}</CustomFieldError>}
     </>
   );
 };

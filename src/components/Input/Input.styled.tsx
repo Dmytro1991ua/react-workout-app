@@ -15,7 +15,7 @@ export const CustomInput = styled('input')<{ borderColor?: string; fullWidth?: b
     color: ${({ hasError }) => (hasError ? `${colors.tomato}` : `${colors.white}`)} 
 `;
 
-export const FieldError = styled.p`
+export const FieldErrorMessage = styled.span`
   font-size: 13px;
   color: ${colors.tomato};
   margin-top: 20px;

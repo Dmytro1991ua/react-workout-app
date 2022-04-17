@@ -1,9 +1,9 @@
 export type WorkoutType = 'running' | 'cycling';
 
-export interface WorkoutFormInitialValues {
+export type WorkoutFormInitialValues = {
   workoutType?: WorkoutType;
-  distance: number;
-  duration: number;
+  distance: number | string;
+  duration: number | string;
   cadence?: string;
   elevationGain?: string;
-}
+};

@@ -12,7 +12,7 @@ export const SliderConfig: SliderConfiguration[] = [
   {
     id: uuidv4(),
     label: 'Running',
-    tag: 'a',
+    tag: 'div',
     href: 'https://en.wikipedia.org/wiki/Running',
     target: '_blank',
     rel: 'noreferrer',
@@ -22,7 +22,7 @@ export const SliderConfig: SliderConfiguration[] = [
   {
     id: uuidv4(),
     label: 'Cycling',
-    tag: 'a',
+    tag: 'div',
     href: 'https://en.wikipedia.org/wiki/Cycling',
     target: '_blank',
     rel: 'noreferrer',
@@ -32,7 +32,7 @@ export const SliderConfig: SliderConfiguration[] = [
   {
     id: uuidv4(),
     label: 'Yoga',
-    tag: 'a',
+    tag: 'div',
     href: 'https://en.wikipedia.org/wiki/Yoga',
     target: '_blank',
     rel: 'noreferrer',
@@ -42,7 +42,7 @@ export const SliderConfig: SliderConfiguration[] = [
   {
     id: uuidv4(),
     label: 'Swimming',
-    tag: 'a',
+    tag: 'div',
     href: 'https://en.wikipedia.org/wiki/Swimming_(sport)',
     target: '_blank',
     rel: 'noreferrer',
@@ -52,7 +52,7 @@ export const SliderConfig: SliderConfiguration[] = [
   {
     id: uuidv4(),
     label: 'Gym Workout',
-    tag: 'a',
+    tag: 'div',
     href: 'https://en.wikipedia.org/wiki/Weight_training',
     target: '_blank',
     rel: 'noreferrer',
@@ -62,7 +62,7 @@ export const SliderConfig: SliderConfiguration[] = [
   {
     id: uuidv4(),
     label: 'Battle Ropes',
-    tag: 'a',
+    tag: 'div',
     href: 'https://en.wikipedia.org/wiki/Battling_ropes',
     target: '_blank',
     rel: 'noreferrer',
@@ -72,7 +72,7 @@ export const SliderConfig: SliderConfiguration[] = [
   {
     id: uuidv4(),
     label: 'Aerobics',
-    tag: 'a',
+    tag: 'div',
     href: 'https://en.wikipedia.org/wiki/Aerobics',
     target: '_blank',
     rel: 'noreferrer',

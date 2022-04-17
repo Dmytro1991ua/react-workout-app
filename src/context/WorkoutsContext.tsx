@@ -1,9 +1,9 @@
 import { LatLngTuple } from 'leaflet';
 import { createContext, useEffect, useState } from 'react';
-import { FieldValues } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { WorkoutFormInitialValues } from '../modules/Workouts/components/WorkoutForm/Form.interfaces';
 
 import { MONTHS_LIST } from '../modules/Workouts/Workouts.constants';
 import { SortedWorkoutsByWorkoutTypeAndIndicator } from '../modules/Workouts/Workouts.enums';
@@ -23,7 +23,7 @@ export const WorkoutsProvider = (props: any) => {
   // selected workout value from a from
   const [selectedValue, setSelectedValue] = useState('running');
 
-  const [workouts, setWorkouts] = useLocalStorage<WorkoutItem[]>('workouts', []);
+  const [workouts, setWorkouts] = useLocalStorage<WorkoutItem[] | []>('workouts', []);
   const [sortedByWorkoutTypeValueAndIndicator, setSortedByWorkoutTypeValueAndIndicator] =
     useState<SortedWorkoutsByWorkoutTypeAndIndicator>(SortedWorkoutsByWorkoutTypeAndIndicator.Default);
 
@@ -56,15 +56,15 @@ export const WorkoutsProvider = (props: any) => {
   };
 
   // get a workout data from form inputs based on selected workout (either Running or Cycling)
-  const getWorkoutData = (formData: FieldValues, mapCoords: LatLngTuple): void => {
+  const getWorkoutData = (formData: WorkoutFormInitialValues, mapCoords: LatLngTuple): void => {
     // workout data object(same for Running and Cycling) from workout form
     const workoutData: WorkoutItem = {
       id: uuidv4(),
       date: new Date().toLocaleDateString(),
       coordinates: mapCoords,
-      selectedValue: formData.workoutType,
-      distance: formData.distance,
-      duration: formData.duration,
+      selectedValue: formData.workoutType ?? '',
+      distance: formData.distance as number,
+      duration: formData.duration as number,
     };
 
     setWorkouts([...new Set([...workouts, workoutData])]); // add newly created object from form to workouts array
@@ -76,8 +76,8 @@ export const WorkoutsProvider = (props: any) => {
           {
             ...workoutData,
             cadence: formData.cadence,
-            pace: runningPace(formData.duration, formData.distance),
-            description: workoutDescription(formData.workoutType, formData.distance),
+            pace: runningPace(formData.duration as number, formData.distance as number),
+            description: workoutDescription(formData.workoutType, formData.distance as number),
           },
         ]),
       ]);
@@ -90,8 +90,8 @@ export const WorkoutsProvider = (props: any) => {
           {
             ...workoutData,
             elevationGain: formData.elevationGain,
-            speed: cyclingSpeed(formData.duration, formData.distance),
-            description: workoutDescription(formData.workoutType, formData.distance),
+            speed: cyclingSpeed(formData.duration as number, formData.distance as number),
+            description: workoutDescription(formData.workoutType, formData.distance as number),
           },
         ]),
       ]);

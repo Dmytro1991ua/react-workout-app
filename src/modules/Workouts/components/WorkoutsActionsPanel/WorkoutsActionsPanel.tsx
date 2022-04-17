@@ -94,6 +94,7 @@ export const WorkoutsActionsPanel = (): ReactElement => {
         <Select
           options={SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS_MOCK}
           actionPanelSelect
+          name=''
           optionLabel='Sort by workout type or indicator:'
           onChange={handleSortingByWorkoutTypeChange}
           value={selectedValue}

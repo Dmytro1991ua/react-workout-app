@@ -1,12 +1,14 @@
 import * as yup from 'yup';
-import { WorkoutFormInitialValues } from './Form.interfaces';
+import { WorkoutFormInitialValues, WorkoutType } from './Form.interfaces';
 
-export const WORKOUT_FORM_INITIAL_VALUES: WorkoutFormInitialValues = {
-  workoutType: 'running',
-  distance: 0,
-  duration: 0,
-  cadence: '',
-  elevationGain: '',
+export const WORKOUT_FORM_INITIAL_VALUES = (editableWorkoutItem?: WorkoutItem | null): WorkoutFormInitialValues => {
+  return {
+    workoutType: (editableWorkoutItem?.selectedValue as WorkoutType) ?? undefined,
+    distance: editableWorkoutItem?.distance ?? '',
+    duration: editableWorkoutItem?.duration ?? '',
+    cadence: editableWorkoutItem?.cadence ?? '',
+    elevationGain: editableWorkoutItem?.elevationGain ?? '',
+  };
 };
 
 export const WORKOUT_FORM_VALIDATION_SCHEMA: yup.SchemaOf<WorkoutFormInitialValues> = yup.object().shape({
