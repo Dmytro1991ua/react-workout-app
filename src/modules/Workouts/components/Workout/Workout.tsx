@@ -16,8 +16,9 @@ interface WorkoutProps {
 }
 
 const Workout = ({ workout, isFormShownOnWorkoutEdit, isFormShown, setEditableWorkoutItem }: WorkoutProps) => {
-  const { workoutsData } = useContext(WorkoutsContext);
+  const { workoutsData, addToFavorite } = useContext(WorkoutsContext);
   const [workouts, setWorkouts] = workoutsData;
+  const [handleAddingToFavorites] = addToFavorite;
 
   const { description, selectedValue, distance, duration, speed, pace, cadence, elevationGain, id } = workout;
 
@@ -96,6 +97,7 @@ const Workout = ({ workout, isFormShownOnWorkoutEdit, isFormShown, setEditableWo
           onWorkoutEdit={handleEditWorkout}
           onOpenModal={handleOpenDeleteConfirmationModal}
           workout={workout}
+          onAddingToFavorites={handleAddingToFavorites}
         />
         <WorkoutDetails
           selectedValue={selectedValue}
