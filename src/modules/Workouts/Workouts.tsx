@@ -55,7 +55,7 @@ const Workouts = (): ReactElement => {
         workouts,
         (workout) => workout.selectedValue === 'cycling'
       ),
-      [SortedWorkoutsByWorkoutTypeAndIndicator.Favorite]: [],
+      [SortedWorkoutsByWorkoutTypeAndIndicator.Favorite]: filter(workouts, (workout) => workout.isFavorite === true),
       [SortedWorkoutsByWorkoutTypeAndIndicator.Distance]: sortBy(workouts, 'distance', 'desc'),
       [SortedWorkoutsByWorkoutTypeAndIndicator.Duration]: sortBy(workouts, 'duration', 'desc'),
     };

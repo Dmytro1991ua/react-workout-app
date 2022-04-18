@@ -23,7 +23,7 @@ export const WorkoutsProvider = (props: any) => {
   // selected workout value from a from
   const [selectedValue, setSelectedValue] = useState('running');
 
-  const [workouts, setWorkouts] = useLocalStorage<WorkoutItem[] | []>('workouts', []);
+  const [workouts, setWorkouts] = useLocalStorage<WorkoutItem[]>('workouts', []);
   const [sortedByWorkoutTypeValueAndIndicator, setSortedByWorkoutTypeValueAndIndicator] =
     useState<SortedWorkoutsByWorkoutTypeAndIndicator>(SortedWorkoutsByWorkoutTypeAndIndicator.Default);
 
@@ -104,6 +104,17 @@ export const WorkoutsProvider = (props: any) => {
     localStorage.removeItem('workouts');
   }
 
+  function handleAddingToFavorites(workoutId: string) {
+    const addedWorkoutToFavorite = workouts.map((workout: WorkoutItem) => {
+      if (workout.id === workoutId) {
+        workout.isFavorite = !workout.isFavorite;
+      }
+      return workout;
+    });
+
+    setWorkouts(addedWorkoutToFavorite);
+  }
+
   return (
     <WorkoutsContext.Provider
       value={{
@@ -119,6 +130,7 @@ export const WorkoutsProvider = (props: any) => {
         description: [workoutDescription],
         submit: [isSubmitted, setIsSubmitted],
         clearWorkouts: [deleteAllWorkouts],
+        addToFavorite: [handleAddingToFavorites],
       }}
     >
       {props.children}

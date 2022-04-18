@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Heart } from 'styled-icons/bootstrap';
+import { Heart, HeartFill } from 'styled-icons/bootstrap';
 import { Edit } from 'styled-icons/boxicons-regular';
 import { DeleteDismiss } from 'styled-icons/fluentui-system-filled';
 import { colors } from '../../../../global-styles/ColorsPalette';
@@ -55,6 +55,7 @@ export const WorkoutTitle = styled.h3`
   font-family: 'Akaya Telivigala', cursive;
   color: ${colors.white};
   letter-spacing: 0.1rem;
+  margin-right: 0.5rem;
 
   @media (min-width: 62em) {
     font-size: 1.8rem;
@@ -76,6 +77,11 @@ export const EditBtn = styled(Edit)`
 `;
 
 export const AddToFavorite = styled(Heart)`
+  ${CommonIconStyles}
+  fill: ${colors.tomato};
+`;
+
+export const RemoveFromFavorite = styled(HeartFill)`
   ${CommonIconStyles}
   fill: ${colors.tomato};
 `;
