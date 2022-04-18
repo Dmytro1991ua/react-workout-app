@@ -4,22 +4,32 @@ import Tooltip from '../../../../../../components/Tooltip/Tooltip';
 import { colors } from '../../../../../../global-styles/ColorsPalette';
 import { ActionButton } from '../../../WorkoutsActionsPanel/WorkoutsActionsPanel.styled';
 
-import { EditBtn, RemoveBtn, WorkoutTitle, Header, AddToFavorite } from './../../Workout.styled';
+import { EditBtn, RemoveBtn, WorkoutTitle, Header, AddToFavorite, RemoveFromFavorite } from './../../Workout.styled';
 
 interface WorkoutHeaderProps {
   description?: string;
   onOpenModal: () => void;
   onWorkoutEdit: (id: string) => void;
+  onAddingToFavorites: (id: string) => void;
   workout: WorkoutItem;
 }
 
-const WorkoutHeader = ({ description, onOpenModal, onWorkoutEdit, workout }: WorkoutHeaderProps): ReactElement => {
+const WorkoutHeader = ({
+  description,
+  onOpenModal,
+  onWorkoutEdit,
+  workout,
+  onAddingToFavorites,
+}: WorkoutHeaderProps): ReactElement => {
+  const isWorkoutInFavorites = workout.isFavorite === true;
+
   const config = [
     {
       id: uuidv4(),
-      icon: <AddToFavorite />,
+      icon: isWorkoutInFavorites ? <RemoveFromFavorite /> : <AddToFavorite />,
       'data-tip': 'Add to favorite',
       'data-for': 'addToFavoriteButton',
+      onClick: () => onAddingToFavorites(workout.id),
     },
     {
       id: uuidv4(),
