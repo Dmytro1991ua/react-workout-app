@@ -38,6 +38,7 @@ const Workouts = (): ReactElement => {
   const [editableWorkoutItem, setEditableWorkoutItem] = useState<WorkoutItem | null>(null);
 
   const [isSubmitted, setIsSubmitted] = useState<boolean | null>(null);
+  const [workoutMap, setWorkoutMap] = useState<L.Map | null>(null);
 
   const workoutsByLastAddedItem: WorkoutItem[] = [...(workouts as WorkoutItem[])].reverse();
 
@@ -151,6 +152,7 @@ const Workouts = (): ReactElement => {
           isFormShownOnWorkoutEdit={setIsFormShownOnWorkoutEdit}
           isFormShown={isFormShownOnWorkoutEdit}
           setEditableWorkoutItem={getEditableWorkoutItem}
+          workoutMap={workoutMap}
         />
       ))}
     </>
@@ -174,6 +176,7 @@ const Workouts = (): ReactElement => {
             workouts={getDefaultOrSortedWorkouts}
             setEditableWorkoutItem={setEditableWorkoutItem}
             isSubmitted={isSubmitted}
+            setWorkoutMap={setWorkoutMap}
           />
         </Map>
       </WorkoutsSectionBody>

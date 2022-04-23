@@ -6,16 +6,23 @@ import WorkoutHeader from './components/WorkoutHeader/WorkoutHeader';
 import { ModalContentTitle, WorkoutSection, ModalContentSubtitle } from './Workout.styled';
 import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails';
 import CustomModal from '../../../../components/CustomModal/CustomModal';
-import { WORKOUT_SUCCESS_DELETE_MESSAGE } from '../../Workouts.constants';
+import { WORKOUT_SUCCESS_DELETE_MESSAGE, ZOOM_LEVEL } from '../../Workouts.constants';
 
 interface WorkoutProps {
   workout: WorkoutItem;
   isFormShownOnWorkoutEdit: (value: boolean) => void;
   isFormShown: boolean;
   setEditableWorkoutItem: (editableWorkout: WorkoutItem | null) => void;
+  workoutMap: L.Map | null;
 }
 
-const Workout = ({ workout, isFormShownOnWorkoutEdit, isFormShown, setEditableWorkoutItem }: WorkoutProps) => {
+const Workout = ({
+  workout,
+  isFormShownOnWorkoutEdit,
+  isFormShown,
+  setEditableWorkoutItem,
+  workoutMap,
+}: WorkoutProps) => {
   const { workoutsData, addToFavorite } = useContext(WorkoutsContext);
   const [workouts, setWorkouts] = workoutsData;
   const [handleAddingToFavorites] = addToFavorite;
@@ -24,26 +31,16 @@ const Workout = ({ workout, isFormShownOnWorkoutEdit, isFormShown, setEditableWo
 
   const [isDeleteConfirmationModalOpened, setIsDeleteConfirmationModalOpened] = useState(false);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    const clickedWorkout = workouts.find((workout: any) => workout.id === event.currentTarget.getAttribute('data-id'));
+  const handleMoveToMarkerOnWorkoutClick = (event: React.MouseEvent<HTMLElement>) => {
+    const clickedWorkout = workouts.find(
+      (workout: WorkoutItem) => workout.id === event.currentTarget.getAttribute('data-id')
+    );
 
-    // map.setView(clickedWorkout.coordinates, 13, {
-    //   animate: true,
-    //   pan: {
-    //     duration: 1,
-    //   },
-    // });
+    workoutMap?.setView(clickedWorkout.coordinates, ZOOM_LEVEL, {
+      animate: true,
+      duration: 0.75,
+    });
   };
-
-  useEffect(() => {
-    // set the initialized map to the ref
-    // mapRef.current = L.map("map").flyTo(clickedWorkout.coordinates, 13, {
-    //   animate: true,
-    //   pan: {
-    //     duration: 1,
-    //   },
-    // });
-  }, []);
 
   // delete a particular clicked workout from UI as well as localStorage
   function handleRemoveWorkout(): void {
@@ -90,7 +87,7 @@ const Workout = ({ workout, isFormShownOnWorkoutEdit, isFormShown, setEditableWo
       <WorkoutSection
         className={selectedValue === 'running' ? 'running' : 'cycling'}
         data-id={id}
-        onClick={handleClick}
+        onClick={handleMoveToMarkerOnWorkoutClick}
       >
         <WorkoutHeader
           description={description}

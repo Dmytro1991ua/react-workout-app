@@ -23,6 +23,7 @@ export const WorkoutSection = styled(FormAndFallbackMessageWrapper)`
   border: none;
   padding: 1.5rem 2rem;
   position: relative;
+  cursor: pointer;
 
   &.running {
     border-left: 5px solid ${colors.mantis};

@@ -18,6 +18,7 @@ interface WorkoutMapProps {
   workouts: WorkoutItem[];
   setEditableWorkoutItem: (value: WorkoutItem | null) => void;
   isSubmitted: boolean | null;
+  setWorkoutMap: (value: L.Map | null) => void;
 }
 
 const WorkoutsMap = ({
@@ -27,6 +28,7 @@ const WorkoutsMap = ({
   workouts,
   setEditableWorkoutItem,
   isSubmitted,
+  setWorkoutMap,
 }: WorkoutMapProps): ReactElement => {
   //geolocation custom hook
   const location = useGeolocation();
@@ -52,6 +54,8 @@ const WorkoutsMap = ({
     const renderMapMarkers = workouts.map((workout: WorkoutItem) => {
       return isSubmitted && <MapMarker key={workout.id} currentWorkout={workout} />;
     });
+
+    setWorkoutMap(map);
 
     return <>{renderMapMarkers}</>;
   };
