@@ -27,9 +27,6 @@ export const WorkoutsProvider = (props: any) => {
   const [sortedByWorkoutTypeValueAndIndicator, setSortedByWorkoutTypeValueAndIndicator] =
     useState<SortedWorkoutsByWorkoutTypeAndIndicator>(SortedWorkoutsByWorkoutTypeAndIndicator.Default);
 
-  // "state" of a submitting form in order to render Marker later on
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
   // run preloader
   useEffect(() => {
     setPreloader(true);
@@ -128,7 +125,6 @@ export const WorkoutsProvider = (props: any) => {
         ],
         workoutRender: [getWorkoutData],
         description: [workoutDescription],
-        submit: [isSubmitted, setIsSubmitted],
         clearWorkouts: [deleteAllWorkouts],
         addToFavorite: [handleAddingToFavorites],
       }}
