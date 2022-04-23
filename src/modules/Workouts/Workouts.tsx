@@ -37,11 +37,17 @@ const Workouts = (): ReactElement => {
   const [isFormShownOnWorkoutEdit, setIsFormShownOnWorkoutEdit] = useState(false);
   const [editableWorkoutItem, setEditableWorkoutItem] = useState<WorkoutItem | null>(null);
 
+  const [isSubmitted, setIsSubmitted] = useState<boolean | null>(null);
+
   const workoutsByLastAddedItem: WorkoutItem[] = [...(workouts as WorkoutItem[])].reverse();
 
   useEffect(() => {
     <InitialMapMarker position={currentPosition} />;
-  }, [currentPosition]);
+
+    if (!isSubmitted) {
+      setIsSubmitted(!isSubmitted);
+    }
+  }, [currentPosition, isSubmitted]);
 
   const SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR: Record<SortedWorkoutsByWorkoutTypeAndIndicator, WorkoutItem[]> =
     {
@@ -113,6 +119,7 @@ const Workouts = (): ReactElement => {
           isFormShownOnWorkoutEdit={setIsFormShownOnWorkoutEdit}
           editableWorkoutItem={editableWorkoutItem}
           isFormShown={isFormShown}
+          setIsSubmitted={setIsSubmitted}
         />
       )}
     </>
@@ -166,6 +173,7 @@ const Workouts = (): ReactElement => {
             isFormShown={isFormShown}
             workouts={getDefaultOrSortedWorkouts}
             setEditableWorkoutItem={setEditableWorkoutItem}
+            isSubmitted={isSubmitted}
           />
         </Map>
       </WorkoutsSectionBody>

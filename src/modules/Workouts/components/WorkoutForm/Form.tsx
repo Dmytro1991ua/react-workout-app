@@ -25,6 +25,7 @@ interface FormProps {
   isFormShownOnWorkoutEdit: (value: boolean) => void;
   editableWorkoutItem: WorkoutItem | null;
   isFormShown: boolean;
+  setIsSubmitted: (value: boolean) => void;
 }
 
 const Form = ({
@@ -34,12 +35,12 @@ const Form = ({
   isFormShownOnWorkoutEdit,
   editableWorkoutItem,
   isFormShown,
+  setIsSubmitted,
 }: FormProps) => {
   // destructure selected workout's value, workouts data "states"
-  const { workoutRender, submit, workoutsData } = useContext(WorkoutsContext);
+  const { workoutRender, workoutsData } = useContext(WorkoutsContext);
 
   const [getWorkoutData] = workoutRender;
-  const [isSubmitted, setIsSubmitted] = submit;
   const [workouts, setWorkouts] = workoutsData;
 
   const {

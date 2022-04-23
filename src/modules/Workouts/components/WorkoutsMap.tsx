@@ -17,6 +17,7 @@ interface WorkoutMapProps {
   isFormShown: boolean;
   workouts: WorkoutItem[];
   setEditableWorkoutItem: (value: WorkoutItem | null) => void;
+  isSubmitted: boolean | null;
 }
 
 const WorkoutsMap = ({
@@ -25,18 +26,14 @@ const WorkoutsMap = ({
   isFormShown,
   workouts,
   setEditableWorkoutItem,
+  isSubmitted,
 }: WorkoutMapProps): ReactElement => {
-  // destructure certain "states" from Context
-  const { submit } = useContext(WorkoutsContext);
-
-  const [isSubmitted] = submit;
-
   //geolocation custom hook
   const location = useGeolocation();
   const currentPosition: LatLngExpression = [location.coordinates.lat, location.coordinates.lng];
 
   //get a clicked marker coordinates, store them in a "state" and show workout
-  const GetMapCoordsAndRenderMarker = (): ReactElement => {
+  const GetMapCoordsAndRenderMarker = (): JSX.Element => {
     const map = useMapEvents({
       click: (e) => {
         map.locate().on('locationfound', function () {
@@ -52,14 +49,14 @@ const WorkoutsMap = ({
       },
     });
 
-    const renderMapMarkers: WorkoutItem[] = workouts.map((workout: WorkoutItem) => {
+    const renderMapMarkers = workouts.map((workout: WorkoutItem) => {
       return isSubmitted && <MapMarker key={workout.id} currentWorkout={workout} />;
     });
 
     return <>{renderMapMarkers}</>;
   };
 
-  function RenderMarkerWithCurrentPosition() {
+  function RenderMarkerWithCurrentPosition(): JSX.Element | null {
     const map = useMap();
 
     useEffect(() => {
