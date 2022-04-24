@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 import { toastService } from './../../../../services/Toast.service';
@@ -6,7 +6,7 @@ import WorkoutHeader from './components/WorkoutHeader/WorkoutHeader';
 import { ModalContentTitle, WorkoutSection, ModalContentSubtitle } from './Workout.styled';
 import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails';
 import CustomModal from '../../../../components/CustomModal/CustomModal';
-import { WORKOUT_SUCCESS_DELETE_MESSAGE, ZOOM_LEVEL } from '../../Workouts.constants';
+import { WORKOUT_SUCCESS_DELETE_MESSAGE } from '../../Workouts.constants';
 
 interface WorkoutProps {
   workout: WorkoutItem;
@@ -36,9 +36,8 @@ const Workout = ({
       (workout: WorkoutItem) => workout.id === event.currentTarget.getAttribute('data-id')
     );
 
-    workoutMap?.setView(clickedWorkout.coordinates, ZOOM_LEVEL, {
-      animate: true,
-      duration: 0.75,
+    workoutMap?.locate().on('locationfound', function (e) {
+      workoutMap?.flyTo(clickedWorkout.coordinates, workoutMap?.getZoom(), { animate: true, duration: 2 });
     });
   };
 

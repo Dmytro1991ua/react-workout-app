@@ -1,5 +1,5 @@
+import { Dumbbell } from '@styled-icons/fa-solid';
 import styled from 'styled-components';
-import { Heart } from 'styled-icons/bootstrap';
 import { Reset } from 'styled-icons/boxicons-regular';
 import { DeleteDismiss } from 'styled-icons/fluentui-system-filled';
 
@@ -18,7 +18,7 @@ export const ActionsPanelWrapper = styled('section')`
   display: grid;
   align-items: center;
   justify-items: center;
-  grid-template-columns: 2fr 0.3fr 0.3fr;
+  grid-template-columns: 2fr 0.3fr 0.3fr 0.3fr;
   grid-gap: 2rem;
   color: ${colors.white};
 `;
@@ -36,4 +36,9 @@ export const ResetButtonIcon = styled(Reset)`
 export const DeleteButtonIcon = styled(DeleteDismiss)`
   ${commonButtonStyles}
   fill: ${colors.tomato};
+`;
+
+export const ShowAllMarkers = styled(Dumbbell)`
+  ${commonButtonStyles}
+  color: ${colors.lighterBlue};
 `;

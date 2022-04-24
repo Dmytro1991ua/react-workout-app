@@ -1,15 +1,15 @@
 import { LatLngExpression, LatLngTuple } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import React, { ReactElement, useContext, useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 
 import useGeolocation from '../../../hooks/useGeolocation';
 import { leafletDetails } from '../../leafletMap/leafletMap';
 import '../../leafletMap/leaflet.css';
-import { WorkoutsContext } from '../../../context/WorkoutsContext';
 import MapMarker from './MapMarker/MapMarker';
 import { ZOOM_LEVEL } from '../Workouts.constants';
 import InitialMapMarker from './MapMarker/InitialMapMarker';
+import { FeatureGroup } from 'react-leaflet';
 
 interface WorkoutMapProps {
   onShowWorkoutForm: () => void;
@@ -19,6 +19,8 @@ interface WorkoutMapProps {
   setEditableWorkoutItem: (value: WorkoutItem | null) => void;
   isSubmitted: boolean | null;
   setWorkoutMap: (value: L.Map | null) => void;
+  setGroupRef: (value: L.FeatureGroup<any> | null) => void;
+  setMapRef: (value: L.Map | null) => void;
 }
 
 const WorkoutsMap = ({
@@ -29,6 +31,8 @@ const WorkoutsMap = ({
   setEditableWorkoutItem,
   isSubmitted,
   setWorkoutMap,
+  setGroupRef,
+  setMapRef,
 }: WorkoutMapProps): ReactElement => {
   //geolocation custom hook
   const location = useGeolocation();
@@ -79,9 +83,19 @@ const WorkoutsMap = ({
     <>
       {/* Render leaflet map when current location is loaded and there is no error*/}
       {location.loaded && !location.error && (
-        <MapContainer center={currentPosition} zoom={ZOOM_LEVEL} closePopupOnClick={false}>
+        <MapContainer
+          center={currentPosition}
+          zoom={ZOOM_LEVEL}
+          closePopupOnClick={false}
+          whenCreated={(mapInstance) => {
+            setMapRef(mapInstance);
+          }}
+        >
+          /
           <TileLayer attribution={leafletDetails.attribution} url={leafletDetails.url} />
-          <GetMapCoordsAndRenderMarker />
+          <FeatureGroup ref={(ref) => setGroupRef(ref)}>
+            <GetMapCoordsAndRenderMarker />
+          </FeatureGroup>
           {!workouts.length && !isFormShown && <RenderMarkerWithCurrentPosition />}
         </MapContainer>
       )}

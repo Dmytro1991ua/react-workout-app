@@ -13,7 +13,7 @@ import Form from './components/WorkoutForm/Form';
 import Workout from './components/Workout/Workout';
 import WorkoutsMap from './components/WorkoutsMap';
 import FallbackMessage from './components/FallbackMessage/FallbackMessage';
-import { LatLngExpression, LatLngTuple } from 'leaflet';
+import { LatLngBoundsExpression, LatLngExpression, LatLngTuple } from 'leaflet';
 import useGeolocation from '../../hooks/useGeolocation';
 import InitialMapMarker from './components/MapMarker/InitialMapMarker';
 import { WorkoutsActionsPanel } from './components/WorkoutsActionsPanel/WorkoutsActionsPanel';
@@ -39,6 +39,9 @@ const Workouts = (): ReactElement => {
 
   const [isSubmitted, setIsSubmitted] = useState<boolean | null>(null);
   const [workoutMap, setWorkoutMap] = useState<L.Map | null>(null);
+
+  const [groupRef, setGroupRef] = useState<L.FeatureGroup<any> | null>(null);
+  const [mapRef, setMapRef] = useState<L.Map | null>(null);
 
   const workoutsByLastAddedItem: WorkoutItem[] = [...(workouts as WorkoutItem[])].reverse();
 
@@ -100,11 +103,15 @@ const Workouts = (): ReactElement => {
     }
   }
 
+  function handleShowAllWorkoutMarkers() {
+    mapRef?.fitBounds(groupRef?.getBounds() as LatLngBoundsExpression);
+  }
+
   const renderActionsPanel = (
     <>
       {workouts.length && (
         <ActionsPanel>
-          <WorkoutsActionsPanel />
+          <WorkoutsActionsPanel handleShowAllWorkoutMarkers={handleShowAllWorkoutMarkers} />
         </ActionsPanel>
       )}
     </>
@@ -177,6 +184,8 @@ const Workouts = (): ReactElement => {
             setEditableWorkoutItem={setEditableWorkoutItem}
             isSubmitted={isSubmitted}
             setWorkoutMap={setWorkoutMap}
+            setGroupRef={setGroupRef}
+            setMapRef={setMapRef}
           />
         </Map>
       </WorkoutsSectionBody>

@@ -29,21 +29,30 @@ const WorkoutHeader = ({
       icon: isWorkoutInFavorites ? <RemoveFromFavorite /> : <AddToFavorite />,
       'data-tip': 'Add to favorite',
       'data-for': 'addToFavoriteButton',
-      onClick: () => onAddingToFavorites(workout.id),
+      onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.stopPropagation();
+        onAddingToFavorites(workout.id);
+      },
     },
     {
       id: uuidv4(),
       icon: <RemoveBtn />,
       'data-tip': 'Delete Workout',
       'data-for': 'deleteButton',
-      onClick: onOpenModal,
+      onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.stopPropagation();
+        onOpenModal();
+      },
     },
     {
       id: uuidv4(),
       icon: <EditBtn />,
       'data-tip': 'Edit Workout',
       'data-for': 'editButton',
-      onClick: () => onWorkoutEdit(workout.id),
+      onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.stopPropagation();
+        onWorkoutEdit(workout.id);
+      },
     },
   ];
 
@@ -53,7 +62,7 @@ const WorkoutHeader = ({
       {config.map((item) => {
         return (
           <li key={item.id}>
-            <ActionButton data-tip={item['data-tip']} data-for={item['data-for']} onClick={item.onClick}>
+            <ActionButton data-tip={item['data-tip']} data-for={item['data-for']} onClick={(e) => item.onClick(e)}>
               {item.icon}
             </ActionButton>
             <Tooltip

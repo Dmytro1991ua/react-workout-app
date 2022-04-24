@@ -9,8 +9,6 @@ import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 
 import { workoutMarkerIcon } from '../../Workouts.utils';
 
-//create a leaflet map marker
-
 interface MarkerProps {
   currentWorkout: WorkoutItem;
 }
