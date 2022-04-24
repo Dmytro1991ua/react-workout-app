@@ -11,9 +11,19 @@ import { SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS_MOCK } from '../..
 import { SortedWorkoutsByWorkoutTypeAndIndicator } from '../../Workouts.enums';
 import { ModalContentSubtitle, ModalContentTitle } from '../Workout/Workout.styled';
 
-import { ActionButton, ActionsPanelWrapper, ResetButtonIcon, DeleteButtonIcon } from './WorkoutsActionsPanel.styled';
+import {
+  ActionButton,
+  ActionsPanelWrapper,
+  ResetButtonIcon,
+  DeleteButtonIcon,
+  ShowAllMarkers,
+} from './WorkoutsActionsPanel.styled';
 
-export const WorkoutsActionsPanel = (): ReactElement => {
+interface WorkoutsActionsPanelProps {
+  handleShowAllWorkoutMarkers: () => void;
+}
+
+export const WorkoutsActionsPanel = ({ handleShowAllWorkoutMarkers }: WorkoutsActionsPanelProps): ReactElement => {
   const { selectedWorkoutTypeValueAndIndicator, clearWorkouts } = useContext(WorkoutsContext);
   const [sortedByWorkoutTypeValueAndIndicator, setSortedByWorkoutTypeValueAndIndicator] =
     selectedWorkoutTypeValueAndIndicator;
@@ -32,6 +42,13 @@ export const WorkoutsActionsPanel = (): ReactElement => {
       'data-tip': 'Reset Workout Sorting',
       'data-for': 'clearButton',
       onClick: handleResetWorkoutSorting,
+    },
+    {
+      id: uuidv4(),
+      icon: <ShowAllMarkers />,
+      'data-tip': 'Show all markers',
+      'data-for': 'showAllMarkersButton',
+      onClick: handleShowAllWorkoutMarkers,
     },
     {
       id: uuidv4(),
