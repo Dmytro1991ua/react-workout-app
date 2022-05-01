@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Reset } from 'styled-icons/boxicons-regular';
 import { DeleteDismiss } from 'styled-icons/fluentui-system-filled';
 
-import { colors } from '../../../../global-styles/ColorsPalette';
+import { colors } from '../../../../../../global-styles/ColorsPalette';
 
 const commonButtonStyles = `
   width: 2.5rem;

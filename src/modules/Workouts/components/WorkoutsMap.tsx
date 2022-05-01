@@ -1,13 +1,12 @@
 import { LatLngExpression, LatLngTuple } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import React, { ReactElement, useEffect } from 'react';
-import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
+import { LayersControl, MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 
 import useGeolocation from '../../../hooks/useGeolocation';
-import { leafletDetails } from '../../leafletMap/leafletMap';
 import '../../leafletMap/leaflet.css';
 import MapMarker from './MapMarker/MapMarker';
-import { ZOOM_LEVEL } from '../Workouts.constants';
+import { MAP_TILES_DETAILS_CONFIG, ZOOM_LEVEL } from '../Workouts.constants';
 import InitialMapMarker from './MapMarker/InitialMapMarker';
 import { FeatureGroup } from 'react-leaflet';
 
@@ -37,6 +36,8 @@ const WorkoutsMap = ({
   //geolocation custom hook
   const location = useGeolocation();
   const currentPosition: LatLngExpression = [location.coordinates.lat, location.coordinates.lng];
+
+  const { BaseLayer } = LayersControl;
 
   //get a clicked marker coordinates, store them in a "state" and show workout
   const GetMapCoordsAndRenderMarker = (): JSX.Element => {
@@ -91,8 +92,14 @@ const WorkoutsMap = ({
             setMapRef(mapInstance);
           }}
         >
-          /
-          <TileLayer attribution={leafletDetails.attribution} url={leafletDetails.url} />
+          <LayersControl>
+            {MAP_TILES_DETAILS_CONFIG.map((mapTile) => (
+              <BaseLayer checked={mapTile.default} name={mapTile.name}>
+                <TileLayer attribution={mapTile.attribution} url={mapTile.url} />
+              </BaseLayer>
+            ))}
+          </LayersControl>
+
           <FeatureGroup ref={(ref) => setGroupRef(ref)}>
             <GetMapCoordsAndRenderMarker />
           </FeatureGroup>

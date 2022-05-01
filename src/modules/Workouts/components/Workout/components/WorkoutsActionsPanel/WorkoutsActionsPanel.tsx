@@ -1,15 +1,15 @@
 import React, { ReactElement, useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import CustomModal from '../../../../components/CustomModal/CustomModal';
-import { Select } from '../../../../components/Select/Select';
-import Tooltip from '../../../../components/Tooltip/Tooltip';
-import { WorkoutsContext } from '../../../../context/WorkoutsContext';
-import { colors } from '../../../../global-styles/ColorsPalette';
-import { toastService } from '../../../../services/Toast.service';
-import { SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS_MOCK } from '../../Workouts.constants';
-import { SortedWorkoutsByWorkoutTypeAndIndicator } from '../../Workouts.enums';
-import { ModalContentSubtitle, ModalContentTitle } from '../Workout/Workout.styled';
+import CustomModal from '../../../../../../components/CustomModal/CustomModal';
+import { Select } from '../../../../../../components/Select/Select';
+import Tooltip from '../../../../../../components/Tooltip/Tooltip';
+import { WorkoutsContext } from '../../../../../../context/WorkoutsContext';
+import { colors } from '../../../../../../global-styles/ColorsPalette';
+import { toastService } from '../../../../../../services/Toast.service';
+import { SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS_MOCK } from '../../../../Workouts.constants';
+import { SortedWorkoutsByWorkoutTypeAndIndicator } from '../../../../Workouts.enums';
+import { ModalContentSubtitle, ModalContentTitle } from '../../Workout.styled';
 
 import {
   ActionButton,
@@ -29,7 +29,8 @@ export const WorkoutsActionsPanel = ({ handleShowAllWorkoutMarkers }: WorkoutsAc
     selectedWorkoutTypeValueAndIndicator;
   const [deleteAllWorkouts] = clearWorkouts;
 
-  const [isDefaultOptionDisabled, setIsDefaultOptionDisabled] = useState(false);
+  const [isSortedDefaultOptionDisabled, setIsSortedDefaultOptionDisabled] = useState(false);
+
   const [selectedValue, setSelectedValue] = useState<SortedWorkoutsByWorkoutTypeAndIndicator>(
     SortedWorkoutsByWorkoutTypeAndIndicator.Default
   );
@@ -71,14 +72,15 @@ export const WorkoutsActionsPanel = ({ handleShowAllWorkoutMarkers }: WorkoutsAc
 
     setSortedByWorkoutTypeValueAndIndicator(selectedValue as SortedWorkoutsByWorkoutTypeAndIndicator);
 
-    setIsDefaultOptionDisabled(true);
+    setIsSortedDefaultOptionDisabled(true);
     setSelectedValue(event.target.value as SortedWorkoutsByWorkoutTypeAndIndicator);
   }
 
   function handleResetWorkoutSorting(): void {
     setSortedByWorkoutTypeValueAndIndicator(SortedWorkoutsByWorkoutTypeAndIndicator.Default);
 
-    setIsDefaultOptionDisabled(false);
+    setIsSortedDefaultOptionDisabled(false);
+
     setSelectedValue(SortedWorkoutsByWorkoutTypeAndIndicator.Default);
   }
 
@@ -115,7 +117,7 @@ export const WorkoutsActionsPanel = ({ handleShowAllWorkoutMarkers }: WorkoutsAc
           optionLabel='Sort by workout type or indicator:'
           onChange={handleSortingByWorkoutTypeChange}
           value={selectedValue}
-          isDefaultOptionDisabled={isDefaultOptionDisabled}
+          isDefaultOptionDisabled={isSortedDefaultOptionDisabled}
         />
         {config.map((item) => {
           return (
