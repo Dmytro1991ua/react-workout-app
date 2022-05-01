@@ -16,7 +16,7 @@ import FallbackMessage from './components/FallbackMessage/FallbackMessage';
 import { LatLngBoundsExpression, LatLngExpression, LatLngTuple } from 'leaflet';
 import useGeolocation from '../../hooks/useGeolocation';
 import InitialMapMarker from './components/MapMarker/InitialMapMarker';
-import { WorkoutsActionsPanel } from './components/WorkoutsActionsPanel/WorkoutsActionsPanel';
+import { WorkoutsActionsPanel } from './components/Workout/components/WorkoutsActionsPanel/WorkoutsActionsPanel';
 import { SortedWorkoutsByWorkoutTypeAndIndicator } from './Workouts.enums';
 import { filter, sortBy } from 'lodash';
 

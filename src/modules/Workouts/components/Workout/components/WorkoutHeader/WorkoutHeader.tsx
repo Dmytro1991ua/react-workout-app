@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Tooltip from '../../../../../../components/Tooltip/Tooltip';
 import { colors } from '../../../../../../global-styles/ColorsPalette';
-import { ActionButton } from '../../../WorkoutsActionsPanel/WorkoutsActionsPanel.styled';
+import { ActionButton } from '../WorkoutsActionsPanel/WorkoutsActionsPanel.styled';
 
 import { EditBtn, RemoveBtn, WorkoutTitle, Header, AddToFavorite, RemoveFromFavorite } from './../../Workout.styled';
 

@@ -31,3 +31,12 @@ declare interface WorkoutItem {
   speed?: number;
   isFavorite?: boolean;
 }
+
+declare interface MapTilesConfigDetail {
+  id: string;
+  name: string;
+  url: string;
+  attribution: string;
+  default?: boolean;
+  maxZoom?: number;
+}
