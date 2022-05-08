@@ -45,7 +45,6 @@ export const Logo = styled.img`
 export const HeaderSectionBody = styled.div`
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-between;
   align-items: center;
 
   @media (min-width: 28em) {
@@ -68,6 +67,7 @@ export const List = styled('ul')<{ open?: boolean }>`
   padding: 7rem 2rem 2rem 2rem;
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-200%)')};
   transition: all 0.3s ease-in-out;
+  margin-right: 2rem;
 
   @media (min-width: 28em) {
     position: relative;

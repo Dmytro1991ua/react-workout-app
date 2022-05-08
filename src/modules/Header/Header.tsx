@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 
 import { Container } from '../../global-styles/Global.styled';
 import { HeaderSection, HeaderSectionBody, Logo } from './Header.styled';
@@ -9,8 +9,17 @@ import LogoImg from '../../assets/images/logo.png';
 import { AppRoutes } from '../../App.enums';
 import Tooltip from '../../components/Tooltip/Tooltip';
 import { colors } from '../../global-styles/ColorsPalette';
+import { WorkoutsContext } from '../../context/WorkoutsContext';
+import useGeolocation from '../../hooks/useGeolocation';
+import WeatherWidget from './components/WeatherWidget/WeatherWidget';
 
 const Header = () => {
+  const { currentWorkoutWeather } = useContext(WorkoutsContext);
+
+  const [currentWeather] = currentWorkoutWeather;
+
+  const currentLocation: CurrentLocationData = useGeolocation();
+
   const [isBurgerIconOpened, setIsBurgerIconOpened] = useState(false);
 
   function handleOpenBurgerMenu(): void {
@@ -33,7 +42,10 @@ const Header = () => {
             arrowColor={colors.mantisDarker}
           />
           <BurgerIcon isOpen={isBurgerIconOpened} onClick={handleOpenBurgerMenu} />
-          <Navigation isOpen={isBurgerIconOpened} />
+          <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
+            <Navigation isOpen={isBurgerIconOpened} />
+            {currentLocation.loaded && !!currentWeather && <WeatherWidget currentWeather={currentWeather} />}
+          </div>
         </HeaderSectionBody>
       </Container>
     </HeaderSection>
