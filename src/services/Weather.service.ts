@@ -5,9 +5,8 @@ class WeatherService {
   async getCurrentWeather(latitude: number, longitude: number): Promise<CurrentWeatherData | null> {
     try {
       const resp = await axios.get(
-        `${process.env.REACT_APP_WEATHER_API_ENDPOINT}/weather/?lat=${latitude}&lon=${longitude}&units=metric&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`
+        `${process.env.REACT_APP_WEATHER_API_ENDPOINT}/weather/?lat=${latitude}&lon=${longitude}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`
       );
-
       return resp.data ? WeatherService.mapFormWeatherDataToCurrentWeatherData(resp.data) : null;
     } catch (e) {
       toastService.error('Failed to get weather data for the current location');

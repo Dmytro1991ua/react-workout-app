@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 
 import { Container } from '../../global-styles/Global.styled';
-import { HeaderSection, HeaderSectionBody, Logo } from './Header.styled';
+import { HeaderSection, HeaderSectionBody, Logo, NavigationWrapper } from './Header.styled';
 import BurgerIcon from './components/BurgerIcon/BurgerIcon';
 import Navigation from './components/Navigation/Navigation';
 import LogoImg from '../../assets/images/logo.png';
@@ -42,10 +42,10 @@ const Header = () => {
             arrowColor={colors.mantisDarker}
           />
           <BurgerIcon isOpen={isBurgerIconOpened} onClick={handleOpenBurgerMenu} />
-          <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
+          <NavigationWrapper>
             <Navigation isOpen={isBurgerIconOpened} />
             {currentLocation.loaded && !!currentWeather && <WeatherWidget currentWeather={currentWeather} />}
-          </div>
+          </NavigationWrapper>
         </HeaderSectionBody>
       </Container>
     </HeaderSection>
