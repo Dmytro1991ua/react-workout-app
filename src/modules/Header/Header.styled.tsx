@@ -35,21 +35,28 @@ export const Logo = styled.img`
   width: 5rem;
   height: 5rem;
   cursor: pointer;
+  margin-right: 2rem;
 
   @media (min-width: 48em) {
     width: 6.5rem;
     height: 6.5rem;
+    margin-right: 0;
   }
 `;
 
 export const HeaderSectionBody = styled.div`
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+`;
+
+export const NavigationWrapper = styled('div')`
+  display: flex;
   align-items: center;
 
-  @media (min-width: 28em) {
-    flex-direction: row;
+  @media (min-width: 48em) {
+    margin-left: auto;
   }
 `;
 
@@ -68,8 +75,9 @@ export const List = styled('ul')<{ open?: boolean }>`
   padding: 7rem 2rem 2rem 2rem;
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-200%)')};
   transition: all 0.3s ease-in-out;
+  margin-right: 2rem;
 
-  @media (min-width: 28em) {
+  @media (min-width: 48em) {
     position: relative;
     top: 0;
     flex-direction: row;
@@ -88,7 +96,7 @@ export const ListItem = styled.li`
   &:not(:last-child) {
     margin-bottom: 2rem;
   }
-  @media (min-width: 28em) {
+  @media (min-width: 48em) {
     &:not(:last-child) {
       margin-right: 3rem;
       margin-bottom: 0rem;

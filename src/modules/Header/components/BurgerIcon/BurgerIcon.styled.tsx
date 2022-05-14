@@ -34,7 +34,7 @@ export const BurgerMenu = styled('div')<{ open?: boolean }>`
     }
   }
 
-  @media (min-width: 28em) {
+  @media (min-width: 48em) {
     display: none;
   }
 `;

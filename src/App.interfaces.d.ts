@@ -40,3 +40,37 @@ declare interface MapTilesConfigDetail {
   default?: boolean;
   maxZoom?: number;
 }
+
+declare interface CoordinatesEntities {
+  lat: number;
+  lng: number;
+}
+declare interface CurrentLocationData {
+  loaded: boolean;
+  coordinates: CoordinatesEntities;
+}
+
+declare interface WeatherInfo {
+  description: string;
+  icon: string;
+  id: number;
+  main: string;
+}
+
+declare interface CountryWeatherInfo {
+  country: string;
+  sunrise: number;
+  sunset: number;
+}
+declare interface CurrentWeatherData {
+  city: string;
+  temperature: number;
+  maxTemperature: number;
+  minTemperature: number;
+  pressure: number;
+  humidity: number;
+  feelsLike: number;
+  weatherInfo: WeatherInfo[];
+  windSpeed: number;
+  countryInfo: CountryWeatherInfo;
+}

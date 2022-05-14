@@ -22,9 +22,10 @@ import { filter, sortBy } from 'lodash';
 
 const Workouts = (): ReactElement => {
   // destructure certain "states" from Context
-  const { workoutsData, selectedWorkoutTypeValueAndIndicator } = useContext(WorkoutsContext);
+  const { workoutsData, selectedWorkoutTypeValueAndIndicator, workoutCoordinates } = useContext(WorkoutsContext);
   const [workouts] = workoutsData;
   const [sortedByWorkoutTypeValueAndIndicator] = selectedWorkoutTypeValueAndIndicator;
+  const [clickedMapCoordinates, setClickedMapCoordinates] = workoutCoordinates;
 
   const location = useGeolocation();
   const currentPosition: LatLngExpression = useMemo(
@@ -32,7 +33,6 @@ const Workouts = (): ReactElement => {
     [location.coordinates.lat, location.coordinates.lng]
   );
 
-  const [clickedMapCoordinates, setClickedMapCoordinates] = useState<LatLngTuple | null>(null);
   const [isFormShown, setIsFormShown] = useState(false);
   const [isFormShownOnWorkoutEdit, setIsFormShownOnWorkoutEdit] = useState(false);
   const [editableWorkoutItem, setEditableWorkoutItem] = useState<WorkoutItem | null>(null);

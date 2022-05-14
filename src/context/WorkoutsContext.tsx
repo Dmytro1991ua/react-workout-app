@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { LatLngTuple } from 'leaflet';
 import { createContext, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,6 +8,7 @@ import { WorkoutFormInitialValues } from '../modules/Workouts/components/Workout
 
 import { MONTHS_LIST } from '../modules/Workouts/Workouts.constants';
 import { SortedWorkoutsByWorkoutTypeAndIndicator } from '../modules/Workouts/Workouts.enums';
+import { weatherService } from '../services/Weather.service';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const WorkoutsContext = createContext({} as any);
@@ -15,9 +17,9 @@ export const WorkoutsProvider = (props: any) => {
   // preloader "state"
   const [preloader, setPreloader] = useState(false);
   // current location (geolocation) "state"
-  const [location, setLocation] = useState({
+  const [location, setLocation] = useState<CurrentLocationData>({
     loaded: false,
-    coordinates: { lat: '', lng: '' },
+    coordinates: { lat: 0, lng: 0 },
   });
 
   // selected workout value from a from
@@ -26,6 +28,18 @@ export const WorkoutsProvider = (props: any) => {
   const [workouts, setWorkouts] = useLocalStorage<WorkoutItem[]>('workouts', []);
   const [sortedByWorkoutTypeValueAndIndicator, setSortedByWorkoutTypeValueAndIndicator] =
     useState<SortedWorkoutsByWorkoutTypeAndIndicator>(SortedWorkoutsByWorkoutTypeAndIndicator.Default);
+  const [clickedMapCoordinates, setClickedMapCoordinates] = useState<LatLngTuple | null>(null);
+
+  const [currentWeather, setCurrentWeather] = useState<CurrentWeatherData | null>(null);
+
+  useEffect(() => {
+    async function getWorkoutWeather(): Promise<void> {
+      const currentWeather = await weatherService.getCurrentWeather(location.coordinates.lat, location.coordinates.lng);
+
+      setCurrentWeather(currentWeather);
+    }
+    getWorkoutWeather();
+  }, [location.coordinates.lat, location.coordinates.lng]);
 
   // run preloader
   useEffect(() => {
@@ -127,6 +141,8 @@ export const WorkoutsProvider = (props: any) => {
         description: [workoutDescription],
         clearWorkouts: [deleteAllWorkouts],
         addToFavorite: [handleAddingToFavorites],
+        workoutCoordinates: [clickedMapCoordinates, setClickedMapCoordinates],
+        currentWorkoutWeather: [currentWeather, setCurrentWeather],
       }}
     >
       {props.children}

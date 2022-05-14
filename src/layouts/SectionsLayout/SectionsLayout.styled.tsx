@@ -43,7 +43,7 @@ export const CommonSectionsBody = styled.div`
   transition: all 0.3s ease-in-out;
   animation: ${bounceInLeft} 0.8s ease-in-out;
   padding: 0 1rem;
-  margin-top: 5rem;
+  margin-top: 8rem;
 
   @media (min-width: 45em) {
     margin-bottom: 5rem;
@@ -69,6 +69,7 @@ export const CommonSectionsBtn = styled(Link)<{ sectionName?: string }>`
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   filter: drop-shadow(7px 8px 4px ${colors.darkBlue});
+  margin-bottom: ${({ sectionName }) => (sectionName === 'Not Found' ? 0 : '1.2rem')};
 
   &:hover {
     background-color: ${({ sectionName }) =>
@@ -84,5 +85,6 @@ export const CommonSectionsBtn = styled(Link)<{ sectionName?: string }>`
     padding: 2rem 2.2rem;
     font-weight: 700;
     font-size: 2rem;
+    margin-bottom: 0;
   }
 `;
