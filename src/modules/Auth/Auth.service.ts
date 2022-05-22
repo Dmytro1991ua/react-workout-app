@@ -4,6 +4,7 @@ import { AppRoutes } from '../../App.enums';
 import { auth } from '../../firebase';
 import history from '../../services/History.service';
 import { toastService } from '../../services/Toast.service';
+import { appLifeCycleService } from './../../services/AppLifeCycle.service';
 import {
   SUCCESSFUL_FORGOT_PASSWORD_MESSAGE,
   SUCCESSFUL_LOGOUT_MESSAGE,
@@ -43,6 +44,7 @@ class AuthService {
     try {
       await auth.signOut();
       this.removeToken();
+      appLifeCycleService.clearAppDataStorage();
       toastService.success(SUCCESSFUL_LOGOUT_MESSAGE);
       history.push(AppRoutes.Login);
     } catch (error) {

@@ -2,8 +2,9 @@ import React from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 
 import { AppRoutes } from '../../App.enums';
-import { useAuth } from '../../context/AuthContext';
 import MainLayout from '../../layouts/MainLayout';
+import { selectIsUserAuthenticated, selectUserLoading } from '../../modules/Auth/Auth.slice';
+import { useAppSelector } from '../../store/store.hooks';
 
 interface PrivateRouteProps extends Omit<RouteProps, 'component'> {
   component: React.ElementType;
@@ -11,14 +12,15 @@ interface PrivateRouteProps extends Omit<RouteProps, 'component'> {
 
 // blueprint for all private routes ==> if the user logged in a needed component will be displayed
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: Component, ...rest }) => {
-  const { currentUser } = useAuth();
+  const isUserAuthenticated = useAppSelector(selectIsUserAuthenticated);
+  const isUserLoading = useAppSelector(selectUserLoading);
 
   return (
     <Route
       {...rest}
       render={(props) => (
         <MainLayout>
-          {Boolean(currentUser) ? (
+          {isUserAuthenticated || isUserLoading ? (
             <Component {...props} />
           ) : (
             <Redirect to={{ pathname: AppRoutes.Login, state: { from: props.location } }} />

@@ -1,4 +1,3 @@
-import firebase from 'firebase/app';
 import { v4 as uuidv4 } from 'uuid';
 
 import { AppRoutes } from '../../../../App.enums';
@@ -6,7 +5,7 @@ import { authService } from '../../../Auth/Auth.service';
 import { CustomDumbbellIcon, CustomHomeIcon, CustomLogoutIcon } from '../../Header.styled';
 import { NavigationConfiguration } from './Navigation.interface';
 
-export function navigationConfig(currentUser: firebase.User): NavigationConfiguration[] {
+export function navigationConfig(currentUser: boolean, isUserLoading: boolean): NavigationConfiguration[] {
   return [
     {
       id: uuidv4(),
@@ -20,12 +19,14 @@ export function navigationConfig(currentUser: firebase.User): NavigationConfigur
       url: AppRoutes.Workouts,
       'data-tip': 'Workouts',
     },
-    currentUser && {
+    {
       id: uuidv4(),
-      navigationIcon: <CustomLogoutIcon />,
+      navigationIcon: currentUser || isUserLoading ? <CustomLogoutIcon /> : null,
       url: AppRoutes.Login,
       'data-tip': 'Logout',
-      onClick: async () => await authService.logout(),
+      onClick: async () => {
+        await authService.logout();
+      },
     },
   ];
 }

@@ -75,3 +75,5 @@ declare interface CurrentWeatherData {
   windSpeed: number;
   countryInfo: CountryWeatherInfo;
 }
+
+declare type DtStatus = 'loading' | 'idle' | 'failed';

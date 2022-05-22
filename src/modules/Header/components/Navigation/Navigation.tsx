@@ -1,21 +1,23 @@
-import React, { ReactElement, useContext } from 'react';
+import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
 import { List, ListItem } from '../../Header.styled';
 import { navigationConfig } from './Navigation.config';
 import Tooltip from './../../../../components/Tooltip/Tooltip';
 
-import { AuthContext } from './../../../../context/AuthContext';
 import { colors } from '../../../../global-styles/ColorsPalette';
+import { useAppSelector } from './../../../../store/store.hooks';
+import { selectIsUserAuthenticated, selectUserLoading } from '../../../Auth/Auth.slice';
 
 interface NavigationProps {
   isOpen: boolean;
 }
 
 const Navigation = ({ isOpen }: NavigationProps): ReactElement => {
-  const { currentUser } = useContext(AuthContext);
+  const currentUser = useAppSelector(selectIsUserAuthenticated);
+  const isUserLoading = useAppSelector(selectUserLoading);
 
-  const navigationConfigs = navigationConfig(currentUser);
+  const navigationConfigs = navigationConfig(currentUser, isUserLoading);
 
   return (
     <List open={isOpen}>
