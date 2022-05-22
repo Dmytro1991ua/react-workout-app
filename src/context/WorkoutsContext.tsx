@@ -1,6 +1,5 @@
-import axios from 'axios';
 import { LatLngTuple } from 'leaflet';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { useLocalStorage } from '../hooks/useLocalStorage';
@@ -30,16 +29,42 @@ export const WorkoutsProvider = (props: any) => {
     useState<SortedWorkoutsByWorkoutTypeAndIndicator>(SortedWorkoutsByWorkoutTypeAndIndicator.Default);
   const [clickedMapCoordinates, setClickedMapCoordinates] = useState<LatLngTuple | null>(null);
 
-  const [currentWeather, setCurrentWeather] = useState<CurrentWeatherData | null>(null);
+  const [weatherBasedOnCurrentLocation, setWeatherBasedOnCurrentLocation] = useState<CurrentWeatherData | null>(null);
+  const [workoutWeather, setWorkoutWeather] = useState<CurrentWeatherData | null>(null);
+  const [workoutCoordinates, setWorkoutCoordinates] = useState<CoordinatesEntities | null>(null);
+
+  const getWeatherBasedOnCurrentLocation = useCallback(async (): Promise<void> => {
+    const currentWeatherBasedOnLocation = await weatherService.getCurrentWeather(
+      location.coordinates.lat,
+      location.coordinates.lng
+    );
+
+    setWeatherBasedOnCurrentLocation(currentWeatherBasedOnLocation);
+  }, [location.coordinates.lat, location.coordinates.lng]);
+
+  const getWorkoutCoords = useCallback((coords: LatLngTuple) => {
+    const [lat, lng] = coords;
+
+    setWorkoutCoordinates({ lat, lng });
+  }, []);
+
+  const getWorkoutWeather = useCallback(async (): Promise<void> => {
+    if (workoutCoordinates) {
+      const currentWorkoutWeather = await weatherService.getCurrentWeather(
+        workoutCoordinates?.lat,
+        workoutCoordinates?.lng
+      );
+
+      if (currentWorkoutWeather) {
+        setWorkoutWeather((prevState) => ({ ...(prevState as CurrentWeatherData), ...currentWorkoutWeather }));
+      }
+    }
+  }, [workoutCoordinates]);
 
   useEffect(() => {
-    async function getWorkoutWeather(): Promise<void> {
-      const currentWeather = await weatherService.getCurrentWeather(location.coordinates.lat, location.coordinates.lng);
-
-      setCurrentWeather(currentWeather);
-    }
+    getWeatherBasedOnCurrentLocation();
     getWorkoutWeather();
-  }, [location.coordinates.lat, location.coordinates.lng]);
+  }, [getWeatherBasedOnCurrentLocation, getWorkoutWeather]);
 
   // run preloader
   useEffect(() => {
@@ -77,6 +102,7 @@ export const WorkoutsProvider = (props: any) => {
       distance: formData.distance as number,
       duration: formData.duration as number,
       isFavorite: false,
+      weatherInfo: workoutWeather as CurrentWeatherData,
     };
 
     setWorkouts([...new Set([...workouts, workoutData])]); // add newly created object from form to workouts array
@@ -142,7 +168,9 @@ export const WorkoutsProvider = (props: any) => {
         clearWorkouts: [deleteAllWorkouts],
         addToFavorite: [handleAddingToFavorites],
         workoutCoordinates: [clickedMapCoordinates, setClickedMapCoordinates],
-        currentWorkoutWeather: [currentWeather, setCurrentWeather],
+        weatherBasedOnUserLocation: [weatherBasedOnCurrentLocation, setWeatherBasedOnCurrentLocation],
+        workoutCoords: [getWorkoutCoords],
+        currentWorkoutWeather: [workoutWeather],
       }}
     >
       {props.children}

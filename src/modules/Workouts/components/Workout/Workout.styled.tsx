@@ -37,11 +37,11 @@ export const WorkoutSection = styled(FormAndFallbackMessageWrapper)`
 
   @media (min-width: 48em) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    padding: 2.5rem 2.2rem;
+    padding: 2.5rem 1rem;
   }
 `;
 
-export const Header = styled.div`
+export const Header = styled.ul`
   grid-column: 1 / -1;
   display: flex;
   justify-content: space-between;
@@ -51,18 +51,14 @@ export const Header = styled.div`
 `;
 
 export const WorkoutTitle = styled.h3`
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 700;
   font-family: 'Akaya Telivigala', cursive;
   color: ${colors.white};
   letter-spacing: 0.1rem;
   margin-right: 0.5rem;
 
-  @media (min-width: 62em) {
-    font-size: 1.8rem;
-  }
-
-  @media (min-width: 75em) {
+  @media (min-width: 120em) {
     font-size: 2.2rem;
   }
 `;

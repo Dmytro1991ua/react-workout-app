@@ -38,10 +38,11 @@ const Form = ({
   setIsSubmitted,
 }: FormProps) => {
   // destructure selected workout's value, workouts data "states"
-  const { workoutRender, workoutsData } = useContext(WorkoutsContext);
+  const { workoutRender, workoutsData, workoutCoords } = useContext(WorkoutsContext);
 
   const [getWorkoutData] = workoutRender;
   const [workouts, setWorkouts] = workoutsData;
+  const [getWorkoutCoords] = workoutCoords;
 
   const {
     handleSubmit,
@@ -86,6 +87,7 @@ const Form = ({
   }
 
   function handleWorkoutFormSubmit(formData: WorkoutFormInitialValues): void {
+    getWorkoutCoords(mapCoords);
     getWorkoutData(formData, mapCoords); //get workout data from form based on a select value
 
     if (editableWorkoutItem) {

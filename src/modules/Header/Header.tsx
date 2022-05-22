@@ -14,9 +14,9 @@ import useGeolocation from '../../hooks/useGeolocation';
 import WeatherWidget from './components/WeatherWidget/WeatherWidget';
 
 const Header = () => {
-  const { currentWorkoutWeather } = useContext(WorkoutsContext);
+  const { weatherBasedOnUserLocation } = useContext(WorkoutsContext);
 
-  const [currentWeather] = currentWorkoutWeather;
+  const [currentWeather] = weatherBasedOnUserLocation;
 
   const currentLocation: CurrentLocationData = useGeolocation();
 

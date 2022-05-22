@@ -44,7 +44,7 @@ const WorkoutsMap = ({
     const map = useMapEvents({
       click: (e) => {
         map.locate().on('locationfound', function () {
-          map.flyTo(e.latlng, map.getZoom(), { animate: true });
+          map.flyTo(e.latlng, map.getZoom(), { animate: true, duration: 0.5 });
         });
 
         onShowWorkoutForm();
@@ -70,7 +70,7 @@ const WorkoutsMap = ({
 
     useEffect(() => {
       map.locate().on('locationfound', function (e) {
-        map.flyTo(e.latlng, map.getZoom(), { animate: true });
+        map.flyTo(e.latlng, map.getZoom(), { animate: true, duration: 0.5 });
       });
       return function cleanup() {
         map.stopLocate();
@@ -94,7 +94,7 @@ const WorkoutsMap = ({
         >
           <LayersControl>
             {MAP_TILES_DETAILS_CONFIG.map((mapTile) => (
-              <BaseLayer checked={mapTile.default} name={mapTile.name}>
+              <BaseLayer checked={mapTile.default} name={mapTile.name} key={mapTile.id}>
                 <TileLayer attribution={mapTile.attribution} url={mapTile.url} />
               </BaseLayer>
             ))}

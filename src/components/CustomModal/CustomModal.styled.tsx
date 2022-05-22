@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import { CloseCircle } from 'styled-icons/evaicons-solid';
+import Modal from 'react-modal';
 
 import { colors } from '../../global-styles/ColorsPalette';
+
+export const ModalWrapper = styled(Modal)<{ isWeatherDetailsModal?: boolean }>`
+  min-width: ${({ isWeatherDetailsModal }) => (isWeatherDetailsModal ? '45rem' : 'fit-content')}; 35rem;
+`;
 
 export const ModalHeader = styled('div')`
   display: flex;
@@ -33,10 +38,12 @@ export const ContentWrapper = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 3rem;
+  width: 100%;
 `;
 
 export const ActionsContainer = styled('div')`
+  margin-top: 3rem;
+
   > :first-child {
     margin-right: 2rem;
   }
