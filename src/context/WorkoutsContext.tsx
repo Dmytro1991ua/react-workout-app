@@ -14,8 +14,6 @@ import { weatherService } from '../services/Weather.service';
 export const WorkoutsContext = createContext({} as any);
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const WorkoutsProvider = (props: any) => {
-  // preloader "state"
-  const [preloader, setPreloader] = useState(false);
   // current location (geolocation) "state"
   const [location, setLocation] = useState<CurrentLocationData>({
     loaded: false,
@@ -66,14 +64,6 @@ export const WorkoutsProvider = (props: any) => {
     getWeatherBasedOnCurrentLocation();
     getWorkoutWeather();
   }, [getWeatherBasedOnCurrentLocation, getWorkoutWeather]);
-
-  // run preloader
-  useEffect(() => {
-    setPreloader(true);
-    setTimeout(() => {
-      setPreloader(false);
-    }, 1000);
-  }, []);
 
   // calculate running pace
   const runningPace = (duration: number, distance: number): number => {
@@ -156,7 +146,6 @@ export const WorkoutsProvider = (props: any) => {
   return (
     <WorkoutsContext.Provider
       value={{
-        loader: [preloader, setPreloader],
         currentLocation: [location, setLocation],
         select: [selectedValue, setSelectedValue],
         workoutsData: [workouts, setWorkouts],
