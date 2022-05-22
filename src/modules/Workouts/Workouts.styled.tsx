@@ -27,7 +27,7 @@ export const WorkoutsSectionBody = styled.div`
 
 //WorkoutsFeatures
 export const WorkoutsFeatures = styled.aside`
-  flex: 0 1 50rem;
+  flex: 0 1 47rem;
   min-height: 10rem;
   background-color: ${colors.darkBlue};
   border-top-left-radius: 1.2rem;
@@ -37,12 +37,17 @@ export const WorkoutsFeatures = styled.aside`
 
   @media (min-width: 62em) {
     height: 100vh;
-    flex: 0 1 50rem;
     border-top-right-radius: 0rem;
     border-bottom-left-radius: 1.2rem;
   }
 
-  @media (min-width: 75em) {
+  @media (min-width: 62em) {
+    height: 100vh;
+    border-top-right-radius: 0rem;
+    border-bottom-left-radius: 1.2rem;
+  }
+
+  @media (min-width: 120em) {
     flex: 0 1 60rem;
   }
 `;
@@ -64,10 +69,13 @@ export const FeaturesTitle = styled('h3')<{ hasWorkouts?: boolean }>`
 
 //WorkoutsMap;
 export const Map = styled.div`
-  flex: 1;
   background: ${colors.powderAsh};
   overflow: hidden;
   height: 100vh;
+
+  @media (min-width: 62em) {
+    flex: 1;
+  }
 `;
 
 export const ActionsPanel = styled('div')`

@@ -13,3 +13,11 @@ export function workoutMarkerIcon(workoutType: WorkoutType | string) {
     popupAnchor: [26, -60],
   });
 }
+
+export function kelvinToCelsius(kelvinValue: number): number {
+  return Math.round(kelvinValue - 273.15);
+}
+
+export function timestampToDateString(timestamp: number): string {
+  return new Date(timestamp * 1000).toLocaleTimeString();
+}

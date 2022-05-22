@@ -7,6 +7,7 @@ import { ModalContentTitle, WorkoutSection, ModalContentSubtitle } from './Worko
 import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails';
 import CustomModal from '../../../../components/CustomModal/CustomModal';
 import { WORKOUT_SUCCESS_DELETE_MESSAGE } from '../../Workouts.constants';
+import WorkoutWeatherDetails from './components/WorkoutWeatherDetails/WorkoutWeatherDetails';
 
 interface WorkoutProps {
   workout: WorkoutItem;
@@ -30,6 +31,7 @@ const Workout = ({
   const { description, selectedValue, distance, duration, speed, pace, cadence, elevationGain, id } = workout;
 
   const [isDeleteConfirmationModalOpened, setIsDeleteConfirmationModalOpened] = useState(false);
+  const [isWeatherInfoModalOpened, setIsWeatherInfoModalOpened] = useState(false);
 
   const handleMoveToMarkerOnWorkoutClick = (event: React.MouseEvent<HTMLElement>) => {
     const clickedWorkout = workouts.find(
@@ -37,7 +39,7 @@ const Workout = ({
     );
 
     workoutMap?.locate().on('locationfound', function (e) {
-      workoutMap?.flyTo(clickedWorkout.coordinates, workoutMap?.getZoom(), { animate: true, duration: 2 });
+      workoutMap?.flyTo(clickedWorkout.coordinates, workoutMap?.getZoom(), { animate: true, duration: 0.5 });
     });
   };
 
@@ -71,6 +73,14 @@ const Workout = ({
     setIsDeleteConfirmationModalOpened(false);
   }
 
+  function handleOpenWeatherInfoModal(): void {
+    setIsWeatherInfoModalOpened(true);
+  }
+
+  function handleCloseWeatherInfoModal(): void {
+    setIsWeatherInfoModalOpened(false);
+  }
+
   return (
     <>
       <CustomModal
@@ -83,6 +93,15 @@ const Workout = ({
         <ModalContentTitle>Are you sure you want to delete this workout?</ModalContentTitle>
         <ModalContentSubtitle>You will not be able to recover it</ModalContentSubtitle>
       </CustomModal>
+      <CustomModal
+        isOpen={isWeatherInfoModalOpened}
+        onClose={handleCloseWeatherInfoModal}
+        shouldCloseOnOverlayClick
+        isWeatherDetailsModal
+        title='Workout weather details'
+      >
+        <WorkoutWeatherDetails workoutWeatherDetails={workout.weatherInfo} />
+      </CustomModal>
       <WorkoutSection
         className={selectedValue === 'running' ? 'running' : 'cycling'}
         data-id={id}
@@ -92,6 +111,7 @@ const Workout = ({
           description={description}
           onWorkoutEdit={handleEditWorkout}
           onOpenModal={handleOpenDeleteConfirmationModal}
+          onOpenWeatherInfoModal={handleOpenWeatherInfoModal}
           workout={workout}
           onAddingToFavorites={handleAddingToFavorites}
         />

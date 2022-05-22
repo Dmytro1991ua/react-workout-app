@@ -30,6 +30,7 @@ declare interface WorkoutItem {
   description?: string;
   speed?: number;
   isFavorite?: boolean;
+  weatherInfo: CurrentWeatherData | null;
 }
 
 declare interface MapTilesConfigDetail {
