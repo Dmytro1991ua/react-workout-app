@@ -1,22 +1,18 @@
 import L from 'leaflet'; // import Leaflet object from a library
 
-import React, { ReactElement, useContext, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { Marker, Popup, useMap } from 'react-leaflet';
 
 import 'leaflet/dist/leaflet.css';
 import '../../../leafletMap/leaflet.css';
-import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 
-import { workoutMarkerIcon } from '../../Workouts.utils';
+import { workoutDescription, workoutMarkerIcon } from '../../Workouts.utils';
 
 interface MarkerProps {
   currentWorkout: WorkoutItem;
 }
 
 const MapMarker = ({ currentWorkout }: MarkerProps): ReactElement => {
-  const { description } = useContext(WorkoutsContext);
-  const [workoutDescription] = description;
-
   const workoutMap = useMap();
 
   const [marker, setMarker] = useState<L.Marker<any> | null>(null);

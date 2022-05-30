@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { BallTriangle } from 'react-loader-spinner';
 
-import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 import Button from '../../../../components/Button/Button';
 import { WORKOUT_FORM_INITIAL_VALUES, WORKOUT_FORM_VALIDATION_SCHEMA } from './FormValidations.schema';
 import { Select } from '../../../../components/Select/Select';
@@ -17,6 +16,10 @@ import { colors } from '../../../../global-styles/ColorsPalette';
 import { WORKOUT_TYPE_SELECTION_OPTIONS_MOCK } from '../../Workouts.constants';
 import { LatLngTuple } from 'leaflet';
 import { WorkoutFormInitialValues, WorkoutType } from './Form.interfaces';
+import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
+import { selectWorkouts, setWorkouts } from '../../Workouts.slice';
+import { createWorkoutItem } from '../../Workouts.utils';
+import { selectWeatherDetailsBasedWorkoutCoordinates } from '../../../WeatherDetails/WeatherDetails.slice';
 
 interface FormProps {
   onStopPropagation: (e: React.MouseEvent) => void;
@@ -37,12 +40,10 @@ const Form = ({
   isFormShown,
   setIsSubmitted,
 }: FormProps) => {
-  // destructure selected workout's value, workouts data "states"
-  const { workoutRender, workoutsData, workoutCoords } = useContext(WorkoutsContext);
+  const availableWorkouts = useAppSelector(selectWorkouts);
+  const dispatch = useAppDispatch();
 
-  const [getWorkoutData] = workoutRender;
-  const [workouts, setWorkouts] = workoutsData;
-  const [getWorkoutCoords] = workoutCoords;
+  const weatherBasedOnWorkoutCoordinates = useAppSelector(selectWeatherDetailsBasedWorkoutCoordinates);
 
   const {
     handleSubmit,
@@ -71,24 +72,23 @@ const Form = ({
   }
 
   function updateWorkout(formData: WorkoutFormInitialValues) {
-    const updateWorkoutData = workouts.map((workout: WorkoutItem) =>
+    const updateWorkoutData = availableWorkouts.map((workout: WorkoutItem) =>
       workout.id === editableWorkoutItem?.id
         ? {
             ...workout,
-            distance: formData.distance,
-            duration: formData.duration,
+            distance: formData.distance as number,
+            duration: formData.duration as number,
             elevationGain: formData.elevationGain,
             cadence: formData.cadence,
           }
         : workout
     );
 
-    setWorkouts(updateWorkoutData);
+    dispatch(setWorkouts(updateWorkoutData));
   }
 
   function handleWorkoutFormSubmit(formData: WorkoutFormInitialValues): void {
-    getWorkoutCoords(mapCoords);
-    getWorkoutData(formData, mapCoords); //get workout data from form based on a select value
+    createWorkoutItem(formData, mapCoords as LatLngTuple, weatherBasedOnWorkoutCoordinates);
 
     if (editableWorkoutItem) {
       updateWorkout(formData);

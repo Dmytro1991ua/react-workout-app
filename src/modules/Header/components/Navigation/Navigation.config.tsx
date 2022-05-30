@@ -5,7 +5,7 @@ import { authService } from '../../../Auth/Auth.service';
 import { CustomDumbbellIcon, CustomHomeIcon, CustomLogoutIcon } from '../../Header.styled';
 import { NavigationConfiguration } from './Navigation.interface';
 
-export function navigationConfig(currentUser: boolean, isUserLoading: boolean): NavigationConfiguration[] {
+export function navigationConfig(currentUser: boolean): NavigationConfiguration[] {
   return [
     {
       id: uuidv4(),
@@ -21,7 +21,7 @@ export function navigationConfig(currentUser: boolean, isUserLoading: boolean): 
     },
     {
       id: uuidv4(),
-      navigationIcon: currentUser || isUserLoading ? <CustomLogoutIcon /> : null,
+      navigationIcon: currentUser ? <CustomLogoutIcon /> : null,
       url: AppRoutes.Login,
       'data-tip': 'Logout',
       onClick: async () => {

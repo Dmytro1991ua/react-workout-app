@@ -9,10 +9,12 @@ import MapMarker from './MapMarker/MapMarker';
 import { MAP_TILES_DETAILS_CONFIG, ZOOM_LEVEL } from '../Workouts.constants';
 import InitialMapMarker from './MapMarker/InitialMapMarker';
 import { FeatureGroup } from 'react-leaflet';
+import { useAppDispatch } from '../../../store/store.hooks';
+import { loadWeatherBasedOnWorkoutCoordinates } from '../../WeatherDetails/WorkoutsDetails.action';
+import { setClickedMapCoordinates } from '../../Auth/User.slice';
 
 interface WorkoutMapProps {
   onShowWorkoutForm: () => void;
-  setMapCoords: React.Dispatch<React.SetStateAction<LatLngTuple | null>>;
   isFormShown: boolean;
   workouts: WorkoutItem[];
   setEditableWorkoutItem: (value: WorkoutItem | null) => void;
@@ -24,7 +26,6 @@ interface WorkoutMapProps {
 
 const WorkoutsMap = ({
   onShowWorkoutForm,
-  setMapCoords,
   isFormShown,
   workouts,
   setEditableWorkoutItem,
@@ -36,6 +37,8 @@ const WorkoutsMap = ({
   //geolocation custom hook
   const location = useGeolocation();
   const currentPosition: LatLngExpression = [location.coordinates.lat, location.coordinates.lng];
+
+  const dispatch = useAppDispatch();
 
   const { BaseLayer } = LayersControl;
 
@@ -52,15 +55,19 @@ const WorkoutsMap = ({
 
         const { lat, lng } = e.latlng;
         const coords: LatLngTuple = [lat, lng];
-        setMapCoords(coords);
+
+        dispatch(setClickedMapCoordinates(coords));
+        dispatch(loadWeatherBasedOnWorkoutCoordinates({ lat, lng }));
       },
+    });
+
+    useEffect(() => {
+      setWorkoutMap(map);
     });
 
     const renderMapMarkers = workouts.map((workout: WorkoutItem) => {
       return isSubmitted && <MapMarker key={workout.id} currentWorkout={workout} />;
     });
-
-    setWorkoutMap(map);
 
     return <>{renderMapMarkers}</>;
   };
@@ -83,7 +90,7 @@ const WorkoutsMap = ({
   return (
     <>
       {/* Render leaflet map when current location is loaded and there is no error*/}
-      {location.loaded && !location.error && (
+      {location.loaded && !location.errorMessage && (
         <MapContainer
           center={currentPosition}
           zoom={ZOOM_LEVEL}

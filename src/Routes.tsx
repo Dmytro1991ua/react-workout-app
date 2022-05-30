@@ -39,7 +39,7 @@ const Routes = () => {
             <MainComponentsRoutes exact path={AppRoutes.ForgotPassword} component={ForgotPasswordPage} />
             <MainComponentsRoutes exact path={AppRoutes.ResetPassword} component={ResetPasswordPage} />
             <MainComponentsRoutes exact path={AppRoutes.SignUp} component={SignUpPage} />
-            <PrivateRoute path={AppRoutes.Workouts} component={WorkoutsPage} />
+            <PrivateRoute exact path={AppRoutes.Workouts} component={WorkoutsPage} />
           </Suspense>
         </Route>
         <Suspense fallback={<Preloader />}>

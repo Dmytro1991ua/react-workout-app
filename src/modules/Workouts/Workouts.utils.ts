@@ -1,7 +1,12 @@
-import { WorkoutType } from './components/WorkoutForm/Form.interfaces';
+import { WorkoutFormInitialValues, WorkoutType } from './components/WorkoutForm/Form.interfaces';
+import { v4 as uuidv4 } from 'uuid';
+import L, { LatLngTuple } from 'leaflet';
+
 import RunningMarker from '../../assets/images/leaflet/running-marker.png';
 import CyclingMarker from '../../assets/images/leaflet/cycling-marker.png';
-import L from 'leaflet';
+import { MONTHS_LIST } from './Workouts.constants';
+import { store } from '../../store/store';
+import { setCreateWorkout } from './Workouts.slice';
 
 export function workoutMarkerIcon(workoutType: WorkoutType | string) {
   const getWorkoutMarkerBasedOnWorkoutType = workoutType === 'running' ? RunningMarker : CyclingMarker;
@@ -20,4 +25,62 @@ export function kelvinToCelsius(kelvinValue: number): number {
 
 export function timestampToDateString(timestamp: number): string {
   return new Date(timestamp * 1000).toLocaleTimeString();
+}
+
+// calculate running pace
+export const runningPace = (duration: number, distance: number): number => {
+  return Number((duration / distance).toFixed(1));
+};
+
+//calculate cycling speed
+export const cyclingSpeed = (duration: number, distance: number): number => {
+  return Number((distance / (duration / 60)).toFixed(1));
+};
+
+// create a workout description based on a type of workout and current date
+export const workoutDescription = (workoutType: string, distance: number) => {
+  return `${workoutType[0].toUpperCase()}${workoutType?.slice(1)} ${distance} km on ${
+    MONTHS_LIST[new Date().getMonth()]
+  } ${new Date().getDate()} at ${new Date().toLocaleTimeString()}`;
+};
+
+// create a workout data from form inputs based on selected workout (either Running or Cycling)
+export function createWorkoutItem(
+  formData: WorkoutFormInitialValues,
+  mapCoords: LatLngTuple,
+  weatherBasedOnWorkoutCoordinates: CurrentWeatherData | null
+): void {
+  // workout data object(same for Running and Cycling) from workout form
+  const workoutData: WorkoutItem = {
+    id: uuidv4(),
+    date: new Date().toLocaleDateString(),
+    coordinates: mapCoords,
+    selectedValue: formData?.workoutType ?? '',
+    distance: formData?.distance as number,
+    duration: formData?.duration as number,
+    isFavorite: false,
+    weatherInfo: weatherBasedOnWorkoutCoordinates as CurrentWeatherData,
+  };
+
+  if (formData?.workoutType === 'running') {
+    store.dispatch(
+      setCreateWorkout({
+        ...workoutData,
+        cadence: formData.cadence,
+        pace: runningPace(formData.duration as number, formData.distance as number),
+        description: workoutDescription(formData.workoutType, formData.distance as number),
+      })
+    );
+  }
+
+  if (formData?.workoutType === 'cycling') {
+    store.dispatch(
+      setCreateWorkout({
+        ...workoutData,
+        elevationGain: formData?.elevationGain,
+        speed: cyclingSpeed(formData?.duration as number, formData?.distance as number),
+        description: workoutDescription(formData?.workoutType as WorkoutType, formData?.distance as number),
+      })
+    );
+  }
 }

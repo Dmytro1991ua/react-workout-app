@@ -16,7 +16,6 @@ const ForgotPassword = () => {
     register,
     formState: { errors, isSubmitting },
     reset,
-    formState,
   } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(FORGOT_PASSWORD_VALIDATION_SCHEMA),

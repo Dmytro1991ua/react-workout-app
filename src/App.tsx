@@ -1,20 +1,38 @@
 import React, { ReactElement, useCallback, useEffect } from 'react';
 import { auth } from './firebase';
-import { setUser } from './modules/Auth/Auth.slice';
+import useGeolocation from './hooks/useGeolocation';
+import { selectIsUserAuthenticated, setLoadingStatus, setUser } from './modules/Auth/User.slice';
+import { loadWeatherBasedOnCurrentLocation } from './modules/WeatherDetails/WorkoutsDetails.action';
 
 import Routes from './Routes';
-import { useAppDispatch } from './store/store.hooks';
+import { useAppDispatch, useAppSelector } from './store/store.hooks';
 
 function App(): ReactElement {
   const dispatch = useAppDispatch();
 
+  const currentLocation: CurrentLocationData = useGeolocation();
+  const isUserAuthenticated = useAppSelector(selectIsUserAuthenticated);
+
   const setCurrentUser = useCallback(() => {
+    dispatch(setLoadingStatus('loading'));
+
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (!user) {
+      if (user) {
+        dispatch(setLoadingStatus('loading'));
+
+        dispatch(
+          setUser({
+            uid: user.uid,
+            name: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            phoneNumber: user.phoneNumber,
+            emailVerified: user.emailVerified,
+          })
+        );
+      } else {
         dispatch(setUser(null));
       }
-
-      dispatch(setUser(user));
     });
 
     return unsubscribe;
@@ -22,7 +40,11 @@ function App(): ReactElement {
 
   useEffect(() => {
     setCurrentUser();
-  }, [setCurrentUser]);
+
+    if (isUserAuthenticated) {
+      dispatch(loadWeatherBasedOnCurrentLocation(currentLocation));
+    }
+  }, [setCurrentUser, currentLocation, dispatch, isUserAuthenticated]);
 
   return <Routes />;
 }

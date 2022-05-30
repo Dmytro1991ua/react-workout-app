@@ -7,7 +7,7 @@ import Tooltip from './../../../../components/Tooltip/Tooltip';
 
 import { colors } from '../../../../global-styles/ColorsPalette';
 import { useAppSelector } from './../../../../store/store.hooks';
-import { selectIsUserAuthenticated, selectUserLoading } from '../../../Auth/Auth.slice';
+import { selectIsUserAuthenticated } from '../../../Auth/User.slice';
 
 interface NavigationProps {
   isOpen: boolean;
@@ -15,9 +15,8 @@ interface NavigationProps {
 
 const Navigation = ({ isOpen }: NavigationProps): ReactElement => {
   const currentUser = useAppSelector(selectIsUserAuthenticated);
-  const isUserLoading = useAppSelector(selectUserLoading);
 
-  const navigationConfigs = navigationConfig(currentUser, isUserLoading);
+  const navigationConfigs = navigationConfig(currentUser);
 
   return (
     <List open={isOpen}>

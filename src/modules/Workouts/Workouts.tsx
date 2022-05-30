@@ -1,4 +1,5 @@
-import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import {
   FeaturesTitle,
@@ -8,24 +9,24 @@ import {
   WorkoutsSectionBody,
   ActionsPanel,
 } from './Workouts.styled';
-import { WorkoutsContext } from '../../context/WorkoutsContext';
 import Form from './components/WorkoutForm/Form';
 import Workout from './components/Workout/Workout';
 import WorkoutsMap from './components/WorkoutsMap';
 import FallbackMessage from './components/FallbackMessage/FallbackMessage';
-import { LatLngBoundsExpression, LatLngExpression, LatLngTuple } from 'leaflet';
+import { LatLngBoundsExpression, LatLngExpression } from 'leaflet';
 import useGeolocation from '../../hooks/useGeolocation';
 import InitialMapMarker from './components/MapMarker/InitialMapMarker';
 import { WorkoutsActionsPanel } from './components/Workout/components/WorkoutsActionsPanel/WorkoutsActionsPanel';
-import { SortedWorkoutsByWorkoutTypeAndIndicator } from './Workouts.enums';
+import { SortedWorkoutsSelectOption } from './Workouts.enums';
 import { filter, sortBy } from 'lodash';
+import { selectSortedWorkoutsSelectOption, selectWorkouts } from './Workouts.slice';
+import { useAppSelector } from '../../store/store.hooks';
+import { selectClickedMapCoordinates } from '../Auth/User.slice';
 
 const Workouts = (): ReactElement => {
-  // destructure certain "states" from Context
-  const { workoutsData, selectedWorkoutTypeValueAndIndicator, workoutCoordinates } = useContext(WorkoutsContext);
-  const [workouts] = workoutsData;
-  const [sortedByWorkoutTypeValueAndIndicator] = selectedWorkoutTypeValueAndIndicator;
-  const [clickedMapCoordinates, setClickedMapCoordinates] = workoutCoordinates;
+  const availableWorkouts = useAppSelector(selectWorkouts);
+  const mapCoordinates = useAppSelector(selectClickedMapCoordinates);
+  const sortedWorkoutsSelectOption = useAppSelector(selectSortedWorkoutsSelectOption);
 
   const location = useGeolocation();
   const currentPosition: LatLngExpression = useMemo(
@@ -43,7 +44,7 @@ const Workouts = (): ReactElement => {
   const [groupRef, setGroupRef] = useState<L.FeatureGroup<any> | null>(null);
   const [mapRef, setMapRef] = useState<L.Map | null>(null);
 
-  const workoutsByLastAddedItem: WorkoutItem[] = [...(workouts as WorkoutItem[])].reverse();
+  const workoutsByLastAddedItem = [...availableWorkouts].reverse();
 
   useEffect(() => {
     <InitialMapMarker position={currentPosition} />;
@@ -53,33 +54,54 @@ const Workouts = (): ReactElement => {
     }
   }, [currentPosition, isSubmitted]);
 
-  const SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR: Record<SortedWorkoutsByWorkoutTypeAndIndicator, WorkoutItem[]> =
+  const SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR: Record<SortedWorkoutsSelectOption, WorkoutItem[]> = {
+    [SortedWorkoutsSelectOption.Default]: workoutsByLastAddedItem,
+    [SortedWorkoutsSelectOption.LastAdded]: sortBy(availableWorkouts, 'description', 'desc'),
+    [SortedWorkoutsSelectOption.Running]: filter(availableWorkouts, (workout) => workout.selectedValue === 'running'),
+    [SortedWorkoutsSelectOption.Cycling]: filter(availableWorkouts, (workout) => workout.selectedValue === 'cycling'),
+    [SortedWorkoutsSelectOption.Favorite]: filter(availableWorkouts, (workout) => workout.isFavorite === true),
+    [SortedWorkoutsSelectOption.Distance]: sortBy(availableWorkouts, 'distance', 'desc'),
+    [SortedWorkoutsSelectOption.Duration]: sortBy(availableWorkouts, 'duration', 'desc'),
+  };
+
+  const WORKOUT_FALLBACK_MESSAGE_CONFIG: WorkoutFallbackMessage[] = [
     {
-      [SortedWorkoutsByWorkoutTypeAndIndicator.Default]: workoutsByLastAddedItem,
-      [SortedWorkoutsByWorkoutTypeAndIndicator.LastAdded]: sortBy(workouts, 'description', 'desc'),
-      [SortedWorkoutsByWorkoutTypeAndIndicator.Running]: filter(
-        workouts,
-        (workout) => workout.selectedValue === 'running'
-      ),
-      [SortedWorkoutsByWorkoutTypeAndIndicator.Cycling]: filter(
-        workouts,
-        (workout) => workout.selectedValue === 'cycling'
-      ),
-      [SortedWorkoutsByWorkoutTypeAndIndicator.Favorite]: filter(workouts, (workout) => workout.isFavorite === true),
-      [SortedWorkoutsByWorkoutTypeAndIndicator.Distance]: sortBy(workouts, 'distance', 'desc'),
-      [SortedWorkoutsByWorkoutTypeAndIndicator.Duration]: sortBy(workouts, 'duration', 'desc'),
-    };
+      id: uuidv4(),
+      message: '🏁 To save a new workout just click on the map and fill-out the details on the form',
+      title: 'You have no available workouts',
+      hasWorkouts: !availableWorkouts.length,
+    },
+    {
+      id: uuidv4(),
+      message: '🏃 To save a new running workout just click on the map and fill-out the details on the form',
+      title: 'You have no available running workouts',
+      hasWorkouts:
+        sortedWorkoutsSelectOption === SortedWorkoutsSelectOption.Running &&
+        !SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR[SortedWorkoutsSelectOption.Running].length,
+    },
+    {
+      id: uuidv4(),
+      message: '🚴‍♀️ To save a new cycling workout just click on the map and fill-out the details on the form',
+      title: 'You have no available cycling workouts',
+      hasWorkouts:
+        sortedWorkoutsSelectOption === SortedWorkoutsSelectOption.Cycling &&
+        !SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR[SortedWorkoutsSelectOption.Cycling].length,
+    },
+    {
+      id: uuidv4(),
+      message:
+        '🧡 To add a particular workout to favorite just click on a heart icon on a specific workout and keep track on your favorites later on',
+      title: 'You have no available favorite workouts',
+      hasWorkouts:
+        sortedWorkoutsSelectOption === SortedWorkoutsSelectOption.Favorite &&
+        !SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR[SortedWorkoutsSelectOption.Favorite].length,
+    },
+  ];
 
   const getWorkoutsByWorkoutType =
-    SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR[
-      sortedByWorkoutTypeValueAndIndicator as SortedWorkoutsByWorkoutTypeAndIndicator
-    ];
+    SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR[sortedWorkoutsSelectOption as SortedWorkoutsSelectOption];
 
-  const hasFavoritesWorkouts =
-    sortedByWorkoutTypeValueAndIndicator === SortedWorkoutsByWorkoutTypeAndIndicator.Favorite &&
-    !SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR[SortedWorkoutsByWorkoutTypeAndIndicator.Favorite].length;
-
-  const getDefaultOrSortedWorkouts: WorkoutItem[] = sortedByWorkoutTypeValueAndIndicator
+  const getDefaultOrSortedWorkouts: WorkoutItem[] = sortedWorkoutsSelectOption
     ? getWorkoutsByWorkoutType
     : workoutsByLastAddedItem;
 
@@ -109,7 +131,7 @@ const Workouts = (): ReactElement => {
 
   const renderActionsPanel = (
     <>
-      {workouts.length && (
+      {availableWorkouts.length && (
         <ActionsPanel>
           <WorkoutsActionsPanel handleShowAllWorkoutMarkers={handleShowAllWorkoutMarkers} />
         </ActionsPanel>
@@ -123,7 +145,7 @@ const Workouts = (): ReactElement => {
         <Form
           onStopPropagation={stopWorkoutFormPropagation}
           onCloseWorkoutForm={hideWorkoutForm}
-          mapCoords={clickedMapCoordinates}
+          mapCoords={mapCoordinates}
           isFormShownOnWorkoutEdit={setIsFormShownOnWorkoutEdit}
           editableWorkoutItem={editableWorkoutItem}
           isFormShown={isFormShown}
@@ -135,18 +157,11 @@ const Workouts = (): ReactElement => {
 
   const renderFallbackMessageWhenNoWorkout = (
     <>
-      {!workouts.length && (
-        <FallbackMessage
-          message=' 🏁 To save a new workout just click on the map and fill-out the details on the form'
-          title='You have no available workouts'
-        />
-      )}
-      {hasFavoritesWorkouts && (
-        <FallbackMessage
-          message=' 🧡 To add a particular workout to favorite just click on a heart icon on a specific workout and keep track on your favorites later on'
-          title='You have no available favorite workouts'
-        />
-      )}
+      {WORKOUT_FALLBACK_MESSAGE_CONFIG.map((message) => {
+        return (
+          message.hasWorkouts && <FallbackMessage message={message.message} title={message.title} key={message.id} />
+        );
+      })}
     </>
   );
 
@@ -178,7 +193,6 @@ const Workouts = (): ReactElement => {
         <Map>
           <WorkoutsMap
             onShowWorkoutForm={showWorkoutForm}
-            setMapCoords={setClickedMapCoordinates}
             isFormShown={isFormShown}
             workouts={getDefaultOrSortedWorkouts}
             setEditableWorkoutItem={setEditableWorkoutItem}

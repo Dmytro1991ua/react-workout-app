@@ -49,6 +49,7 @@ declare interface CoordinatesEntities {
 declare interface CurrentLocationData {
   loaded: boolean;
   coordinates: CoordinatesEntities;
+  errorMessage?: string;
 }
 
 declare interface WeatherInfo {
@@ -76,4 +77,20 @@ declare interface CurrentWeatherData {
   countryInfo: CountryWeatherInfo;
 }
 
-declare type DtStatus = 'loading' | 'idle' | 'failed';
+declare interface WorkoutFallbackMessage {
+  id: string;
+  message: string;
+  title: string;
+  hasWorkouts: boolean;
+}
+
+declare interface CurrentUser {
+  uid: string;
+  name: string | null;
+  email: string | null;
+  photoURL: string | null;
+  phoneNumber: string | null;
+  emailVerified?: boolean;
+}
+
+declare type Status = 'loading' | 'idle' | 'failed';

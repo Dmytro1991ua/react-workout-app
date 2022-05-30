@@ -37,7 +37,7 @@ const WorkoutHeader = ({
     } catch {
       toastService.error('Failed to get current weather icon');
     }
-  }, []);
+  }, [workout.weatherInfo?.weatherInfo]);
 
   useEffect(() => {
     getCurrentWeatherIcon();

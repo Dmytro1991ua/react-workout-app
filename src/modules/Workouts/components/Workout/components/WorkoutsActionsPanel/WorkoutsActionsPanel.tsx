@@ -1,14 +1,19 @@
-import React, { ReactElement, useContext, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import CustomModal from '../../../../../../components/CustomModal/CustomModal';
 import { Select } from '../../../../../../components/Select/Select';
 import Tooltip from '../../../../../../components/Tooltip/Tooltip';
-import { WorkoutsContext } from '../../../../../../context/WorkoutsContext';
 import { colors } from '../../../../../../global-styles/ColorsPalette';
 import { toastService } from '../../../../../../services/Toast.service';
+import { useAppDispatch, useAppSelector } from '../../../../../../store/store.hooks';
 import { SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS_MOCK } from '../../../../Workouts.constants';
-import { SortedWorkoutsByWorkoutTypeAndIndicator } from '../../../../Workouts.enums';
+import { SortedWorkoutsSelectOption } from '../../../../Workouts.enums';
+import {
+  selectSortedWorkoutsSelectOption,
+  setDeleteAllWorkouts,
+  setSortedWorkoutsSelectOption,
+} from '../../../../Workouts.slice';
 import { ModalContentSubtitle, ModalContentTitle } from '../../Workout.styled';
 
 import {
@@ -24,19 +29,15 @@ interface WorkoutsActionsPanelProps {
 }
 
 export const WorkoutsActionsPanel = ({ handleShowAllWorkoutMarkers }: WorkoutsActionsPanelProps): ReactElement => {
-  const { selectedWorkoutTypeValueAndIndicator, clearWorkouts } = useContext(WorkoutsContext);
-  const [sortedByWorkoutTypeValueAndIndicator, setSortedByWorkoutTypeValueAndIndicator] =
-    selectedWorkoutTypeValueAndIndicator;
-  const [deleteAllWorkouts] = clearWorkouts;
+  const dispatch = useAppDispatch();
+
+  const sortedWorkoutsSelectOption = useAppSelector(selectSortedWorkoutsSelectOption);
 
   const [isSortedDefaultOptionDisabled, setIsSortedDefaultOptionDisabled] = useState(false);
-
-  const [selectedValue, setSelectedValue] = useState<SortedWorkoutsByWorkoutTypeAndIndicator>(
-    SortedWorkoutsByWorkoutTypeAndIndicator.Default
-  );
+  const [selectedValue, setSelectedValue] = useState<SortedWorkoutsSelectOption>(sortedWorkoutsSelectOption);
   const [isDeleteConfirmationModalOpened, setIsDeleteConfirmationModalOpened] = useState(false);
 
-  const config = [
+  const ACTIONS_PANEL_CONFIG = [
     {
       id: uuidv4(),
       icon: <ResetButtonIcon />,
@@ -70,22 +71,22 @@ export const WorkoutsActionsPanel = ({ handleShowAllWorkoutMarkers }: WorkoutsAc
   function handleSortingByWorkoutTypeChange(event: React.ChangeEvent<HTMLSelectElement>) {
     const selectedValue = removeEmojiAndSpaceFromSelectedValue(event.target.value);
 
-    setSortedByWorkoutTypeValueAndIndicator(selectedValue as SortedWorkoutsByWorkoutTypeAndIndicator);
+    dispatch(setSortedWorkoutsSelectOption(selectedValue as SortedWorkoutsSelectOption));
 
     setIsSortedDefaultOptionDisabled(true);
-    setSelectedValue(event.target.value as SortedWorkoutsByWorkoutTypeAndIndicator);
+    setSelectedValue(event.target.value as SortedWorkoutsSelectOption);
   }
 
   function handleResetWorkoutSorting(): void {
-    setSortedByWorkoutTypeValueAndIndicator(SortedWorkoutsByWorkoutTypeAndIndicator.Default);
+    dispatch(setSortedWorkoutsSelectOption(SortedWorkoutsSelectOption.Default));
 
     setIsSortedDefaultOptionDisabled(false);
-
-    setSelectedValue(SortedWorkoutsByWorkoutTypeAndIndicator.Default);
+    setSelectedValue(SortedWorkoutsSelectOption.Default);
   }
 
   function handleDeleteAllWorkouts(): void {
-    deleteAllWorkouts();
+    dispatch(setDeleteAllWorkouts());
+    dispatch(setSortedWorkoutsSelectOption(SortedWorkoutsSelectOption.Default));
     toastService.success('All workouts were successfully deleted');
   }
 
@@ -119,7 +120,7 @@ export const WorkoutsActionsPanel = ({ handleShowAllWorkoutMarkers }: WorkoutsAc
           value={selectedValue}
           isDefaultOptionDisabled={isSortedDefaultOptionDisabled}
         />
-        {config.map((item) => {
+        {ACTIONS_PANEL_CONFIG.map((item) => {
           return (
             <li key={item.id}>
               <ActionButton data-tip={item['data-tip']} data-for={item['data-for']} onClick={item.onClick}>

@@ -3,8 +3,9 @@ import { Redirect, Route, RouteProps } from 'react-router-dom';
 
 import { AppRoutes } from '../../App.enums';
 import MainLayout from '../../layouts/MainLayout';
-import { selectIsUserAuthenticated, selectUserLoading } from '../../modules/Auth/Auth.slice';
+import { selectIsUserAuthenticated, selectUserLoading } from '../../modules/Auth/User.slice';
 import { useAppSelector } from '../../store/store.hooks';
+import SectionLoader from '../SectionLoader/SectionLoader';
 
 interface PrivateRouteProps extends Omit<RouteProps, 'component'> {
   component: React.ElementType;
@@ -15,12 +16,16 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: Component, ...re
   const isUserAuthenticated = useAppSelector(selectIsUserAuthenticated);
   const isUserLoading = useAppSelector(selectUserLoading);
 
+  if (isUserLoading) {
+    return <SectionLoader />;
+  }
+
   return (
     <Route
       {...rest}
       render={(props) => (
         <MainLayout>
-          {isUserAuthenticated || isUserLoading ? (
+          {isUserAuthenticated ? (
             <Component {...props} />
           ) : (
             <Redirect to={{ pathname: AppRoutes.Login, state: { from: props.location } }} />

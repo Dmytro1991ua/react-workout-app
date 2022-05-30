@@ -1,14 +1,19 @@
-import { useContext, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { WorkoutsContext } from '../context/WorkoutsContext';
+import { selectIsUserAuthenticated } from '../modules/Auth/User.slice';
+import { useAppSelector } from '../store/store.hooks';
 
 //custom hook to get a user's current location
 const useGeolocation = () => {
-  // destructure current location "state"
-  const { currentLocation } = useContext(WorkoutsContext);
-  const [location, setLocation] = currentLocation;
+  const isUserAuthenticated = useAppSelector(selectIsUserAuthenticated);
 
-  const onSuccess = (location: any) => {
+  const [location, setLocation] = useState<CurrentLocationData>({
+    loaded: false,
+    coordinates: { lat: 0, lng: 0 },
+    errorMessage: '',
+  });
+
+  const onSuccess = useCallback((location) => {
     setLocation({
       loaded: true,
       coordinates: {
@@ -16,14 +21,18 @@ const useGeolocation = () => {
         lng: location.coords.longitude,
       },
     });
-  };
+  }, []);
 
-  const onError = (errorMessage: any) => {
+  const onError = useCallback((errorMessage) => {
     setLocation({
       loaded: true,
+      coordinates: {
+        lat: 0,
+        lng: 0,
+      },
       errorMessage,
     });
-  };
+  }, []);
 
   useEffect(() => {
     if (!navigator.geolocation)
@@ -31,8 +40,11 @@ const useGeolocation = () => {
         code: 0,
         errorMessage: 'Geolocation not supported',
       });
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
-  }, []);
+
+    if (isUserAuthenticated) {
+      navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    }
+  }, [onError, onSuccess, isUserAuthenticated]);
 
   return location;
 };

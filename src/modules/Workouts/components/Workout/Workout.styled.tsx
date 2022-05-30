@@ -48,6 +48,7 @@ export const Header = styled.ul`
   align-items: center;
   border-bottom: 1px solid ${colors.mantisDarker};
   padding-bottom: 0.5rem;
+  height: 40px;
 `;
 
 export const WorkoutTitle = styled.h3`

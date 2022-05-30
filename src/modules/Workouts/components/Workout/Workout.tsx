@@ -1,6 +1,5 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
-import { WorkoutsContext } from '../../../../context/WorkoutsContext';
 import { toastService } from './../../../../services/Toast.service';
 import WorkoutHeader from './components/WorkoutHeader/WorkoutHeader';
 import { ModalContentTitle, WorkoutSection, ModalContentSubtitle } from './Workout.styled';
@@ -8,6 +7,8 @@ import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails';
 import CustomModal from '../../../../components/CustomModal/CustomModal';
 import { WORKOUT_SUCCESS_DELETE_MESSAGE } from '../../Workouts.constants';
 import WorkoutWeatherDetails from './components/WorkoutWeatherDetails/WorkoutWeatherDetails';
+import { selectWorkouts, setAddWorkoutToFavorites, setWorkouts } from '../../Workouts.slice';
+import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
 
 interface WorkoutProps {
   workout: WorkoutItem;
@@ -24,9 +25,8 @@ const Workout = ({
   setEditableWorkoutItem,
   workoutMap,
 }: WorkoutProps) => {
-  const { workoutsData, addToFavorite } = useContext(WorkoutsContext);
-  const [workouts, setWorkouts] = workoutsData;
-  const [handleAddingToFavorites] = addToFavorite;
+  const availableWorkouts = useAppSelector(selectWorkouts);
+  const dispatch = useAppDispatch();
 
   const { description, selectedValue, distance, duration, speed, pace, cadence, elevationGain, id } = workout;
 
@@ -34,9 +34,9 @@ const Workout = ({
   const [isWeatherInfoModalOpened, setIsWeatherInfoModalOpened] = useState(false);
 
   const handleMoveToMarkerOnWorkoutClick = (event: React.MouseEvent<HTMLElement>) => {
-    const clickedWorkout = workouts.find(
-      (workout: WorkoutItem) => workout.id === event.currentTarget.getAttribute('data-id')
-    );
+    const clickedWorkout = availableWorkouts.find(
+      (workout) => workout.id === event.currentTarget.getAttribute('data-id')
+    ) as WorkoutItem;
 
     workoutMap?.locate().on('locationfound', function (e) {
       workoutMap?.flyTo(clickedWorkout.coordinates, workoutMap?.getZoom(), { animate: true, duration: 0.5 });
@@ -45,11 +45,9 @@ const Workout = ({
 
   // delete a particular clicked workout from UI as well as localStorage
   function handleRemoveWorkout(): void {
-    const removedWorkout: WorkoutItem[] = workouts.filter(
-      (clickedWorkout: WorkoutItem) => clickedWorkout.id !== workout.id
-    );
+    const removedWorkout = availableWorkouts.filter((clickedWorkout: WorkoutItem) => clickedWorkout.id !== workout.id);
 
-    setWorkouts(removedWorkout);
+    dispatch(setWorkouts(removedWorkout));
 
     setEditableWorkoutItem(null);
     isFormShownOnWorkoutEdit(false);
@@ -60,9 +58,13 @@ const Workout = ({
   function handleEditWorkout(id: string): void {
     isFormShownOnWorkoutEdit(!isFormShown);
 
-    const editableWorkout: WorkoutItem = workouts.find((workout: WorkoutItem) => workout.id === id);
+    const editableWorkout = availableWorkouts.find((workout) => workout.id === id) ?? null;
 
     setEditableWorkoutItem(editableWorkout);
+  }
+
+  function handleAddingToFavorites(): void {
+    dispatch(setAddWorkoutToFavorites({ id: workout.id, isFavorite: !workout.isFavorite }));
   }
 
   function handleOpenDeleteConfirmationModal(): void {

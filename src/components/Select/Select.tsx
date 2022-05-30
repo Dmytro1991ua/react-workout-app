@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { DeepMap, FieldError, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
-import { SortedWorkoutsByWorkoutTypeAndIndicator } from '../../modules/Workouts/Workouts.enums';
+import { SortedWorkoutsSelectOption } from '../../modules/Workouts/Workouts.enums';
 
 import { FieldErrorMessage } from '../Input/Input.styled';
 import { FormSelect } from './Select.styled';
@@ -14,7 +14,7 @@ type SelectProps = {
   isRequired?: boolean;
   actionPanelSelect?: boolean;
   optionLabel?: string;
-  value?: SortedWorkoutsByWorkoutTypeAndIndicator;
+  value?: SortedWorkoutsSelectOption;
   isDefaultOptionDisabled?: boolean;
   disabled?: boolean;
 };
@@ -45,7 +45,7 @@ export const Select = <TFormValues extends Record<string, unknown>>(
         value={props.value}
         disabled={props.disabled}
       >
-        <option value={SortedWorkoutsByWorkoutTypeAndIndicator.Default} disabled={props.isDefaultOptionDisabled}>
+        <option value={SortedWorkoutsSelectOption.Default} disabled={props.isDefaultOptionDisabled}>
           {props.optionLabel}
         </option>
         {props.options.map((item) => {
