@@ -5,15 +5,11 @@ import CustomModal from '../../../../../../components/CustomModal/CustomModal';
 import { Select } from '../../../../../../components/Select/Select';
 import Tooltip from '../../../../../../components/Tooltip/Tooltip';
 import { colors } from '../../../../../../global-styles/ColorsPalette';
-import { toastService } from '../../../../../../services/Toast.service';
 import { useAppDispatch, useAppSelector } from '../../../../../../store/store.hooks';
+import { deleteAllWorkoutsAction } from '../../../../Workouts.actions';
 import { SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS_MOCK } from '../../../../Workouts.constants';
 import { SortedWorkoutsSelectOption } from '../../../../Workouts.enums';
-import {
-  selectSortedWorkoutsSelectOption,
-  setDeleteAllWorkouts,
-  setSortedWorkoutsSelectOption,
-} from '../../../../Workouts.slice';
+import { selectSortedWorkoutsSelectOption, setSortedWorkoutsSelectOption } from '../../../../Workouts.slice';
 import { ModalContentSubtitle, ModalContentTitle } from '../../Workout.styled';
 
 import {
@@ -85,9 +81,8 @@ export const WorkoutsActionsPanel = ({ handleShowAllWorkoutMarkers }: WorkoutsAc
   }
 
   function handleDeleteAllWorkouts(): void {
-    dispatch(setDeleteAllWorkouts());
+    dispatch(deleteAllWorkoutsAction());
     dispatch(setSortedWorkoutsSelectOption(SortedWorkoutsSelectOption.Default));
-    toastService.success('All workouts were successfully deleted');
   }
 
   function handleOpenDeleteConfirmationModal(): void {
@@ -105,8 +100,7 @@ export const WorkoutsActionsPanel = ({ handleShowAllWorkoutMarkers }: WorkoutsAc
         onClose={handleCloseDeleteConfirmationModal}
         onSubmit={handleDeleteAllWorkouts}
         shouldCloseOnOverlayClick
-        title='Deletion of all workouts'
-      >
+        title='Deletion of all workouts'>
         <ModalContentTitle>Are you sure you want to delete all workouts?</ModalContentTitle>
         <ModalContentSubtitle>You will not be able to recover them</ModalContentSubtitle>
       </CustomModal>

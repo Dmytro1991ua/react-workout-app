@@ -85,3 +85,8 @@ export const ActionsPanel = styled('div')`
   transition: all 0.3s ease-out;
   animation: ${fadeInDown} 0.4s ease-in-out;
 `;
+
+export const LoaderWrapper = styled('div')`
+  display: flex;
+  justify-content: center;
+`;

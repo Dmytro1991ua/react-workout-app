@@ -10,14 +10,14 @@ import { MAP_TILES_DETAILS_CONFIG, ZOOM_LEVEL } from '../Workouts.constants';
 import InitialMapMarker from './MapMarker/InitialMapMarker';
 import { FeatureGroup } from 'react-leaflet';
 import { useAppDispatch } from '../../../store/store.hooks';
-import { loadWeatherBasedOnWorkoutCoordinates } from '../../WeatherDetails/WorkoutsDetails.action';
+import { loadWeatherBasedOnWorkoutCoordinatesAction } from '../../WeatherDetails/WorkoutsDetails.actions';
 import { setClickedMapCoordinates } from '../../Auth/User.slice';
 
 interface WorkoutMapProps {
   onShowWorkoutForm: () => void;
   isFormShown: boolean;
   workouts: WorkoutItem[];
-  setEditableWorkoutItem: (value: WorkoutItem | null) => void;
+  setEditableWorkoutItemId: (value: string | null) => void;
   isSubmitted: boolean | null;
   setWorkoutMap: (value: L.Map | null) => void;
   setGroupRef: (value: L.FeatureGroup<any> | null) => void;
@@ -28,7 +28,7 @@ const WorkoutsMap = ({
   onShowWorkoutForm,
   isFormShown,
   workouts,
-  setEditableWorkoutItem,
+  setEditableWorkoutItemId,
   isSubmitted,
   setWorkoutMap,
   setGroupRef,
@@ -47,17 +47,17 @@ const WorkoutsMap = ({
     const map = useMapEvents({
       click: (e) => {
         map.locate().on('locationfound', function () {
-          map.flyTo(e.latlng, map.getZoom(), { animate: true, duration: 0.5 });
+          map.flyTo(e.latlng, map.getZoom(), { animate: true, duration: 1.2 });
         });
 
         onShowWorkoutForm();
-        setEditableWorkoutItem(null);
+        setEditableWorkoutItemId(null);
 
         const { lat, lng } = e.latlng;
         const coords: LatLngTuple = [lat, lng];
 
         dispatch(setClickedMapCoordinates(coords));
-        dispatch(loadWeatherBasedOnWorkoutCoordinates({ lat, lng }));
+        dispatch(loadWeatherBasedOnWorkoutCoordinatesAction({ lat, lng }));
       },
     });
 
@@ -66,7 +66,7 @@ const WorkoutsMap = ({
     });
 
     const renderMapMarkers = workouts.map((workout: WorkoutItem) => {
-      return isSubmitted && <MapMarker key={workout.id} currentWorkout={workout} />;
+      return isSubmitted && <MapMarker key={workout._id} currentWorkout={workout} />;
     });
 
     return <>{renderMapMarkers}</>;
@@ -77,7 +77,7 @@ const WorkoutsMap = ({
 
     useEffect(() => {
       map.locate().on('locationfound', function (e) {
-        map.flyTo(e.latlng, map.getZoom(), { animate: true, duration: 0.5 });
+        map.flyTo(e.latlng, map.getZoom(), { animate: true, duration: 1.2 });
       });
       return function cleanup() {
         map.stopLocate();
@@ -97,8 +97,7 @@ const WorkoutsMap = ({
           closePopupOnClick={false}
           whenCreated={(mapInstance) => {
             setMapRef(mapInstance);
-          }}
-        >
+          }}>
           <LayersControl>
             {MAP_TILES_DETAILS_CONFIG.map((mapTile) => (
               <BaseLayer checked={mapTile.default} name={mapTile.name} key={mapTile.id}>

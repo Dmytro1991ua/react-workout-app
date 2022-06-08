@@ -18,7 +18,6 @@ declare interface SelectedOption {
 }
 
 declare interface WorkoutItem {
-  id: string;
   date: string;
   coordinates: LatLngTuple;
   selectedValue: string;
@@ -31,6 +30,7 @@ declare interface WorkoutItem {
   speed?: number;
   isFavorite?: boolean;
   weatherInfo: CurrentWeatherData | null;
+  _id?: string;
 }
 
 declare interface MapTilesConfigDetail {

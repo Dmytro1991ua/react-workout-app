@@ -7,7 +7,7 @@ import {
   setWeatherDetailsBasedOnWorkoutCoordinates,
 } from './WeatherDetails.slice';
 
-export const loadWeatherBasedOnCurrentLocation =
+export const loadWeatherBasedOnCurrentLocationAction =
   (currentLocation: CurrentLocationData): AppThunk =>
   async (dispatch) => {
     try {
@@ -27,7 +27,7 @@ export const loadWeatherBasedOnCurrentLocation =
     }
   };
 
-export const loadWeatherBasedOnWorkoutCoordinates =
+export const loadWeatherBasedOnWorkoutCoordinatesAction =
   (workoutCoordinates: CoordinatesEntities): AppThunk =>
   async (dispatch) => {
     try {

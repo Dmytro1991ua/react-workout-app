@@ -51,7 +51,7 @@ const WorkoutHeader = ({
       'data-for': 'addToFavoriteButton',
       onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.stopPropagation();
-        onAddingToFavorites(workout.id);
+        onAddingToFavorites(workout._id ?? uuidv4());
       },
     },
     {
@@ -71,7 +71,7 @@ const WorkoutHeader = ({
       'data-for': 'editButton',
       onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.stopPropagation();
-        onWorkoutEdit(workout.id);
+        onWorkoutEdit(workout._id ?? uuidv4());
       },
     },
     {

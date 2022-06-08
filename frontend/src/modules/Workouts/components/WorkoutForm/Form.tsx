@@ -17,18 +17,21 @@ import { WORKOUT_TYPE_SELECTION_OPTIONS_MOCK } from '../../Workouts.constants';
 import { LatLngTuple } from 'leaflet';
 import { WorkoutFormInitialValues, WorkoutType } from './Form.interfaces';
 import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
-import { selectWorkouts, setWorkouts } from '../../Workouts.slice';
+import { selectUpdatedWorkout, selectWorkouts, setWorkouts } from '../../Workouts.slice';
 import { createWorkoutItem } from '../../Workouts.utils';
 import { selectWeatherDetailsBasedWorkoutCoordinates } from '../../../WeatherDetails/WeatherDetails.slice';
+import { updateWorkoutAction } from './../../Workouts.actions';
+import { find } from 'lodash';
 
 interface FormProps {
   onStopPropagation: (e: React.MouseEvent) => void;
   onCloseWorkoutForm: () => void;
   mapCoords: LatLngTuple | null;
   isFormShownOnWorkoutEdit: (value: boolean) => void;
-  editableWorkoutItem: WorkoutItem | null;
   isFormShown: boolean;
   setIsSubmitted: (value: boolean) => void;
+  editableWorkoutItemId: string | null;
+  setEditableWorkoutItemId: (value: string | null) => void;
 }
 
 const Form = ({
@@ -36,11 +39,13 @@ const Form = ({
   onCloseWorkoutForm,
   mapCoords,
   isFormShownOnWorkoutEdit,
-  editableWorkoutItem,
   isFormShown,
   setIsSubmitted,
+  editableWorkoutItemId,
+  setEditableWorkoutItemId,
 }: FormProps) => {
   const availableWorkouts = useAppSelector(selectWorkouts);
+  const editableWorkoutItem = useAppSelector(selectUpdatedWorkout(editableWorkoutItemId));
   const dispatch = useAppDispatch();
 
   const weatherBasedOnWorkoutCoordinates = useAppSelector(selectWeatherDetailsBasedWorkoutCoordinates);
@@ -71,9 +76,9 @@ const Form = ({
     return ['e', 'E', '+', '-'].includes(event.key);
   }
 
-  function updateWorkout(formData: WorkoutFormInitialValues) {
-    const updateWorkoutData = availableWorkouts.map((workout: WorkoutItem) =>
-      workout.id === editableWorkoutItem?.id
+  function handleUpdateWorkouts(formData: WorkoutFormInitialValues): WorkoutItem[] {
+    const updatedWorkouts = availableWorkouts.map((workout: WorkoutItem) => {
+      return workout._id === editableWorkoutItem?._id
         ? {
             ...workout,
             distance: formData.distance as number,
@@ -81,17 +86,24 @@ const Form = ({
             elevationGain: formData.elevationGain,
             cadence: formData.cadence,
           }
-        : workout
-    );
+        : workout;
+    });
 
-    dispatch(setWorkouts(updateWorkoutData));
+    dispatch(setWorkouts(updatedWorkouts));
+
+    return updatedWorkouts;
   }
 
   function handleWorkoutFormSubmit(formData: WorkoutFormInitialValues): void {
-    createWorkoutItem(formData, mapCoords as LatLngTuple, weatherBasedOnWorkoutCoordinates);
-
     if (editableWorkoutItem) {
-      updateWorkout(formData);
+      const updatedWorkouts = handleUpdateWorkouts(formData);
+      const updatedWorkoutById = find(updatedWorkouts, (workout) => workout._id === editableWorkoutItem?._id);
+
+      if (updatedWorkoutById) {
+        dispatch(updateWorkoutAction(editableWorkoutItem._id!, updatedWorkoutById));
+      }
+    } else {
+      createWorkoutItem(formData, mapCoords as LatLngTuple, weatherBasedOnWorkoutCoordinates);
     }
 
     reset();
@@ -99,6 +111,7 @@ const Form = ({
     setIsSubmitted(true);
     onCloseWorkoutForm(); // hide Form component onSubmit a form
     isFormShownOnWorkoutEdit(false);
+    setEditableWorkoutItemId(null);
   }
 
   return (
@@ -202,9 +215,8 @@ const Form = ({
                 hoverColor='mantisDarker'
                 color='white'
                 onClick={handleSubmit(handleWorkoutFormSubmit)}
-                disabled={isFormShown && selectedValue === ''}
-              >
-                {editableWorkoutItem ? 'Edit workout' : 'Add Workout'}
+                disabled={isFormShown && selectedValue === ''}>
+                {editableWorkoutItemId ? 'Edit workout' : 'Add Workout'}
               </Button>
             </FormRow>
           </WorkoutForm>

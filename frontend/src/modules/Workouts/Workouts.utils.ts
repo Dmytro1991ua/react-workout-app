@@ -1,12 +1,11 @@
 import { WorkoutFormInitialValues, WorkoutType } from './components/WorkoutForm/Form.interfaces';
-import { v4 as uuidv4 } from 'uuid';
 import L, { LatLngTuple } from 'leaflet';
 
 import RunningMarker from '../../assets/images/leaflet/running-marker.png';
 import CyclingMarker from '../../assets/images/leaflet/cycling-marker.png';
 import { MONTHS_LIST } from './Workouts.constants';
 import { store } from '../../store/store';
-import { setCreateWorkout } from './Workouts.slice';
+import { createNewWorkoutAction } from './Workouts.actions';
 
 export function workoutMarkerIcon(workoutType: WorkoutType | string) {
   const getWorkoutMarkerBasedOnWorkoutType = workoutType === 'running' ? RunningMarker : CyclingMarker;
@@ -52,7 +51,6 @@ export function createWorkoutItem(
 ): void {
   // workout data object(same for Running and Cycling) from workout form
   const workoutData: WorkoutItem = {
-    id: uuidv4(),
     date: new Date().toLocaleDateString(),
     coordinates: mapCoords,
     selectedValue: formData?.workoutType ?? '',
@@ -64,7 +62,7 @@ export function createWorkoutItem(
 
   if (formData?.workoutType === 'running') {
     store.dispatch(
-      setCreateWorkout({
+      createNewWorkoutAction({
         ...workoutData,
         cadence: formData.cadence,
         pace: runningPace(formData.duration as number, formData.distance as number),
@@ -75,7 +73,7 @@ export function createWorkoutItem(
 
   if (formData?.workoutType === 'cycling') {
     store.dispatch(
-      setCreateWorkout({
+      createNewWorkoutAction({
         ...workoutData,
         elevationGain: formData?.elevationGain,
         speed: cyclingSpeed(formData?.duration as number, formData?.distance as number),

@@ -8,6 +8,7 @@ import {
   WorkoutsSection,
   WorkoutsSectionBody,
   ActionsPanel,
+  LoaderWrapper,
 } from './Workouts.styled';
 import Form from './components/WorkoutForm/Form';
 import Workout from './components/Workout/Workout';
@@ -18,15 +19,18 @@ import useGeolocation from '../../hooks/useGeolocation';
 import InitialMapMarker from './components/MapMarker/InitialMapMarker';
 import { WorkoutsActionsPanel } from './components/Workout/components/WorkoutsActionsPanel/WorkoutsActionsPanel';
 import { SortedWorkoutsSelectOption } from './Workouts.enums';
-import { filter, sortBy } from 'lodash';
-import { selectSortedWorkoutsSelectOption, selectWorkouts } from './Workouts.slice';
+import { filter, sortBy, reverse } from 'lodash';
+import { selectAreWorkoutsLoading, selectSortedWorkoutsSelectOption, selectWorkouts } from './Workouts.slice';
 import { useAppSelector } from '../../store/store.hooks';
 import { selectClickedMapCoordinates } from '../Auth/User.slice';
+import { Bars } from 'react-loader-spinner';
+import { colors } from '../../global-styles/ColorsPalette';
 
 const Workouts = (): ReactElement => {
   const availableWorkouts = useAppSelector(selectWorkouts);
   const mapCoordinates = useAppSelector(selectClickedMapCoordinates);
   const sortedWorkoutsSelectOption = useAppSelector(selectSortedWorkoutsSelectOption);
+  const isLoading = useAppSelector(selectAreWorkoutsLoading);
 
   const location = useGeolocation();
   const currentPosition: LatLngExpression = useMemo(
@@ -36,7 +40,8 @@ const Workouts = (): ReactElement => {
 
   const [isFormShown, setIsFormShown] = useState(false);
   const [isFormShownOnWorkoutEdit, setIsFormShownOnWorkoutEdit] = useState(false);
-  const [editableWorkoutItem, setEditableWorkoutItem] = useState<WorkoutItem | null>(null);
+
+  const [editableWorkoutItemId, setEditableWorkoutItemId] = useState<string | null>(null);
 
   const [isSubmitted, setIsSubmitted] = useState<boolean | null>(null);
   const [workoutMap, setWorkoutMap] = useState<L.Map | null>(null);
@@ -44,7 +49,7 @@ const Workouts = (): ReactElement => {
   const [groupRef, setGroupRef] = useState<L.FeatureGroup<any> | null>(null);
   const [mapRef, setMapRef] = useState<L.Map | null>(null);
 
-  const workoutsByLastAddedItem = [...availableWorkouts].reverse();
+  const workoutsByLastAddedItem = reverse([...availableWorkouts]);
 
   useEffect(() => {
     <InitialMapMarker position={currentPosition} />;
@@ -117,11 +122,11 @@ const Workouts = (): ReactElement => {
     setIsFormShown(false);
   }
 
-  function getEditableWorkoutItem(editableWorkoutItem: WorkoutItem | null): void {
-    if (!isFormShownOnWorkoutEdit) {
-      setEditableWorkoutItem(editableWorkoutItem);
+  function getEditableWorkoutItemId(id: string | null): void {
+    if (isFormShownOnWorkoutEdit) {
+      setEditableWorkoutItemId(null);
     } else {
-      setEditableWorkoutItem(null);
+      setEditableWorkoutItemId(id);
     }
   }
 
@@ -147,9 +152,10 @@ const Workouts = (): ReactElement => {
           onCloseWorkoutForm={hideWorkoutForm}
           mapCoords={mapCoordinates}
           isFormShownOnWorkoutEdit={setIsFormShownOnWorkoutEdit}
-          editableWorkoutItem={editableWorkoutItem}
+          editableWorkoutItemId={editableWorkoutItemId}
           isFormShown={isFormShown}
           setIsSubmitted={setIsSubmitted}
+          setEditableWorkoutItemId={setEditableWorkoutItemId}
         />
       )}
     </>
@@ -167,16 +173,22 @@ const Workouts = (): ReactElement => {
 
   const renderAvailableWorkouts = (
     <>
-      {getDefaultOrSortedWorkouts.map((workout: WorkoutItem) => (
-        <Workout
-          key={workout.id}
-          workout={workout}
-          isFormShownOnWorkoutEdit={setIsFormShownOnWorkoutEdit}
-          isFormShown={isFormShownOnWorkoutEdit}
-          setEditableWorkoutItem={getEditableWorkoutItem}
-          workoutMap={workoutMap}
-        />
-      ))}
+      {isLoading ? (
+        <LoaderWrapper>
+          <Bars color={colors.mantis} height={100} width={100} />
+        </LoaderWrapper>
+      ) : (
+        getDefaultOrSortedWorkouts.map((workout: WorkoutItem) => (
+          <Workout
+            key={workout._id}
+            workout={workout}
+            isFormShownOnWorkoutEdit={setIsFormShownOnWorkoutEdit}
+            isFormShown={isFormShownOnWorkoutEdit}
+            setEditableWorkoutItemId={getEditableWorkoutItemId}
+            workoutMap={workoutMap}
+          />
+        ))
+      )}
     </>
   );
 
@@ -195,7 +207,7 @@ const Workouts = (): ReactElement => {
             onShowWorkoutForm={showWorkoutForm}
             isFormShown={isFormShown}
             workouts={getDefaultOrSortedWorkouts}
-            setEditableWorkoutItem={setEditableWorkoutItem}
+            setEditableWorkoutItemId={setEditableWorkoutItemId}
             isSubmitted={isSubmitted}
             setWorkoutMap={setWorkoutMap}
             setGroupRef={setGroupRef}

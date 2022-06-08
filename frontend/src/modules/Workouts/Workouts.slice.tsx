@@ -27,18 +27,27 @@ export const WorkoutsSlice = createSlice({
       state.workouts.push(action.payload);
       state.status = action.payload ? 'idle' : 'failed';
     },
-    setSortedWorkoutsSelectOption: (state, action: PayloadAction<SortedWorkoutsSelectOption>) => {
-      state.sortedWorkoutsSelectOption = action.payload;
+    setUpdateWorkout: (state, action: PayloadAction<WorkoutItem>) => {
+      state.workouts.map((workout) => (workout._id === action.payload._id ? action.payload : workout));
+      state.status = action.payload ? 'idle' : 'failed';
+    },
+    setDeleteWorkout: (state, action) => {
+      state.workouts = state.workouts.filter((workout) => workout._id !== action.payload);
       state.status = action.payload ? 'idle' : 'failed';
     },
     setDeleteAllWorkouts: (state) => {
       state.workouts = [];
     },
-    setAddWorkoutToFavorites: (state, action) => {
-      const workoutIndex = state.workouts.findIndex((workout) => workout.id === action.payload.id);
-
-      state.workouts[workoutIndex].isFavorite = action.payload.isFavorite;
+    setSortedWorkoutsSelectOption: (state, action: PayloadAction<SortedWorkoutsSelectOption>) => {
+      state.sortedWorkoutsSelectOption = action.payload;
       state.status = action.payload ? 'idle' : 'failed';
+    },
+    setAddWorkoutToFavorites: (state, action) => {
+      state.workouts = state.workouts.map((workout) => (workout._id === action.payload._id ? action.payload : workout));
+      state.status = action.payload ? 'idle' : 'failed';
+    },
+    setLoadingStatus: (state, action: PayloadAction<Status>) => {
+      state.status = action.payload;
     },
     clearWorkouts: () => initialState,
   },
@@ -48,14 +57,22 @@ export const selectWorkouts = (state: RootState): WorkoutItem[] => state.workout
 
 export const selectSortedWorkoutsSelectOption = (state: RootState): SortedWorkoutsSelectOption =>
   state.workouts.sortedWorkoutsSelectOption;
+export const selectAreWorkoutsLoading = (state: RootState): boolean => state.workouts.status === 'loading';
+export const selectUpdatedWorkout =
+  (id: string | null) =>
+  (state: RootState): WorkoutItem | null =>
+    state.workouts.workouts.find((workout) => workout._id === id) ?? null;
 
 export const {
   setWorkouts,
-  setCreateWorkout,
   clearWorkouts,
   setSortedWorkoutsSelectOption,
   setDeleteAllWorkouts,
   setAddWorkoutToFavorites,
+  setLoadingStatus,
+  setCreateWorkout,
+  setUpdateWorkout,
+  setDeleteWorkout,
 } = WorkoutsSlice.actions;
 
 export default WorkoutsSlice.reducer;

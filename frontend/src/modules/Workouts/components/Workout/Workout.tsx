@@ -1,20 +1,19 @@
 import { useState } from 'react';
 
-import { toastService } from './../../../../services/Toast.service';
 import WorkoutHeader from './components/WorkoutHeader/WorkoutHeader';
 import { ModalContentTitle, WorkoutSection, ModalContentSubtitle } from './Workout.styled';
 import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails';
 import CustomModal from '../../../../components/CustomModal/CustomModal';
-import { WORKOUT_SUCCESS_DELETE_MESSAGE } from '../../Workouts.constants';
 import WorkoutWeatherDetails from './components/WorkoutWeatherDetails/WorkoutWeatherDetails';
-import { selectWorkouts, setAddWorkoutToFavorites, setWorkouts } from '../../Workouts.slice';
+import { selectWorkouts } from '../../Workouts.slice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
+import { addWorkoutToFavoritesAction, deleteWorkoutAction } from '../../Workouts.actions';
 
 interface WorkoutProps {
   workout: WorkoutItem;
   isFormShownOnWorkoutEdit: (value: boolean) => void;
   isFormShown: boolean;
-  setEditableWorkoutItem: (editableWorkout: WorkoutItem | null) => void;
+  setEditableWorkoutItemId: (id: string | null) => void;
   workoutMap: L.Map | null;
 }
 
@@ -22,49 +21,43 @@ const Workout = ({
   workout,
   isFormShownOnWorkoutEdit,
   isFormShown,
-  setEditableWorkoutItem,
+  setEditableWorkoutItemId,
   workoutMap,
 }: WorkoutProps) => {
   const availableWorkouts = useAppSelector(selectWorkouts);
   const dispatch = useAppDispatch();
 
-  const { description, selectedValue, distance, duration, speed, pace, cadence, elevationGain, id } = workout;
+  const { description, selectedValue, distance, duration, speed, pace, cadence, elevationGain, _id } = workout;
 
   const [isDeleteConfirmationModalOpened, setIsDeleteConfirmationModalOpened] = useState(false);
   const [isWeatherInfoModalOpened, setIsWeatherInfoModalOpened] = useState(false);
 
   const handleMoveToMarkerOnWorkoutClick = (event: React.MouseEvent<HTMLElement>) => {
     const clickedWorkout = availableWorkouts.find(
-      (workout) => workout.id === event.currentTarget.getAttribute('data-id')
+      (workout) => workout._id === event.currentTarget.getAttribute('data-id')
     ) as WorkoutItem;
 
     workoutMap?.locate().on('locationfound', function (e) {
-      workoutMap?.flyTo(clickedWorkout.coordinates, workoutMap?.getZoom(), { animate: true, duration: 0.5 });
+      workoutMap?.flyTo(clickedWorkout.coordinates, workoutMap?.getZoom(), { animate: true, duration: 1.2 });
     });
   };
 
   // delete a particular clicked workout from UI as well as localStorage
   function handleRemoveWorkout(): void {
-    const removedWorkout = availableWorkouts.filter((clickedWorkout: WorkoutItem) => clickedWorkout.id !== workout.id);
+    dispatch(deleteWorkoutAction(_id as string));
 
-    dispatch(setWorkouts(removedWorkout));
-
-    setEditableWorkoutItem(null);
+    setEditableWorkoutItemId(null);
     isFormShownOnWorkoutEdit(false);
-
-    toastService.success(WORKOUT_SUCCESS_DELETE_MESSAGE);
   }
 
   function handleEditWorkout(id: string): void {
     isFormShownOnWorkoutEdit(!isFormShown);
 
-    const editableWorkout = availableWorkouts.find((workout) => workout.id === id) ?? null;
-
-    setEditableWorkoutItem(editableWorkout);
+    setEditableWorkoutItemId(id);
   }
 
   function handleAddingToFavorites(): void {
-    dispatch(setAddWorkoutToFavorites({ id: workout.id, isFavorite: !workout.isFavorite }));
+    dispatch(addWorkoutToFavoritesAction(_id as string));
   }
 
   function handleOpenDeleteConfirmationModal(): void {
@@ -90,8 +83,7 @@ const Workout = ({
         onClose={handleCloseDeleteConfirmationModal}
         onSubmit={handleRemoveWorkout}
         shouldCloseOnOverlayClick
-        title='Workout deletion'
-      >
+        title='Workout deletion'>
         <ModalContentTitle>Are you sure you want to delete this workout?</ModalContentTitle>
         <ModalContentSubtitle>You will not be able to recover it</ModalContentSubtitle>
       </CustomModal>
@@ -100,15 +92,13 @@ const Workout = ({
         onClose={handleCloseWeatherInfoModal}
         shouldCloseOnOverlayClick
         isWeatherDetailsModal
-        title='Workout weather details'
-      >
+        title='Workout weather details'>
         <WorkoutWeatherDetails workoutWeatherDetails={workout.weatherInfo} />
       </CustomModal>
       <WorkoutSection
         className={selectedValue === 'running' ? 'running' : 'cycling'}
-        data-id={id}
-        onClick={handleMoveToMarkerOnWorkoutClick}
-      >
+        data-id={_id}
+        onClick={handleMoveToMarkerOnWorkoutClick}>
         <WorkoutHeader
           description={description}
           onWorkoutEdit={handleEditWorkout}

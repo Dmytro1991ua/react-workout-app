@@ -3,7 +3,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 import InitialWorkoutMarker from '../../assets/images/leaflet/marker.png';
 
+export const API_URL_BASE_URL = process.env.REACT_APP_API_BASE_URL as string;
+
+export const WORKOUT_SUCCESS_CREATE_MESSAGE = 'Successfully created a new workout';
 export const WORKOUT_SUCCESS_DELETE_MESSAGE = 'Your workout has been successfully deleted';
+export const WORKOUT_SUCCESS_DELETE_ALL_MESSAGE = 'All workouts has been deleted successfully';
+export const WORKOUT_SUCCESS_UPDATE_MESSAGE = 'Successfully updated workout';
+export const WORKOUT_SUCCESS_ADD_TO_FAVORITE_MESSAGE = 'Successfully added workout to favorites';
 
 export const MONTHS_LIST = [
   'January',
