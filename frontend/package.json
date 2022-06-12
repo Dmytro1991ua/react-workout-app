@@ -64,7 +64,7 @@
     "prettier:fix": "npm run prettier -- --write"
   },
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx, json, html}": [
+    "**/*.{js,jsx,ts,tsx,json,html}": [
       "prettier --write",
       "git add"
     ]

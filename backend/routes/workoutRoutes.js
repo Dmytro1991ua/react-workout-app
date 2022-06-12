@@ -2,6 +2,8 @@ const express = require("express");
 const { route } = require("express/lib/application");
 const router = express.Router();
 
+const { checkAuth } = require("../middleware/authMiddleware");
+
 const {
   getWorkouts,
   createWorkout,
@@ -11,10 +13,10 @@ const {
   addWorkoutToFavorites,
 } = require("../controller/workoutController");
 
-router.delete("/deleteAllWorkouts", deleteAllWorkouts);
-router.put("/:id/addToFavorites", addWorkoutToFavorites);
+router.delete("/deleteAllWorkouts", checkAuth, deleteAllWorkouts);
+router.put("/:id/addToFavorites", checkAuth, addWorkoutToFavorites);
 
-router.route("/").get(getWorkouts).post(createWorkout);
-router.route("/:id").put(updateWorkout).delete(deleteWorkout);
+router.route("/").get(checkAuth, getWorkouts).post(checkAuth, createWorkout);
+router.route("/:id").put(checkAuth, updateWorkout).delete(checkAuth, deleteWorkout);
 
 module.exports = router;

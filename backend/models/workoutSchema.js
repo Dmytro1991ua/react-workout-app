@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const workoutSchema = mongoose.Schema(
   {
+    user: { type: String, required: true, ref: "User" },
     id: { type: String },
     date: { type: String, default: new Date() },
     coordinates: [Number],

@@ -17,6 +17,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors({ origin: true }));
 
 app.use("/api/workouts", require("./routes/workoutRoutes"));
+app.use("/api/users", require("./routes/userRoutes"));
 
 app.use(customExpressErrorHandler);
 

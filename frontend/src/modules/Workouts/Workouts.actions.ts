@@ -91,6 +91,8 @@ export const deleteWorkoutAction =
 
 export const deleteAllWorkoutsAction = (): AppThunk => async (dispatch) => {
   try {
+    dispatch(setLoadingStatus('loading'));
+
     const deleteAllWorkouts = await workoutService.deleteAllWorkouts();
 
     if (deleteAllWorkouts) {
@@ -108,11 +110,7 @@ export const addWorkoutToFavoritesAction =
   (id: string): AppThunk =>
   async (dispatch) => {
     try {
-      dispatch(setLoadingStatus('loading'));
-
       const updatedWorkout = await workoutService.addWorkoutToFavorites(id);
-
-      console.log(updatedWorkout);
 
       if (updatedWorkout) {
         dispatch(setAddWorkoutToFavorites(updatedWorkout));

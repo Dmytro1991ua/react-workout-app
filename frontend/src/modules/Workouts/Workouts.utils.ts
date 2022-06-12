@@ -49,7 +49,6 @@ export function createWorkoutItem(
   mapCoords: LatLngTuple,
   weatherBasedOnWorkoutCoordinates: CurrentWeatherData | null
 ): void {
-  // workout data object(same for Running and Cycling) from workout form
   const workoutData: WorkoutItem = {
     date: new Date().toLocaleDateString(),
     coordinates: mapCoords,

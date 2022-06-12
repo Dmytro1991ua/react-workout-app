@@ -89,7 +89,7 @@ declare interface CurrentUser {
   name: string | null;
   email: string | null;
   photoURL: string | null;
-  phoneNumber: string | null;
+  phoneNumber?: string | null;
   emailVerified?: boolean;
 }
 

@@ -7,10 +7,16 @@ const Workout = require("../models/workoutSchema");
 // @route  GET /api/workouts
 // @access Private
 const getWorkouts = asyncHandler(async (req, res, next) => {
-  try {
-    const workouts = await Workout.find();
+  const user = req.currentUser;
 
-    res.status(200).json(workouts);
+  try {
+    if (user) {
+      const workouts = await Workout.find({ user: user.uid });
+
+      res.status(200).json(workouts);
+    } else {
+      res.status(401).send("Not authorized");
+    }
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
@@ -21,13 +27,17 @@ const getWorkouts = asyncHandler(async (req, res, next) => {
 // @access Private
 const createWorkout = asyncHandler(async (req, res, next) => {
   const workout = req.body;
-
-  const newWorkout = new Workout(workout);
+  const user = req.currentUser;
 
   try {
-    await newWorkout.save();
+    if (user) {
+      const newWorkout = new Workout({ ...workout, user: user.uid });
 
-    res.status(201).json(newWorkout);
+      await newWorkout.save();
+      res.status(200).json(newWorkout);
+    } else {
+      res.status(401).send("Not authorized");
+    }
   } catch (err) {
     res.status(409);
     throw new Error(err.message);
@@ -41,10 +51,21 @@ const updateWorkout = asyncHandler(async (req, res, next) => {
   try {
     const { id: _id } = req.params;
     const workout = req.body;
+    const user = req.currentUser;
 
     if (!mongoose.Types.ObjectId.isValid(_id)) {
       res.status(404);
       throw new Error("No workout with that id");
+    }
+
+    if (!user) {
+      res.status(401);
+      throw new Error("User not found");
+    }
+
+    if (workout.user !== user.uid) {
+      res.status(401);
+      throw new Error("User not authorized");
     }
 
     const updatedWorkout = await Workout.findByIdAndUpdate(
@@ -68,11 +89,25 @@ const updateWorkout = asyncHandler(async (req, res, next) => {
 const deleteWorkout = asyncHandler(async (req, res, next) => {
   try {
     const { id } = req.params;
+    const user = req.currentUser;
+
+    const workout = await Workout.findById(id);
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       res.status(404);
       throw new Error("No workout with that id");
     }
+
+    if (!user) {
+      res.status(401);
+      throw new Error("User not found");
+    }
+
+    if (workout.user !== user.uid) {
+      res.status(401);
+      throw new Error("User not authorized");
+    }
+
     await Workout.findByIdAndDelete(id);
 
     res.status(200).json(id);
@@ -86,16 +121,21 @@ const deleteWorkout = asyncHandler(async (req, res, next) => {
 // @route  DELETE /api/workouts/deleteAllWorkouts
 // @access Private
 const deleteAllWorkouts = asyncHandler(async (req, res, next) => {
-  try {
-    const deleteAllWorkouts = await Workout.deleteMany({}).exec();
+  const user = req.currentUser;
 
-    res.send({
+  try {
+    if (!user) {
+      res.status(401);
+      throw new Error("User not found");
+    }
+
+    const deleteAllWorkouts = await Workout.deleteMany({ user: user.uid }).exec();
+
+    res.status(200).send({
       success: true,
       message: "All workouts have been deleted successfully",
       deleteAllWorkouts,
     });
-
-    res.status(200);
   } catch (err) {
     res.status(409);
     throw new Error(err.message);
@@ -108,13 +148,25 @@ const deleteAllWorkouts = asyncHandler(async (req, res, next) => {
 const addWorkoutToFavorites = asyncHandler(async (req, res, next) => {
   try {
     const { id } = req.params;
+    const user = req.currentUser;
+
+    const workout = await Workout.findById(id);
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       res.status(404);
       throw new Error("No workout with that id");
     }
 
-    const workout = await Workout.findById(id);
+    if (!user) {
+      res.status(401);
+      throw new Error("User not found");
+    }
+
+    if (workout.user !== user.uid) {
+      res.status(401);
+      throw new Error("User not authorized");
+    }
+
     const updatedWorkout = await Workout.findByIdAndUpdate(id, { isFavorite: !workout.isFavorite }, { new: true });
 
     res.status(200).json(updatedWorkout);
