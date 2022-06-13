@@ -3,8 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import InitialWorkoutMarker from '../../assets/images/leaflet/marker.png';
 
-export const API_WORKOUTS_URL_BASE_URL = `${process.env.REACT_APP_API_BASE_URL as string}/workouts`;
-export const API_USER_URL_BASE_URL = `${process.env.REACT_APP_API_BASE_URL as string}/users`;
+export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL as string;
 
 export const WORKOUT_SUCCESS_CREATE_MESSAGE = 'Successfully created a new workout';
 export const WORKOUT_SUCCESS_DELETE_MESSAGE = 'Your workout has been successfully deleted';

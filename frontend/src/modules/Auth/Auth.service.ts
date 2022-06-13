@@ -1,11 +1,10 @@
-import axios from 'axios';
 import firebase from 'firebase';
 
 import { AppRoutes } from '../../App.enums';
+import { AXIOS_CONFIG } from '../../config/axiosConfig';
 import { auth } from '../../firebase';
 import history from '../../services/History.service';
 import { toastService } from '../../services/Toast.service';
-import { API_USER_URL_BASE_URL } from '../Workouts/Workouts.constants';
 import { appLifeCycleService } from './../../services/AppLifeCycle.service';
 import {
   SUCCESSFUL_FORGOT_PASSWORD_MESSAGE,
@@ -89,28 +88,9 @@ class AuthService {
     }
   }
 
-  async createHeadersWithToken(): Promise<any> {
-    try {
-      const user = auth.currentUser;
-      const token = user && (await user.getIdToken());
-
-      const payloadHeader = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-
-      return payloadHeader;
-    } catch (error) {
-      throw new Error((error as Error).message);
-    }
-  }
-
   async validateUser(): Promise<CurrentUser | null> {
-    const headersConfig = await this.createHeadersWithToken();
-
     try {
-      const resp = await axios.get(`${API_USER_URL_BASE_URL}/me`, headersConfig);
+      const resp = await AXIOS_CONFIG.get('/users/me');
 
       if (!resp.data) {
         return null;

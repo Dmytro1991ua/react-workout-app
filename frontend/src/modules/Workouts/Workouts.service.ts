@@ -1,13 +1,9 @@
-import axios from 'axios';
-import { authService } from '../Auth/Auth.service';
-
-import { API_WORKOUTS_URL_BASE_URL } from './Workouts.constants';
+import { AXIOS_CONFIG } from '../../config/axiosConfig';
 
 class WorkoutsService {
   async getAvailableWorkouts(): Promise<WorkoutItem[]> {
     try {
-      const headersConfig = await authService.createHeadersWithToken();
-      const response = await axios.get(API_WORKOUTS_URL_BASE_URL, headersConfig);
+      const response = await AXIOS_CONFIG.get('/workouts');
 
       if (!response.data) {
         return [];
@@ -21,8 +17,7 @@ class WorkoutsService {
 
   async createNewWorkout(workoutData: WorkoutItem): Promise<WorkoutItem | null> {
     try {
-      const config = await authService.createHeadersWithToken();
-      const response = await axios.post(API_WORKOUTS_URL_BASE_URL, workoutData, config);
+      const response = await AXIOS_CONFIG.post('/workouts', workoutData);
 
       if (!response.data) {
         return null;
@@ -35,10 +30,8 @@ class WorkoutsService {
   }
 
   async updateWorkout(id: string, workoutData: WorkoutItem): Promise<WorkoutItem | null> {
-    const config = await authService.createHeadersWithToken();
-
     try {
-      const response = await axios.put(`${API_WORKOUTS_URL_BASE_URL}/${id}`, workoutData, config);
+      const response = await AXIOS_CONFIG.put(`${'/workouts'}/${id}`, workoutData);
 
       if (!response.data) {
         return null;
@@ -51,10 +44,8 @@ class WorkoutsService {
   }
 
   async deleteWorkout(id: string): Promise<string | null> {
-    const config = await authService.createHeadersWithToken();
-
     try {
-      const response = await axios.delete(`${API_WORKOUTS_URL_BASE_URL}/${id}`, config);
+      const response = await AXIOS_CONFIG.delete(`${'/workouts'}/${id}`);
 
       if (!response.data) {
         return null;
@@ -67,10 +58,8 @@ class WorkoutsService {
   }
 
   async deleteAllWorkouts(): Promise<boolean | null> {
-    const config = await authService.createHeadersWithToken();
-
     try {
-      const resp = await axios.delete(`${API_WORKOUTS_URL_BASE_URL}/deleteAllWorkouts`, config);
+      const resp = await AXIOS_CONFIG.delete(`${'/workouts'}/deleteAllWorkouts`);
 
       if (!resp.data) {
         return null;
@@ -83,10 +72,8 @@ class WorkoutsService {
   }
 
   async addWorkoutToFavorites(id: string): Promise<WorkoutItem | null> {
-    const config = await authService.createHeadersWithToken();
-
     try {
-      const resp = await axios.put(`${API_WORKOUTS_URL_BASE_URL}/${id}/addToFavorites`, {}, config);
+      const resp = await AXIOS_CONFIG.put(`${'/workouts'}/${id}/addToFavorites`, {});
 
       if (!resp.data) {
         return null;
