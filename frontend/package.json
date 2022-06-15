@@ -1,6 +1,6 @@
 {
   "name": "react-workout-app",
-  "proxy": "http://localhost:8080/api",
+  "proxy": "http://localhost:8080",
   "version": "0.1.0",
   "private": true,
   "engines": {

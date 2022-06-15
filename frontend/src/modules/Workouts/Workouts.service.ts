@@ -3,7 +3,7 @@ import { AXIOS_CONFIG } from '../../config/axiosConfig';
 class WorkoutsService {
   async getAvailableWorkouts(): Promise<WorkoutItem[]> {
     try {
-      const response = await AXIOS_CONFIG.get('/workouts');
+      const response = await AXIOS_CONFIG.get('/api/workouts');
 
       if (!response.data) {
         return [];
@@ -17,7 +17,7 @@ class WorkoutsService {
 
   async createNewWorkout(workoutData: WorkoutItem): Promise<WorkoutItem | null> {
     try {
-      const response = await AXIOS_CONFIG.post('/workouts', workoutData);
+      const response = await AXIOS_CONFIG.post('/api/workouts', workoutData);
 
       if (!response.data) {
         return null;
@@ -31,7 +31,7 @@ class WorkoutsService {
 
   async updateWorkout(id: string, workoutData: WorkoutItem): Promise<WorkoutItem | null> {
     try {
-      const response = await AXIOS_CONFIG.put(`${'/workouts'}/${id}`, workoutData);
+      const response = await AXIOS_CONFIG.put(`${'/api/workouts'}/${id}`, workoutData);
 
       if (!response.data) {
         return null;
@@ -45,7 +45,7 @@ class WorkoutsService {
 
   async deleteWorkout(id: string): Promise<string | null> {
     try {
-      const response = await AXIOS_CONFIG.delete(`${'/workouts'}/${id}`);
+      const response = await AXIOS_CONFIG.delete(`${'/api/workouts'}/${id}`);
 
       if (!response.data) {
         return null;
@@ -59,7 +59,7 @@ class WorkoutsService {
 
   async deleteAllWorkouts(): Promise<boolean | null> {
     try {
-      const resp = await AXIOS_CONFIG.delete(`${'/workouts'}/deleteAllWorkouts`);
+      const resp = await AXIOS_CONFIG.delete(`${'/api/workouts'}/deleteAllWorkouts`);
 
       if (!resp.data) {
         return null;
@@ -73,7 +73,7 @@ class WorkoutsService {
 
   async addWorkoutToFavorites(id: string): Promise<WorkoutItem | null> {
     try {
-      const resp = await AXIOS_CONFIG.put(`${'/workouts'}/${id}/addToFavorites`, {});
+      const resp = await AXIOS_CONFIG.put(`${'/api/workouts'}/${id}/addToFavorites`, {});
 
       if (!resp.data) {
         return null;

@@ -10,7 +10,7 @@ const connectDB = require("./config/db");
 
 connectDB();
 
-const port = process.env.REACT_APP_PORT || 5000;
+const port = process.env.PORT || 5000;
 const app = express();
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
@@ -23,7 +23,7 @@ app.use("/api/users", require("./routes/userRoutes"));
 if (process.env.REACT_APP_NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-  app.get("*", (req, res) => res.sendFile(path.resolve(__dirname, "../", "frontend", "build", "index.html")));
+  app.get("*", (req, res) => res.sendFile(path.resolve(__dirname, "../frontend/build", "index.html")));
 } else {
   app.get("/", (req, res) => res.send("Please set to production"));
 }

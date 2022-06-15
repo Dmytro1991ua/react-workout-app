@@ -90,7 +90,7 @@ class AuthService {
 
   async validateUser(): Promise<CurrentUser | null> {
     try {
-      const resp = await AXIOS_CONFIG.get('/users/me');
+      const resp = await AXIOS_CONFIG.get('/api/users/me');
 
       if (!resp.data) {
         return null;
