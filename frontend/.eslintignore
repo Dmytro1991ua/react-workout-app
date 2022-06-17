@@ -1,0 +1,5 @@
+/.git
+/.vscode
+build/
+node_modules/
+**/*.styled.tsx"
