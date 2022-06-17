@@ -1,26 +1,23 @@
 name: React CI/CD
-
-on:
+'on':
   push:
     branches:
       - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
-
+        node-version:
+          - 14.x
+          - 16.x
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: 'Use Node.js ${{ matrix.node-version }}'
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-
+          node-version: '${{ matrix.node-version }}'
+          cache: npm
       - name: run CI
         run: |
           npm install
@@ -29,15 +26,14 @@ jobs:
           npm run stylelint
           npm run test
           npm run build --if present
-
-     deploy: 
-        needs: build
-        runs-on: ubuntu-latest
-        steps:
-          - uses: actions/checkout@v2
-          - uses: akhileshns/heroku-deploy@v3.12.12
-            with:
-              heroku_api_key: ${{ secrets.HEROKU_DEPLOY_ACCESS_TOKEN}}
-              heroku_app_name: ${{ secrets.HEROKU_DEPLOY_PROJECT_NAME}}
-              heroku_email: ${{ secrets.HEROKU_DEPLOY_EMAIL}}
-              remote_branch: main
+    deploy:
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - uses: akhileshns/heroku-deploy@v3.12.12
+          with:
+            heroku_api_key: '${{ secrets.HEROKU_DEPLOY_ACCESS_TOKEN}}'
+            heroku_app_name: '${{ secrets.HEROKU_DEPLOY_PROJECT_NAME}}'
+            heroku_email: '${{ secrets.HEROKU_DEPLOY_EMAIL}}'
+            remote_branch: main
