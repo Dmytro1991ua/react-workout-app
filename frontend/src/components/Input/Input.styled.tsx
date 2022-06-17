@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { colors } from '../../global-styles/ColorsPalette';
 
 export const CustomInput = styled('input')<{ borderColor?: string; fullWidth?: boolean; hasError?: boolean }>`
@@ -12,7 +13,8 @@ export const CustomInput = styled('input')<{ borderColor?: string; fullWidth?: b
 
   &::placeholder {
     font-size: 1.6rem;
-    color: ${({ hasError }) => (hasError ? `${colors.tomato}` : `${colors.white}`)} 
+    color: ${({ hasError }) => (hasError ? `${colors.tomato}` : `${colors.white}`)};
+  }
 `;
 
 export const FieldErrorMessage = styled.span`

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { toastService } from './../services/Toast.service';
 
 export function useLocalStorage<T>(key: string, initialValue: T) {

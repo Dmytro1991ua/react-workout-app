@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Route, RouteProps } from 'react-router-dom';
+
 import MainLayout from '../../layouts/MainLayout';
 
 interface MainComponentsRoutesProps extends Omit<RouteProps, 'component'> {

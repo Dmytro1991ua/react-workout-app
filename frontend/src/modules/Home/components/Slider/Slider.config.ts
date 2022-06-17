@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import CyclingSliderImg from '../../../../assets/images/slider/cycling.jpg';
 import AerobicsSliderImg from '../../../../assets/images/slider/aerobics.jpg';
 import BattleRopesSliderImg from '../../../../assets/images/slider/battle-ropes.jpg';
+import CyclingSliderImg from '../../../../assets/images/slider/cycling.jpg';
 import GymWorkoutSliderImg from '../../../../assets/images/slider/gym-workout.jpg';
 import RunningSliderImg from '../../../../assets/images/slider/running.jpg';
 import SwimmingSliderImg from '../../../../assets/images/slider/swimming.jpg';

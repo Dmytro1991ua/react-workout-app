@@ -1,11 +1,11 @@
 import React, { ReactElement, useCallback, useEffect } from 'react';
+
 import { auth } from './firebase';
 import useGeolocation from './hooks/useGeolocation';
 import { authService } from './modules/Auth/Auth.service';
 import { selectIsUserAuthenticated, setLoadingStatus, setUser } from './modules/Auth/User.slice';
 import { loadWeatherBasedOnCurrentLocationAction } from './modules/WeatherDetails/WorkoutsDetails.actions';
 import { loadAvailableWorkoutsAction } from './modules/Workouts/Workouts.actions';
-
 import Routes from './Routes';
 import { useAppDispatch, useAppSelector } from './store/store.hooks';
 

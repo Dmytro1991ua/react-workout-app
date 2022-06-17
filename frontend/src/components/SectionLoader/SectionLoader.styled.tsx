@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { colors } from '../../global-styles/ColorsPalette';
 
+import { colors } from '../../global-styles/ColorsPalette';
 import { gear, rotation } from '../../global-styles/Global.styled';
 import { PreloaderContainer } from '../Preloader/Preloade.styled';
 

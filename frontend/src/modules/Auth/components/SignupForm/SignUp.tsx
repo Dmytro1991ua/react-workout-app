@@ -1,15 +1,15 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import React, { ReactElement, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { Audio } from 'react-loader-spinner';
 
 import { AppRoutes } from '../../../../App.enums';
-import { authService } from '../../Auth.service';
-import { FormSection, FormDetails, Form, FormSectionTitle, FormSubmitBtn } from '../LoginForm/Login.styled';
-import { SignUpBody, SignUpLink } from './SignUp.styled';
-import Input from './../../../../components/Input/Input';
-import { SIGN_UP_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
 import { colors } from '../../../../global-styles/ColorsPalette';
+import { authService } from '../../Auth.service';
+import { SIGN_UP_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
+import { Form, FormDetails, FormSection, FormSectionTitle, FormSubmitBtn } from '../LoginForm/Login.styled';
+import Input from './../../../../components/Input/Input';
+import { SignUpBody, SignUpLink } from './SignUp.styled';
 
 const SignUp = (): ReactElement => {
   const {

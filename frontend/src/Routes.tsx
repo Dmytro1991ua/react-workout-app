@@ -1,13 +1,13 @@
 import React, { lazy, Suspense } from 'react';
 import { Route, Router, Switch } from 'react-router-dom';
 
-import PrivateRoute from './components/Routes/PrivateRoutes';
-import SectionLoader from './components/SectionLoader/SectionLoader';
 import { AppRoutes } from './App.enums';
-import history from './services/History.service';
+import Preloader from './components/Preloader/Preloader';
 import MainComponentsRoutes from './components/Routes/MainComponentsRoutes';
 import NotFoundRoute from './components/Routes/NotFoundRoute';
-import Preloader from './components/Preloader/Preloader';
+import PrivateRoute from './components/Routes/PrivateRoutes';
+import SectionLoader from './components/SectionLoader/SectionLoader';
+import history from './services/History.service';
 
 const HomePage = lazy(() => import('./modules/Home/Home'));
 const LoginPage = lazy(() => import('./modules/Auth/components/LoginForm/LoginForm'));

@@ -1,6 +1,7 @@
 import { LatLngExpression } from 'leaflet';
 import React, { useEffect, useState } from 'react';
 import { Marker, Popup, useMap } from 'react-leaflet';
+
 import { INITIAL_MAP_MARKER } from '../../Workouts.constants';
 
 interface InitialMapMarkerProps {

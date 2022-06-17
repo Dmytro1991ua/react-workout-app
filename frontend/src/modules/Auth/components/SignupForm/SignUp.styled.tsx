@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { colors } from '../../../../global-styles/ColorsPalette';
 
+import { colors } from '../../../../global-styles/ColorsPalette';
 import { FormBody, FormLink } from '../LoginForm/Login.styled';
 
 export const SignUpBody = styled(FormBody)`

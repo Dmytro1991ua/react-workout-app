@@ -1,6 +1,7 @@
 {
   "processors": ["stylelint-processor-styled-components"],
   "extends": ["stylelint-config-standard", "stylelint-config-styled-components"],
+  "customSyntax": "@stylelint/postcss-css-in-js",
   "rules": {
     "selector-pseudo-class-no-unknown": true,
     "property-no-unknown": true,
@@ -13,6 +14,10 @@
     "function-comma-newline-after": "always-multi-line",
     "block-no-empty": true,
     "value-keyword-case": null,
-    "string-quotes": "single"
-  }
+    "string-quotes": "single",
+    "selector-class-pattern": null,
+    "keyframes-name-pattern": null,
+    "declaration-colon-newline-after": null
+  },
+  "ignoreFiles": ["**/*.{js,jsx,ts,tsx}"]
 }

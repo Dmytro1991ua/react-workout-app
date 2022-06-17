@@ -11,12 +11,11 @@ import { SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS_MOCK } from '../..
 import { SortedWorkoutsSelectOption } from '../../../../Workouts.enums';
 import { selectSortedWorkoutsSelectOption, setSortedWorkoutsSelectOption } from '../../../../Workouts.slice';
 import { ModalContentSubtitle, ModalContentTitle } from '../../Workout.styled';
-
 import {
   ActionButton,
   ActionsPanelWrapper,
-  ResetButtonIcon,
   DeleteButtonIcon,
+  ResetButtonIcon,
   ShowAllMarkers,
 } from './WorkoutsActionsPanel.styled';
 
@@ -100,7 +99,8 @@ export const WorkoutsActionsPanel = ({ handleShowAllWorkoutMarkers }: WorkoutsAc
         onClose={handleCloseDeleteConfirmationModal}
         onSubmit={handleDeleteAllWorkouts}
         shouldCloseOnOverlayClick
-        title='Deletion of all workouts'>
+        title='Deletion of all workouts'
+      >
         <ModalContentTitle>Are you sure you want to delete all workouts?</ModalContentTitle>
         <ModalContentSubtitle>You will not be able to recover them</ModalContentSubtitle>
       </CustomModal>

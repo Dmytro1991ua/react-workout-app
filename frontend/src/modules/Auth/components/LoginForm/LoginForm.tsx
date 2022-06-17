@@ -1,14 +1,14 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import React, { ReactElement, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { BallTriangle } from 'react-loader-spinner';
 
 import { AppRoutes } from '../../../../App.enums';
 import Input from '../../../../components/Input/Input';
+import { colors } from '../../../../global-styles/ColorsPalette';
 import { authService } from '../../Auth.service';
 import { LOGIN_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
-import { FormSection, FormSectionTitle, FormDetails, FormBody, FormLink, Form, FormSubmitBtn } from './Login.styled';
-import { colors } from '../../../../global-styles/ColorsPalette';
+import { Form, FormBody, FormDetails, FormLink, FormSection, FormSectionTitle, FormSubmitBtn } from './Login.styled';
 
 const LoginForm = (): ReactElement => {
   const {

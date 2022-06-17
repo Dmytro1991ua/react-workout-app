@@ -1,18 +1,18 @@
 import styled from 'styled-components';
-import { colors } from '../../global-styles/ColorsPalette';
 
+import { colors } from '../../global-styles/ColorsPalette';
 import { fadeInDown } from '../../global-styles/Global.styled';
 
 export const WorkoutsSection = styled.section`
   height: 100vh;
-  margin: 8rem 1.2rem 1.2rem 1.2rem;
+  margin: 8rem 1.2rem 1.2rem;
   overscroll-behavior-y: none;
   animation: ${fadeInDown} 0.3s ease-in-out;
   filter: drop-shadow(7px 8px 4px ${colors.darkBlue});
   overflow: hidden;
 
   @media (min-width: 48em) {
-    margin: 10rem 1.2rem 1.2rem 1.2rem;
+    margin: 10rem 1.2rem 1.2rem;
   }
 `;
 
@@ -32,18 +32,18 @@ export const WorkoutsFeatures = styled.aside`
   background-color: ${colors.darkBlue};
   border-top-left-radius: 1.2rem;
   border-top-right-radius: 1.2rem;
-  padding: 0 1.2rem 10rem 1.2rem;
+  padding: 0 1.2rem 10rem;
   overflow: auto;
 
   @media (min-width: 62em) {
     height: 100vh;
-    border-top-right-radius: 0rem;
+    border-top-right-radius: 0;
     border-bottom-left-radius: 1.2rem;
   }
 
   @media (min-width: 62em) {
     height: 100vh;
-    border-top-right-radius: 0rem;
+    border-top-right-radius: 0;
     border-bottom-left-radius: 1.2rem;
   }
 
@@ -57,13 +57,13 @@ export const FeaturesTitle = styled('h3')<{ hasWorkouts?: boolean }>`
   font-family: 'Akaya Telivigala', cursive;
   color: ${colors.white};
   text-align: center;
-  padding: 1rem 0 0 0;
+  padding: 1rem 0 0;
   margin-bottom: ${({ hasWorkouts }) => (hasWorkouts ? '4rem' : '2rem')};
   letter-spacing: 0.1rem;
 
   @media (min-width: 62em) {
     font-size: 3rem;
-    padding: 3rem 0 0 0;
+    padding: 3rem 0 0;
   }
 `;
 

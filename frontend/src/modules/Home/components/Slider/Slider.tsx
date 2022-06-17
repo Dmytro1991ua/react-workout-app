@@ -1,16 +1,15 @@
-import React, { ReactElement } from 'react';
-import SwiperCore, { Mousewheel, Scrollbar, Autoplay, EffectCoverflow } from 'swiper';
-
-import { SwiperSlide } from 'swiper/react';
-
-import { Image, SliderTitle } from './Slider.styled';
-
+import 'swiper/components/scrollbar/scrollbar.scss';
+import 'swiper/swiper-bundle.min.css';
 //swiper styles
 import 'swiper/swiper.scss';
-import 'swiper/swiper-bundle.min.css';
-import 'swiper/components/scrollbar/scrollbar.scss';
-import { SliderConfig } from './Slider.config';
+
+import React, { ReactElement } from 'react';
+import SwiperCore, { Autoplay, EffectCoverflow, Mousewheel, Scrollbar } from 'swiper';
+import { SwiperSlide } from 'swiper/react';
+
 import { CustomSwiper } from '../../../../global-styles/SwiperGlobal.styles';
+import { SliderConfig } from './Slider.config';
+import { Image, SliderTitle } from './Slider.styled';
 
 const Slider = (): ReactElement => {
   // install Swiper modules

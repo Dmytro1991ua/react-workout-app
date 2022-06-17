@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+
 import { FormAndFallbackMessageWrapper } from '../../CommonStyles.styled';
 import { FallbackMessageSubtitle, FallbackMessageTitle } from './FallbackMessage.styled';
 

@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+
 import { colors } from '../../global-styles/ColorsPalette';
 import { fadeInDown } from '../../global-styles/Global.styled';
 
 export const FormAndFallbackMessageWrapper = styled('section')`
   background-color: ${colors.lighterBlue};
   border-radius: 5px;
-  padding: 1.2rem 1.2rem;
+  padding: 1.2rem;
   margin-bottom: 1.75rem;
   display: grid;
   gap: 1.5rem 2.5rem;

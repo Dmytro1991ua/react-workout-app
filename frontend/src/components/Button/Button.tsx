@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react';
-import { colors } from '../../global-styles/ColorsPalette';
 
+import { colors } from '../../global-styles/ColorsPalette';
 import { CustomButton } from './Buton.styled';
 
 export interface ButtonProps {

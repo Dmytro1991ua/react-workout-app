@@ -3,15 +3,15 @@ import React, { useEffect, useState } from 'react';
 import useDeviceDetect from '../../../../hooks/useDeviceDetect';
 import { kelvinToCelsius } from '../../../Workouts/Workouts.utils';
 import {
-  CityWeatherLabelWrapper,
   CityWeatherLabel,
+  CityWeatherLabelWrapper,
+  MobileWidgetContainer,
+  MobileWidgetSubtitle,
+  MobileWidgetTitle,
+  WeatherIcon,
   WeatherTemperature,
   WeatherWidgetTop,
   WeatherWidgetWrapper,
-  WeatherIcon,
-  MobileWidgetContainer,
-  MobileWidgetTitle,
-  MobileWidgetSubtitle,
 } from './WeatherWidget.styled';
 interface WeatherWidgetProps {
   currentWeather: CurrentWeatherData | null;

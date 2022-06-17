@@ -54,23 +54,27 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "pre-commit": "lint-staged",
-    "lint": "eslint .",
+    "prepare": "node -e \"if (process.env.REACT_APP_NODE_ENV !== 'production'){process.exit(1)} \" || husky install",
+    "prettier": "prettier --check './src/**/*.{tsx,ts}'",
+    "prettier:fix": "prettier --write ./src/",
+    "lint": "eslint ./src --ext .ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
-    "prettier": "prettier --write ./src/",
-    "format": "npm run prettier:fix && npm run lint:fix",
-    "prettier:fix": "npm run prettier -- --write"
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,json,html}": [
-      "prettier --write",
-      "git add"
-    ]
+    "lint:fix:errors-only": "npm run lint -- --quiet",
+    "lint:staged": "lint-staged --relative",
+    "pre-commit-check": "npm run lint:staged",
+    "stylelint": "stylelint ./src/**/*.tsx"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "npm run lint:fix",
+      "npm run prettier:fix",
+      "npm run stylelint"
+    ]
   },
   "eslintConfig": {
     "extends": [
@@ -90,16 +94,17 @@
     ]
   },
   "devDependencies": {
+    "@stylelint/postcss-css-in-js": "^0.38.0",
     "@types/react-modal": "^3.13.1",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
-    "cors": "^2.8.5",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "express": "^4.17.1",
     "gh-pages": "^3.1.0",
     "husky": "^4.3.8",

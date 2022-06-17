@@ -1,13 +1,12 @@
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
-import { List, ListItem } from '../../Header.styled';
-import { navigationConfig } from './Navigation.config';
-import Tooltip from './../../../../components/Tooltip/Tooltip';
-
 import { colors } from '../../../../global-styles/ColorsPalette';
-import { useAppSelector } from './../../../../store/store.hooks';
 import { selectIsUserAuthenticated } from '../../../Auth/User.slice';
+import { List, ListItem } from '../../Header.styled';
+import Tooltip from './../../../../components/Tooltip/Tooltip';
+import { useAppSelector } from './../../../../store/store.hooks';
+import { navigationConfig } from './Navigation.config';
 
 interface NavigationProps {
   isOpen: boolean;

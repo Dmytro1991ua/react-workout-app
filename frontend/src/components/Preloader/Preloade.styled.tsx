@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { colors } from '../../global-styles/ColorsPalette';
 
+import { colors } from '../../global-styles/ColorsPalette';
 import { rotationA, rotationB } from '../../global-styles/Global.styled';
 
 export const PreloaderContainer = styled.div`
@@ -11,14 +11,8 @@ export const PreloaderContainer = styled.div`
   bottom: 0;
   background-color: ${colors.darkBlue};
   z-index: 100;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   transition: all 1s ease;
 `;

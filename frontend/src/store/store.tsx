@@ -1,8 +1,8 @@
-import { configureStore, ThunkAction, AnyAction } from '@reduxjs/toolkit';
+import { AnyAction, configureStore, ThunkAction } from '@reduxjs/toolkit';
 
 import UserReducer from '../modules/Auth/User.slice';
-import WorkoutsReducer from '../modules/Workouts/Workouts.slice';
 import WeatherDetailsReducer from '../modules/WeatherDetails/WeatherDetails.slice';
+import WorkoutsReducer from '../modules/Workouts/Workouts.slice';
 
 const { createLogger } = require('redux-logger');
 
@@ -24,13 +24,12 @@ export const store = configureStore({
         thunk: true,
         immutableCheck: true,
       }).concat(reduxLogger);
-    } else {
-      return getDefaultMiddleware({
-        serializableCheck: false,
-        thunk: true,
-        immutableCheck: true,
-      });
     }
+    return getDefaultMiddleware({
+      serializableCheck: false,
+      thunk: true,
+      immutableCheck: true,
+    });
   },
   devTools: process.env.NODE_ENV !== 'production',
 });

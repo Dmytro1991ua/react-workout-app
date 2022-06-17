@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { auth } from '../firebase';
 
+import { auth } from '../firebase';
 import { API_BASE_URL } from '../modules/Workouts/Workouts.constants';
 
 export const AXIOS_CONFIG = axios.create({ baseURL: API_BASE_URL });

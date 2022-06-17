@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { SectionsHeading } from './SectionsTitle.styled';
 
 interface SectionsTitleProps {

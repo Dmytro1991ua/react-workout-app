@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+
 import { Wrapper } from '../global-styles/Global.styled';
 
 interface NotFoundLayoutProps {

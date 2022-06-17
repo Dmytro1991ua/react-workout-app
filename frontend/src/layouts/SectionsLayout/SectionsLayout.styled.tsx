@@ -24,7 +24,7 @@ export const CommonSectionsContainer = styled('section')<{
 
   @media only screen and (min-resolution: 192dpi) and (min-width: 37.9em),
     (min-width: 125em),
-    only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.9em),
+    only screen and (min-resolution: 2dppx) and (min-width: 37.9em),
     only screen and (min-width: 125em) {
     background-image: ${({ sectionName }) =>
       sectionName === 'Home'
@@ -78,7 +78,7 @@ export const CommonSectionsBtn = styled(Link)<{ sectionName?: string }>`
   }
 
   &:active {
-    transform: translateY(0rem);
+    transform: translateY(0);
   }
 
   @media (min-width: 45em) {

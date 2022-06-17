@@ -1,9 +1,8 @@
 import React, { ReactElement } from 'react';
-import { AppRoutes } from '../../App.enums';
 
+import { AppRoutes } from '../../App.enums';
 import SectionsTitle from '../../components/SectionTitle/SectionsTitle';
 import { colors } from '../../global-styles/ColorsPalette';
-
 import SectionsLayout from '../../layouts/SectionsLayout/SectionsLayout';
 import {
   CommonSectionsBody,

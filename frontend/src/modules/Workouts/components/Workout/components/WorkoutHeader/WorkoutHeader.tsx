@@ -1,12 +1,11 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import Tooltip from '../../../../../../components/Tooltip/Tooltip';
 
+import Tooltip from '../../../../../../components/Tooltip/Tooltip';
 import { colors } from '../../../../../../global-styles/ColorsPalette';
 import { toastService } from '../../../../../../services/Toast.service';
 import { ActionButton } from '../WorkoutsActionsPanel/WorkoutsActionsPanel.styled';
-
-import { EditBtn, RemoveBtn, WorkoutTitle, Header, AddToFavorite, RemoveFromFavorite } from './../../Workout.styled';
+import { AddToFavorite, EditBtn, Header, RemoveBtn, RemoveFromFavorite, WorkoutTitle } from './../../Workout.styled';
 
 interface WorkoutHeaderProps {
   description?: string;

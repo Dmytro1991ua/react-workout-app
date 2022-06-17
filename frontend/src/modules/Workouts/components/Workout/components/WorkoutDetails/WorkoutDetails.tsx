@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+
 import { Details, WorkoutIcon, WorkoutUnit, WorkoutValue } from '../../Workout.styled';
 
 interface WorkoutDetailsProps {

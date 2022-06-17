@@ -1,4 +1,13 @@
+import { toastService } from '../../services/Toast.service';
 import { AppThunk } from '../../store/store';
+import {
+  WORKOUT_SUCCESS_ADD_TO_FAVORITE_MESSAGE,
+  WORKOUT_SUCCESS_CREATE_MESSAGE,
+  WORKOUT_SUCCESS_DELETE_ALL_MESSAGE,
+  WORKOUT_SUCCESS_DELETE_MESSAGE,
+  WORKOUT_SUCCESS_UPDATE_MESSAGE,
+} from './Workouts.constants';
+import { workoutService } from './Workouts.service';
 import {
   setAddWorkoutToFavorites,
   setCreateWorkout,
@@ -8,15 +17,6 @@ import {
   setUpdateWorkout,
   setWorkouts,
 } from './Workouts.slice';
-import { workoutService } from './Workouts.service';
-import { toastService } from '../../services/Toast.service';
-import {
-  WORKOUT_SUCCESS_ADD_TO_FAVORITE_MESSAGE,
-  WORKOUT_SUCCESS_CREATE_MESSAGE,
-  WORKOUT_SUCCESS_DELETE_ALL_MESSAGE,
-  WORKOUT_SUCCESS_DELETE_MESSAGE,
-  WORKOUT_SUCCESS_UPDATE_MESSAGE,
-} from './Workouts.constants';
 
 export const loadAvailableWorkoutsAction = (): AppThunk => async (dispatch) => {
   try {

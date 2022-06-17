@@ -1,6 +1,6 @@
+import Modal from 'react-modal';
 import styled from 'styled-components';
 import { CloseCircle } from 'styled-icons/evaicons-solid';
-import Modal from 'react-modal';
 
 import { colors } from '../../global-styles/ColorsPalette';
 

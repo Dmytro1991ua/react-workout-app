@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react';
 import { DeepMap, FieldError, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
 import { SortedWorkoutsSelectOption } from '../../modules/Workouts/Workouts.enums';
-
 import { FieldErrorMessage } from '../Input/Input.styled';
 import { FormSelect } from './Select.styled';
 
@@ -56,7 +55,7 @@ export const Select = <TFormValues extends Record<string, unknown>>(
           );
         })}
       </FormSelect>
-      {<FieldErrorMessage>{errorMessage}</FieldErrorMessage>}
+      <FieldErrorMessage>{errorMessage}</FieldErrorMessage>
     </div>
   );
 };

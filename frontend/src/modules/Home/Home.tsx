@@ -1,16 +1,15 @@
 import React, { ReactElement } from 'react';
 
-import SectionsTitle from '../../components/SectionTitle/SectionsTitle';
 import { AppRoutes } from '../../App.enums';
-
+import SectionsTitle from '../../components/SectionTitle/SectionsTitle';
+import { colors } from '../../global-styles/ColorsPalette';
+import SectionsLayout from '../../layouts/SectionsLayout/SectionsLayout';
 import {
   CommonSectionsBody,
   CommonSectionsBtn,
   CommonSectionsTitle,
 } from '../../layouts/SectionsLayout/SectionsLayout.styled';
-import SectionsLayout from '../../layouts/SectionsLayout/SectionsLayout';
 import Slider from './components/Slider/Slider';
-import { colors } from '../../global-styles/ColorsPalette';
 
 const Home = (): ReactElement => {
   return (

@@ -1,30 +1,30 @@
+import { LatLngBoundsExpression, LatLngExpression } from 'leaflet';
+import { filter, reverse, sortBy } from 'lodash';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import { Bars } from 'react-loader-spinner';
 import { v4 as uuidv4 } from 'uuid';
 
-import {
-  FeaturesTitle,
-  WorkoutsFeatures,
-  Map,
-  WorkoutsSection,
-  WorkoutsSectionBody,
-  ActionsPanel,
-  LoaderWrapper,
-} from './Workouts.styled';
-import Form from './components/WorkoutForm/Form';
-import Workout from './components/Workout/Workout';
-import WorkoutsMap from './components/WorkoutsMap';
-import FallbackMessage from './components/FallbackMessage/FallbackMessage';
-import { LatLngBoundsExpression, LatLngExpression } from 'leaflet';
+import { colors } from '../../global-styles/ColorsPalette';
 import useGeolocation from '../../hooks/useGeolocation';
-import InitialMapMarker from './components/MapMarker/InitialMapMarker';
-import { WorkoutsActionsPanel } from './components/Workout/components/WorkoutsActionsPanel/WorkoutsActionsPanel';
-import { SortedWorkoutsSelectOption } from './Workouts.enums';
-import { filter, sortBy, reverse } from 'lodash';
-import { selectAreWorkoutsLoading, selectSortedWorkoutsSelectOption, selectWorkouts } from './Workouts.slice';
 import { useAppSelector } from '../../store/store.hooks';
 import { selectClickedMapCoordinates } from '../Auth/User.slice';
-import { Bars } from 'react-loader-spinner';
-import { colors } from '../../global-styles/ColorsPalette';
+import FallbackMessage from './components/FallbackMessage/FallbackMessage';
+import InitialMapMarker from './components/MapMarker/InitialMapMarker';
+import { WorkoutsActionsPanel } from './components/Workout/components/WorkoutsActionsPanel/WorkoutsActionsPanel';
+import Workout from './components/Workout/Workout';
+import Form from './components/WorkoutForm/Form';
+import WorkoutsMap from './components/WorkoutsMap';
+import { SortedWorkoutsSelectOption } from './Workouts.enums';
+import { selectAreWorkoutsLoading, selectSortedWorkoutsSelectOption, selectWorkouts } from './Workouts.slice';
+import {
+  ActionsPanel,
+  FeaturesTitle,
+  LoaderWrapper,
+  Map,
+  WorkoutsFeatures,
+  WorkoutsSection,
+  WorkoutsSectionBody,
+} from './Workouts.styled';
 
 const Workouts = (): ReactElement => {
   const availableWorkouts = useAppSelector(selectWorkouts);
@@ -196,7 +196,7 @@ const Workouts = (): ReactElement => {
     <WorkoutsSection>
       <WorkoutsSectionBody>
         <WorkoutsFeatures onClick={hideWorkoutForm}>
-          <FeaturesTitle hasWorkouts={!!workoutsByLastAddedItem.length}>Workouts Information</FeaturesTitle>
+          <FeaturesTitle hasWorkouts={Boolean(workoutsByLastAddedItem.length)}>Workouts Information</FeaturesTitle>
           {renderActionsPanel}
           {renderWorkoutForm}
           {renderFallbackMessageWhenNoWorkout}

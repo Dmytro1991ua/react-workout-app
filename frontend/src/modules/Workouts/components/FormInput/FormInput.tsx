@@ -46,7 +46,7 @@ const FormInput = <TFormValues extends Record<string, unknown>>(props: FormInput
         onChange={props.onChange}
         onKeyDown={props.onKeyDown}
       />
-      {<CustomFieldError>{errorMessage}</CustomFieldError>}
+      <CustomFieldError>{errorMessage}</CustomFieldError>
     </>
   );
 };

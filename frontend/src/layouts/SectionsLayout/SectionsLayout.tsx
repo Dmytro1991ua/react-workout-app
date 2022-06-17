@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+
 import { CommonSectionsContainer } from './SectionsLayout.styled';
 
 interface SectionsLayoutProps {

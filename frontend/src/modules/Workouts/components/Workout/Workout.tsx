@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
-import WorkoutHeader from './components/WorkoutHeader/WorkoutHeader';
-import { ModalContentTitle, WorkoutSection, ModalContentSubtitle } from './Workout.styled';
-import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails';
 import CustomModal from '../../../../components/CustomModal/CustomModal';
-import WorkoutWeatherDetails from './components/WorkoutWeatherDetails/WorkoutWeatherDetails';
-import { selectWorkouts } from '../../Workouts.slice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
 import { addWorkoutToFavoritesAction, deleteWorkoutAction } from '../../Workouts.actions';
+import { selectWorkouts } from '../../Workouts.slice';
+import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails';
+import WorkoutHeader from './components/WorkoutHeader/WorkoutHeader';
+import WorkoutWeatherDetails from './components/WorkoutWeatherDetails/WorkoutWeatherDetails';
+import { ModalContentSubtitle, ModalContentTitle, WorkoutSection } from './Workout.styled';
 
 interface WorkoutProps {
   workout: WorkoutItem;
@@ -37,7 +37,7 @@ const Workout = ({
       (workout) => workout._id === event.currentTarget.getAttribute('data-id')
     ) as WorkoutItem;
 
-    workoutMap?.locate().on('locationfound', function (e) {
+    workoutMap?.locate().on('locationfound', function () {
       workoutMap?.flyTo(clickedWorkout.coordinates, workoutMap?.getZoom(), { animate: true, duration: 1.2 });
     });
   };
@@ -83,7 +83,8 @@ const Workout = ({
         onClose={handleCloseDeleteConfirmationModal}
         onSubmit={handleRemoveWorkout}
         shouldCloseOnOverlayClick
-        title='Workout deletion'>
+        title='Workout deletion'
+      >
         <ModalContentTitle>Are you sure you want to delete this workout?</ModalContentTitle>
         <ModalContentSubtitle>You will not be able to recover it</ModalContentSubtitle>
       </CustomModal>
@@ -92,13 +93,15 @@ const Workout = ({
         onClose={handleCloseWeatherInfoModal}
         shouldCloseOnOverlayClick
         isWeatherDetailsModal
-        title='Workout weather details'>
+        title='Workout weather details'
+      >
         <WorkoutWeatherDetails workoutWeatherDetails={workout.weatherInfo} />
       </CustomModal>
       <WorkoutSection
         className={selectedValue === 'running' ? 'running' : 'cycling'}
         data-id={_id}
-        onClick={handleMoveToMarkerOnWorkoutClick}>
+        onClick={handleMoveToMarkerOnWorkoutClick}
+      >
         <WorkoutHeader
           description={description}
           onWorkoutEdit={handleEditWorkout}

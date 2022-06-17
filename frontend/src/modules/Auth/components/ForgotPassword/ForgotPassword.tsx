@@ -8,7 +8,7 @@ import Input from '../../../../components/Input/Input';
 import { colors } from '../../../../global-styles/ColorsPalette';
 import { authService } from '../../Auth.service';
 import { FORGOT_PASSWORD_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
-import { FormSection, FormSectionTitle, FormDetails, FormBody, FormLink, Form } from '../LoginForm/Login.styled';
+import { Form, FormBody, FormDetails, FormLink, FormSection, FormSectionTitle } from '../LoginForm/Login.styled';
 
 const ForgotPassword = () => {
   const {

@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+
 import { WorkoutFormInitialValues, WorkoutType } from './Form.interfaces';
 
 export const WORKOUT_FORM_INITIAL_VALUES = (editableWorkoutItem?: WorkoutItem | null): WorkoutFormInitialValues => {

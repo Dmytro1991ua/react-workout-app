@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { FieldErrorMessage } from '../../../../components/Input/Input.styled';
 import { colors } from '../../../../global-styles/ColorsPalette';
 
@@ -7,7 +8,6 @@ export const WorkoutFormInput = styled.input`
   padding: 0.3rem 1.1rem;
   font-family: inherit;
   font-size: 1.4rem;
-  border: none;
   border-radius: 3px;
   background-color: ${colors.powderAsh};
   transition: all 0.2s ease-in-out;

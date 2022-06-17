@@ -1,27 +1,27 @@
+import 'leaflet/dist/leaflet.css';
+import '../../../leafletMap/leaflet.css';
+
+import { yupResolver } from '@hookform/resolvers/yup';
+import { LatLngTuple } from 'leaflet';
+import { find } from 'lodash';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { BallTriangle } from 'react-loader-spinner';
 
 import Button from '../../../../components/Button/Button';
-import { WORKOUT_FORM_INITIAL_VALUES, WORKOUT_FORM_VALIDATION_SCHEMA } from './FormValidations.schema';
 import { Select } from '../../../../components/Select/Select';
-import FormInput from '../FormInput/FormInput';
-
-import 'leaflet/dist/leaflet.css';
-import '../../../leafletMap/leaflet.css';
-import { FormAndFallbackMessageWrapper } from '../../CommonStyles.styled';
-import { FieldInputWrapper, FormLabel, FormRow, WorkoutForm } from './Form.styled';
 import { colors } from '../../../../global-styles/ColorsPalette';
-import { WORKOUT_TYPE_SELECTION_OPTIONS_MOCK } from '../../Workouts.constants';
-import { LatLngTuple } from 'leaflet';
-import { WorkoutFormInitialValues, WorkoutType } from './Form.interfaces';
 import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
+import { selectWeatherDetailsBasedWorkoutCoordinates } from '../../../WeatherDetails/WeatherDetails.slice';
+import { FormAndFallbackMessageWrapper } from '../../CommonStyles.styled';
+import { WORKOUT_TYPE_SELECTION_OPTIONS_MOCK } from '../../Workouts.constants';
 import { selectUpdatedWorkout, selectWorkouts, setWorkouts } from '../../Workouts.slice';
 import { createWorkoutItem } from '../../Workouts.utils';
-import { selectWeatherDetailsBasedWorkoutCoordinates } from '../../../WeatherDetails/WeatherDetails.slice';
+import FormInput from '../FormInput/FormInput';
 import { updateWorkoutAction } from './../../Workouts.actions';
-import { find } from 'lodash';
+import { WorkoutFormInitialValues, WorkoutType } from './Form.interfaces';
+import { FieldInputWrapper, FormLabel, FormRow, WorkoutForm } from './Form.styled';
+import { WORKOUT_FORM_INITIAL_VALUES, WORKOUT_FORM_VALIDATION_SCHEMA } from './FormValidations.schema';
 
 interface FormProps {
   onStopPropagation: (e: React.MouseEvent) => void;
@@ -131,7 +131,7 @@ const Form = ({
                 errors={errors}
                 onChange={handleSelectChange}
                 optionLabel='Select workout type:'
-                disabled={!!editableWorkoutItem?.selectedValue}
+                disabled={Boolean(editableWorkoutItem?.selectedValue)}
               />
             </FormRow>
             <FormRow>
@@ -215,7 +215,8 @@ const Form = ({
                 hoverColor='mantisDarker'
                 color='white'
                 onClick={handleSubmit(handleWorkoutFormSubmit)}
-                disabled={isFormShown && selectedValue === ''}>
+                disabled={isFormShown && selectedValue === ''}
+              >
                 {editableWorkoutItemId ? 'Edit workout' : 'Add Workout'}
               </Button>
             </FormRow>

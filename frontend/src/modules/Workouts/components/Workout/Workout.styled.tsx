@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { Heart, HeartFill } from 'styled-icons/bootstrap';
 import { Edit } from 'styled-icons/boxicons-regular';
 import { DeleteDismiss } from 'styled-icons/fluentui-system-filled';
-import { colors } from '../../../../global-styles/ColorsPalette';
 
+import { colors } from '../../../../global-styles/ColorsPalette';
 import { FormAndFallbackMessageWrapper } from '../../CommonStyles.styled';
 
 const CommonIconStyles = `

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
-import { colors } from '../../global-styles/ColorsPalette';
 
+import { colors } from '../../global-styles/ColorsPalette';
 import { CustomInput, FieldErrorMessage } from './Input.styled';
 
 interface InputProps {
@@ -44,7 +44,7 @@ const Input = ({ borderColor, ...inputProps }: InputProps): ReactElement => {
         value={inputProps.value}
         borderColor={changeBorderColorWhenErrorOccurred}
         fullWidth={inputProps.fullWidth}
-        hasError={!!inputProps.error}
+        hasError={Boolean(inputProps.error)}
       />
       {inputProps.error && <FieldErrorMessage>{inputProps.error.message}</FieldErrorMessage>}
     </>

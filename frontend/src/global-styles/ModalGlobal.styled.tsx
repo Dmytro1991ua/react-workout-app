@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { colors } from './ColorsPalette';
 
 export const GlobalModal = styled('section')`

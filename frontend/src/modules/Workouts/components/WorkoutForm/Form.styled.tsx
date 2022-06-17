@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { colors } from '../../../../global-styles/ColorsPalette';
 
 export const WorkoutForm = styled.form`

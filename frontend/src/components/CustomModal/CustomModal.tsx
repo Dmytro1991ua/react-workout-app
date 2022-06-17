@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import Button from '../Button/Button';
 import { GlobalModal, GlobalOverlay } from './../../global-styles/ModalGlobal.styled';
-import { ActionsContainer, CloseButton, ContentWrapper, ModalHeader, Title, ModalWrapper } from './CustomModal.styled';
+import { ActionsContainer, CloseButton, ContentWrapper, ModalHeader, ModalWrapper, Title } from './CustomModal.styled';
 
 interface CustomModalProps {
   children?: React.ReactNode;

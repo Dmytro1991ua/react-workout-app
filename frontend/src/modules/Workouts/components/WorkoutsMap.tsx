@@ -1,17 +1,17 @@
-import { LatLngExpression, LatLngTuple } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import '../../leafletMap/leaflet.css';
+
+import { LatLngExpression, LatLngTuple } from 'leaflet';
 import React, { ReactElement, useEffect } from 'react';
-import { LayersControl, MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
+import { FeatureGroup, LayersControl, MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 
 import useGeolocation from '../../../hooks/useGeolocation';
-import '../../leafletMap/leaflet.css';
-import MapMarker from './MapMarker/MapMarker';
+import { useAppDispatch } from '../../../store/store.hooks';
+import { setClickedMapCoordinates } from '../../Auth/User.slice';
+import { loadWeatherBasedOnWorkoutCoordinatesAction } from '../../WeatherDetails/WorkoutsDetails.actions';
 import { MAP_TILES_DETAILS_CONFIG, ZOOM_LEVEL } from '../Workouts.constants';
 import InitialMapMarker from './MapMarker/InitialMapMarker';
-import { FeatureGroup } from 'react-leaflet';
-import { useAppDispatch } from '../../../store/store.hooks';
-import { loadWeatherBasedOnWorkoutCoordinatesAction } from '../../WeatherDetails/WorkoutsDetails.actions';
-import { setClickedMapCoordinates } from '../../Auth/User.slice';
+import MapMarker from './MapMarker/MapMarker';
 
 interface WorkoutMapProps {
   onShowWorkoutForm: () => void;
@@ -97,7 +97,8 @@ const WorkoutsMap = ({
           closePopupOnClick={false}
           whenCreated={(mapInstance) => {
             setMapRef(mapInstance);
-          }}>
+          }}
+        >
           <LayersControl>
             {MAP_TILES_DETAILS_CONFIG.map((mapTile) => (
               <BaseLayer checked={mapTile.default} name={mapTile.name} key={mapTile.id}>

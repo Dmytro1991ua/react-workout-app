@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import MorningImg from '../../../../assets/weatherWidget/morning-small-min.jpg';
+
 import AfternoonImg from '../../../../assets/weatherWidget/afternoon-small-min.jpg';
 import EveningImg from '../../../../assets/weatherWidget/evening-small-min.jpg';
+import MorningImg from '../../../../assets/weatherWidget/morning-small-min.jpg';
 import { colors } from '../../../../global-styles/ColorsPalette';
 
 function changeBackgroundImageBasedOnCurrentTime() {
@@ -15,8 +16,7 @@ export const WeatherWidgetWrapper = styled('section')`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: linear-gradient(rgba(0, 0, 0, 50%), rgba(0, 0, 0, 50%)),
-    url(${changeBackgroundImageBasedOnCurrentTime});
+  background-image: linear-gradient(rgb(0 0 0 / 50%), rgb(0 0 0 / 50%)), url(${changeBackgroundImageBasedOnCurrentTime});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 53%;

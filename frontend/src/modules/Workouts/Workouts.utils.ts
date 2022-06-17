@@ -1,11 +1,11 @@
-import { WorkoutFormInitialValues, WorkoutType } from './components/WorkoutForm/Form.interfaces';
 import L, { LatLngTuple } from 'leaflet';
 
-import RunningMarker from '../../assets/images/leaflet/running-marker.png';
 import CyclingMarker from '../../assets/images/leaflet/cycling-marker.png';
-import { MONTHS_LIST } from './Workouts.constants';
+import RunningMarker from '../../assets/images/leaflet/running-marker.png';
 import { store } from '../../store/store';
+import { WorkoutFormInitialValues, WorkoutType } from './components/WorkoutForm/Form.interfaces';
 import { createNewWorkoutAction } from './Workouts.actions';
+import { MONTHS_LIST } from './Workouts.constants';
 
 export function workoutMarkerIcon(workoutType: WorkoutType | string) {
   const getWorkoutMarkerBasedOnWorkoutType = workoutType === 'running' ? RunningMarker : CyclingMarker;
