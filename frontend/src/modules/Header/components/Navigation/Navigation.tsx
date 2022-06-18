@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { colors } from '../../../../global-styles/ColorsPalette';
-import { selectIsUserAuthenticated } from '../../../Auth/User.slice';
-import { List, ListItem } from '../../Header.styled';
+import { selectCurrentUser, selectIsUserAuthenticated } from '../../../Auth/User.slice';
+import { List, ListItem, ListLink } from '../../Header.styled';
 import Tooltip from './../../../../components/Tooltip/Tooltip';
 import { useAppSelector } from './../../../../store/store.hooks';
 import { navigationConfig } from './Navigation.config';
@@ -13,23 +13,26 @@ interface NavigationProps {
 }
 
 const Navigation = ({ isOpen }: NavigationProps): ReactElement => {
-  const currentUser = useAppSelector(selectIsUserAuthenticated);
+  const isUserAuthenticated = useAppSelector(selectIsUserAuthenticated);
+  const location = useLocation();
+  const currentUser = useAppSelector(selectCurrentUser);
 
-  const navigationConfigs = navigationConfig(currentUser);
+  const navigationConfigs = navigationConfig(isUserAuthenticated, currentUser?.photoURL as string);
 
   return (
-    <List open={isOpen}>
+    <List open={isOpen} isUserAuthenticated={Boolean(isUserAuthenticated)}>
       {navigationConfigs.map((navLink) => {
         return (
           <ListItem key={navLink && navLink.id}>
-            <Link
+            <ListLink
               key={navLink && navLink.id}
               data-tip={navLink && navLink['data-tip']}
               to={{ pathname: navLink && navLink.url }}
               onClick={navLink && navLink.onClick}
+              isActive={location.pathname === navLink.url}
             >
               {navLink && navLink.navigationIcon}
-            </Link>
+            </ListLink>
             <Tooltip
               effect='solid'
               backgroundColor={colors.mantisDarker}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { SectionsHeading } from './SectionsTitle.styled';
 
@@ -7,7 +7,7 @@ interface SectionsTitleProps {
   color: string;
 }
 
-const SectionsTitle = ({ title, color }: SectionsTitleProps) => {
+const SectionsTitle = ({ title, color }: SectionsTitleProps): ReactElement => {
   return <SectionsHeading style={{ color }}>{title}</SectionsHeading>;
 };
 

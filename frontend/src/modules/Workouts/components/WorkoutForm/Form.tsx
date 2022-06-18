@@ -4,7 +4,7 @@ import '../../../leafletMap/leaflet.css';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LatLngTuple } from 'leaflet';
 import { find } from 'lodash';
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BallTriangle } from 'react-loader-spinner';
 
@@ -43,7 +43,7 @@ const Form = ({
   setIsSubmitted,
   editableWorkoutItemId,
   setEditableWorkoutItemId,
-}: FormProps) => {
+}: FormProps): ReactElement => {
   const availableWorkouts = useAppSelector(selectWorkouts);
   const editableWorkoutItem = useAppSelector(selectUpdatedWorkout(editableWorkoutItemId));
   const dispatch = useAppDispatch();

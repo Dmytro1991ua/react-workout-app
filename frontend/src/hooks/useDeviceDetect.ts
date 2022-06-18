@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 const MOBILE_SCREEN_MAX_WIDTH = 768;
 
-const useDeviceDetect = () => {
+const useDeviceDetect = (): boolean => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {

@@ -14,7 +14,7 @@ interface WorkoutWeatherDetailsProps {
   workoutWeatherDetails: CurrentWeatherData | null;
 }
 
-const WorkoutWeatherDetails = ({ workoutWeatherDetails }: WorkoutWeatherDetailsProps) => {
+const WorkoutWeatherDetails = ({ workoutWeatherDetails }: WorkoutWeatherDetailsProps): JSX.Element => {
   const WEATHER_DETAILS_MODAL_CONFIG: WeatherDetailsItem[] = [
     {
       id: uuidv4(),

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 
 import { CommonSectionsContainer } from './SectionsLayout.styled';
 
@@ -7,7 +7,7 @@ interface SectionsLayoutProps {
   sectionName?: 'Home' | 'Not Found';
 }
 
-const SectionsLayout = ({ children, sectionName }: SectionsLayoutProps) => {
+const SectionsLayout = ({ children, sectionName }: SectionsLayoutProps): ReactElement => {
   return <CommonSectionsContainer sectionName={sectionName}>{children}</CommonSectionsContainer>;
 };
 

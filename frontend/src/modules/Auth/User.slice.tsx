@@ -35,6 +35,8 @@ export const UserSlice = createSlice({
 
 export const selectIsUserAuthenticated = (state: RootState): boolean => Boolean(state?.user?.currentUser);
 
+export const selectCurrentUser = (state: RootState): CurrentUser | null => state.user.currentUser;
+
 export const selectUserLoading = (state: RootState): boolean => state.user.status === 'loading';
 
 export const selectClickedMapCoordinates = (state: RootState): LatLngTuple | null => state.user.clickedMapCoordinates;

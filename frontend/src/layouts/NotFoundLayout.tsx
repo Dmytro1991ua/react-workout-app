@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 
 import { Wrapper } from '../global-styles/Global.styled';
 
@@ -6,7 +6,7 @@ interface NotFoundLayoutProps {
   children?: ReactNode;
 }
 
-const NotFoundLayout = ({ children }: NotFoundLayoutProps) => {
+const NotFoundLayout = ({ children }: NotFoundLayoutProps): ReactElement => {
   return <Wrapper>{children}</Wrapper>;
 };
 

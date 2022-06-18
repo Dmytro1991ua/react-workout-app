@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { AppRoutes } from '../../App.enums';
@@ -14,7 +14,7 @@ import Navigation from './components/Navigation/Navigation';
 import WeatherWidget from './components/WeatherWidget/WeatherWidget';
 import { HeaderSection, HeaderSectionBody, Logo, NavigationWrapper } from './Header.styled';
 
-const Header = () => {
+const Header = (): ReactElement => {
   const weatherBasedOnCurrentLocation = useAppSelector(selectWeatherDetailsBasedOnLocation);
 
   const currentLocation: CurrentLocationData = useGeolocation();
