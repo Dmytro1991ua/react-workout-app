@@ -108,6 +108,10 @@ export const ListLink = styled(Link)<{ isActive?: boolean }>`
   svg {
     fill: ${({ isActive }) => (isActive ? `${colors.white}` : `${colors.mantis}`)};
   }
+
+  img {
+    border: ${({ isActive }) => (isActive ? `2px solid ${colors.white}` : 'none')};
+  }
 `;
 
 export const UserImage = styled('img')<{ isUserAuthenticated: boolean }>`

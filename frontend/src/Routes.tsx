@@ -17,6 +17,7 @@ const ResetPasswordPage = lazy(() => import('./modules/Auth/components/ResetPass
 
 const WorkoutsPage = lazy(() => import('./modules/Workouts/Workouts'));
 const NotFoundPage = lazy(() => import('./modules/NotFoundPage/NotFoundPage'));
+const ProfilePage = lazy(() => import('./modules/Profile/Profile'));
 
 const Routes = (): ReactElement => {
   return (
@@ -31,6 +32,7 @@ const Routes = (): ReactElement => {
             AppRoutes.ResetPassword,
             AppRoutes.SignUp,
             AppRoutes.Workouts,
+            AppRoutes.Profile,
           ]}
         >
           <Suspense fallback={<SectionLoader />}>
@@ -40,6 +42,7 @@ const Routes = (): ReactElement => {
             <MainComponentsRoutes exact path={AppRoutes.ResetPassword} component={ResetPasswordPage} />
             <MainComponentsRoutes exact path={AppRoutes.SignUp} component={SignUpPage} />
             <PrivateRoute exact path={AppRoutes.Workouts} component={WorkoutsPage} />
+            <PrivateRoute exact path={AppRoutes.Profile} component={ProfilePage} />
           </Suspense>
         </Route>
         <Suspense fallback={<Preloader />}>
