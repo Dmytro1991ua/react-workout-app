@@ -1,4 +1,6 @@
+import { LogIn } from '@styled-icons/boxicons-regular';
 import { Dumbbell } from '@styled-icons/fluentui-system-filled/Dumbbell';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { LogOut } from 'styled-icons/boxicons-regular';
 import { Home } from 'styled-icons/entypo';
@@ -10,6 +12,7 @@ const CommonNavigationIconStyles = `
   fill: ${colors.mantis};
   width: 3rem;
   transition: all 0.3s ease-in-out;
+  margin-right: 3rem;
 
   :hover {
     fill: ${colors.white};
@@ -60,7 +63,7 @@ export const NavigationWrapper = styled('div')`
 `;
 
 // Navigation
-export const List = styled('ul')<{ open?: boolean }>`
+export const List = styled('ul')<{ open?: boolean; isUserAuthenticated: boolean }>`
   position: absolute;
   top: 6.2rem;
   left: 0;
@@ -68,20 +71,18 @@ export const List = styled('ul')<{ open?: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: ${({ isUserAuthenticated }) => (isUserAuthenticated ? 'center' : 'flex-start')};
   background-color: ${colors.lighterBlue};
   border-right: 5px solid ${colors.mantis};
   padding: 7rem 2rem 2rem;
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-200%)')};
   transition: all 0.3s ease-in-out;
-  margin-right: 2rem;
 
   @media (min-width: 48em) {
     position: relative;
     top: 0;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
     height: auto;
     background-color: transparent;
     border-right: 5px solid transparent;
@@ -91,27 +92,48 @@ export const List = styled('ul')<{ open?: boolean }>`
   }
 `;
 
-export const ListItem = styled.li`
+export const ListItem = styled('li')`
   &:not(:last-child) {
-    margin-bottom: 2rem;
+    margin-bottom: 0;
   }
 
   @media (min-width: 48em) {
     &:not(:last-child) {
-      margin-right: 3rem;
       margin-bottom: 0;
     }
   }
 `;
 
-export const CustomDumbbellIcon = styled(Dumbbell)`
+export const ListLink = styled(Link)<{ isActive?: boolean }>`
+  svg {
+    fill: ${({ isActive }) => (isActive ? `${colors.white}` : `${colors.mantis}`)};
+  }
+`;
+
+export const UserImage = styled('img')<{ isUserAuthenticated: boolean }>`
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 2rem;
+  display: ${({ isUserAuthenticated }) => (isUserAuthenticated ? 'block' : 'none')};
+`;
+
+export const CustomDumbbellIcon = styled(Dumbbell)<{ isUserAuthenticated?: boolean }>`
   ${CommonNavigationIconStyles}
+  display: ${({ isUserAuthenticated }) => (isUserAuthenticated ? 'block' : 'none')};
 `;
 
 export const CustomHomeIcon = styled(Home)`
   ${CommonNavigationIconStyles}
 `;
 
-export const CustomLogoutIcon = styled(LogOut)`
+export const CustomLogoutIcon = styled(LogOut)<{ isUserAuthenticated?: boolean }>`
   ${CommonNavigationIconStyles}
+  display: ${({ isUserAuthenticated }) => (isUserAuthenticated ? 'block' : 'none')};
+`;
+
+export const CustomLoginIcon = styled(LogIn)<{ isUserAuthenticated?: boolean }>`
+  ${CommonNavigationIconStyles}
+  display: ${({ isUserAuthenticated }) => (isUserAuthenticated ? 'none' : 'block')};
 `;

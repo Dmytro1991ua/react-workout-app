@@ -1,5 +1,5 @@
 import { LatLngExpression } from 'leaflet';
-import React, { useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { Marker, Popup, useMap } from 'react-leaflet';
 
 import { INITIAL_MAP_MARKER } from '../../Workouts.constants';
@@ -8,7 +8,7 @@ interface InitialMapMarkerProps {
   position: LatLngExpression;
 }
 
-const InitialMapMarker = ({ position }: InitialMapMarkerProps) => {
+const InitialMapMarker = ({ position }: InitialMapMarkerProps): ReactElement => {
   const workoutMap = useMap();
 
   const [marker, setMarker] = useState<L.Marker<any> | null>(null);

@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { ReactElement } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Bars } from 'react-loader-spinner';
 
@@ -10,7 +11,7 @@ import { authService } from '../../Auth.service';
 import { FORGOT_PASSWORD_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
 import { Form, FormBody, FormDetails, FormLink, FormSection, FormSectionTitle } from '../LoginForm/Login.styled';
 
-const ForgotPassword = () => {
+const ForgotPassword = (): ReactElement => {
   const {
     handleSubmit,
     register,

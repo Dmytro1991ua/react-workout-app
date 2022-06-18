@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, ReactElement, Suspense } from 'react';
 import { Route, Router, Switch } from 'react-router-dom';
 
 import { AppRoutes } from './App.enums';
@@ -18,7 +18,7 @@ const ResetPasswordPage = lazy(() => import('./modules/Auth/components/ResetPass
 const WorkoutsPage = lazy(() => import('./modules/Workouts/Workouts'));
 const NotFoundPage = lazy(() => import('./modules/NotFoundPage/NotFoundPage'));
 
-const Routes = () => {
+const Routes = (): ReactElement => {
   return (
     <Router history={history}>
       <Switch>

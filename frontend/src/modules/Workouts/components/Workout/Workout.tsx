@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 import CustomModal from '../../../../components/CustomModal/CustomModal';
 import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
@@ -23,7 +23,7 @@ const Workout = ({
   isFormShown,
   setEditableWorkoutItemId,
   workoutMap,
-}: WorkoutProps) => {
+}: WorkoutProps): ReactElement => {
   const availableWorkouts = useAppSelector(selectWorkouts);
   const dispatch = useAppDispatch();
 

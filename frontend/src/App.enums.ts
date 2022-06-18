@@ -4,5 +4,6 @@ export enum AppRoutes {
   ForgotPassword = '/auth/forgot-password',
   ResetPassword = '/auth/reset-password',
   Workouts = '/workouts',
+  Profile = '/profile',
   Home = '/',
 }

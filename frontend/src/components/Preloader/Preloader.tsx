@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { Loader, PreloaderContainer } from './Preloade.styled';
 
-const Preloader = () => {
+const Preloader = (): ReactElement => {
   return (
     <PreloaderContainer>
       <Loader />

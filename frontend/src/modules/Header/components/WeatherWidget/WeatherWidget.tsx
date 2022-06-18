@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 
 import useDeviceDetect from '../../../../hooks/useDeviceDetect';
 import { kelvinToCelsius } from '../../../Workouts/Workouts.utils';
@@ -17,7 +17,7 @@ interface WeatherWidgetProps {
   currentWeather: CurrentWeatherData | null;
 }
 
-const WeatherWidget = ({ currentWeather }: WeatherWidgetProps) => {
+const WeatherWidget = ({ currentWeather }: WeatherWidgetProps): ReactElement => {
   const isMobileScreen = useDeviceDetect();
 
   const [timeValue, setTimeValue] = useState<string | null>(null);
