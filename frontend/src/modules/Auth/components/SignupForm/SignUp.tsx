@@ -1,10 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { ReactElement, useState } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Audio } from 'react-loader-spinner';
 
 import { AppRoutes } from '../../../../App.enums';
 import { colors } from '../../../../global-styles/ColorsPalette';
+import { SignUpInitialValues } from '../../Auth.interfaces';
 import { authService } from '../../Auth.service';
 import { SIGN_UP_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
 import { Form, FormDetails, FormSection, FormSectionTitle, FormSubmitBtn } from '../LoginForm/Login.styled';
@@ -17,14 +18,14 @@ const SignUp = (): ReactElement => {
     register,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<FieldValues>({
+  } = useForm<SignUpInitialValues>({
     mode: 'onBlur',
     resolver: yupResolver(SIGN_UP_VALIDATION_SCHEMA),
   });
 
   const [isSignInViaGoogleLoading, setIsSignInViaGoogleLoading] = useState<boolean>(false);
 
-  async function handleSignUpSubmit(formData: FieldValues): Promise<void> {
+  async function handleSignUpSubmit(formData: SignUpInitialValues): Promise<void> {
     const { email, password } = formData;
 
     await authService.signUp(email, password);
@@ -52,11 +53,11 @@ const SignUp = (): ReactElement => {
           <Form>
             <SignUpBody>
               <FormDetails>
-                <Input
+                <Input<SignUpInitialValues>
                   type='email'
                   name='email'
                   register={register}
-                  error={errors.email}
+                  errors={errors}
                   id='email'
                   placeholder='Email*'
                   isRequired
@@ -70,7 +71,7 @@ const SignUp = (): ReactElement => {
                   id='password'
                   name='password'
                   register={register}
-                  error={errors.password}
+                  errors={errors}
                   placeholder='Password*'
                   isRequired
                   borderColor='lighterBlue'
@@ -84,7 +85,7 @@ const SignUp = (): ReactElement => {
                   placeholder='Confirm Password*'
                   name='confirmedPassword'
                   register={register}
-                  error={errors.confirmedPassword}
+                  errors={errors}
                   isRequired
                   borderColor='lighterBlue'
                   fullWidth

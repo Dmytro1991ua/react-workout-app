@@ -24,7 +24,7 @@
     "@types/styled-components": "^5.1.16",
     "@types/swiper": "^5.4.3",
     "axios": "^0.21.1",
-    "firebase": "^8.3.1",
+    "firebase": "^9.8.4", 
     "leaflet": "^1.7.1",
     "lodash": "^4.17.21",
     "node-sass": "^5.0.0",

@@ -7,3 +7,10 @@ export interface NavigationConfiguration {
   ['data-tip']: string;
   onClick?: () => void;
 }
+
+export interface NavigationConfigsProps {
+  authenticatedUser: boolean;
+  photoUrl: string;
+  imageSrc: string;
+  onSetImageSrc: (value: string) => void;
+}

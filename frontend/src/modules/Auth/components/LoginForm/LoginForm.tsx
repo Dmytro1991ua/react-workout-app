@@ -1,11 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { ReactElement, useState } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { BallTriangle } from 'react-loader-spinner';
 
 import { AppRoutes } from '../../../../App.enums';
 import Input from '../../../../components/Input/Input';
 import { colors } from '../../../../global-styles/ColorsPalette';
+import { LoginInitialValues } from '../../Auth.interfaces';
 import { authService } from '../../Auth.service';
 import { LOGIN_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
 import { Form, FormBody, FormDetails, FormLink, FormSection, FormSectionTitle, FormSubmitBtn } from './Login.styled';
@@ -16,14 +17,14 @@ const LoginForm = (): ReactElement => {
     register,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm({
+  } = useForm<LoginInitialValues>({
     mode: 'onBlur',
     resolver: yupResolver(LOGIN_VALIDATION_SCHEMA),
   });
 
   const [isSignInViaGoogleLoading, setIsSignInViaGoogleLoading] = useState<boolean>(false);
 
-  async function handleFromSubmit(formData: FieldValues): Promise<void> {
+  async function handleFormSubmit(formData: LoginInitialValues): Promise<void> {
     const { email, password } = formData;
 
     await authService.login(email, password);
@@ -51,11 +52,11 @@ const LoginForm = (): ReactElement => {
           <Form>
             <FormBody>
               <FormDetails>
-                <Input
+                <Input<LoginInitialValues>
                   type='email'
                   id='email'
                   register={register}
-                  error={errors.email}
+                  errors={errors}
                   name='email'
                   placeholder='Email*'
                   isRequired
@@ -68,7 +69,7 @@ const LoginForm = (): ReactElement => {
                   type='password'
                   id='password'
                   register={register}
-                  error={errors.password}
+                  errors={errors}
                   name='password'
                   placeholder='Password*'
                   isRequired
@@ -82,7 +83,7 @@ const LoginForm = (): ReactElement => {
                 backgroundColor='mantisDarker'
                 hoverColor='mantis'
                 color='white'
-                onClick={handleSubmit(handleFromSubmit)}
+                onClick={handleSubmit(handleFormSubmit)}
               >
                 Sign In
               </FormSubmitBtn>

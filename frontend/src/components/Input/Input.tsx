@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
+import { DeepMap, FieldError, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
 import { colors } from '../../global-styles/ColorsPalette';
 import { CustomInput, FieldErrorMessage } from './Input.styled';
@@ -7,7 +7,7 @@ import { CustomInput, FieldErrorMessage } from './Input.styled';
 interface InputProps {
   value?: string | number;
   id?: string;
-  type?: 'text' | 'number' | 'password' | 'email';
+  type?: 'text' | 'number' | 'password' | 'email' | 'file';
   name?: string;
   min?: number;
   max?: number;
@@ -19,17 +19,26 @@ interface InputProps {
   isRequired?: boolean;
   borderColor?: keyof MainPalette;
   fullWidth?: boolean;
-  register?: ReturnType<typeof useForm>['register'];
-  error?: FieldErrors<FieldValues>;
 }
 
-const Input = ({ borderColor, ...inputProps }: InputProps): ReactElement => {
-  const getBorderColorBasedOnProps = borderColor && colors[borderColor];
-  const changeBorderColorWhenErrorOccurred = inputProps.error ? colors.tomato : getBorderColorBasedOnProps;
+type FormInputProps<TFormValues> = {
+  name: Path<TFormValues>;
+  rules?: RegisterOptions;
+  register?: UseFormRegister<TFormValues>;
+  errors?: Partial<DeepMap<TFormValues, FieldError>>;
+} & Omit<InputProps, 'name'>;
 
+const Input = <TFormValues extends Record<string, unknown>>({
+  borderColor,
+  ...inputProps
+}: FormInputProps<TFormValues>): ReactElement => {
+  const getBorderColorBasedOnProps = borderColor && colors[borderColor];
+  const inputFieldError = inputProps.errors && inputProps.errors[inputProps.name];
+  const changeBorderColorWhenErrorOccurred = inputFieldError ? colors.tomato : getBorderColorBasedOnProps;
   const getFormFieldByNameProp = {
     ...(inputProps.register && inputProps.register(inputProps.name ?? '', { required: inputProps.isRequired })),
   };
+  const errorMessage = inputProps.errors && inputProps.errors[inputProps.name]?.message;
 
   return (
     <>
@@ -44,9 +53,10 @@ const Input = ({ borderColor, ...inputProps }: InputProps): ReactElement => {
         value={inputProps.value}
         borderColor={changeBorderColorWhenErrorOccurred}
         fullWidth={inputProps.fullWidth}
-        hasError={Boolean(inputProps.error)}
+        hasError={inputFieldError}
+        disabled={inputProps.disabled}
       />
-      {inputProps.error && <FieldErrorMessage>{inputProps.error.message}</FieldErrorMessage>}
+      {inputProps.errors && <FieldErrorMessage>{errorMessage}</FieldErrorMessage>}
     </>
   );
 };

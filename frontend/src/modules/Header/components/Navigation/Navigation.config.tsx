@@ -1,8 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { AppRoutes } from '../../../../App.enums';
+import { AppRoutes, UserImageSize } from '../../../../App.enums';
+import FallbackImage from '../../../../components/FallbackImage/FallbackImage';
 import { authService } from '../../../Auth/Auth.service';
-import { CustomDumbbellIcon, CustomHomeIcon, CustomLoginIcon, CustomLogoutIcon, UserImage } from '../../Header.styled';
+import { CustomDumbbellIcon, CustomHomeIcon, CustomLoginIcon, CustomLogoutIcon } from '../../Header.styled';
 import { NavigationConfiguration } from './Navigation.interface';
 
 export function navigationConfig(isUserAuthenticated: boolean, userPhoto: string): NavigationConfiguration[] {
@@ -36,7 +37,14 @@ export function navigationConfig(isUserAuthenticated: boolean, userPhoto: string
     },
     {
       id: uuidv4(),
-      navigationIcon: <UserImage src={userPhoto} alt='User Image' isUserAuthenticated={Boolean(isUserAuthenticated)} />,
+      navigationIcon: (
+        <FallbackImage
+          imageUrl={userPhoto}
+          size={UserImageSize.Small}
+          altText="User's profile photo"
+          isUserAuthenticated={Boolean(isUserAuthenticated)}
+        />
+      ),
       url: AppRoutes.Profile,
       'data-tip': 'Profile',
     },

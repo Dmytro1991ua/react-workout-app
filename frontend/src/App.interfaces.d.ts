@@ -84,6 +84,8 @@ declare interface WorkoutFallbackMessage {
   hasWorkouts: boolean;
 }
 
+declare type User = firebase.User;
+
 declare interface CurrentUser {
   uid: string;
   name: string | null;

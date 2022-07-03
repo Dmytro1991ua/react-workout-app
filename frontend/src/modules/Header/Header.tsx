@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
 import { AppRoutes } from '../../App.enums';
 import LogoImg from '../../assets/images/logo.png';
+import useGeolocation from '../../cdk/hooks/useGeolocation';
 import Tooltip from '../../components/Tooltip/Tooltip';
 import { colors } from '../../global-styles/ColorsPalette';
 import { Container } from '../../global-styles/Global.styled';
-import useGeolocation from '../../hooks/useGeolocation';
 import { useAppSelector } from '../../store/store.hooks';
 import { selectWeatherDetailsBasedOnLocation } from '../WeatherDetails/WeatherDetails.slice';
 import BurgerIcon from './components/BurgerIcon/BurgerIcon';

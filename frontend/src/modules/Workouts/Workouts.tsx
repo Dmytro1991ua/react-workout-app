@@ -4,8 +4,8 @@ import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { Bars } from 'react-loader-spinner';
 import { v4 as uuidv4 } from 'uuid';
 
+import useGeolocation from '../../cdk/hooks/useGeolocation';
 import { colors } from '../../global-styles/ColorsPalette';
-import useGeolocation from '../../hooks/useGeolocation';
 import { useAppSelector } from '../../store/store.hooks';
 import { selectClickedMapCoordinates } from '../Auth/User.slice';
 import FallbackMessage from './components/FallbackMessage/FallbackMessage';

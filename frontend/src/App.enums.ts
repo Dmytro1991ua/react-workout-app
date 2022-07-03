@@ -7,3 +7,9 @@ export enum AppRoutes {
   Profile = '/profile',
   Home = '/',
 }
+
+export enum UserImageSize {
+  Small = 's',
+  Medium = 'm',
+  Large = 'l',
+}

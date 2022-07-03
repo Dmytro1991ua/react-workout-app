@@ -1,16 +1,18 @@
-export interface LoginInitialValues {
+export type LoginInitialValues = {
   email: string;
   password: string;
-}
+};
 
-export interface SignUpInitialValues extends LoginInitialValues {
-  confirmedPassword: string;
-}
-
-export interface ForgotPasswordInitialValues {
+export type SignUpInitialValues = {
   email: string;
-}
+  password: string;
+  confirmedPassword: string;
+};
 
-export interface ResetPasswordInitialValues {
+export type ForgotPasswordInitialValues = {
+  email: string;
+};
+
+export type ResetPasswordInitialValues = {
   newPassword: string;
-}
+};
