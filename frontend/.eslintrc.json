@@ -44,9 +44,9 @@
     ],
     "no-duplicate-imports": "error",
     "no-console": [
-      "error",
+      "warn",
       {
-        "allow": ["warn", "error"]
+        "allow": ["warn", "error", "log"]
       }
     ],
     "@typescript-eslint/no-explicit-any": ["off"],

@@ -66,8 +66,30 @@ const getUser = asyncHandler(async (req, res, next) => {
   }
 });
 
+// @desc Update user name and photoUrl inside profile page
+// @route POST /api/users/profile
+// @access Private
+
+const updateUserProfile = asyncHandler(async (req, res) => {
+  const user = req.currentUser;
+
+  console.log(req.body);
+
+  try {
+    const update = { name: req.body.name, photoURL: req.body.photoURL };
+    const filter = { uid: user.uid };
+    const updatedDocument = await User.findOneAndUpdate(filter, update, { new: true });
+
+    return res.status(200).send(updatedDocument);
+  } catch (err) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
 module.exports = {
   getUser,
   createNewUser,
   updateNewUser,
+  updateUserProfile,
 };

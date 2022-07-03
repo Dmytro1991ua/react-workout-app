@@ -114,15 +114,6 @@ export const ListLink = styled(Link)<{ isActive?: boolean }>`
   }
 `;
 
-export const UserImage = styled('img')<{ isUserAuthenticated: boolean }>`
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 2rem;
-  display: ${({ isUserAuthenticated }) => (isUserAuthenticated ? 'block' : 'none')};
-`;
-
 export const CustomDumbbellIcon = styled(Dumbbell)<{ isUserAuthenticated?: boolean }>`
   ${CommonNavigationIconStyles}
   display: ${({ isUserAuthenticated }) => (isUserAuthenticated ? 'block' : 'none')};

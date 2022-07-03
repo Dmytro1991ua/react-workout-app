@@ -1,6 +1,8 @@
-import 'firebase/auth';
+import 'firebase/compat/auth';
 
-import firebase from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import firebase from 'firebase/compat/app';
+import { getStorage } from 'firebase/storage';
 
 // create and initializes a Firebase app instance
 const app = firebase.initializeApp({
@@ -13,6 +15,7 @@ const app = firebase.initializeApp({
 });
 
 //get auth instance from firebase
-export const auth = app.auth();
+export const auth = getAuth(app);
+export const storage = getStorage(app, process.env.REACT_APP_STORAGE_BUCKET);
 
 export default app;

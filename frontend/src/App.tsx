@@ -1,7 +1,8 @@
+import { getIdToken, onAuthStateChanged } from 'firebase/auth';
 import React, { ReactElement, useCallback, useEffect } from 'react';
 
+import useGeolocation from './cdk/hooks/useGeolocation';
 import { auth } from './firebase';
-import useGeolocation from './hooks/useGeolocation';
 import { authService } from './modules/Auth/Auth.service';
 import { selectIsUserAuthenticated, setLoadingStatus, setUser } from './modules/Auth/User.slice';
 import { loadWeatherBasedOnCurrentLocationAction } from './modules/WeatherDetails/WorkoutsDetails.actions';
@@ -18,11 +19,11 @@ function App(): ReactElement {
   const setCurrentUser = useCallback(() => {
     dispatch(setLoadingStatus('loading'));
 
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(setLoadingStatus('loading'));
 
-        user.getIdToken().then(async (token) => {
+        getIdToken(user).then(async (token) => {
           authService.setToken(token);
 
           authService.validateUser().then((user) => {

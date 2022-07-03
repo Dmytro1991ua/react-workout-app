@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import useDeviceDetect from '../../../../hooks/useDeviceDetect';
+import useDeviceDetect from '../../../../cdk/hooks/useDeviceDetect';
 import { kelvinToCelsius } from '../../../Workouts/Workouts.utils';
 import {
   CityWeatherLabel,

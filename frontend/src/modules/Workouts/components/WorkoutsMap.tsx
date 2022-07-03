@@ -5,7 +5,7 @@ import { LatLngExpression, LatLngTuple } from 'leaflet';
 import React, { ReactElement, useEffect } from 'react';
 import { FeatureGroup, LayersControl, MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 
-import useGeolocation from '../../../hooks/useGeolocation';
+import useGeolocation from '../../../cdk/hooks/useGeolocation';
 import { useAppDispatch } from '../../../store/store.hooks';
 import { setClickedMapCoordinates } from '../../Auth/User.slice';
 import { loadWeatherBasedOnWorkoutCoordinatesAction } from '../../WeatherDetails/WorkoutsDetails.actions';

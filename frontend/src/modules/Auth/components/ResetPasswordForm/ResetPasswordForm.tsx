@@ -1,11 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { ReactElement } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Circles } from 'react-loader-spinner';
 
+import { useQueryParams } from '../../../../cdk/hooks/useQueryParams';
 import Button from '../../../../components/Button/Button';
 import { colors } from '../../../../global-styles/ColorsPalette';
-import { useQueryParams } from '../../../../hooks/useQueryParams';
+import { ResetPasswordInitialValues } from '../../Auth.interfaces';
 import { authService } from '../../Auth.service';
 import { RESET_PASSWORD_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
 import { Form, FormBody, FormDetails, FormSection, FormSectionTitle } from '../LoginForm/Login.styled';
@@ -17,14 +18,14 @@ const ResetPasswordForm = (): ReactElement => {
     register,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm({
+  } = useForm<ResetPasswordInitialValues>({
     mode: 'onBlur',
     resolver: yupResolver(RESET_PASSWORD_VALIDATION_SCHEMA),
   });
 
   const queryParams = useQueryParams();
 
-  async function handleForgotPasswordFormSubmit(formData: FieldValues): Promise<void> {
+  async function handleForgotPasswordFormSubmit(formData: ResetPasswordInitialValues): Promise<void> {
     const { newPassword } = formData;
 
     const getOobCodeFromUrl = queryParams.get('oobCode');
@@ -46,11 +47,11 @@ const ResetPasswordForm = (): ReactElement => {
           <Form onSubmit={handleSubmit(handleForgotPasswordFormSubmit)}>
             <FormBody>
               <FormDetails>
-                <Input
+                <Input<ResetPasswordInitialValues>
                   type='password'
                   id='newPassword'
                   register={register}
-                  error={errors.newPassword}
+                  errors={errors}
                   name='newPassword'
                   placeholder='New Password*'
                   isRequired

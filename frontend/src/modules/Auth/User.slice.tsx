@@ -29,6 +29,10 @@ export const UserSlice = createSlice({
     setLoadingStatus: (state, action: PayloadAction<Status>) => {
       state.status = action.payload;
     },
+    setUpdateUser: (state, action) => {
+      state.currentUser = { ...state.currentUser, ...action.payload };
+      state.status = action.payload ? 'idle' : 'failed';
+    },
     clearUser: () => initialState,
   },
 });
@@ -41,6 +45,6 @@ export const selectUserLoading = (state: RootState): boolean => state.user.statu
 
 export const selectClickedMapCoordinates = (state: RootState): LatLngTuple | null => state.user.clickedMapCoordinates;
 
-export const { setUser, clearUser, setClickedMapCoordinates, setLoadingStatus } = UserSlice.actions;
+export const { setUser, clearUser, setClickedMapCoordinates, setLoadingStatus, setUpdateUser } = UserSlice.actions;
 
 export default UserSlice.reducer;

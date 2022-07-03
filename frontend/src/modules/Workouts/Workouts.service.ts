@@ -1,4 +1,4 @@
-import { AXIOS_CONFIG } from '../../config/axiosConfig';
+import { AXIOS_CONFIG } from '../../cdk/config/axiosConfig';
 
 class WorkoutsService {
   async getAvailableWorkouts(): Promise<WorkoutItem[]> {

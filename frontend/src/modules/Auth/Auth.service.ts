@@ -1,10 +1,21 @@
-import firebase from 'firebase';
+import {
+  confirmPasswordReset,
+  createUserWithEmailAndPassword,
+  getIdToken,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from 'firebase/auth';
+import firebase from 'firebase/compat';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 
 import { AppRoutes } from '../../App.enums';
-import { AXIOS_CONFIG } from '../../config/axiosConfig';
-import { auth } from '../../firebase';
+import { AXIOS_CONFIG } from '../../cdk/config/axiosConfig';
+import { auth, storage } from '../../firebase';
 import history from '../../services/History.service';
 import { toastService } from '../../services/Toast.service';
+import { store } from '../../store/store';
+import { UpdateUserInformation } from '../Profile/Profile.interfaces';
 import { appLifeCycleService } from './../../services/AppLifeCycle.service';
 import {
   SUCCESSFUL_FORGOT_PASSWORD_MESSAGE,
@@ -13,11 +24,12 @@ import {
   SUCCESSFUL_SIGN_IN_VIA_GOOGLE_MESSAGE,
   SUCCESSFUL_SIGN_UP_MESSAGE,
 } from './Auth.constants';
+import { setUpdateUser } from './User.slice';
 
 class AuthService {
   async signUp(email: string, password: string): Promise<void> {
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
       history.push(AppRoutes.Login);
       toastService.success(SUCCESSFUL_SIGN_UP_MESSAGE);
     } catch (error) {
@@ -27,8 +39,8 @@ class AuthService {
 
   async login(email: string, password: string): Promise<void> {
     try {
-      const userData = await auth.signInWithEmailAndPassword(email, password);
-      const token = await userData?.user?.getIdToken(true);
+      const userData = await signInWithEmailAndPassword(auth, email, password);
+      const token = await getIdToken(userData?.user);
 
       if (token) {
         this.setToken(token);
@@ -55,7 +67,7 @@ class AuthService {
 
   async forgotPassword(email: string): Promise<void> {
     try {
-      await auth.sendPasswordResetEmail(email);
+      await sendPasswordResetEmail(auth, email);
       toastService.success(SUCCESSFUL_FORGOT_PASSWORD_MESSAGE);
     } catch (error) {
       toastService.error((error as Error).message);
@@ -64,7 +76,7 @@ class AuthService {
 
   async resetPassword(oobCode: string, newPassword: string): Promise<void> {
     try {
-      await auth.confirmPasswordReset(oobCode, newPassword);
+      await confirmPasswordReset(auth, oobCode, newPassword);
       history.push(AppRoutes.Login);
       toastService.success(SUCCESSFUL_FORGOT_PASSWORD_MESSAGE);
     } catch (error) {
@@ -74,8 +86,8 @@ class AuthService {
 
   async signInViaGoogle(): Promise<void> {
     try {
-      const userData = await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-      const token = await userData?.user?.getIdToken(true);
+      const userData = await signInWithPopup(auth, new firebase.auth.GoogleAuthProvider());
+      const token = await getIdToken(userData?.user);
 
       if (token) {
         this.setToken(token);
@@ -91,6 +103,49 @@ class AuthService {
   async validateUser(): Promise<CurrentUser | null> {
     try {
       const resp = await AXIOS_CONFIG.get('/api/users/me');
+
+      if (!resp.data) {
+        return null;
+      }
+
+      return resp.data;
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  }
+
+  async uploadFile(image: any, setProgress: (value: number) => void): Promise<void> {
+    try {
+      const currentUser = auth?.currentUser as User;
+      const imageRef = ref(storage, `usersImages/${currentUser?.uid}/${image.name}`);
+
+      const uploadTask = uploadBytesResumable(imageRef, image);
+
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const percentUploaded = Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+
+          setProgress(percentUploaded);
+        },
+        (error) => {
+          toastService.error((error as Error).message);
+        },
+        async () => {
+          const url = await getDownloadURL(uploadTask.snapshot.ref);
+          store.dispatch(setUpdateUser({ photoURL: url }));
+          setProgress(0);
+        }
+      );
+    } catch (error) {
+      toastService.error('Failed to upload image');
+      throw new Error((error as Error).message);
+    }
+  }
+
+  async updateUserData(userData: UpdateUserInformation): Promise<UpdateUserInformation | null> {
+    try {
+      const resp = await AXIOS_CONFIG.post('/api/users/profile', userData);
 
       if (!resp.data) {
         return null;
