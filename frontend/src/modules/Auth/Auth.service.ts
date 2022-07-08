@@ -1,10 +1,14 @@
 import {
   confirmPasswordReset,
   createUserWithEmailAndPassword,
+  EmailAuthProvider,
   getIdToken,
+  reauthenticateWithCredential,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
+  updatePassword,
+  UserCredential,
 } from 'firebase/auth';
 import firebase from 'firebase/compat';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
@@ -18,8 +22,10 @@ import { store } from '../../store/store';
 import { UpdateUserInformation } from '../Profile/Profile.interfaces';
 import { appLifeCycleService } from './../../services/AppLifeCycle.service';
 import {
+  FAILED_PASSWORD_CHANGED_MESSAGE,
   SUCCESSFUL_FORGOT_PASSWORD_MESSAGE,
   SUCCESSFUL_LOGOUT_MESSAGE,
+  SUCCESSFUL_PASSWORD_CHANGED_MESSAGE,
   SUCCESSFUL_SIGN_IN_MESSAGE,
   SUCCESSFUL_SIGN_IN_VIA_GOOGLE_MESSAGE,
   SUCCESSFUL_SIGN_UP_MESSAGE,
@@ -153,6 +159,34 @@ class AuthService {
 
       return resp.data;
     } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  }
+
+  async userReauthentication(currentPassword: string): Promise<UserCredential> {
+    try {
+      const currentUser = auth?.currentUser as User;
+      const userCredentials = EmailAuthProvider.credential(currentUser.email, currentPassword);
+
+      return reauthenticateWithCredential(currentUser, userCredentials);
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  }
+
+  async changeUserPassword(currentPassword: string, newPassword: string) {
+    try {
+      const currentUser = auth?.currentUser as User;
+      const userReauthenticated = await this.userReauthentication(currentPassword);
+
+      if (userReauthenticated) {
+        await updatePassword(currentUser, newPassword);
+      }
+
+      history.push(AppRoutes.Home);
+      toastService.success(SUCCESSFUL_PASSWORD_CHANGED_MESSAGE);
+    } catch (error) {
+      toastService.error(FAILED_PASSWORD_CHANGED_MESSAGE);
       throw new Error((error as Error).message);
     }
   }

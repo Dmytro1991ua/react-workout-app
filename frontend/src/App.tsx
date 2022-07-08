@@ -4,7 +4,8 @@ import React, { ReactElement, useCallback, useEffect } from 'react';
 import useGeolocation from './cdk/hooks/useGeolocation';
 import { auth } from './firebase';
 import { authService } from './modules/Auth/Auth.service';
-import { selectIsUserAuthenticated, setLoadingStatus, setUser } from './modules/Auth/User.slice';
+import { validateUserAction } from './modules/Auth/User.actions';
+import { selectIsUserAuthenticated, setLoadingStatus } from './modules/Auth/User.slice';
 import { loadWeatherBasedOnCurrentLocationAction } from './modules/WeatherDetails/WorkoutsDetails.actions';
 import { loadAvailableWorkoutsAction } from './modules/Workouts/Workouts.actions';
 import Routes from './Routes';
@@ -17,32 +18,19 @@ function App(): ReactElement {
   const isUserAuthenticated = useAppSelector(selectIsUserAuthenticated);
 
   const setCurrentUser = useCallback(() => {
-    dispatch(setLoadingStatus('loading'));
-
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(setLoadingStatus('loading'));
 
         getIdToken(user).then(async (token) => {
           authService.setToken(token);
-
-          authService.validateUser().then((user) => {
-            if (user) {
-              dispatch(
-                setUser({
-                  uid: user.uid,
-                  name: user.name,
-                  email: user.email,
-                  photoURL: user.photoURL,
-                  phoneNumber: user.phoneNumber,
-                  emailVerified: user.emailVerified,
-                })
-              );
-            }
-          });
         });
+
+        const userFirebaseProviders: string[] = user.providerData.map((item) => item.providerId);
+
+        dispatch(validateUserAction(userFirebaseProviders));
       } else {
-        dispatch(setUser(null));
+        dispatch(setLoadingStatus('failed'));
       }
     });
 

@@ -93,6 +93,7 @@ declare interface CurrentUser {
   photoURL: string | null;
   phoneNumber?: string | null;
   emailVerified?: boolean;
+  firebaseProvider?: string[];
 }
 
 declare type Status = 'loading' | 'idle' | 'failed';
