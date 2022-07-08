@@ -6,15 +6,15 @@ import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
 import { authService } from '../../../Auth/Auth.service';
 import { updateUserDataAction } from '../../../Auth/User.actions';
 import { selectCurrentUser } from '../../../Auth/User.slice';
-import ProfileFormFields from '../ProfileFormFields/ProfileFormFields';
 import {
-  PROFILE_SETTINGS_FORM_INITIAL_VALUES,
-  PROFILE_SETTINGS_FORM_VALIDATION_SCHEMA,
-} from '../ProfileFormFields/ProfileFormFields.schema';
+  PROFILE_USER_INFORMATION_FORM_INITIAL_VALUES,
+  PROFILE_USER_INFORMATION_FORM_VALIDATION_SCHEMA,
+} from '../../ProfileFormFields.schema';
 import ProfileImage from '../ProfileImage/ProfileImage';
-import { ProfileFormWrapper } from './ProfileInformationForm.styled';
+import ProfileFormFields from '../ProfileUserInformationFormFields/ProfileUserInformationFormFields';
+import { ProfileFormWrapper } from './ProfileUserInformationForm.styled';
 
-const ProfileInformationForm = (): ReactElement => {
+const ProfileUserInformationForm = (): ReactElement => {
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
 
@@ -27,8 +27,8 @@ const ProfileInformationForm = (): ReactElement => {
     formState: { errors, isDirty },
   } = useForm({
     mode: 'onChange',
-    defaultValues: PROFILE_SETTINGS_FORM_INITIAL_VALUES(currentUser),
-    resolver: yupResolver(PROFILE_SETTINGS_FORM_VALIDATION_SCHEMA),
+    defaultValues: PROFILE_USER_INFORMATION_FORM_INITIAL_VALUES(currentUser),
+    resolver: yupResolver(PROFILE_USER_INFORMATION_FORM_VALIDATION_SCHEMA),
   });
 
   useEffect(() => {
@@ -72,4 +72,4 @@ const ProfileInformationForm = (): ReactElement => {
   );
 };
 
-export default ProfileInformationForm;
+export default ProfileUserInformationForm;

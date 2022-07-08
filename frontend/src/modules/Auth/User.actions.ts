@@ -7,29 +7,32 @@ import { FAILED_PROFILE_UPDATE_MESSAGE, SUCCESSFUL_PROFILE_UPDATE_MESSAGE } from
 import { authService } from './Auth.service';
 import { setLoadingStatus, setUpdateUser, setUser } from './User.slice';
 
-export const validateUserAction = (): AppThunk => async (dispatch) => {
-  try {
-    const validatedUser = await authService.validateUser();
+export const validateUserAction =
+  (firebaseProvider: string[]): AppThunk =>
+  async (dispatch) => {
+    try {
+      const validatedUser = await authService.validateUser();
 
-    if (validatedUser) {
-      dispatch(
-        setUser({
-          uid: validatedUser?.uid,
-          name: validatedUser?.name,
-          email: validatedUser?.email,
-          photoURL: validatedUser?.photoURL,
-          phoneNumber: validatedUser?.phoneNumber,
-          emailVerified: validatedUser?.emailVerified,
-        })
-      );
-    } else {
+      if (validatedUser) {
+        dispatch(
+          setUser({
+            uid: validatedUser?.uid,
+            name: validatedUser?.name,
+            email: validatedUser?.email,
+            photoURL: validatedUser?.photoURL,
+            phoneNumber: validatedUser?.phoneNumber,
+            emailVerified: validatedUser?.emailVerified,
+            firebaseProvider,
+          })
+        );
+      } else {
+        setUser(null);
+      }
+    } catch (error) {
       setUser(null);
+      throw new Error((error as Error).message);
     }
-  } catch (error) {
-    setUser(null);
-    throw new Error((error as Error).message);
-  }
-};
+  };
 
 export const updateUserDataAction =
   (userData: UpdateUserInformation): AppThunk =>

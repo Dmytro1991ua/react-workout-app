@@ -26,7 +26,9 @@ function App(): ReactElement {
           authService.setToken(token);
         });
 
-        dispatch(validateUserAction());
+        const userFirebaseProviders: string[] = user.providerData.map((item) => item.providerId);
+
+        dispatch(validateUserAction(userFirebaseProviders));
       } else {
         dispatch(setLoadingStatus('failed'));
       }

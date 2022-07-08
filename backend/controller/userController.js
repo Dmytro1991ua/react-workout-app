@@ -73,8 +73,6 @@ const getUser = asyncHandler(async (req, res, next) => {
 const updateUserProfile = asyncHandler(async (req, res) => {
   const user = req.currentUser;
 
-  console.log(req.body);
-
   try {
     const update = { name: req.body.name, photoURL: req.body.photoURL };
     const filter = { uid: user.uid };

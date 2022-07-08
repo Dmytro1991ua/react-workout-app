@@ -1,10 +1,13 @@
-export type ProfileSettingsFormInitialValues = {
+export type ProfileUserInformationFormInitialValues = {
   picture?: string;
   email?: string;
   name?: string;
-  // currentPassword?: string;
-  // newPassword?: string;
-  // confirmPassword?: string;
+};
+
+export type ProfileChangePasswordInitialValues = {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
 };
 
 export interface UpdateUserInformation {

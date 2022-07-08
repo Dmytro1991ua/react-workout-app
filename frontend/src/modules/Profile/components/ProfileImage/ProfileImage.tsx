@@ -5,7 +5,7 @@ import { UserImageSize } from '../../../../App.enums';
 import FallbackImage from '../../../../components/FallbackImage/FallbackImage';
 import { useAppSelector } from '../../../../store/store.hooks';
 import { selectCurrentUser } from '../../../Auth/User.slice';
-import { ProfileSettingsFormInitialValues } from '../../Profile.interfaces';
+import { ProfileUserInformationFormInitialValues } from '../../Profile.interfaces';
 import ProgressBar from './../../../../components/ProgressBar/ProgressBar';
 import {
   ImageWrapper,
@@ -16,7 +16,7 @@ import {
 } from './ProfileImage.styled';
 
 interface ProfileImageProps {
-  register: UseFormRegister<ProfileSettingsFormInitialValues>;
+  register: UseFormRegister<ProfileUserInformationFormInitialValues>;
   errors: FieldErrors<FieldValues>;
   onHandleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   uploadProgress: number;

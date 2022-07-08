@@ -9,7 +9,15 @@ export const ProfileSection = styled(FormSection)`
   margin-top: 5rem;
 `;
 
-export const ProfileSectionWrapper = styled('div')`
+export const ProfileSectionWrapper = styled('div')<{ isEmailAndPasswordProvider?: boolean }>`
+  display: grid;
+  grid-template-columns: ${({ isEmailAndPasswordProvider }) => (isEmailAndPasswordProvider ? '1fr 1fr' : '1fr')};
+  justify-items: ${({ isEmailAndPasswordProvider }) => (isEmailAndPasswordProvider ? 'flex-start' : 'center')};
+  grid-gap: 2rem;
+  width: 100%;
+`;
+
+export const ProfileBlockWrapper = styled('div')`
   width: 100%;
   max-width: 75rem;
   background-color: ${colors.lighterBlue};
@@ -27,7 +35,7 @@ export const ProfileSectionTitle = styled('h2')`
   border-bottom: 2px solid ${colors.mantisDarker};
 `;
 
-export const ProfileSettingsWrapper = styled('div')`
+export const ProfileSectionContentWrapper = styled('div')`
   display: flex;
   justify-content: space-between;
   width: 100%;
