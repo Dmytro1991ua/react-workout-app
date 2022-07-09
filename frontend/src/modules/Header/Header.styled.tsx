@@ -2,6 +2,7 @@ import { LogIn } from '@styled-icons/boxicons-regular';
 import { Dumbbell } from '@styled-icons/fluentui-system-filled/Dumbbell';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { InfoCircle } from 'styled-icons/bootstrap';
 import { LogOut } from 'styled-icons/boxicons-regular';
 import { Home } from 'styled-icons/entypo';
 
@@ -131,4 +132,9 @@ export const CustomLogoutIcon = styled(LogOut)<{ isUserAuthenticated?: boolean }
 export const CustomLoginIcon = styled(LogIn)<{ isUserAuthenticated?: boolean }>`
   ${CommonNavigationIconStyles}
   display: ${({ isUserAuthenticated }) => (isUserAuthenticated ? 'none' : 'block')};
+`;
+
+export const CustomWorkoutsInfoIcon = styled(InfoCircle)<{ isUserAuthenticated?: boolean }>`
+  ${CommonNavigationIconStyles}
+  display: ${({ isUserAuthenticated }) => (isUserAuthenticated ? 'block' : 'none')};
 `;
