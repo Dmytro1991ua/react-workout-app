@@ -3,7 +3,13 @@ import { v4 as uuidv4 } from 'uuid';
 import { AppRoutes, UserImageSize } from '../../../../App.enums';
 import FallbackImage from '../../../../components/FallbackImage/FallbackImage';
 import { authService } from '../../../Auth/Auth.service';
-import { CustomDumbbellIcon, CustomHomeIcon, CustomLoginIcon, CustomLogoutIcon } from '../../Header.styled';
+import {
+  CustomDumbbellIcon,
+  CustomHomeIcon,
+  CustomLoginIcon,
+  CustomLogoutIcon,
+  CustomWorkoutsInfoIcon,
+} from '../../Header.styled';
 import { NavigationConfiguration } from './Navigation.interface';
 
 export function navigationConfig(isUserAuthenticated: boolean, userPhoto: string): NavigationConfiguration[] {
@@ -19,6 +25,12 @@ export function navigationConfig(isUserAuthenticated: boolean, userPhoto: string
       navigationIcon: <CustomDumbbellIcon isUserAuthenticated={Boolean(isUserAuthenticated)} />,
       url: AppRoutes.Workouts,
       'data-tip': 'Workouts',
+    },
+    {
+      id: uuidv4(),
+      navigationIcon: <CustomWorkoutsInfoIcon isUserAuthenticated={Boolean(isUserAuthenticated)} />,
+      url: AppRoutes.WorkoutsDetails,
+      'data-tip': 'Workouts Details',
     },
     {
       id: uuidv4(),
