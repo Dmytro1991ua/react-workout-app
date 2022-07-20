@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 import { colors } from '../../global-styles/ColorsPalette';
 
-export const FormSelect = styled('select')<{ actionPanelSelect?: boolean }>`
-  width: 100%;
+export const FormSelect = styled('select')<{ actionPanelSelect?: boolean; fullWidth?: boolean }>`
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'fit-content')};
+  min-width: 10rem;
   background-color: ${({ actionPanelSelect }) =>
     actionPanelSelect ? `${colors.mantisDarker}` : `${colors.powderAsh}`};
   color: ${({ actionPanelSelect }) => (actionPanelSelect ? `${colors.white}` : `${colors.black}`)};

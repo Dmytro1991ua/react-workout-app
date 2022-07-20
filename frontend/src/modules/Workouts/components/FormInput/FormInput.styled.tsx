@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { FieldErrorMessage } from '../../../../components/Input/Input.styled';
 import { colors } from '../../../../global-styles/ColorsPalette';
 
-export const WorkoutFormInput = styled.input`
-  width: 100%;
+export const WorkoutFormInput = styled('input')<{ fullWidth?: boolean }>`
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'fit-content')};
   padding: 0.3rem 1.1rem;
   font-family: inherit;
   font-size: 1.4rem;

@@ -13,9 +13,10 @@ type SelectProps = {
   isRequired?: boolean;
   actionPanelSelect?: boolean;
   optionLabel?: string;
-  value?: SortedWorkoutsSelectOption;
+  value?: SortedWorkoutsSelectOption | number;
   isDefaultOptionDisabled?: boolean;
   disabled?: boolean;
+  fullWidth?: boolean;
 };
 
 type FormSelectProps<TFormValues> = {
@@ -35,7 +36,7 @@ export const Select = <TFormValues extends Record<string, unknown>>(
   const errorMessage = props.errors && props.errors[props.name]?.message;
 
   return (
-    <div style={{ width: '100%' }}>
+    <>
       <FormSelect
         {...getFormFieldByNameProp}
         id={props.id}
@@ -43,6 +44,7 @@ export const Select = <TFormValues extends Record<string, unknown>>(
         actionPanelSelect={props.actionPanelSelect}
         value={props.value}
         disabled={props.disabled}
+        fullWidth={props.fullWidth}
       >
         <option value={SortedWorkoutsSelectOption.Default} disabled={props.isDefaultOptionDisabled}>
           {props.optionLabel}
@@ -56,6 +58,6 @@ export const Select = <TFormValues extends Record<string, unknown>>(
         })}
       </FormSelect>
       <FieldErrorMessage>{errorMessage}</FieldErrorMessage>
-    </div>
+    </>
   );
 };

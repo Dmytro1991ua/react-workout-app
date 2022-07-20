@@ -105,15 +105,17 @@ export const WorkoutsActionsPanel = ({ handleShowAllWorkoutMarkers }: WorkoutsAc
         <ModalContentSubtitle>You will not be able to recover them</ModalContentSubtitle>
       </CustomModal>
       <ActionsPanelWrapper>
-        <Select
-          options={SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS_MOCK}
-          actionPanelSelect
-          name=''
-          optionLabel='Sort by workout type or indicator:'
-          onChange={handleSortingByWorkoutTypeChange}
-          value={selectedValue}
-          isDefaultOptionDisabled={isSortedDefaultOptionDisabled}
-        />
+        <div style={{ width: '100%' }}>
+          <Select
+            options={SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS_MOCK}
+            actionPanelSelect
+            name=''
+            optionLabel='Sort by workout type or indicator:'
+            onChange={handleSortingByWorkoutTypeChange}
+            value={selectedValue}
+            isDefaultOptionDisabled={isSortedDefaultOptionDisabled}
+          />
+        </div>
         {ACTIONS_PANEL_CONFIG.map((item) => {
           return (
             <li key={item.id}>

@@ -10,6 +10,9 @@ declare interface MainPalette {
   tomato: string;
   errorBg: string;
   error: string;
+  lighterGrey: string;
+  darkGrey: string;
+  gray95: string;
 }
 
 declare interface SelectedOption {
