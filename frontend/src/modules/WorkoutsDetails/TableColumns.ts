@@ -1,40 +1,56 @@
 import { Column } from 'react-table';
 
-import { WorkoutsDetailsItem } from './WorkoutsDetails.interface';
-
 export const TABLE_COLUMNS: Column<WorkoutsDetailsItem>[] = [
   {
     Header: 'Id',
-    Footer: 'Id', // Here Footer has the same colums as Header
-    accessor: 'id', // Allows to associate a Header (particular column) with specific row of Data
-    //Filter: ColumnFilter, //  ColumnFilter => custom filter input component
-    //disableFilters: true, //disable and hiding filter input for ID column
+    accessor: 'id',
   },
   {
-    Header: 'First Name',
-    Footer: 'First Name',
-    accessor: 'firstName',
+    Header: 'City',
+    accessor: 'city',
   },
   {
-    Header: 'Last Name',
-    Footer: 'Last Name',
-    accessor: 'lastName',
+    Header: 'Workout Type',
+    accessor: 'selectedValue',
   },
   {
-    Header: 'Date Of Birth',
-    Footer: 'Date Of Birth',
-    accessor: 'dateOfBirth',
-    //disableFilters: true,
+    Header: 'Duration (min)',
+    accessor: 'duration',
   },
   {
-    Header: 'Country',
-    Footer: 'Country',
-    accessor: 'country',
+    Header: 'Distance (km)',
+    accessor: 'distance',
   },
   {
-    Header: 'Phone',
-    Footer: 'Phone',
-    accessor: 'phone',
-    //disableFilters: true,
+    Header: 'Cadence (step / min)',
+    accessor: 'cadence',
+  },
+  {
+    Header: 'Elevation Gain (meters)',
+    accessor: 'elevationGain',
+  },
+  {
+    Header: 'Speed (km / h)',
+    accessor: 'speed',
+  },
+  {
+    Header: 'Pace (min / km)',
+    accessor: 'pace',
+  },
+  {
+    Header: 'Date',
+    accessor: 'date',
+  },
+  {
+    Header: 'Time',
+    accessor: 'time',
+  },
+  {
+    Header: 'Weather Info',
+    accessor: 'weatherInfo',
+  },
+  {
+    Header: 'In Favorites',
+    accessor: 'inFavorites',
   },
 ];

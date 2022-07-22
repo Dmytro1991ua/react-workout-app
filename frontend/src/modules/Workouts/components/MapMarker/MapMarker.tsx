@@ -5,7 +5,7 @@ import L from 'leaflet'; // import Leaflet object from a library
 import React, { ReactElement, useEffect, useState } from 'react';
 import { Marker, Popup, useMap } from 'react-leaflet';
 
-import { workoutDescription, workoutMarkerIcon } from '../../Workouts.utils';
+import { workoutMarkerIcon } from '../../Workouts.utils';
 
 interface MarkerProps {
   currentWorkout: WorkoutItem;
@@ -37,7 +37,8 @@ const MapMarker = ({ currentWorkout }: MarkerProps): ReactElement => {
         autoPan={false}
       >
         {currentWorkout.selectedValue === 'running' ? '🏃‍♂️' : '🚴‍♀️'}
-        {workoutDescription(currentWorkout.selectedValue, currentWorkout.distance)}
+        &nbsp;
+        {currentWorkout.description}
       </Popup>
     </Marker>
   );

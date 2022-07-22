@@ -3,7 +3,6 @@ import React, { ReactElement } from 'react';
 import { HeaderGroup } from 'react-table';
 import { v4 as uuidv4 } from 'uuid';
 
-import { WorkoutsDetailsItem } from '../../WorkoutsDetails.interface';
 import { TableCellWrapper } from './../../WorkoutsDetails.styled';
 
 interface TableHeaderProps {

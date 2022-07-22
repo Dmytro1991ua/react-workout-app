@@ -2,8 +2,6 @@ import React, { ReactElement } from 'react';
 import { Row, TableBodyPropGetter, TableBodyProps } from 'react-table';
 import { v4 as uuidv4 } from 'uuid';
 
-import { WorkoutsDetailsItem } from '../../WorkoutsDetails.interface';
-
 interface CustomTableBodyProps {
   page: Row<WorkoutsDetailsItem>[];
   getTableBodyProps: (propGetter?: TableBodyPropGetter<WorkoutsDetailsItem> | undefined) => TableBodyProps;

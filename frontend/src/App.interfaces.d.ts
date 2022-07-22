@@ -20,20 +20,32 @@ declare interface SelectedOption {
   value: string;
 }
 
-declare interface WorkoutItem {
+declare interface CommonWorkoutProps {
   date: string;
-  coordinates: LatLngTuple;
   selectedValue: string;
   distance: number;
   duration: number;
   cadence?: string;
   elevationGain?: string;
   pace?: number;
-  description?: string;
   speed?: number;
-  isFavorite?: boolean;
+}
+
+declare interface WorkoutItem extends CommonWorkoutProps {
+  coordinates: LatLngTuple;
+  description?: string;
   weatherInfo: CurrentWeatherData | null;
   _id?: string;
+  createdAt?: string;
+  isFavorite?: boolean;
+}
+
+declare interface WorkoutsDetailsItem extends CommonWorkoutProps {
+  id: string;
+  time: string;
+  city: string;
+  weatherInfo: string;
+  inFavorites: ReactNode;
 }
 
 declare interface MapTilesConfigDetail {

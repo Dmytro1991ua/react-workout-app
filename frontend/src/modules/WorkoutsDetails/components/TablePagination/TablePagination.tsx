@@ -3,7 +3,6 @@ import { TableState } from 'react-table';
 
 import FormInput from '../../../Workouts/components/FormInput/FormInput';
 import { TABLE_PAGE_SIZE_OPTIONS } from '../../WorkoutsDetails.constants';
-import { WorkoutsDetailsItem } from '../../WorkoutsDetails.interface';
 import {
   GoToPageButton,
   NextButton,
