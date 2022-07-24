@@ -130,6 +130,7 @@ const Form = ({
                 register={register}
                 errors={errors}
                 onChange={handleSelectChange}
+                fullWidth
                 optionLabel='Select workout type:'
                 disabled={Boolean(editableWorkoutItem?.selectedValue)}
               />
@@ -148,6 +149,7 @@ const Form = ({
                   errors={errors}
                   onKeyDown={handleKeyDownOnInputField}
                   isRequired
+                  fullWidth
                   disabled={isFormShown && selectedValue === ''}
                 />
               </FieldInputWrapper>
@@ -166,6 +168,7 @@ const Form = ({
                   onKeyDown={handleKeyDownOnInputField}
                   errors={errors}
                   isRequired
+                  fullWidth
                   disabled={isFormShown && selectedValue === ''}
                 />
               </FieldInputWrapper>
@@ -185,6 +188,7 @@ const Form = ({
                       onKeyDown={handleKeyDownOnInputField}
                       register={register}
                       errors={errors}
+                      fullWidth
                       placeholder='step/min'
                     />
                   </>
@@ -201,6 +205,7 @@ const Form = ({
                       onKeyDown={handleKeyDownOnInputField}
                       register={register}
                       errors={errors}
+                      fullWidth
                       placeholder='meters'
                     />
                   </>

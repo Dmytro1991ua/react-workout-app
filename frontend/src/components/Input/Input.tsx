@@ -19,6 +19,7 @@ interface InputProps {
   isRequired?: boolean;
   borderColor?: keyof MainPalette;
   fullWidth?: boolean;
+  defaultValue?: string | number;
 }
 
 type FormInputProps<TFormValues> = {
@@ -53,8 +54,10 @@ const Input = <TFormValues extends Record<string, unknown>>({
         value={inputProps.value}
         borderColor={changeBorderColorWhenErrorOccurred}
         fullWidth={inputProps.fullWidth}
+        defaultValue={inputProps.defaultValue}
         hasError={inputFieldError}
         disabled={inputProps.disabled}
+        onChange={inputProps.onChange}
       />
       {inputProps.errors && <FieldErrorMessage>{errorMessage}</FieldErrorMessage>}
     </>

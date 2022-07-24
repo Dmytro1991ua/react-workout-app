@@ -15,6 +15,8 @@ type InputProps = {
   isRequired?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLFormElement | HTMLInputElement>) => void;
+  defaultValue?: string | number;
+  fullWidth?: boolean;
 };
 
 type FormInputProps<TFormValues> = {
@@ -45,6 +47,8 @@ const FormInput = <TFormValues extends Record<string, unknown>>(props: FormInput
         disabled={props.disabled}
         onChange={props.onChange}
         onKeyDown={props.onKeyDown}
+        defaultValue={props.defaultValue}
+        fullWidth={props.fullWidth}
       />
       <CustomFieldError>{errorMessage}</CustomFieldError>
     </>
