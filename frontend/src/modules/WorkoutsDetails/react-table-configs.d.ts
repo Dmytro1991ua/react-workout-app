@@ -112,4 +112,8 @@ declare module 'react-table' {
       UseGroupByRowProps<D>,
       UseRowSelectRowProps<D>,
       UseRowStateRowProps<D> {}
+
+  export type CustomColumnConfig<T> = Column<T> & {
+    sticky?: string;
+  };
 }

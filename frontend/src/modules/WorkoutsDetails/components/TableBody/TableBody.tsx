@@ -10,14 +10,14 @@ interface CustomTableBodyProps {
 
 const TableBody = ({ page, getTableBodyProps, prepareRow }: CustomTableBodyProps): ReactElement => {
   return (
-    <tbody {...getTableBodyProps()}>
+    <tbody {...getTableBodyProps()} className='body'>
       {page.map((row) => {
         prepareRow(row);
         return (
-          <tr {...row.getRowProps()} key={uuidv4()}>
+          <tr {...row.getRowProps()} key={uuidv4()} className='tr'>
             {row.cells.map((cell) => {
               return (
-                <td {...cell.getCellProps()} key={uuidv4()}>
+                <td {...cell.getCellProps()} key={uuidv4()} className='td'>
                   {cell.render('Cell')}
                 </td>
               );

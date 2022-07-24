@@ -17,43 +17,91 @@ export const WorkoutsDetailsSection = styled('section')`
   background-color: ${colors.darkBlue};
   height: 100%;
   padding: 8.5rem 1.6rem 0 1.6rem;
-  overflow: auto;
   transition: all 0.3s ease-out;
   animation: ${fadeInDown} 0.4s ease-in-out;
+
+  section {
+    margin: auto;
+    max-width: 100rem;
+    text-align: center;
+    padding: 3.5rem;
+  }
 `;
 
 export const TableWrapper = styled.div`
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    text-align: center;
-    border: 5px solid ${colors.mantisDarker};
-  }
+  overflow: auto;
+  border: 5px solid ${colors.mantisDarker};
+  max-height: 50rem;
 
-  th {
-    padding: 0 1.5rem;
-    background-color: ${colors.mantis};
-    color: ${colors.white};
-    margin-top: 0;
-  }
-
-  td,
-  th {
+  .table {
     border: 1px solid ${colors.mantisDarker};
-    padding: 1.5rem;
-  }
+    border-collapse: collapse;
 
-  tr {
-    background-color: ${colors.lighterGrey};
-  }
+    .tr {
+      display: contents;
 
-  tr:nth-child(even) {
-    background-color: ${colors.gray95};
-  }
+      :last-child {
+        .td {
+          border-bottom: 0;
+        }
+      }
+    }
 
-  tr:hover {
-    background-color: ${colors.darkGrey};
-    cursor: pointer;
+    .th {
+      background-color: ${colors.mantis} !important;
+      border-bottom: none !important;
+    }
+
+    .th,
+    .td {
+      padding: 5px;
+      border: 1px solid ${colors.mantisDarker};
+      background-color: white;
+      overflow: hidden;
+      text-align: center;
+
+      :last-child {
+        border-right: 0;
+      }
+    }
+
+    &.sticky {
+      overflow: scroll;
+
+      .header {
+        position: sticky;
+        z-index: 1;
+        width: fit-content;
+        color: ${colors.white};
+      }
+
+      .header {
+        top: 0;
+        box-shadow: 0px 3px 3px ${colors.mantisDarker};
+      }
+
+      .body {
+        position: relative;
+        z-index: 0;
+      }
+
+      [data-sticky-td] {
+        position: sticky;
+        background-color: ${colors.gray95};
+
+        &:nth-child(2) {
+          border-right: none;
+        }
+      }
+
+      [data-sticky-last-left-td] {
+        box-shadow: 2px 0px 3px ${colors.mantisDarker};
+      }
+
+      [data-sticky-first-right-td] {
+        box-shadow: -2px 0px 3px ${colors.mantisDarker};
+      }
+    }
   }
 `;
 

@@ -2,19 +2,25 @@ import { Cross } from '@styled-icons/entypo/Cross';
 import { Checkmark } from '@styled-icons/evaicons-solid/Checkmark';
 import { format } from 'date-fns';
 import { upperFirst } from 'lodash';
-import React, { ReactElement, useMemo } from 'react';
-import { useGlobalFilter, usePagination, useSortBy, useTable } from 'react-table';
+import { ReactElement, useMemo } from 'react';
+import { useFlexLayout, useGlobalFilter, usePagination, useSortBy, useTable } from 'react-table';
+import { useSticky } from 'react-table-sticky';
 import { v4 as uuidv4 } from 'uuid';
 
 import Badge from '../../components/Badge/Badge';
 import { useAppSelector } from '../../store/store.hooks';
 import { selectWorkouts } from '../Workouts/Workouts.slice';
+import FallbackMessage from './../Workouts/components/FallbackMessage/FallbackMessage';
 import SearchInput from './components/SearchInput/SearchInput';
 import TableBody from './components/TableBody/TableBody';
 import TableHeader from './components/TableHeader/TableHeader';
 import TablePagination from './components/TablePagination/TablePagination';
 import { TABLE_COLUMNS } from './TableColumns';
-import { DEFAULT_NUMBER_OF_ROWS_IN_ONE_PAGE } from './WorkoutsDetails.constants';
+import {
+  DEFAULT_NUMBER_OF_ROWS_IN_ONE_PAGE,
+  FALLBACK_MESSAGE_DETAILS,
+  FALLBACK_MESSAGE_TITLE,
+} from './WorkoutsDetails.constants';
 import { TableWrapper, WorkoutsDetailsSection } from './WorkoutsDetails.styled';
 
 const WorkoutDetails = (): ReactElement => {
@@ -59,6 +65,7 @@ const WorkoutDetails = (): ReactElement => {
     pageCount,
     setPageSize,
     setGlobalFilter,
+    preGlobalFilteredRows,
     rows,
   } = useTable<WorkoutsDetailsItem>(
     {
@@ -67,37 +74,49 @@ const WorkoutDetails = (): ReactElement => {
       disableSortRemove: true,
       defaultCanSort: true,
       initialState: {
-        sortBy: [{ id: data[0].id, desc: false }],
+        sortBy: [{ id: data.length ? data[0].id : '', desc: false }],
         hiddenColumns: ['id'],
       },
     },
     useGlobalFilter,
     useSortBy,
-    usePagination
+    usePagination,
+    useFlexLayout,
+    useSticky
   );
 
   return (
     <WorkoutsDetailsSection>
-      <TableWrapper>
-        <SearchInput globalFilter={state.globalFilter} onSetFilter={setGlobalFilter} />
-        <table {...getTableProps()}>
-          <TableHeader headerGroups={headerGroups} />
-          <TableBody page={page} prepareRow={prepareRow} getTableBodyProps={getTableBodyProps} />
-        </table>
-        {rows.length >= DEFAULT_NUMBER_OF_ROWS_IN_ONE_PAGE && (
-          <TablePagination
-            state={state}
-            pageOptions={pageOptions}
-            canPreviousPage={canPreviousPage}
-            canNextPage={canNextPage}
-            pageCount={pageCount}
-            gotoPage={gotoPage}
-            nextPage={nextPage}
-            previousPage={previousPage}
-            setPageSize={setPageSize}
+      {!data.length ? (
+        <FallbackMessage title={FALLBACK_MESSAGE_TITLE} message={FALLBACK_MESSAGE_DETAILS} />
+      ) : (
+        <>
+          <SearchInput
+            globalFilter={state.globalFilter}
+            preGlobalFilteredRowsLength={preGlobalFilteredRows.length}
+            onSetFilter={setGlobalFilter}
           />
-        )}
-      </TableWrapper>
+          <TableWrapper>
+            <table {...getTableProps()} className='table sticky'>
+              <TableHeader headerGroups={headerGroups} />
+              <TableBody page={page} prepareRow={prepareRow} getTableBodyProps={getTableBodyProps} />
+            </table>
+          </TableWrapper>
+          {rows.length >= DEFAULT_NUMBER_OF_ROWS_IN_ONE_PAGE && (
+            <TablePagination
+              state={state}
+              pageOptions={pageOptions}
+              canPreviousPage={canPreviousPage}
+              canNextPage={canNextPage}
+              pageCount={pageCount}
+              gotoPage={gotoPage}
+              nextPage={nextPage}
+              previousPage={previousPage}
+              setPageSize={setPageSize}
+            />
+          )}
+        </>
+      )}
     </WorkoutsDetailsSection>
   );
 };

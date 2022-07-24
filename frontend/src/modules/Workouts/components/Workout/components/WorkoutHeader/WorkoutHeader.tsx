@@ -79,7 +79,7 @@ const WorkoutHeader = ({
         <img
           style={{ marginTop: '0.6rem', marginLeft: '-1rem', cursor: 'pointer' }}
           src={currentWeatherIcon ?? ''}
-          alt={`${workout.weatherInfo?.city}'s city current weather icon`}
+          alt={currentWeatherIcon ? `${workout.weatherInfo?.city}'s city current weather icon` : ''}
         />
       ) : null,
       'data-tip': 'Workout weather details',

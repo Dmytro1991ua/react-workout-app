@@ -6,10 +6,11 @@ import { SearchInputWrapper } from './../../WorkoutsDetails.styled';
 
 interface SearchInputProps {
   globalFilter: any;
+  preGlobalFilteredRowsLength: number;
   onSetFilter: (filterValue: FilterValue) => void;
 }
 
-const SearchInput = ({ globalFilter, onSetFilter }: SearchInputProps): ReactElement => {
+const SearchInput = ({ globalFilter, preGlobalFilteredRowsLength, onSetFilter }: SearchInputProps): ReactElement => {
   const [inputValue, setInputValue] = useState(globalFilter);
 
   const handleInputValueChange = useAsyncDebounce((value) => {
@@ -22,7 +23,7 @@ const SearchInput = ({ globalFilter, onSetFilter }: SearchInputProps): ReactElem
       <FormInput
         name='search'
         value={inputValue || ''}
-        placeholder='Search'
+        placeholder={`${preGlobalFilteredRowsLength} workout records...`}
         onChange={(e) => {
           setInputValue(e.target.value);
           handleInputValueChange(e.target.value);

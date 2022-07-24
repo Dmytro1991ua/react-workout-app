@@ -188,6 +188,7 @@ const Form = ({
                       onKeyDown={handleKeyDownOnInputField}
                       register={register}
                       errors={errors}
+                      fullWidth
                       placeholder='step/min'
                     />
                   </>
@@ -204,6 +205,7 @@ const Form = ({
                       onKeyDown={handleKeyDownOnInputField}
                       register={register}
                       errors={errors}
+                      fullWidth
                       placeholder='meters'
                     />
                   </>

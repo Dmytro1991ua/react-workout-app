@@ -11,11 +11,11 @@ interface TableHeaderProps {
 
 const TableHeader = ({ headerGroups }: TableHeaderProps): ReactElement => {
   return (
-    <thead>
+    <thead className='header'>
       {headerGroups.map((headerGroup) => (
-        <tr {...headerGroup.getHeaderGroupProps()} key={uuidv4()}>
+        <tr {...headerGroup.getHeaderGroupProps()} key={uuidv4()} className='tr'>
           {headerGroup.headers.map((column) => (
-            <th {...column.getHeaderProps(column.getSortByToggleProps())} key={uuidv4()}>
+            <th {...column.getHeaderProps(column.getSortByToggleProps())} key={uuidv4()} className='th'>
               <TableCellWrapper>
                 <span>{column.render('Header')}</span>
                 <span>
