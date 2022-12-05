@@ -8,11 +8,12 @@
     "node": "14.17.0"
   },
   "scripts": {
+    "packages-install": "npm ci && cd frontend && npm ci",
+    "build": "cd frontend && npm install --only=dev && npm install && npm run predeploy",
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "cd frontend && npm install --only=dev && npm install && npm run build"
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
