@@ -19,6 +19,7 @@ const WorkoutsPage = lazy(() => import('./modules/Workouts/Workouts'));
 const NotFoundPage = lazy(() => import('./modules/NotFoundPage/NotFoundPage'));
 const ProfilePage = lazy(() => import('./modules/Profile/Profile'));
 const WorkoutsDetailsPage = lazy(() => import('./modules/WorkoutsDetails/WorkoutDetails'));
+const CaloriesCalculator = lazy(() => import('./modules/CaloriesCalculator/CaloriesCalculator'));
 
 const Routes = (): ReactElement => {
   return (
@@ -35,6 +36,7 @@ const Routes = (): ReactElement => {
             AppRoutes.Workouts,
             AppRoutes.Profile,
             AppRoutes.WorkoutsDetails,
+            AppRoutes.CaloriesCalculator,
           ]}
         >
           <Suspense fallback={<SectionLoader />}>
@@ -46,6 +48,7 @@ const Routes = (): ReactElement => {
             <PrivateRoute exact path={AppRoutes.Workouts} component={WorkoutsPage} />
             <PrivateRoute exact path={AppRoutes.Profile} component={ProfilePage} />
             <PrivateRoute exact path={AppRoutes.WorkoutsDetails} component={WorkoutsDetailsPage} />
+            <PrivateRoute exact path={AppRoutes.CaloriesCalculator} component={CaloriesCalculator} />
           </Suspense>
         </Route>
         <Suspense fallback={<Preloader />}>

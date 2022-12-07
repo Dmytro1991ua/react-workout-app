@@ -69,12 +69,12 @@ export const Wrapper = styled.div`
 `;
 
 export const Container = styled.div`
-  max-width: 117rem;
+  max-width: 130rem;
   margin: 0 auto;
   padding: 0 1.6rem;
 
   @media (min-width: 90em) {
-    max-width: 120rem;
+    max-width: 140rem;
   }
 `;
 
