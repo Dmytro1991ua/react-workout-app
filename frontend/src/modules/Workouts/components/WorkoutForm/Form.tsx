@@ -7,20 +7,22 @@ import { find } from 'lodash';
 import React, { ReactElement, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BallTriangle } from 'react-loader-spinner';
+import { Prompt } from 'react-router-dom';
 
+import { usePreventReloadHook } from '../../../../cdk/hooks/usePreventReload';
 import Button from '../../../../components/Button/Button';
 import { Select } from '../../../../components/Select/Select';
 import { colors } from '../../../../global-styles/ColorsPalette';
 import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
 import { selectWeatherDetailsBasedWorkoutCoordinates } from '../../../WeatherDetails/WeatherDetails.slice';
 import { FormAndFallbackMessageWrapper } from '../../CommonStyles.styled';
-import { WORKOUT_TYPE_SELECTION_OPTIONS_MOCK } from '../../Workouts.constants';
+import { WARNING_POPUP_CONTENT, WORKOUT_TYPE_SELECTION_OPTIONS_MOCK } from '../../Workouts.constants';
 import { selectUpdatedWorkout, selectWorkouts, setWorkouts } from '../../Workouts.slice';
 import { createWorkoutItem } from '../../Workouts.utils';
 import FormInput from '../FormInput/FormInput';
 import { updateWorkoutAction } from './../../Workouts.actions';
 import { WorkoutFormInitialValues, WorkoutType } from './Form.interfaces';
-import { FieldInputWrapper, FormLabel, FormRow, WorkoutForm } from './Form.styled';
+import { CloseBtn, FieldInputWrapper, FormLabel, FormRow, WorkoutForm } from './Form.styled';
 import { WORKOUT_FORM_INITIAL_VALUES, WORKOUT_FORM_VALIDATION_SCHEMA } from './FormValidations.schema';
 
 interface FormProps {
@@ -29,9 +31,9 @@ interface FormProps {
   mapCoords: LatLngTuple | null;
   isFormShownOnWorkoutEdit: (value: boolean) => void;
   isFormShown: boolean;
-  setIsSubmitted: (value: boolean) => void;
+  onIsSubmitted: (value: boolean) => void;
   editableWorkoutItemId: string | null;
-  setEditableWorkoutItemId: (value: string | null) => void;
+  onEditableWorkoutItemId: (value: string | null) => void;
 }
 
 const Form = ({
@@ -40,9 +42,9 @@ const Form = ({
   mapCoords,
   isFormShownOnWorkoutEdit,
   isFormShown,
-  setIsSubmitted,
+  onIsSubmitted,
   editableWorkoutItemId,
-  setEditableWorkoutItemId,
+  onEditableWorkoutItemId,
 }: FormProps): ReactElement => {
   const availableWorkouts = useAppSelector(selectWorkouts);
   const editableWorkoutItem = useAppSelector(selectUpdatedWorkout(editableWorkoutItemId));
@@ -53,7 +55,7 @@ const Form = ({
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isDirty },
     reset,
     getValues,
     setValue,
@@ -64,6 +66,10 @@ const Form = ({
   });
 
   const [selectedValue, setSelectedValue] = useState('');
+
+  const isWarningPopupShown = isDirty ?? false;
+
+  usePreventReloadHook(isWarningPopupShown);
 
   function handleSelectChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     setValue('workoutType', event.target.value as WorkoutType);
@@ -108,10 +114,10 @@ const Form = ({
 
     reset();
 
-    setIsSubmitted(true);
-    onCloseWorkoutForm(); // hide Form component onSubmit a form
+    onIsSubmitted(true);
+    onCloseWorkoutForm();
     isFormShownOnWorkoutEdit(false);
-    setEditableWorkoutItemId(null);
+    onEditableWorkoutItemId(null);
   }
 
   return (
@@ -121,6 +127,8 @@ const Form = ({
           <BallTriangle color={colors.mantis} height={100} width={100} />
         ) : (
           <WorkoutForm>
+            <Prompt when={isWarningPopupShown} message={WARNING_POPUP_CONTENT} />
+            <CloseBtn onClick={onCloseWorkoutForm} />
             <FormRow>
               <FormLabel>Type</FormLabel>
               <Select<WorkoutFormInitialValues>

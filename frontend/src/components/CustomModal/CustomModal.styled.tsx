@@ -34,6 +34,12 @@ export const Title = styled('h2')`
   font-size: 2rem;
 `;
 
+export const Subtitle = styled('h3')`
+  font-size: 1.6rem;
+  margin-top: 1.5rem;
+  opacity: 0.7;
+`;
+
 export const ContentWrapper = styled('div')`
   display: flex;
   flex-direction: column;
