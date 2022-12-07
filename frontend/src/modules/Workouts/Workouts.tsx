@@ -120,6 +120,8 @@ const Workouts = (): ReactElement => {
 
   function hideWorkoutForm(): void {
     setIsFormShown(false);
+    setIsFormShownOnWorkoutEdit(false);
+    setEditableWorkoutItemId(null);
   }
 
   function getEditableWorkoutItemId(id: string | null): void {
@@ -154,8 +156,8 @@ const Workouts = (): ReactElement => {
           isFormShownOnWorkoutEdit={setIsFormShownOnWorkoutEdit}
           editableWorkoutItemId={editableWorkoutItemId}
           isFormShown={isFormShown}
-          setIsSubmitted={setIsSubmitted}
-          setEditableWorkoutItemId={setEditableWorkoutItemId}
+          onIsSubmitted={setIsSubmitted}
+          onEditableWorkoutItemId={setEditableWorkoutItemId}
         />
       )}
     </>

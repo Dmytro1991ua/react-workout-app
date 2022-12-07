@@ -119,3 +119,8 @@ export const MAP_TILES_DETAILS_CONFIG: MapTilesConfigDetail[] = [
     maxZoom: 20,
   },
 ];
+
+export const WARNING_POPUP_CONTENT = JSON.stringify({
+  title: 'Are you sure you want to leave this page?',
+  subtitle: 'Your changes will be lost',
+});
