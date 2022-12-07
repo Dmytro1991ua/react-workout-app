@@ -6,7 +6,7 @@ export enum AppRoutes {
   Workouts = '/workouts',
   WorkoutsDetails = '/workouts-details',
   Profile = '/profile',
-  CaloriesCalculator = '/calories-calculator',
+  BMICalculator = '/bmi-calculator',
   Home = '/',
 }
 

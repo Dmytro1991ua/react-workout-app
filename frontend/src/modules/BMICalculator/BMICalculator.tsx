@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 
-const CaloriesCalculator = (): ReactElement => {
+const BMICalculator = (): ReactElement => {
   return <div>CaloriesCalculator</div>;
 };
 
-export default CaloriesCalculator;
+export default BMICalculator;
