@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { InfoCircle } from 'styled-icons/bootstrap';
 import { LogOut } from 'styled-icons/boxicons-regular';
 import { Home } from 'styled-icons/entypo';
+import { Calculator } from '@styled-icons/bootstrap/Calculator';
 
 import { colors } from '../../global-styles/ColorsPalette';
 import { fadeInDown } from '../../global-styles/Global.styled';
@@ -13,11 +14,16 @@ const CommonNavigationIconStyles = `
   fill: ${colors.mantis};
   width: 3rem;
   transition: all 0.3s ease-in-out;
-  margin-right: 3rem;
+  margin-right: 0;
 
   :hover {
     fill: ${colors.white};
-}`;
+  }
+
+   @media (min-width: 48em) {
+    margin-right: 3rem;
+  }
+`;
 
 export const HeaderSection = styled.header`
   background-color: ${colors.lighterBlue};
@@ -66,7 +72,7 @@ export const NavigationWrapper = styled('div')`
 // Navigation
 export const List = styled('ul')<{ open?: boolean; isUserAuthenticated: boolean }>`
   position: absolute;
-  top: 6.2rem;
+  top: 6.3rem;
   left: 0;
   height: 100vh;
   display: flex;
@@ -94,11 +100,15 @@ export const List = styled('ul')<{ open?: boolean; isUserAuthenticated: boolean 
 `;
 
 export const ListItem = styled('li')`
-  &:not(:last-child) {
+  margin-bottom: 2rem;
+
+  &:nth-child(5) {
     margin-bottom: 0;
   }
 
   @media (min-width: 48em) {
+    margin-bottom: 0rem;
+
     &:not(:last-child) {
       margin-bottom: 0;
     }
@@ -112,6 +122,12 @@ export const ListLink = styled(Link)<{ isActive?: boolean }>`
 
   img {
     border: ${({ isActive }) => (isActive ? `2px solid ${colors.white}` : 'none')};
+    margin-right: 0;
+    margin-bottom: 0;
+
+    @media (min-width: 48em) {
+      margin-right: 2rem;
+    }
   }
 `;
 
@@ -135,6 +151,11 @@ export const CustomLoginIcon = styled(LogIn)<{ isUserAuthenticated?: boolean }>`
 `;
 
 export const CustomWorkoutsInfoIcon = styled(InfoCircle)<{ isUserAuthenticated?: boolean }>`
+  ${CommonNavigationIconStyles}
+  display: ${({ isUserAuthenticated }) => (isUserAuthenticated ? 'block' : 'none')};
+`;
+
+export const CustomCaloriesCalculatorIcon = styled(Calculator)<{ isUserAuthenticated?: boolean }>`
   ${CommonNavigationIconStyles}
   display: ${({ isUserAuthenticated }) => (isUserAuthenticated ? 'block' : 'none')};
 `;
