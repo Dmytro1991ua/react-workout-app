@@ -26,12 +26,12 @@ export const MONTHS_LIST = [
   'December',
 ];
 
-export const WORKOUT_TYPE_SELECTION_OPTIONS_MOCK = [
+export const WORKOUT_TYPE_SELECTION_OPTIONS = [
   { id: uuidv4(), value: 'running' },
   { id: uuidv4(), value: 'cycling' },
 ];
 
-export const SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS_MOCK: SelectedOption[] = [
+export const SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS: SelectedOption[] = [
   { id: uuidv4(), value: '🏃 Running' },
   { id: uuidv4(), value: '🚴‍♀️ Cycling' },
   { id: uuidv4(), value: '🧡 Favorite' },

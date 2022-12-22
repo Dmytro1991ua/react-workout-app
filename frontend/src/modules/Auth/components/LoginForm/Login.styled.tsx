@@ -45,6 +45,9 @@ export const FormBody = styled.div`
 `;
 
 export const FormDetails = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
   margin-bottom: 5rem;
 
   &:last-of-type {

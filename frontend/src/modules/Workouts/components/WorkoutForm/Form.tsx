@@ -14,9 +14,10 @@ import Button from '../../../../components/Button/Button';
 import { Select } from '../../../../components/Select/Select';
 import { colors } from '../../../../global-styles/ColorsPalette';
 import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
+import { handleKeyDownOnInputField } from '../../../../utils';
 import { selectWeatherDetailsBasedWorkoutCoordinates } from '../../../WeatherDetails/WeatherDetails.slice';
 import { FormAndFallbackMessageWrapper } from '../../CommonStyles.styled';
-import { WARNING_POPUP_CONTENT, WORKOUT_TYPE_SELECTION_OPTIONS_MOCK } from '../../Workouts.constants';
+import { WARNING_POPUP_CONTENT, WORKOUT_TYPE_SELECTION_OPTIONS } from '../../Workouts.constants';
 import { selectUpdatedWorkout, selectWorkouts, setWorkouts } from '../../Workouts.slice';
 import { createWorkoutItem } from '../../Workouts.utils';
 import FormInput from '../FormInput/FormInput';
@@ -78,10 +79,6 @@ const Form = ({
     setSelectedValue(getSelectFieldValue as WorkoutType);
   }
 
-  function handleKeyDownOnInputField(event: React.KeyboardEvent<HTMLFormElement | HTMLInputElement>): boolean {
-    return ['e', 'E', '+', '-'].includes(event.key);
-  }
-
   function handleUpdateWorkouts(formData: WorkoutFormInitialValues): WorkoutItem[] {
     const updatedWorkouts = availableWorkouts.map((workout: WorkoutItem) => {
       return workout._id === editableWorkoutItem?._id
@@ -132,7 +129,7 @@ const Form = ({
             <FormRow>
               <FormLabel>Type</FormLabel>
               <Select<WorkoutFormInitialValues>
-                options={WORKOUT_TYPE_SELECTION_OPTIONS_MOCK}
+                options={WORKOUT_TYPE_SELECTION_OPTIONS}
                 name='workoutType'
                 id='workoutType'
                 register={register}
@@ -154,8 +151,8 @@ const Form = ({
                   min={0}
                   max={10000}
                   register={register}
-                  errors={errors}
                   onKeyDown={handleKeyDownOnInputField}
+                  errors={errors}
                   isRequired
                   fullWidth
                   disabled={isFormShown && selectedValue === ''}

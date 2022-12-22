@@ -1,9 +1,23 @@
 import React, { ReactElement } from 'react';
 import { DeepMap, FieldError, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
+import {
+  FeetSelectOptions,
+  HeightUnitsSelectOptions,
+  InchesSelectOptions,
+  WeightUnitsSelectOptions,
+} from '../../modules/BMICalculator/BMICalculator.enums';
 import { SortedWorkoutsSelectOption } from '../../modules/Workouts/Workouts.enums';
 import { FieldErrorMessage } from '../Input/Input.styled';
 import { FormSelect } from './Select.styled';
+
+type ValueType =
+  | SortedWorkoutsSelectOption
+  | WeightUnitsSelectOptions
+  | HeightUnitsSelectOptions
+  | FeetSelectOptions
+  | InchesSelectOptions
+  | number;
 
 type SelectProps = {
   options: SelectedOption[];
@@ -13,7 +27,7 @@ type SelectProps = {
   isRequired?: boolean;
   actionPanelSelect?: boolean;
   optionLabel?: string;
-  value?: SortedWorkoutsSelectOption | number;
+  value?: ValueType;
   isDefaultOptionDisabled?: boolean;
   disabled?: boolean;
   fullWidth?: boolean;

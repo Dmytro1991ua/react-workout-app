@@ -10,6 +10,7 @@ export const WorkoutForm = styled.form`
 `;
 
 export const FormRow = styled.div`
+  position: relative;
   display: flex;
   align-items: baseline;
 `;
@@ -23,7 +24,11 @@ export const FormLabel = styled.label`
 `;
 
 export const FieldInputWrapper = styled.div`
+  position: relative;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
 `;
 
 export const CloseBtn = styled(CloseOutline)`

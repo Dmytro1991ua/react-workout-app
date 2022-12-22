@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { colors } from '../../global-styles/ColorsPalette';
 
 export const CustomInput = styled('input')<{ borderColor?: string; fullWidth?: boolean; hasError?: boolean }>`
+  position: relative;
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'fit-content')};
   border: none;
   font-size: 1.4rem;
@@ -24,7 +25,8 @@ export const CustomInput = styled('input')<{ borderColor?: string; fullWidth?: b
 `;
 
 export const FieldErrorMessage = styled.span`
+  position: absolute;
+  bottom: -2rem;
   font-size: 13px;
   color: ${colors.tomato};
-  margin-top: 20px;
 `;

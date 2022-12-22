@@ -30,4 +30,9 @@ export const FormSelect = styled('select')<{ actionPanelSelect?: boolean; fullWi
   &:focus > option:checked {
     background-color: ${({ actionPanelSelect }) => (actionPanelSelect ? `${colors.mantis}` : `${colors.black}`)};
   }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
 `;

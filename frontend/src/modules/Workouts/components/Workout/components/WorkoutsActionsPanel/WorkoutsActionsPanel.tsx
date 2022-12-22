@@ -7,7 +7,7 @@ import Tooltip from '../../../../../../components/Tooltip/Tooltip';
 import { colors } from '../../../../../../global-styles/ColorsPalette';
 import { useAppDispatch, useAppSelector } from '../../../../../../store/store.hooks';
 import { deleteAllWorkoutsAction } from '../../../../Workouts.actions';
-import { SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS_MOCK } from '../../../../Workouts.constants';
+import { SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS } from '../../../../Workouts.constants';
 import { SortedWorkoutsSelectOption } from '../../../../Workouts.enums';
 import { selectSortedWorkoutsSelectOption, setSortedWorkoutsSelectOption } from '../../../../Workouts.slice';
 import { ModalContentSubtitle, ModalContentTitle } from '../../Workout.styled';
@@ -107,7 +107,7 @@ export const WorkoutsActionsPanel = ({ handleShowAllWorkoutMarkers }: WorkoutsAc
       <ActionsPanelWrapper>
         <div style={{ width: '100%' }}>
           <Select
-            options={SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS_MOCK}
+            options={SORT_BY_WORKOUT_TYPE_AND_INDICATOR_SELECTION_OPTIONS}
             actionPanelSelect
             name=''
             optionLabel='Sort by workout type or indicator:'
