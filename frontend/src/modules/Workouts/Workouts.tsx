@@ -165,11 +165,12 @@ const Workouts = (): ReactElement => {
 
   const renderFallbackMessageWhenNoWorkout = (
     <>
-      {WORKOUT_FALLBACK_MESSAGE_CONFIG.map((message) => {
-        return (
-          message.hasWorkouts && <FallbackMessage message={message.message} title={message.title} key={message.id} />
-        );
-      })}
+      {!isLoading &&
+        WORKOUT_FALLBACK_MESSAGE_CONFIG.map((message) => {
+          return (
+            message.hasWorkouts && <FallbackMessage message={message.message} title={message.title} key={message.id} />
+          );
+        })}
     </>
   );
 

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { InfoCircle } from 'styled-icons/bootstrap';
 import { LogOut } from 'styled-icons/boxicons-regular';
 import { Home } from 'styled-icons/entypo';
-import { Calculator } from '@styled-icons/bootstrap/Calculator';
+import { Body } from '@styled-icons/ionicons-solid/Body';
 
 import { colors } from '../../global-styles/ColorsPalette';
 import { fadeInDown } from '../../global-styles/Global.styled';
@@ -155,7 +155,7 @@ export const CustomWorkoutsInfoIcon = styled(InfoCircle)<{ isUserAuthenticated?:
   display: ${({ isUserAuthenticated }) => (isUserAuthenticated ? 'block' : 'none')};
 `;
 
-export const CustomCaloriesCalculatorIcon = styled(Calculator)<{ isUserAuthenticated?: boolean }>`
+export const CustomBMICalculatorIcon = styled(Body)<{ isUserAuthenticated?: boolean }>`
   ${CommonNavigationIconStyles}
   display: ${({ isUserAuthenticated }) => (isUserAuthenticated ? 'block' : 'none')};
 `;

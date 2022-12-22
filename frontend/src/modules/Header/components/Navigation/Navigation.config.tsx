@@ -4,7 +4,7 @@ import { AppRoutes, UserImageSize } from '../../../../App.enums';
 import FallbackImage from '../../../../components/FallbackImage/FallbackImage';
 import { authService } from '../../../Auth/Auth.service';
 import {
-  CustomCaloriesCalculatorIcon,
+  CustomBMICalculatorIcon,
   CustomDumbbellIcon,
   CustomHomeIcon,
   CustomLoginIcon,
@@ -35,9 +35,9 @@ export function navigationConfig(isUserAuthenticated: boolean, userPhoto: string
     },
     {
       id: uuidv4(),
-      navigationIcon: <CustomCaloriesCalculatorIcon isUserAuthenticated={Boolean(isUserAuthenticated)} />,
-      url: AppRoutes.CaloriesCalculator,
-      'data-tip': 'Calories Calculator',
+      navigationIcon: <CustomBMICalculatorIcon isUserAuthenticated={Boolean(isUserAuthenticated)} />,
+      url: AppRoutes.BMICalculator,
+      'data-tip': 'BMI Calculator',
     },
     {
       id: uuidv4(),

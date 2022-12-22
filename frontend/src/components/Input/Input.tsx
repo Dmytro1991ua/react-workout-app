@@ -13,6 +13,7 @@ interface InputProps {
   max?: number;
   placeholder?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLFormElement | HTMLInputElement>) => void;
   onBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit?: (element: HTMLInputElement) => void;
   disabled?: boolean;

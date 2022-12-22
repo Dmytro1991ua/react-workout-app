@@ -11,7 +11,7 @@ interface MarkerProps {
   currentWorkout: WorkoutItem;
 }
 
-const MapMarker = ({ currentWorkout }: MarkerProps): ReactElement => {
+const MapMarker = React.memo(({ currentWorkout }: MarkerProps): ReactElement => {
   const workoutMap = useMap();
 
   const [marker, setMarker] = useState<L.Marker<any> | null>(null);
@@ -42,6 +42,6 @@ const MapMarker = ({ currentWorkout }: MarkerProps): ReactElement => {
       </Popup>
     </Marker>
   );
-};
+});
 
 export default MapMarker;
