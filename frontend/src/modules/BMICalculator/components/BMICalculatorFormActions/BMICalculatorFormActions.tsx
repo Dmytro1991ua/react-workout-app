@@ -6,13 +6,13 @@ import { BMICalculatorFormInitialValues } from '../BMICalculatorForm/BMICalculat
 import { FormActionsWrapper, ResetButton } from './BMICalculatorFormActions.styled';
 
 interface BMICalculatorFormActionsProps {
-  isDisabled: boolean;
+  isButtonDisabled: boolean;
   onResetForm: UseFormReset<BMICalculatorFormInitialValues>;
   onSubmit: () => void;
 }
 
 const BMICalculatorFormActions = ({
-  isDisabled,
+  isButtonDisabled,
   onResetForm,
   onSubmit,
 }: BMICalculatorFormActionsProps): ReactElement => {
@@ -21,10 +21,10 @@ const BMICalculatorFormActions = ({
       <ResetButton
         type='button'
         fullWidth
-        disabled={isDisabled}
         backgroundColor='white'
         hoverColor='lighterBlue'
         color='mantis'
+        disabled={isButtonDisabled}
         onClick={onResetForm}
       >
         Reset
@@ -32,7 +32,7 @@ const BMICalculatorFormActions = ({
       <Button
         type='submit'
         fullWidth
-        disabled={isDisabled}
+        disabled={isButtonDisabled}
         backgroundColor='mantis'
         hoverColor='mantisDarker'
         color='white'

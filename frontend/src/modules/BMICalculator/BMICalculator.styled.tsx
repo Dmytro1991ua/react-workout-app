@@ -27,7 +27,7 @@ export const Title = styled('h2')`
 `;
 
 export const Subtitle = styled('h3')`
-  font-size: 1.7rem;
+  font-size: 1.8rem;
   opacity: 0.6;
   margin-bottom: 3rem;
 `;

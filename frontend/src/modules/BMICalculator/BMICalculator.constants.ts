@@ -41,5 +41,3 @@ export const FormFieldName = {
   weightUnits: 'weightUnits',
   heightUnits: 'heightUnits',
 } as const;
-
-export type FieldNameType = 'height' | 'heightUnits' | 'weight' | 'weightUnits' | 'feet' | 'inches';

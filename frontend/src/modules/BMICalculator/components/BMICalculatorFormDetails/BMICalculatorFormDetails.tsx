@@ -2,8 +2,9 @@ import React, { Dispatch, ReactElement, SetStateAction } from 'react';
 
 import Input from '../../../../components/Input/Input';
 import { handleKeyDownOnInputField } from '../../../../utils';
-import { FieldNameType, FormFieldName, HEIGHT_OPTIONS, WEIGHT_OPTIONS } from '../../BMICalculator.constants';
+import { FormFieldName, HEIGHT_OPTIONS, WEIGHT_OPTIONS } from '../../BMICalculator.constants';
 import { HeightUnitsSelectOptions, WeightUnitsSelectOptions } from '../../BMICalculator.enums';
+import { FieldNameType } from '../../BMICalculator.interfaces';
 import { BMICalculatorFormInitialValues } from '../BMICalculatorForm/BMICalculator.interfaces';
 import { Select } from './../../../../components/Select/Select';
 import { FormDetailsWrapper, InputWrapper, SelectWrapper } from './BMICalculatorFormDetails.styled';
