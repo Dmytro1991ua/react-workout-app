@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const Workout = require("../models/workoutSchema");
 
-// @dec  Get all goals
+// @dec  Get all workouts
 // @route  GET /api/workouts
 // @access Private
 const getWorkouts = asyncHandler(async (req, res, next) => {

@@ -9,6 +9,7 @@ import {
   CustomHomeIcon,
   CustomLoginIcon,
   CustomLogoutIcon,
+  CustomQuizIcon,
   CustomWorkoutsInfoIcon,
 } from '../../Header.styled';
 import { NavigationConfiguration } from './Navigation.interface';
@@ -38,6 +39,12 @@ export function navigationConfig(isUserAuthenticated: boolean, userPhoto: string
       navigationIcon: <CustomBMICalculatorIcon isUserAuthenticated={Boolean(isUserAuthenticated)} />,
       url: AppRoutes.BMICalculator,
       'data-tip': 'BMI Calculator',
+    },
+    {
+      id: uuidv4(),
+      navigationIcon: <CustomQuizIcon isUserAuthenticated={Boolean(isUserAuthenticated)} />,
+      url: AppRoutes.WorkoutsQuiz,
+      'data-tip': 'Workouts, Fitness and Healthy quiz',
     },
     {
       id: uuidv4(),
