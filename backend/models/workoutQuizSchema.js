@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const workoutQuizSchema = mongoose.Schema(
   {
     question: { type: String, require: true },
-    answer: [
+    answers: [
       {
         answerOption: { type: String },
         isCorrect: { type: Boolean },
