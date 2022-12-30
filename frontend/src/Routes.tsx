@@ -19,7 +19,8 @@ const WorkoutsPage = lazy(() => import('./modules/Workouts/Workouts'));
 const NotFoundPage = lazy(() => import('./modules/NotFoundPage/NotFoundPage'));
 const ProfilePage = lazy(() => import('./modules/Profile/Profile'));
 const WorkoutsDetailsPage = lazy(() => import('./modules/WorkoutsDetails/WorkoutDetails'));
-const BMICalculator = lazy(() => import('./modules/BMICalculator/BMICalculator'));
+const BMICalculatorPage = lazy(() => import('./modules/BMICalculator/BMICalculator'));
+const WorkoutsQuizPage = lazy(() => import('./modules/WorkoutsQuiz/WorkoutsQuiz'));
 
 const Routes = (): ReactElement => {
   return (
@@ -37,6 +38,7 @@ const Routes = (): ReactElement => {
             AppRoutes.Profile,
             AppRoutes.WorkoutsDetails,
             AppRoutes.BMICalculator,
+            AppRoutes.WorkoutsQuiz,
           ]}
         >
           <Suspense fallback={<SectionLoader />}>
@@ -48,7 +50,8 @@ const Routes = (): ReactElement => {
             <PrivateRoute exact path={AppRoutes.Workouts} component={WorkoutsPage} />
             <PrivateRoute exact path={AppRoutes.Profile} component={ProfilePage} />
             <PrivateRoute exact path={AppRoutes.WorkoutsDetails} component={WorkoutsDetailsPage} />
-            <PrivateRoute exact path={AppRoutes.BMICalculator} component={BMICalculator} />
+            <PrivateRoute exact path={AppRoutes.BMICalculator} component={BMICalculatorPage} />
+            <PrivateRoute exact path={AppRoutes.WorkoutsQuiz} component={WorkoutsQuizPage} />
           </Suspense>
         </Route>
         <Suspense fallback={<Preloader />}>

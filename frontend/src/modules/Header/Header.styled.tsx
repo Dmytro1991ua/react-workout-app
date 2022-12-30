@@ -6,6 +6,7 @@ import { InfoCircle } from 'styled-icons/bootstrap';
 import { LogOut } from 'styled-icons/boxicons-regular';
 import { Home } from 'styled-icons/entypo';
 import { Body } from '@styled-icons/ionicons-solid/Body';
+import { QuizNew } from '@styled-icons/fluentui-system-filled/QuizNew';
 
 import { colors } from '../../global-styles/ColorsPalette';
 import { fadeInDown } from '../../global-styles/Global.styled';
@@ -102,7 +103,7 @@ export const List = styled('ul')<{ open?: boolean; isUserAuthenticated: boolean 
 export const ListItem = styled('li')`
   margin-bottom: 2rem;
 
-  &:nth-child(5) {
+  &:nth-child(6) {
     margin-bottom: 0;
   }
 
@@ -156,6 +157,11 @@ export const CustomWorkoutsInfoIcon = styled(InfoCircle)<{ isUserAuthenticated?:
 `;
 
 export const CustomBMICalculatorIcon = styled(Body)<{ isUserAuthenticated?: boolean }>`
+  ${CommonNavigationIconStyles}
+  display: ${({ isUserAuthenticated }) => (isUserAuthenticated ? 'block' : 'none')};
+`;
+
+export const CustomQuizIcon = styled(QuizNew)<{ isUserAuthenticated?: boolean }>`
   ${CommonNavigationIconStyles}
   display: ${({ isUserAuthenticated }) => (isUserAuthenticated ? 'block' : 'none')};
 `;
