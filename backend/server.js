@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors({ origin: true }));
 
 app.use("/api/workouts", require("./routes/workoutRoutes"));
+app.use("/api/workouts-quiz", require("./routes/workoutQuizRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
 
 if (process.env.REACT_APP_NODE_ENV === "production") {
