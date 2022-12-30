@@ -112,3 +112,13 @@ declare interface CurrentUser {
 }
 
 declare type Status = 'loading' | 'idle' | 'failed';
+
+declare interface QuizAnswer {
+  answerOption: string;
+  isCorrect: boolean;
+}
+
+declare interface WorkoutQuiz {
+  question: string;
+  answers: QuizAnswer[];
+}

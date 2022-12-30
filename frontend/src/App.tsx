@@ -8,6 +8,7 @@ import { validateUserAction } from './modules/Auth/User.actions';
 import { selectIsUserAuthenticated, setLoadingStatus } from './modules/Auth/User.slice';
 import { loadWeatherBasedOnCurrentLocationAction } from './modules/WeatherDetails/WorkoutsDetails.actions';
 import { loadAvailableWorkoutsAction } from './modules/Workouts/Workouts.actions';
+import { loadAvailableWorkoutsQuizQuestionsAction } from './modules/WorkoutsQuiz/WorkoutsQuiz.actions';
 import Routes from './Routes';
 import { useAppDispatch, useAppSelector } from './store/store.hooks';
 
@@ -43,6 +44,7 @@ function App(): ReactElement {
     if (isUserAuthenticated) {
       dispatch(loadWeatherBasedOnCurrentLocationAction(currentLocation));
       dispatch(loadAvailableWorkoutsAction());
+      dispatch(loadAvailableWorkoutsQuizQuestionsAction());
     }
   }, [setCurrentUser, currentLocation, dispatch, isUserAuthenticated]);
 

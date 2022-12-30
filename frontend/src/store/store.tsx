@@ -3,6 +3,7 @@ import { AnyAction, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import UserReducer from '../modules/Auth/User.slice';
 import WeatherDetailsReducer from '../modules/WeatherDetails/WeatherDetails.slice';
 import WorkoutsReducer from '../modules/Workouts/Workouts.slice';
+import WorkoutsQuizQuestions from '../modules/WorkoutsQuiz/WorkoutsQuiz.slice';
 
 const { createLogger } = require('redux-logger');
 
@@ -16,6 +17,7 @@ export const store = configureStore({
     user: UserReducer,
     workouts: WorkoutsReducer,
     weatherDetails: WeatherDetailsReducer,
+    workoutsQuizQuestions: WorkoutsQuizQuestions,
   },
   middleware(getDefaultMiddleware) {
     if (process.env.NODE_ENV === 'development') {
