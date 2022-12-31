@@ -16,7 +16,7 @@ export const SliderConfig: SliderConfiguration[] = [
     href: 'https://en.wikipedia.org/wiki/Running',
     target: '_blank',
     rel: 'noreferrer',
-    ImgSrc: RunningSliderImg,
+    imgSrc: RunningSliderImg,
     alt: 'running',
   },
   {
@@ -26,7 +26,7 @@ export const SliderConfig: SliderConfiguration[] = [
     href: 'https://en.wikipedia.org/wiki/Cycling',
     target: '_blank',
     rel: 'noreferrer',
-    ImgSrc: CyclingSliderImg,
+    imgSrc: CyclingSliderImg,
     alt: 'cycling',
   },
   {
@@ -36,7 +36,7 @@ export const SliderConfig: SliderConfiguration[] = [
     href: 'https://en.wikipedia.org/wiki/Yoga',
     target: '_blank',
     rel: 'noreferrer',
-    ImgSrc: YogaSliderImg,
+    imgSrc: YogaSliderImg,
     alt: 'yoga',
   },
   {
@@ -46,7 +46,7 @@ export const SliderConfig: SliderConfiguration[] = [
     href: 'https://en.wikipedia.org/wiki/Swimming_(sport)',
     target: '_blank',
     rel: 'noreferrer',
-    ImgSrc: SwimmingSliderImg,
+    imgSrc: SwimmingSliderImg,
     alt: 'swimming',
   },
   {
@@ -56,7 +56,7 @@ export const SliderConfig: SliderConfiguration[] = [
     href: 'https://en.wikipedia.org/wiki/Weight_training',
     target: '_blank',
     rel: 'noreferrer',
-    ImgSrc: GymWorkoutSliderImg,
+    imgSrc: GymWorkoutSliderImg,
     alt: 'gym workout',
   },
   {
@@ -66,7 +66,7 @@ export const SliderConfig: SliderConfiguration[] = [
     href: 'https://en.wikipedia.org/wiki/Battling_ropes',
     target: '_blank',
     rel: 'noreferrer',
-    ImgSrc: BattleRopesSliderImg,
+    imgSrc: BattleRopesSliderImg,
     alt: 'battle ropes',
   },
   {
@@ -76,7 +76,7 @@ export const SliderConfig: SliderConfiguration[] = [
     href: 'https://en.wikipedia.org/wiki/Aerobics',
     target: '_blank',
     rel: 'noreferrer',
-    ImgSrc: AerobicsSliderImg,
+    imgSrc: AerobicsSliderImg,
     alt: 'aerobics',
   },
 ];

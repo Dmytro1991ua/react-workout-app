@@ -5,6 +5,6 @@ declare interface SliderConfiguration {
   href: string;
   target: string;
   rel: string;
-  ImgSrc: string;
+  imgSrc: string;
   alt: string;
 }
