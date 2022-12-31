@@ -5,7 +5,7 @@ import { colors } from '../../../../global-styles/ColorsPalette';
 export const Image = styled.img`
   max-width: 100%;
   display: block;
-  height: 100%;
+  height: auto;
   object-fit: cover;
   border-radius: 1.2rem;
   margin-bottom: 1rem;

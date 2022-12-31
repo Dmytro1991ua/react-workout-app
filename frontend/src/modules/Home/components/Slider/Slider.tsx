@@ -58,7 +58,7 @@ const Slider = (): ReactElement => {
       {sortedSlides.map((slide) => (
         <SwiperSlide key={slide.id} tag={slide.tag}>
           <a href={slide.href} target={slide.target} rel={slide.rel}>
-            <Image src={slide.ImgSrc} alt={slide.alt} />
+            <Image src={slide.imgSrc} alt={slide.alt} />
             <SliderTitle>{slide.label}</SliderTitle>
           </a>
         </SwiperSlide>
