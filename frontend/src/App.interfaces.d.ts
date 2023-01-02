@@ -122,3 +122,12 @@ declare interface WorkoutQuiz {
   question: string;
   answers: QuizAnswer[];
 }
+
+declare interface QuizActionButton {
+  id: string;
+  label: string;
+  backgroundColor: keyof MainPalette;
+  color: keyof MainPalette;
+  hoverColor: keyof MainPalette;
+  onClick: () => void;
+}

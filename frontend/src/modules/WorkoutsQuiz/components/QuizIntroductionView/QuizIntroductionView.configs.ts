@@ -1,11 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { QuizIntroductionActionButton } from './QuizIntroductionView.interfaces';
-
 export function quizIntroductionActionButtonsConfig(
   onStartQuizButtonClick: () => void,
   onGoBackButtonClick: () => void
-): QuizIntroductionActionButton[] {
+): QuizActionButton[] {
   return [
     {
       id: uuidv4(),

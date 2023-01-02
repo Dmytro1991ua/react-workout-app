@@ -89,4 +89,5 @@ export const ActionsPanel = styled('div')`
 export const LoaderWrapper = styled('div')`
   display: flex;
   justify-content: center;
+  height: auto;
 `;

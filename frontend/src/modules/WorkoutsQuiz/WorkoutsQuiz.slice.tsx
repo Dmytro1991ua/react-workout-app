@@ -4,11 +4,13 @@ import { RootState } from '../../store/store';
 
 interface WorkoutsState {
   workoutsQuizQuestions: WorkoutQuiz[];
+  currentQuestion: number;
   status: Status;
 }
 
 const initialState: WorkoutsState = {
   workoutsQuizQuestions: [],
+  currentQuestion: 0,
   status: 'loading',
 };
 
@@ -20,18 +22,25 @@ export const WorkoutsQuizQuestionsSlice = createSlice({
       state.workoutsQuizQuestions = action.payload;
       state.status = action.payload ? 'idle' : 'failed';
     },
+    setCurrentQuestion: (state, action: PayloadAction<number>) => {
+      state.currentQuestion = action.payload;
+    },
     setLoadingStatus: (state, action: PayloadAction<Status>) => {
       state.status = action.payload;
     },
-    clearWorkouts: () => initialState,
+    clearWorkoutQuiz: () => initialState,
   },
 });
 
 export const selectWorkoutsQuizQuestions = (state: RootState): WorkoutQuiz[] =>
   state.workoutsQuizQuestions.workoutsQuizQuestions;
 
-export const selectAreWorkoutsLoading = (state: RootState): boolean => state.workouts.status === 'loading';
+export const selectCurrentQuestion = (state: RootState): number => state.workoutsQuizQuestions.currentQuestion;
 
-export const { setWorkoutsQuizQuestions, clearWorkouts, setLoadingStatus } = WorkoutsQuizQuestionsSlice.actions;
+export const selectAreQuizQuestionsLoading = (state: RootState): boolean =>
+  state.workoutsQuizQuestions.status === 'loading';
+
+export const { setWorkoutsQuizQuestions, setCurrentQuestion, clearWorkoutQuiz, setLoadingStatus } =
+  WorkoutsQuizQuestionsSlice.actions;
 
 export default WorkoutsQuizQuestionsSlice.reducer;
