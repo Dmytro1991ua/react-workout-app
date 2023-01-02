@@ -176,3 +176,25 @@ export const gear = keyframes`
     background-color: ${colors.mantis};
   }
 `;
+
+export const fadeIn = keyframes`
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+`;
+
+export const fadeInRight = keyframes`
+    0% {
+        transform: translateX(4rem);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0rem);
+        opacity: 1;
+    }
+`;

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Button from '../../../../components/Button/Button';
 
 import { colors } from '../../../../global-styles/ColorsPalette';
 import { fadeInDown } from '../../../../global-styles/Global.styled';
@@ -15,7 +14,7 @@ export const QuizSection = styled('div')`
   animation: ${fadeInDown} 0.6s ease-in-out;
 
   h2 {
-    font-size: 2.7rem;
+    font-size: 2rem;
     margin-bottom: 4rem;
   }
 `;
