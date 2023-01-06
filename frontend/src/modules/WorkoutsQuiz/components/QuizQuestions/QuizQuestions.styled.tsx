@@ -14,7 +14,7 @@ export const QuizQuestionsSectionWrapper = styled('div')`
 export const QuizQuestionsSection = styled('div')`
   min-width: 30rem;
   max-width: 80rem;
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 1.2rem;
   background-color: ${colors.lighterBlue};
   border: 4px solid ${colors.mantis};
