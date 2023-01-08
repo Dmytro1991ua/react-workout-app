@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
-import { colors } from '../../../../global-styles/ColorsPalette';
 import { fadeInRight } from '../../../../global-styles/Global.styled';
 import { Logo } from '../../../Header/Header.styled';
-import CheckIcon from '../../../../assets/images/quiz/check.svg';
+import { colors } from '../../../../global-styles/ColorsPalette';
 
 export const QuizQuestionsSectionWrapper = styled('div')`
   display: flex;
@@ -14,7 +13,8 @@ export const QuizQuestionsSectionWrapper = styled('div')`
 export const QuizQuestionsSection = styled('div')`
   min-width: 30rem;
   max-width: 80rem;
-  padding: 1rem;
+  width: 100vw;
+  padding: 1.5rem;
   border-radius: 1.2rem;
   background-color: ${colors.lighterBlue};
   border: 4px solid ${colors.mantis};
@@ -22,7 +22,7 @@ export const QuizQuestionsSection = styled('div')`
   animation: ${fadeInRight} 0.6s ease-in-out;
 
   @media (min-width: 62em) {
-    min-width: 45rem;
+    min-width: 60rem;
   }
 `;
 
@@ -50,6 +50,10 @@ export const QuestionsInfoWrapper = styled('div')`
   h3 {
     margin-right: 0.7rem;
   }
+
+  h4 {
+    margin-right: 2rem;
+  }
 `;
 
 export const QuestionText = styled('h2')`
@@ -62,41 +66,6 @@ export const ActionButtonsWrapper = styled('div')`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 3rem;
-`;
-
-export const Footer = styled('footer')`
+  padding-top: 1.2rem;
   border-top: 2px solid ${colors.mantis};
-  padding-top: 1rem;
-`;
-
-export const AnswersIndicatorWrapper = styled('div')`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const AnswerIndicator = styled('div')`
-  width: 3.5rem;
-  height: 3.5rem;
-  margin-bottom: 2rem;
-  border-radius: 50%;
-  background-color: ${colors.lighterGrey};
-  background-image: url(${CheckIcon});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 50%;
-
-  &:not(:last-child) {
-    margin-right: 0.5rem;
-  }
-`;
-
-export const QuizTimer = styled('p')`
-  font-size: 2rem;
-  text-align: center;
-
-  span {
-    color: ${colors.mantis};
-  }
 `;

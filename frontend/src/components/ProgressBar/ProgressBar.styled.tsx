@@ -2,16 +2,17 @@ import styled from 'styled-components';
 import { colors } from '../../global-styles/ColorsPalette';
 
 export const ProgressBarContainer = styled('div')<{
-  color?: string;
-  width?: string;
+  $color?: string;
+  $width?: string;
+  $hasColumnDirection?: boolean;
 }>`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: ${({ $hasColumnDirection }) => ($hasColumnDirection ? 'column' : 'row')};
+  align-items: ${({ $hasColumnDirection }) => ($hasColumnDirection ? 'center' : 'end')};
   justify-content: center;
    
   progress[value] {
-    width: ${({ width }) => width};
+    width: ${({ $width }) => $width};
     appearance: none;
 
     ::-webkit-progress-bar {
@@ -23,7 +24,7 @@ export const ProgressBarContainer = styled('div')<{
     ::-webkit-progress-value {
       height: 1rem;
       border-radius: 2rem;
-      background-color: ${({ color }) => color};
+      background-color: ${({ $color }) => $color};
     }
   }
 

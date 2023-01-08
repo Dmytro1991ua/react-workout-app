@@ -20,7 +20,8 @@ export const Question = styled('button')<{
   background-color: ${colors.gray95};
   padding: 1.5rem 1rem;
   border-radius: 1.5rem;
-  color: ${colors.darkBlue};
+  color: ${({ $isAnswerCorrect, $isAnswerWrong }) =>
+    $isAnswerCorrect || $isAnswerWrong ? `${colors.white}` : `${colors.darkBlue}`};
   margin-bottom: 1.5rem;
   cursor: pointer;
   text-align: left;
