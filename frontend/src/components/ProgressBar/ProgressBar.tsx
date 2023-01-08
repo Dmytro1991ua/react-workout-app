@@ -8,13 +8,14 @@ interface ProgressBarProps {
   max?: number;
   color?: keyof MainPalette;
   width?: string;
+  hasColumnDirection?: boolean;
 }
 
-const ProgressBar = ({ value, max, color, width }: ProgressBarProps): ReactElement => {
+const ProgressBar = ({ value, max, color, width, hasColumnDirection = true }: ProgressBarProps): ReactElement => {
   const progressBarColor = color && colors[color];
 
   return (
-    <ProgressBarContainer color={progressBarColor} width={width}>
+    <ProgressBarContainer $color={progressBarColor} $width={width} $hasColumnDirection={hasColumnDirection}>
       <progress value={value} max={max} />
       <span>{value} %</span>
     </ProgressBarContainer>

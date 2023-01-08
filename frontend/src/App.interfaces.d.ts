@@ -129,5 +129,6 @@ declare interface QuizActionButton {
   backgroundColor: keyof MainPalette;
   color: keyof MainPalette;
   hoverColor: keyof MainPalette;
+  isDisabled?: boolean;
   onClick: () => void;
 }

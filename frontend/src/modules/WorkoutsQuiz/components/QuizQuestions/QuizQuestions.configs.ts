@@ -2,7 +2,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 export function quizQuestionsActionButtonsConfig(
   onNextQuestionButtonClick: () => void,
-  onQuitButtonClick: () => void
+  onQuitButtonClick: () => void,
+  selectedCurrentAnswer?: string
 ): QuizActionButton[] {
   return [
     {
@@ -19,6 +20,7 @@ export function quizQuestionsActionButtonsConfig(
       color: 'white',
       hoverColor: 'mantisDarker',
       label: 'Next Question',
+      isDisabled: !selectedCurrentAnswer,
       onClick: onNextQuestionButtonClick,
     },
   ];

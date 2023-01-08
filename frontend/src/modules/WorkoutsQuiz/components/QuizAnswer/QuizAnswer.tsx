@@ -2,14 +2,14 @@ import React, { ReactElement } from 'react';
 
 import { useAppSelector } from '../../../../store/store.hooks';
 import { selectCorrectAnswerBasedOnIsCorrectProperty, selectCurrentAnswer } from '../../WorkoutsQuiz.slice';
-import { Question, QuestionWrapper } from './QuizQuestion.styled';
+import { Question, QuestionWrapper } from './QuizAnswer.styled';
 
-interface QuizQuestionProps {
+interface QuizAnswerProps {
   answer: QuizAnswer;
   onAnswerClick: (value: boolean, answerOption: string) => void;
 }
 
-const QuizQuestion = React.memo(({ answer, onAnswerClick }: QuizQuestionProps): ReactElement => {
+const QuizAnswer = React.memo(({ answer, onAnswerClick }: QuizAnswerProps): ReactElement => {
   const selectedCurrentAnswer = useAppSelector(selectCurrentAnswer);
   const correctAnswer = useAppSelector(selectCorrectAnswerBasedOnIsCorrectProperty);
 
@@ -33,4 +33,4 @@ const QuizQuestion = React.memo(({ answer, onAnswerClick }: QuizQuestionProps): 
   );
 });
 
-export default QuizQuestion;
+export default QuizAnswer;
