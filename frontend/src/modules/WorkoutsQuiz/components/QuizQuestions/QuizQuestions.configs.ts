@@ -20,6 +20,7 @@ export function quizQuestionsActionButtonsConfig(
       color: 'white',
       hoverColor: 'mantisDarker',
       label: 'Next Question',
+      order: 1,
       isDisabled: !selectedCurrentAnswer,
       onClick: onNextQuestionButtonClick,
     },

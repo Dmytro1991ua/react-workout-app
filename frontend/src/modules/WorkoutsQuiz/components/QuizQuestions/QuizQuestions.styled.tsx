@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { fadeInRight } from '../../../../global-styles/Global.styled';
 import { Logo } from '../../../Header/Header.styled';
 import { colors } from '../../../../global-styles/ColorsPalette';
+import Button from '../../../../components/Button/Button';
 
 export const QuizQuestionsSectionWrapper = styled('div')`
   display: flex;
@@ -68,4 +69,17 @@ export const ActionButtonsWrapper = styled('div')`
   justify-content: space-between;
   padding-top: 1.2rem;
   border-top: 2px solid ${colors.mantis};
+`;
+
+export const QuizButton = styled(Button)`
+  flex: 0 1 35%;
+`;
+
+export const Timer = styled('h3')<{ $isLessThanFifteenSeconds?: boolean }>`
+  font-size: 1.4rem;
+  letter-spacing: 0.2rem;
+
+  span {
+    color: ${({ $isLessThanFifteenSeconds }) => ($isLessThanFifteenSeconds ? `${colors.tomato}` : `${colors.mantis}`)};
+  }
 `;
