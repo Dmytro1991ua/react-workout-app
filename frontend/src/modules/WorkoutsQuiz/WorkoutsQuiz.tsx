@@ -5,7 +5,7 @@ import history from '../../services/History.service';
 import { BMICalculatorSection as WorkoutQuizSection } from '../BMICalculator/BMICalculator.styled';
 import QuizIntroductionView from './components/QuizIntroductionView/QuizIntroductionView';
 import QuizQuestions from './components/QuizQuestions/QuizQuestions';
-import { QUiZ_INTRODUCTION_TITLE } from './QuizIntroduction.constants';
+import { QUiZ_INTRODUCTION_TITLE } from './WorkoutQuiz.constants';
 
 const WorkoutsQuiz = (): ReactElement => {
   const [isStartQuizButtonClicked, setIsStartQuizButtonClicked] = useState<boolean>(false);

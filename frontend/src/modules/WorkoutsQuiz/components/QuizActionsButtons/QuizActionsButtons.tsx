@@ -1,10 +1,12 @@
 import React, { ReactElement, useMemo } from 'react';
 
-import Button from '../../../../components/Button/Button';
 import { useAppSelector } from '../../../../store/store.hooks';
+import { useCountDown } from '../../hooks/useCountDown';
+import { timeFormatter } from '../../utils';
+import { QUIZ_DEFAULT_TIMER } from '../../WorkoutQuiz.constants';
 import { selectCurrentAnswer } from '../../WorkoutsQuiz.slice';
 import { quizQuestionsActionButtonsConfig } from '../QuizQuestions/QuizQuestions.configs';
-import { ActionButtonsWrapper } from '../QuizQuestions/QuizQuestions.styled';
+import { ActionButtonsWrapper, QuizButton, Timer } from '../QuizQuestions/QuizQuestions.styled';
 
 interface QuizActionsButtonsProps {
   onNextQuestionButtonClick: () => void;
@@ -15,6 +17,12 @@ const QuizActionsButtons = React.memo(
   ({ onNextQuestionButtonClick, onQuizReset }: QuizActionsButtonsProps): ReactElement => {
     const selectedCurrentAnswer = useAppSelector(selectCurrentAnswer);
 
+    const { countDown } = useCountDown({ seconds: QUIZ_DEFAULT_TIMER, onQuizReset });
+
+    const isTimerLessThanFifteenSeconds = countDown < 15;
+
+    const timer = useMemo(() => timeFormatter(countDown), [countDown]);
+
     const quizActionButtons = useMemo(
       () => quizQuestionsActionButtonsConfig(onNextQuestionButtonClick, onQuizReset, selectedCurrentAnswer),
       [onNextQuestionButtonClick, onQuizReset, selectedCurrentAnswer]
@@ -23,7 +31,7 @@ const QuizActionsButtons = React.memo(
     return (
       <ActionButtonsWrapper>
         {quizActionButtons.map((button) => (
-          <Button
+          <QuizButton
             key={button.id}
             backgroundColor={button.backgroundColor}
             color={button.color}
@@ -32,8 +40,11 @@ const QuizActionsButtons = React.memo(
             disabled={button.isDisabled}
           >
             {button.label}
-          </Button>
+          </QuizButton>
         ))}
+        <Timer $isLessThanFifteenSeconds={isTimerLessThanFifteenSeconds}>
+          Time Left: <span>{timer}</span>
+        </Timer>
       </ActionButtonsWrapper>
     );
   }
