@@ -5,8 +5,8 @@ import { useCountDown } from '../../hooks/useCountDown';
 import { timeFormatter } from '../../utils';
 import { QUIZ_DEFAULT_TIMER } from '../../WorkoutQuiz.constants';
 import { selectCurrentAnswer } from '../../WorkoutsQuiz.slice';
-import { quizQuestionsActionButtonsConfig } from '../QuizQuestions/QuizQuestions.configs';
 import { ActionButtonsWrapper, QuizButton, Timer } from '../QuizQuestions/QuizQuestions.styled';
+import { quizQuestionsActionButtonsConfig } from './QuizActionButtons.configs';
 
 interface QuizActionsButtonsProps {
   onNextQuestionButtonClick: () => void;

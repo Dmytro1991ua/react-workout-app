@@ -2,21 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import _ from 'lodash';
 
 import { RootState } from '../../store/store';
-
-interface WorkoutsQuizState {
-  workoutsQuizQuestions: WorkoutQuiz[];
-  currentQuestion: number;
-  isQuizResultsShown: boolean;
-  correctAnswerCount: number;
-  isAnswerCorrect: boolean;
-  currentAnswer: string;
-  status: Status;
-}
-
-interface SelectedAnswerOption {
-  isAnswerCorrect: boolean;
-  answerOption: string;
-}
+import { SelectedAnswerOption, WorkoutsQuizState } from './WorkoutsQuiz.interfaces';
 
 const initialState: WorkoutsQuizState = {
   workoutsQuizQuestions: [],
@@ -56,6 +42,15 @@ export const WorkoutsQuizQuestionsSlice = createSlice({
       state.currentAnswer = action.payload.answerOption;
       state.isAnswerCorrect = action.payload.isAnswerCorrect;
     },
+    setTryQuizAgain: (state) => {
+      state.isQuizResultsShown = initialState.isQuizResultsShown;
+      state.correctAnswerCount = initialState.correctAnswerCount;
+      state.currentAnswer = initialState.currentAnswer;
+      state.currentQuestion = initialState.currentQuestion;
+      state.isAnswerCorrect = initialState.isAnswerCorrect;
+      state.workoutsQuizQuestions = initialState.workoutsQuizQuestions;
+      state.status = 'idle';
+    },
     setLoadingStatus: (state, action: PayloadAction<Status>) => {
       state.status = action.payload;
     },
@@ -88,12 +83,21 @@ export const selectCorrectAnswerBasedOnIsCorrectProperty = (state: RootState): s
 
 export const selectCurrentAnswer = (state: RootState): string => state.workoutsQuizQuestions.currentAnswer;
 
+export const selectTotalQuestions = (state: RootState): number =>
+  state.workoutsQuizQuestions.workoutsQuizQuestions.length;
+
+export const selectCorrectAnswers = (state: RootState): number => state.workoutsQuizQuestions.correctAnswerCount + 1;
+
+export const selectWrongAnswers = (state: RootState): number =>
+  state.workoutsQuizQuestions.currentQuestion - state.workoutsQuizQuestions.correctAnswerCount;
+
 export const {
   setWorkoutsQuizQuestions,
   setCurrentQuestion,
   clearWorkoutQuiz,
   setLoadingStatus,
   setSelectedAnswerOption,
+  setTryQuizAgain,
 } = WorkoutsQuizQuestionsSlice.actions;
 
 export default WorkoutsQuizQuestionsSlice.reducer;

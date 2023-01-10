@@ -12,9 +12,10 @@ import {
   setCurrentQuestion,
   setSelectedAnswerOption,
 } from '../../WorkoutsQuiz.slice';
-import QuizActionsButtons from '../QuizActionsButtons/QuizActionsButtons';
+import QuizActionsButtons from '../QuizActionsButtons/QuizActionButtons';
 import QuizAnswers from '../QuizAnswers/QuizAnswers';
 import QuizHeader from '../QuizHeader/QuizHeader';
+import QuizResults from '../QuizResults/QuizResults';
 import { LoaderWrapper } from './../../../Workouts/Workouts.styled';
 import { QuizQuestionsSection, QuizQuestionsSectionWrapper } from './QuizQuestions.styled';
 
@@ -66,7 +67,7 @@ const QuizQuestions = React.memo(({ onIsStartQuizButtonClicked }: QuizQuestionsP
               />
             </QuizQuestionsSection>
           ) : (
-            <button onClick={handleQuizReset}>Back</button>
+            <QuizResults onIsStartQuizButtonClicked={onIsStartQuizButtonClicked} />
           )}
         </>
       )}
