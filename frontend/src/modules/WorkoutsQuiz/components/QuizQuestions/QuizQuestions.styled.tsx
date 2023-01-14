@@ -50,6 +50,7 @@ export const QuestionsInfoWrapper = styled('div')`
 
   h3 {
     margin-right: 0.7rem;
+    margin-left: 2rem;
   }
 
   h4 {

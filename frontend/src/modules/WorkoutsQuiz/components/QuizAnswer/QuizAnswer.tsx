@@ -6,7 +6,7 @@ import { Question, QuestionWrapper } from './QuizAnswer.styled';
 
 interface QuizAnswerProps {
   answer: QuizAnswer;
-  onAnswerClick: (value: boolean, answerOption: string) => void;
+  onAnswerClick: (answerOption: string) => void;
 }
 
 const QuizAnswer = React.memo(({ answer, onAnswerClick }: QuizAnswerProps): ReactElement => {
@@ -21,7 +21,7 @@ const QuizAnswer = React.memo(({ answer, onAnswerClick }: QuizAnswerProps): Reac
     <QuestionWrapper>
       <Question
         onClick={() => {
-          onAnswerClick(answer.isCorrect, answer.answerOption);
+          onAnswerClick(answer.answerOption);
         }}
         $isAnswerCorrect={isAnswerCorrect}
         $isAnswerWrong={isAnswerWrong}

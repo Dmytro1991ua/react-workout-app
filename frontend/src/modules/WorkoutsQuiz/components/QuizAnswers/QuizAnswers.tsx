@@ -7,7 +7,7 @@ import QuizAnswer from '../QuizAnswer/QuizAnswer';
 import { QuestionText } from '../QuizQuestions/QuizQuestions.styled';
 
 interface QuizAnswersProps {
-  onAnswerClick: (isAnswerCorrect: boolean, answerOption: string) => void;
+  onAnswerClick: (answerOption: string) => void;
 }
 
 const QuizAnswers = React.memo(({ onAnswerClick }: QuizAnswersProps): ReactElement => {

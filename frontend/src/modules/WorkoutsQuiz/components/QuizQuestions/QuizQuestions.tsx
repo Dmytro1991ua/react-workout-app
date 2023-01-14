@@ -45,8 +45,8 @@ const QuizQuestions = React.memo(({ onIsStartQuizButtonClicked }: QuizQuestionsP
     dispatch(clearWorkoutQuiz());
   }
 
-  function handleAnswerClick(isAnswerCorrect: boolean, answerOption: string): void {
-    dispatch(setSelectedAnswerOption({ isAnswerCorrect, answerOption }));
+  function handleAnswerClick(answerOption: string): void {
+    dispatch(setSelectedAnswerOption(answerOption));
   }
 
   const renderQuzQuestionSection = (
