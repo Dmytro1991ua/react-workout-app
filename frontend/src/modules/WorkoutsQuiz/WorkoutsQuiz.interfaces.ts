@@ -3,14 +3,8 @@ export interface WorkoutsQuizState {
   currentQuestion: number;
   isQuizResultsShown: boolean;
   correctAnswerCount: number;
-  isAnswerCorrect: boolean;
   currentAnswer: string;
   status: Status;
-}
-
-export interface SelectedAnswerOption {
-  isAnswerCorrect: boolean;
-  answerOption: string;
 }
 
 export interface QuizResultTable {

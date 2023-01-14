@@ -2,14 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import _ from 'lodash';
 
 import { RootState } from '../../store/store';
-import { SelectedAnswerOption, WorkoutsQuizState } from './WorkoutsQuiz.interfaces';
+import { WorkoutsQuizState } from './WorkoutsQuiz.interfaces';
 
 const initialState: WorkoutsQuizState = {
   workoutsQuizQuestions: [],
   currentQuestion: 0,
   isQuizResultsShown: false,
   correctAnswerCount: 0,
-  isAnswerCorrect: false,
   currentAnswer: '',
   status: 'loading',
 };
@@ -35,21 +34,37 @@ export const WorkoutsQuizQuestionsSlice = createSlice({
       state.isQuizResultsShown = isQuizResultsShown;
       state.currentAnswer = initialState.currentAnswer;
     },
-    setSelectedAnswerOption: (state, action: PayloadAction<SelectedAnswerOption>) => {
-      const isAnswerCorrect = action.payload.isAnswerCorrect;
+    setSelectedAnswerOption: (state, action: PayloadAction<string>) => {
+      const correctAnswerOption = state.workoutsQuizQuestions[state.currentQuestion]?.answers.find(
+        (answer) => answer.isCorrect === true
+      )?.answerOption as string;
+
+      const isAnswerCorrect = action.payload === correctAnswerOption;
 
       state.correctAnswerCount = isAnswerCorrect ? state.correctAnswerCount + 1 : state.correctAnswerCount;
-      state.currentAnswer = action.payload.answerOption;
-      state.isAnswerCorrect = action.payload.isAnswerCorrect;
+      state.currentAnswer = action.payload;
     },
     setTryQuizAgain: (state) => {
       state.isQuizResultsShown = initialState.isQuizResultsShown;
       state.correctAnswerCount = initialState.correctAnswerCount;
       state.currentAnswer = initialState.currentAnswer;
       state.currentQuestion = initialState.currentQuestion;
-      state.isAnswerCorrect = initialState.isAnswerCorrect;
       state.workoutsQuizQuestions = initialState.workoutsQuizQuestions;
       state.status = 'idle';
+    },
+    setFiftyFiftyChoice: (state) => {
+      const correctAnswer = state.workoutsQuizQuestions[state.currentQuestion]?.answers.find(
+        (answer) => answer.isCorrect
+      ) as QuizAnswer;
+
+      const wrongAnswers = _.shuffle(state.workoutsQuizQuestions[state.currentQuestion]?.answers)
+        .filter((answer) => !answer.isCorrect)
+        .slice(0, 1);
+
+      state.workoutsQuizQuestions = state.workoutsQuizQuestions.map((question, index) => ({
+        ...question,
+        answers: state.currentQuestion === index ? [correctAnswer, ...wrongAnswers] : question.answers,
+      }));
     },
     setLoadingStatus: (state, action: PayloadAction<Status>) => {
       state.status = action.payload;
@@ -68,17 +83,13 @@ export const selectAreQuizQuestionsLoading = (state: RootState): boolean =>
 
 export const selectIsQuizResultsShown = (state: RootState): boolean => state.workoutsQuizQuestions.isQuizResultsShown;
 
-export const selectIsAnswerCorrect = (state: RootState): boolean => state.workoutsQuizQuestions.isAnswerCorrect;
-
 export const selectCorrectAnswerBasedOnIsCorrectProperty = (state: RootState): string => {
-  const isQuizAnswerCorrect = state.workoutsQuizQuestions.isAnswerCorrect;
   const currentQuestion = state.workoutsQuizQuestions.currentQuestion;
   const availableWorkoutsQuizQuestions = state.workoutsQuizQuestions.workoutsQuizQuestions;
 
   const getAnswersBasedOnCurrentQuestion: QuizAnswer[] = availableWorkoutsQuizQuestions[currentQuestion]?.answers ?? [];
 
-  return getAnswersBasedOnCurrentQuestion.find((answer) => answer.isCorrect === isQuizAnswerCorrect)
-    ?.answerOption as string;
+  return getAnswersBasedOnCurrentQuestion.find((answer) => answer.isCorrect === true)?.answerOption as string;
 };
 
 export const selectCurrentAnswer = (state: RootState): string => state.workoutsQuizQuestions.currentAnswer;
@@ -86,10 +97,10 @@ export const selectCurrentAnswer = (state: RootState): string => state.workoutsQ
 export const selectTotalQuestions = (state: RootState): number =>
   state.workoutsQuizQuestions.workoutsQuizQuestions.length;
 
-export const selectCorrectAnswers = (state: RootState): number => state.workoutsQuizQuestions.correctAnswerCount + 1;
+export const selectCorrectAnswers = (state: RootState): number => state.workoutsQuizQuestions.correctAnswerCount;
 
 export const selectWrongAnswers = (state: RootState): number =>
-  state.workoutsQuizQuestions.currentQuestion - state.workoutsQuizQuestions.correctAnswerCount;
+  state.workoutsQuizQuestions.currentQuestion + 1 - state.workoutsQuizQuestions.correctAnswerCount;
 
 export const {
   setWorkoutsQuizQuestions,
@@ -98,6 +109,7 @@ export const {
   setLoadingStatus,
   setSelectedAnswerOption,
   setTryQuizAgain,
+  setFiftyFiftyChoice,
 } = WorkoutsQuizQuestionsSlice.actions;
 
 export default WorkoutsQuizQuestionsSlice.reducer;
