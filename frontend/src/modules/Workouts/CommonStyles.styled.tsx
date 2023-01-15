@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import { colors } from '../../global-styles/ColorsPalette';
 import { fadeInDown } from '../../global-styles/Global.styled';
 
-export const FormAndFallbackMessageWrapper = styled('section')`
-  background-color: ${colors.lighterBlue};
+export const FormAndFallbackMessageWrapper = styled('section')<{ $isQuizFallbackMessage?: boolean }>`
+  background-color: ${({ $isQuizFallbackMessage }) =>
+    $isQuizFallbackMessage ? `${colors.darkBlue}` : `${colors.lighterBlue}`};
   border-radius: 5px;
   padding: 1.2rem;
   margin-bottom: 1.75rem;

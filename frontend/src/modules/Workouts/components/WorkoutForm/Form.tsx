@@ -119,7 +119,7 @@ const Form = ({
 
   return (
     <>
-      <FormAndFallbackMessageWrapper onClick={onStopPropagation}>
+      <FormAndFallbackMessageWrapper onClick={onStopPropagation} $isQuizFallbackMessage={false}>
         {isSubmitting ? (
           <BallTriangle color={colors.mantis} height={100} width={100} />
         ) : (
