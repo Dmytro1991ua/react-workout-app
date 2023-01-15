@@ -70,6 +70,7 @@ export const ActionButtonsWrapper = styled('div')`
   justify-content: space-between;
   padding-top: 1.2rem;
   border-top: 2px solid ${colors.mantis};
+  margin-bottom: 2rem;
 `;
 
 export const QuizButton = styled(Button)`

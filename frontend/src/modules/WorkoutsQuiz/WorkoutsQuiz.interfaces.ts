@@ -3,6 +3,7 @@ export interface WorkoutsQuizState {
   currentQuestion: number;
   isQuizResultsShown: boolean;
   correctAnswerCount: number;
+  selectedQuestionQuantity?: string;
   currentAnswer: string;
   status: Status;
 }

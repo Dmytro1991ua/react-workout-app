@@ -1,7 +1,7 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 import { loadAvailableWorkoutsQuizQuestionsAction } from '../../WorkoutsQuiz.actions';
-import { clearWorkoutQuiz, setTryQuizAgain } from '../../WorkoutsQuiz.slice';
+import { clearWorkoutQuiz, setQuestionQuantity, setTryQuizAgain } from '../../WorkoutsQuiz.slice';
 import QuizResultsActionButtons from '../QuizResultsActionButtons/QuizResultsActionButtons';
 import QuizResultsHeader from '../QuizResultsHeader/QuizResultsHeader';
 import QuizResultsTable from '../QuizResultsTable/QuizResultsTable';
@@ -15,13 +15,26 @@ interface QuizResultsProps {
 const QuizResults = React.memo(({ onIsStartQuizButtonClicked }: QuizResultsProps): ReactElement => {
   const dispatch = useAppDispatch();
 
+  const [isQuestionQuantityDefaultOptionDisabled, setIsQuestionQuantityDefaultOptionDisabled] =
+    useState<boolean>(false);
+
   function handleTryAgainButtonClick(): void {
     dispatch(setTryQuizAgain());
     dispatch(loadAvailableWorkoutsQuizQuestionsAction());
+
+    setIsQuestionQuantityDefaultOptionDisabled(false);
   }
+
   function handleQuitButtonClick(): void {
     onIsStartQuizButtonClicked(false);
     dispatch(clearWorkoutQuiz());
+
+    setIsQuestionQuantityDefaultOptionDisabled(false);
+  }
+
+  function handleQuestionQuantityChange(value: string): void {
+    dispatch(setQuestionQuantity(value));
+    setIsQuestionQuantityDefaultOptionDisabled(true);
   }
 
   return (
@@ -31,6 +44,8 @@ const QuizResults = React.memo(({ onIsStartQuizButtonClicked }: QuizResultsProps
       <QuizResultsActionButtons
         onTryAgainButtonClick={handleTryAgainButtonClick}
         onQuitButtonClick={handleQuitButtonClick}
+        onHandleQuestionQuantityChange={handleQuestionQuantityChange}
+        isQuestionQuantityDefaultOptionDisabled={isQuestionQuantityDefaultOptionDisabled}
       />
     </QuizResultSection>
   );

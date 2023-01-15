@@ -19,8 +19,8 @@ const QuizHeader = React.memo((): ReactElement => {
 
   const dispatch = useAppDispatch();
 
-  const progressBarValue = ((currentQuestion + 1) / quizQuestions.length) * 100;
-  const isButtonDisabled = quizQuestions[currentQuestion].answers.length < 3 || Boolean(selectedCurrentAnswer);
+  const progressBarValue = Math.round(((currentQuestion + 1) / quizQuestions.length) * 100);
+  const isButtonDisabled = quizQuestions[currentQuestion]?.answers.length < 3 || Boolean(selectedCurrentAnswer);
 
   function handleFiftyFiftyChoice(): void {
     dispatch(setFiftyFiftyChoice());

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import _ from 'lodash';
 
 import { RootState } from '../../store/store';
+import { DEFAULT_QUIZ_QUESTIONS_QUANTITY } from './WorkoutQuiz.constants';
 import { WorkoutsQuizState } from './WorkoutsQuiz.interfaces';
 
 const initialState: WorkoutsQuizState = {
@@ -9,6 +10,7 @@ const initialState: WorkoutsQuizState = {
   currentQuestion: 0,
   isQuizResultsShown: false,
   correctAnswerCount: 0,
+  selectedQuestionQuantity: '',
   currentAnswer: '',
   status: 'loading',
 };
@@ -22,7 +24,12 @@ export const WorkoutsQuizQuestionsSlice = createSlice({
         ...question,
         answers: _.shuffle(question.answers),
       }));
-      const slicedQuizQuestions = _.slice(shuffleQuizQuestions, 0, 10);
+
+      const slicedQuizQuestions = _.slice(
+        shuffleQuizQuestions,
+        0,
+        state.selectedQuestionQuantity ? Number(state.selectedQuestionQuantity) : DEFAULT_QUIZ_QUESTIONS_QUANTITY
+      );
 
       state.workoutsQuizQuestions = slicedQuizQuestions;
       state.status = action.payload ? 'idle' : 'failed';
@@ -66,6 +73,17 @@ export const WorkoutsQuizQuestionsSlice = createSlice({
         answers: state.currentQuestion === index ? [correctAnswer, ...wrongAnswers] : question.answers,
       }));
     },
+    setQuestionQuantity: (state, action: PayloadAction<string>) => {
+      state.selectedQuestionQuantity = action.payload;
+    },
+    setClearQuestionQuantity: (state) => {
+      const currentQuestion = state.currentQuestion;
+      const lastQuestion = state.workoutsQuizQuestions.length - 1;
+
+      if (currentQuestion === lastQuestion) {
+        state.selectedQuestionQuantity = initialState.selectedQuestionQuantity;
+      }
+    },
     setLoadingStatus: (state, action: PayloadAction<Status>) => {
       state.status = action.payload;
     },
@@ -101,6 +119,8 @@ export const selectCorrectAnswers = (state: RootState): number => state.workouts
 
 export const selectWrongAnswers = (state: RootState): number =>
   state.workoutsQuizQuestions.currentQuestion + 1 - state.workoutsQuizQuestions.correctAnswerCount;
+export const selectSelectedQuestionQuantity = (state: RootState): string | undefined =>
+  state.workoutsQuizQuestions.selectedQuestionQuantity;
 
 export const {
   setWorkoutsQuizQuestions,
@@ -110,6 +130,8 @@ export const {
   setSelectedAnswerOption,
   setTryQuizAgain,
   setFiftyFiftyChoice,
+  setQuestionQuantity,
+  setClearQuestionQuantity,
 } = WorkoutsQuizQuestionsSlice.actions;
 
 export default WorkoutsQuizQuestionsSlice.reducer;
