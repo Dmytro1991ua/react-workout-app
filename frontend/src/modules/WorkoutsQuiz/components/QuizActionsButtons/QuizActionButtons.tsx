@@ -3,10 +3,14 @@ import React, { ReactElement, useMemo } from 'react';
 import { useAppSelector } from '../../../../store/store.hooks';
 import { useCountDown } from '../../hooks/useCountDown';
 import { timeFormatter } from '../../utils';
-import { QUIZ_DEFAULT_TIMER } from '../../WorkoutQuiz.constants';
-import { selectCurrentAnswer, selectWorkoutsQuizQuestions } from '../../WorkoutsQuiz.slice';
+import { SelectedQuestionQuantity } from '../../WorkoutQuiz.enums';
+import {
+  selectCurrentAnswer,
+  selectSelectedQuestionQuantity,
+  selectWorkoutsQuizQuestions,
+} from '../../WorkoutsQuiz.slice';
 import { ActionButtonsWrapper, QuizButton, Timer } from '../QuizQuestions/QuizQuestions.styled';
-import { quizQuestionsActionButtonsConfig } from './QuizActionButtons.configs';
+import { QUIZ_TIMER, quizQuestionsActionButtonsConfig } from './QuizActionButtons.configs';
 
 interface QuizActionsButtonsProps {
   onNextQuestionButtonClick: () => void;
@@ -17,8 +21,12 @@ const QuizActionsButtons = React.memo(
   ({ onNextQuestionButtonClick, onQuizReset }: QuizActionsButtonsProps): ReactElement => {
     const selectedCurrentAnswer = useAppSelector(selectCurrentAnswer);
     const quizQuestions = useAppSelector(selectWorkoutsQuizQuestions);
+    const selectedQuestionQuantity = useAppSelector(selectSelectedQuestionQuantity);
 
-    const { countDown } = useCountDown({ seconds: QUIZ_DEFAULT_TIMER, onQuizReset });
+    const { countDown } = useCountDown({
+      seconds: QUIZ_TIMER[selectedQuestionQuantity as SelectedQuestionQuantity],
+      onQuizReset,
+    });
 
     const isTimerLessThanFifteenSeconds = countDown < 15;
 

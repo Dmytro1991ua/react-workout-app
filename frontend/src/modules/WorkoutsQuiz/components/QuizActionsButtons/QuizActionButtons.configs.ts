@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
+import { QuizTimer, SelectedQuestionQuantity } from '../../WorkoutQuiz.enums';
+
 export function quizQuestionsActionButtonsConfig(
   onNextQuestionButtonClick: () => void,
   onQuitButtonClick: () => void,
@@ -26,3 +28,13 @@ export function quizQuestionsActionButtonsConfig(
     },
   ];
 }
+
+export const QUIZ_TIMER: Record<SelectedQuestionQuantity, QuizTimer> = {
+  [SelectedQuestionQuantity.DefaultQuestionQuantity]: QuizTimer.OneMinute,
+  [SelectedQuestionQuantity.FifteenQuestions]: QuizTimer.MinuteAndAHalf,
+  [SelectedQuestionQuantity.TwentyQuestions]: QuizTimer.TwoMinutes,
+  [SelectedQuestionQuantity.TwentyFiveQuestions]: QuizTimer.TwoMinutesAndHalf,
+  [SelectedQuestionQuantity.ThirtyQuestions]: QuizTimer.ThreeMinutes,
+  [SelectedQuestionQuantity.ThirtyFiveQuestions]: QuizTimer.ThreeMinutesAndHalf,
+  [SelectedQuestionQuantity.FortyQuestions]: QuizTimer.FourMinutes,
+};
