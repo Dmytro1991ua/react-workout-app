@@ -26,27 +26,35 @@ const QuizHeader = React.memo((): ReactElement => {
     dispatch(setFiftyFiftyChoice());
   }
 
+  const renderQuestionsInfo = (
+    <>
+      {quizQuestions.length > 0 && (
+        <QuestionsInfoWrapper>
+          <Button
+            backgroundColor='mantis'
+            hoverColor='mantisDarker'
+            color='white'
+            onClick={handleFiftyFiftyChoice}
+            disabled={isButtonDisabled}
+          >
+            50/50
+          </Button>
+          <h3>Question</h3>
+          <h4>
+            {currentQuestion + 1} / {quizQuestions.length}
+          </h4>
+          <ProgressBar value={progressBarValue} max={100} color='mantis' hasColumnDirection={false} />
+        </QuestionsInfoWrapper>
+      )}
+    </>
+  );
+
   return (
     <Header>
       <figure>
         <WorkoutLogo src={Logo} alt='Workout Logo' />
       </figure>
-      <QuestionsInfoWrapper>
-        <Button
-          backgroundColor='mantis'
-          hoverColor='mantisDarker'
-          color='white'
-          onClick={handleFiftyFiftyChoice}
-          disabled={isButtonDisabled}
-        >
-          50/50
-        </Button>
-        <h3>Question</h3>
-        <h4>
-          {currentQuestion + 1} / {quizQuestions.length}
-        </h4>
-        <ProgressBar value={progressBarValue} max={100} color='mantis' hasColumnDirection={false} />
-      </QuestionsInfoWrapper>
+      {renderQuestionsInfo}
     </Header>
   );
 });

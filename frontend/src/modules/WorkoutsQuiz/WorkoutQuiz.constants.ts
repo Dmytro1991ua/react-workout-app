@@ -32,3 +32,7 @@ export const QUIZ_QUESTIONS_OPTIONS: SelectedOption[] = [
     value: '40',
   },
 ];
+
+export const QUIZ_FALLBACK_MESSAGE_TITLE = 'There is no available quiz questions';
+export const QUIZ_FALLBACK_MESSAGE_SUBTITLE =
+  'Please check your internet connection, reload the page or sign in to application one more time';

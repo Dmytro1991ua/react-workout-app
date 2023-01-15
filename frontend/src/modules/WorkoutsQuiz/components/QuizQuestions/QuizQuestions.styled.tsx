@@ -85,3 +85,7 @@ export const Timer = styled('h3')<{ $isLessThanFifteenSeconds?: boolean }>`
     color: ${({ $isLessThanFifteenSeconds }) => ($isLessThanFifteenSeconds ? `${colors.tomato}` : `${colors.mantis}`)};
   }
 `;
+
+export const FallbackMessageWrapper = styled('div')`
+  margin-bottom: 2rem;
+`;

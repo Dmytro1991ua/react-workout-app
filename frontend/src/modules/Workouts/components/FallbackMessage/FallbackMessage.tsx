@@ -6,11 +6,12 @@ import { FallbackMessageSubtitle, FallbackMessageTitle } from './FallbackMessage
 interface FallbackMessageProps {
   title?: string;
   message?: string;
+  isQuizFallbackMessage?: boolean;
 }
 
-const FallbackMessage = ({ message, title }: FallbackMessageProps): ReactElement => {
+const FallbackMessage = ({ message, title, isQuizFallbackMessage = false }: FallbackMessageProps): ReactElement => {
   return (
-    <FormAndFallbackMessageWrapper>
+    <FormAndFallbackMessageWrapper $isQuizFallbackMessage={isQuizFallbackMessage}>
       <FallbackMessageTitle>{title}</FallbackMessageTitle>
       <FallbackMessageSubtitle>{message}</FallbackMessageSubtitle>
     </FormAndFallbackMessageWrapper>
