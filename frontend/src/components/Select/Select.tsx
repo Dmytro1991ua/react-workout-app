@@ -17,7 +17,8 @@ type ValueType =
   | HeightUnitsSelectOptions
   | FeetSelectOptions
   | InchesSelectOptions
-  | number;
+  | number
+  | string;
 
 type SelectProps = {
   options: SelectedOption[];

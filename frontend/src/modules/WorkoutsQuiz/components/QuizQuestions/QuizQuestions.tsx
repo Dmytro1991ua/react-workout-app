@@ -9,6 +9,7 @@ import {
   clearWorkoutQuiz,
   selectAreQuizQuestionsLoading,
   selectIsQuizResultsShown,
+  setClearQuestionQuantity,
   setCurrentQuestion,
   setSelectedAnswerOption,
 } from '../../WorkoutsQuiz.slice';
@@ -38,6 +39,7 @@ const QuizQuestions = React.memo(({ onIsStartQuizButtonClicked }: QuizQuestionsP
 
   function handleNextQuestionButtonClick(): void {
     dispatch(setCurrentQuestion());
+    dispatch(setClearQuestionQuantity());
   }
 
   function handleQuizReset(): void {
