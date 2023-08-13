@@ -1,6 +1,4 @@
-import { yupResolver } from '@hookform/resolvers/yup';
 import { ReactElement } from 'react';
-import { useForm } from 'react-hook-form';
 import { Bars } from 'react-loader-spinner';
 
 import { AppRoutes } from '../../../../App.enums';
@@ -8,28 +6,14 @@ import Button from '../../../../components/Button/Button';
 import Input from '../../../../components/Input/Input';
 import { colors } from '../../../../global-styles/ColorsPalette';
 import { ForgotPasswordInitialValues } from '../../Auth.interfaces';
-import { authService } from '../../Auth.service';
 import { FORGOT_PASSWORD_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
+import { useAuth } from '../../hooks/useAuth';
 import { Form, FormBody, FormDetails, FormLink, FormSection, FormSectionTitle } from '../LoginForm/Login.styled';
 
 const ForgotPassword = (): ReactElement => {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm<ForgotPasswordInitialValues>({
-    mode: 'onBlur',
-    resolver: yupResolver(FORGOT_PASSWORD_VALIDATION_SCHEMA),
+  const { errors, register, isSubmitting, onForgotPassword, handleSubmit } = useAuth<ForgotPasswordInitialValues>({
+    validationSchema: FORGOT_PASSWORD_VALIDATION_SCHEMA,
   });
-
-  async function handleForgotPasswordFormSubmit(formData: ForgotPasswordInitialValues): Promise<void> {
-    const { email } = formData;
-
-    await authService.forgotPassword(email);
-
-    reset();
-  }
 
   return (
     <FormSection>
@@ -38,7 +22,7 @@ const ForgotPassword = (): ReactElement => {
       ) : (
         <>
           <FormSectionTitle>Password Reset</FormSectionTitle>
-          <Form onSubmit={handleSubmit(handleForgotPasswordFormSubmit)}>
+          <Form onSubmit={handleSubmit(onForgotPassword)}>
             <FormBody>
               <FormDetails>
                 <Input<ForgotPasswordInitialValues>
