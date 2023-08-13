@@ -1,46 +1,26 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import React, { ReactElement, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { ReactElement } from 'react';
 import { BallTriangle } from 'react-loader-spinner';
 
 import { AppRoutes } from '../../../../App.enums';
 import Input from '../../../../components/Input/Input';
 import { colors } from '../../../../global-styles/ColorsPalette';
 import { LoginInitialValues } from '../../Auth.interfaces';
-import { authService } from '../../Auth.service';
 import { LOGIN_VALIDATION_SCHEMA } from '../../AuthValidations.schema';
+import { useAuth } from '../../hooks/useAuth';
 import { Form, FormBody, FormDetails, FormLink, FormSection, FormSectionTitle, FormSubmitBtn } from './Login.styled';
 
 const LoginForm = (): ReactElement => {
   const {
-    handleSubmit,
+    errors,
     register,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm<LoginInitialValues>({
-    mode: 'onBlur',
-    resolver: yupResolver(LOGIN_VALIDATION_SCHEMA),
+    isSubmitting,
+    isSignInViaGoogleLoading,
+    onLoginWithCredentials,
+    onSignInViaGoogle,
+    handleSubmit,
+  } = useAuth<LoginInitialValues>({
+    validationSchema: LOGIN_VALIDATION_SCHEMA,
   });
-
-  const [isSignInViaGoogleLoading, setIsSignInViaGoogleLoading] = useState<boolean>(false);
-
-  async function handleFormSubmit(formData: LoginInitialValues): Promise<void> {
-    const { email, password } = formData;
-
-    await authService.login(email, password);
-
-    reset();
-  }
-
-  async function handleSignInViaGoogle(): Promise<void> {
-    try {
-      setIsSignInViaGoogleLoading(true);
-      await authService.signInViaGoogle();
-      setIsSignInViaGoogleLoading(false);
-    } catch (error) {
-      return;
-    }
-  }
 
   return (
     <FormSection>
@@ -83,7 +63,7 @@ const LoginForm = (): ReactElement => {
                 backgroundColor='mantisDarker'
                 hoverColor='mantis'
                 color='white'
-                onClick={handleSubmit(handleFormSubmit)}
+                onClick={handleSubmit(onLoginWithCredentials)}
               >
                 Sign In
               </FormSubmitBtn>
@@ -93,7 +73,7 @@ const LoginForm = (): ReactElement => {
                 backgroundColor='white'
                 hoverColor='lighterBlue'
                 color='mantis'
-                onClick={handleSignInViaGoogle}
+                onClick={onSignInViaGoogle}
               >
                 Sign In via Google
               </FormSubmitBtn>
