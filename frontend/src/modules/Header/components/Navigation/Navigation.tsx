@@ -29,7 +29,7 @@ const Navigation = ({ isOpen }: NavigationProps): ReactElement => {
               data-tip={navLink && navLink['data-tip']}
               to={{ pathname: navLink && navLink.url }}
               onClick={navLink && navLink.onClick}
-              isActive={location.pathname === navLink.url}
+              $isActive={location.pathname === navLink.url}
             >
               {navLink && navLink.navigationIcon}
             </ListLink>
