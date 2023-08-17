@@ -25,6 +25,7 @@ export const useAuth = <T extends FieldValues>({ validationSchema }: HookProps):
     reset,
   } = useForm<T>({
     mode: 'onBlur',
+    reValidateMode: 'onBlur',
     resolver: yupResolver(validationSchema),
   });
 

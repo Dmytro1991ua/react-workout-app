@@ -116,13 +116,13 @@ export const ListItem = styled('li')`
   }
 `;
 
-export const ListLink = styled(Link)<{ isActive?: boolean }>`
+export const ListLink = styled(Link)<{ $isActive?: boolean }>`
   svg {
-    fill: ${({ isActive }) => (isActive ? `${colors.white}` : `${colors.mantis}`)};
+    fill: ${({ $isActive }) => ($isActive ? `${colors.white}` : `${colors.mantis}`)};
   }
 
   img {
-    border: ${({ isActive }) => (isActive ? `2px solid ${colors.white}` : 'none')};
+    border: ${({ $isActive }) => ($isActive ? `2px solid ${colors.white}` : 'none')};
     margin-right: 0;
     margin-bottom: 0;
 

@@ -12,7 +12,7 @@ import history from './services/History.service';
 const HomePage = lazy(() => import('./modules/Home/Home'));
 const LoginPage = lazy(() => import('./modules/Auth/components/LoginForm/LoginForm'));
 const SignUpPage = lazy(() => import('./modules/Auth/components/SignupForm/SignUp'));
-const ForgotPasswordPage = lazy(() => import('./modules/Auth/components/ForgotPassword/ForgotPassword'));
+const ForgotPasswordPage = lazy(() => import('./modules/Auth/components/ForgotPasswordForm/ForgotPasswordForm'));
 const ResetPasswordPage = lazy(() => import('./modules/Auth/components/ResetPasswordForm/ResetPasswordForm'));
 
 const WorkoutsPage = lazy(() => import('./modules/Workouts/Workouts'));
