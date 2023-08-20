@@ -41,3 +41,6 @@ export const FormFieldName = {
   weightUnits: 'weightUnits',
   heightUnits: 'heightUnits',
 } as const;
+
+export const PAGE_TITLE = 'BMI Calculator';
+export const PAGE_SUBTITLE = 'Keep in an eye on your healthiness';

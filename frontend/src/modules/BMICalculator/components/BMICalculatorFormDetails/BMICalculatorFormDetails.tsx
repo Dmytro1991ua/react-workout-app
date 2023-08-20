@@ -2,44 +2,94 @@ import React, { Dispatch, ReactElement, SetStateAction } from 'react';
 
 import Input from '../../../../components/Input/Input';
 import { handleKeyDownOnInputField } from '../../../../utils';
-import { FormFieldName, HEIGHT_OPTIONS, WEIGHT_OPTIONS } from '../../BMICalculator.constants';
+import {
+  FEET_OPTIONS,
+  FormFieldName,
+  HEIGHT_OPTIONS,
+  INCHES_OPTIONS,
+  WEIGHT_OPTIONS,
+} from '../../BMICalculator.constants';
 import { HeightUnitsSelectOptions, WeightUnitsSelectOptions } from '../../BMICalculator.enums';
 import { FieldNameType } from '../../BMICalculator.interfaces';
 import { BMICalculatorFormInitialValues } from '../BMICalculatorForm/BMICalculator.interfaces';
+import { InchesSelectWrapper } from '../BMICalculatorForm/BMICalculatorForm.styled';
+import { useBMICalculations } from '../BMICalculatorForm/hooks/useBMICalculations';
+import { useDisabledSelectOption } from '../BMICalculatorForm/hooks/useDisabledSelectOption';
 import { Select } from './../../../../components/Select/Select';
 import { FormDetailsWrapper, InputWrapper, SelectWrapper } from './BMICalculatorFormDetails.styled';
 
 interface FormDetailsProps {
-  isWeightDefaultOptionDisabled: boolean;
-  isHeightDefaultOptionDisabled: boolean;
-  selectedWeightUnitValue?: WeightUnitsSelectOptions;
-  selectedHeightUnitValue?: HeightUnitsSelectOptions;
-  weightValue?: string | number;
-  renderHeightInputOrSelects: JSX.Element;
-  weightInputPlaceholder: string;
-  hasWeightValue: boolean;
+  formData: BMICalculatorFormInitialValues;
   onHandleFormFieldsChange: (
     e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>,
     fieldName: FieldNameType,
     isDefaultOptionDisabled?: Dispatch<SetStateAction<boolean>>
   ) => void;
-  onIsWeightDefaultOptionDisabled: Dispatch<SetStateAction<boolean>>;
-  onIsHeightDefaultOptionDisabled: Dispatch<SetStateAction<boolean>>;
 }
 
-const BMICalculatorFormDetails = ({
-  isWeightDefaultOptionDisabled,
-  isHeightDefaultOptionDisabled,
-  selectedWeightUnitValue,
-  selectedHeightUnitValue,
-  renderHeightInputOrSelects,
-  weightInputPlaceholder,
-  weightValue,
-  hasWeightValue,
-  onHandleFormFieldsChange,
-  onIsWeightDefaultOptionDisabled,
-  onIsHeightDefaultOptionDisabled,
-}: FormDetailsProps): ReactElement => {
+const BMICalculatorFormDetails = ({ formData, onHandleFormFieldsChange }: FormDetailsProps): ReactElement => {
+  const {
+    isFeetDefaultOptionDisabled,
+    isInchesDefaultOptionDisabled,
+    isWeightDefaultOptionDisabled,
+    isHeightDefaultOptionDisabled,
+    onIsFeetDefaultOptionDisabled,
+    onIsInchesDefaultOptionDisabled,
+    onIsWeightDefaultOptionDisabled,
+    onIsHeightDefaultOptionDisabled,
+  } = useDisabledSelectOption(formData);
+
+  const { weightInputPlaceholder } = useBMICalculations(formData);
+
+  const renderHeightInputOrSelects = (
+    <>
+      {formData.heightUnits !== HeightUnitsSelectOptions.Inches ? (
+        <Input<BMICalculatorFormInitialValues>
+          type='number'
+          min={0}
+          max={10000}
+          name={FormFieldName.height}
+          id={FormFieldName.height}
+          placeholder='Enter your height'
+          isRequired
+          borderColor='mantisDarker'
+          fullWidth
+          value={formData.height}
+          onChange={(e) => onHandleFormFieldsChange(e, FormFieldName.height)}
+          onKeyDown={handleKeyDownOnInputField}
+          disabled={formData.heightUnits === HeightUnitsSelectOptions.Default}
+        />
+      ) : (
+        <div style={{ display: 'flex', width: '100%' }}>
+          <Select
+            options={FEET_OPTIONS}
+            actionPanelSelect
+            name={FormFieldName.feet}
+            id={FormFieldName.feet}
+            value={formData.feet}
+            optionLabel='Select feet:'
+            onChange={(e) => onHandleFormFieldsChange(e, FormFieldName.feet, onIsFeetDefaultOptionDisabled)}
+            isDefaultOptionDisabled={isFeetDefaultOptionDisabled}
+            fullWidth
+          />
+          <InchesSelectWrapper>
+            <Select
+              options={INCHES_OPTIONS}
+              actionPanelSelect
+              name={FormFieldName.inches}
+              id={FormFieldName.inches}
+              value={formData.inches}
+              optionLabel='Select inches:'
+              onChange={(e) => onHandleFormFieldsChange(e, FormFieldName.inches, onIsInchesDefaultOptionDisabled)}
+              isDefaultOptionDisabled={isInchesDefaultOptionDisabled}
+              fullWidth
+            />
+          </InchesSelectWrapper>
+        </div>
+      )}
+    </>
+  );
+
   return (
     <>
       <FormDetailsWrapper>
@@ -54,10 +104,10 @@ const BMICalculatorFormDetails = ({
             isRequired
             borderColor='mantisDarker'
             fullWidth
-            value={weightValue}
+            value={formData.weight}
             onChange={(e) => onHandleFormFieldsChange(e, FormFieldName.weight)}
             onKeyDown={handleKeyDownOnInputField}
-            disabled={selectedWeightUnitValue === WeightUnitsSelectOptions.Default}
+            disabled={formData.weightUnits === WeightUnitsSelectOptions.Default}
           />
         </InputWrapper>
         <SelectWrapper>
@@ -66,7 +116,7 @@ const BMICalculatorFormDetails = ({
             actionPanelSelect
             name={FormFieldName.weightUnits}
             id={FormFieldName.weightUnits}
-            value={selectedWeightUnitValue}
+            value={formData.weightUnits}
             optionLabel='Select weight:'
             onChange={(e) => onHandleFormFieldsChange(e, FormFieldName.weightUnits, onIsWeightDefaultOptionDisabled)}
             isDefaultOptionDisabled={isWeightDefaultOptionDisabled}
@@ -81,11 +131,11 @@ const BMICalculatorFormDetails = ({
             actionPanelSelect
             name={FormFieldName.heightUnits}
             id={FormFieldName.heightUnits}
-            value={selectedHeightUnitValue}
+            value={formData.heightUnits}
             optionLabel='Select height:'
             onChange={(e) => onHandleFormFieldsChange(e, FormFieldName.heightUnits, onIsHeightDefaultOptionDisabled)}
             isDefaultOptionDisabled={isHeightDefaultOptionDisabled}
-            disabled={!hasWeightValue}
+            disabled={!formData.weight}
           />
         </SelectWrapper>
       </FormDetailsWrapper>
