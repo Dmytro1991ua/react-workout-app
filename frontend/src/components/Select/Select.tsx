@@ -55,6 +55,7 @@ export const Select = <TFormValues extends Record<string, unknown>>(
       <FormSelect
         {...getFormFieldByNameProp}
         id={props.id}
+        name={props.name}
         onChange={props.onChange}
         actionPanelSelect={props.actionPanelSelect}
         value={props.value}

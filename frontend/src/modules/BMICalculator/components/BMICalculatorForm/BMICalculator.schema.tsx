@@ -4,7 +4,7 @@ import {
   InchesSelectOptions,
   WeightUnitsSelectOptions,
 } from '../../BMICalculator.enums';
-import { BMICalculatorFormInitialValues } from './BMICalculator.interfaces';
+import { BMICalculatorFormInitialValues } from '../../BMICalculator.interfaces';
 
 export const BMI_CALCULATOR_FORM_INITIAL_VALUES: BMICalculatorFormInitialValues = {
   height: '',

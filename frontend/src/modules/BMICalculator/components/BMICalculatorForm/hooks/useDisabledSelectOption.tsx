@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 
 import { HeightUnitsSelectOptions } from '../../../BMICalculator.enums';
-import { BMICalculatorFormInitialValues } from '../BMICalculator.interfaces';
+import { BMICalculatorFormInitialValues } from '../../../BMICalculator.interfaces';
 
 type ReturnedHookType = {
   isWeightDefaultOptionDisabled: boolean;
