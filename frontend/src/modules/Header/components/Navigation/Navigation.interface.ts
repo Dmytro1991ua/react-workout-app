@@ -14,3 +14,7 @@ export interface NavigationConfigsProps {
   imageSrc: string;
   onSetImageSrc: (value: string) => void;
 }
+
+export type Location = {
+  pathname: string;
+};

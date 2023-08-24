@@ -1,7 +1,7 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import useDeviceDetect from '../../../../cdk/hooks/useDeviceDetect';
 import { kelvinToCelsius } from '../../../Workouts/Workouts.utils';
+import { useWeatherWidget } from './hooks/useWeatherWidget';
 import {
   CityWeatherLabel,
   CityWeatherLabelWrapper,
@@ -18,21 +18,7 @@ interface WeatherWidgetProps {
 }
 
 const WeatherWidget = ({ currentWeather }: WeatherWidgetProps): ReactElement => {
-  const isMobileScreen = useDeviceDetect();
-
-  const [timeValue, setTimeValue] = useState<string | null>(null);
-  const currentWeatherIcon = `${process.env.REACT_APP_WEATHER_API_ICON}/wn/${currentWeather?.weatherInfo[0].icon}@2x.png`;
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const date = new Date();
-      setTimeValue(date.toLocaleTimeString());
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+  const { currentWeatherIcon, isMobileScreen, timeValue } = useWeatherWidget({ currentWeather });
 
   const desktopWidgetView = (
     <WeatherWidgetWrapper>
