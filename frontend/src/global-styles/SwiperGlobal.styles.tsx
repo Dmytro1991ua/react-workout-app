@@ -19,7 +19,7 @@ export const CustomSwiper = styled(Swiper)`
 
   & .swiper-slide {
     width: 100%;
-    height: 26rem;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     justify-content: center;
