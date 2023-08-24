@@ -5,8 +5,5 @@ export const FormActionsWrapper = styled('div')`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`;
-
-export const ResetButton = styled(Button)`
-  margin-right: 2rem;
+  gap: 2rem;
 `;

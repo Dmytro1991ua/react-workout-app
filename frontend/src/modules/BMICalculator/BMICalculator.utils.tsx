@@ -4,6 +4,10 @@ import ObeseClass2BodyImage from '../../assets/images/bmi/obese-class-2.png';
 import ObeseClass3BodyImage from '../../assets/images/bmi/obese-class-3.png';
 import OverweightBodyImage from '../../assets/images/bmi/overweight.png';
 import UnderweightBodyImage from '../../assets/images/bmi/underweight.png';
+import Button from '../../components/Button/Button';
+import Input from '../../components/Input/Input';
+import { Select } from '../../components/Select/Select';
+import { formActionsButtonsConfig, formInputsConfig, formSelectsConfig } from './BMICalculator.configs';
 import {
   BmiImageAltText,
   BmiMessageResult,
@@ -11,7 +15,14 @@ import {
   HeightUnitsSelectOptions,
   WeightUnitsSelectOptions,
 } from './BMICalculator.enums';
-import { BmiImageResult, CalculateBmiBasedOnUserPreferencesProps } from './BMICalculator.interfaces';
+import {
+  BMICalculatorFormInitialValues,
+  BmiImageResult,
+  CalculateBmiBasedOnUserPreferencesProps,
+  FormActionButtonConfigProps,
+  FormInputConfigProps,
+  FormSelectConfigProps,
+} from './BMICalculator.interfaces';
 
 export function getBmiMessageResult(bmi: number): BmiMessageResult | undefined {
   if (bmi < BmiResult.Healthy) {
@@ -87,3 +98,126 @@ export function calculateBmiBasedOnUserPreferences({
     calculateBmiInPoundsAndInches({ formData, onSetBmiInPoundsAndInches, onSetBmiInKilogramsAndCentimeters });
   }
 }
+
+export const generateFormInputs = ({
+  formData,
+  weightInputPlaceholder,
+  onChange,
+}: FormInputConfigProps): JSX.Element[] => {
+  const formInputs = formInputsConfig({ formData, onChange, weightInputPlaceholder });
+
+  return formInputs.map(
+    ({
+      borderColor,
+      id,
+      max,
+      min,
+      name,
+      placeholder,
+      type,
+      disabled,
+      fullWidth,
+      isRequired,
+      onChange,
+      onKeyDown,
+      value,
+    }) => (
+      <Input<BMICalculatorFormInitialValues>
+        key={id}
+        type={type}
+        min={min}
+        max={max}
+        name={name}
+        id={id}
+        placeholder={placeholder}
+        isRequired={isRequired}
+        borderColor={borderColor}
+        fullWidth={fullWidth}
+        value={value}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+        disabled={disabled}
+      />
+    )
+  );
+};
+
+export const generateFormSelects = ({
+  formData,
+  isFeetDefaultOptionDisabled,
+  isInchesDefaultOptionDisabled,
+  isWeightDefaultOptionDisabled,
+  isHeightDefaultOptionDisabled,
+  onChange,
+  onIsFeetDefaultOptionDisabled,
+  onIsInchesDefaultOptionDisabled,
+  onIsWeightDefaultOptionDisabled,
+  onIsHeightDefaultOptionDisabled,
+}: FormSelectConfigProps): JSX.Element[] => {
+  const formSelects = formSelectsConfig({
+    formData,
+    isFeetDefaultOptionDisabled,
+    isInchesDefaultOptionDisabled,
+    isWeightDefaultOptionDisabled,
+    isHeightDefaultOptionDisabled,
+    onChange,
+    onIsFeetDefaultOptionDisabled,
+    onIsInchesDefaultOptionDisabled,
+    onIsWeightDefaultOptionDisabled,
+    onIsHeightDefaultOptionDisabled,
+  });
+
+  return formSelects.map(
+    ({
+      id,
+      name,
+      options,
+      actionPanelSelect,
+      disabled,
+      fullWidth,
+      isDefaultOptionDisabled,
+      onChange,
+      optionLabel,
+      value,
+    }) => (
+      <Select
+        key={id}
+        options={options}
+        actionPanelSelect={actionPanelSelect}
+        name={name}
+        id={id}
+        value={value}
+        optionLabel={optionLabel}
+        onChange={onChange}
+        isDefaultOptionDisabled={isDefaultOptionDisabled}
+        fullWidth={fullWidth}
+        disabled={disabled}
+      />
+    )
+  );
+};
+
+export const generateFormActionButtons = ({
+  isButtonDisabled,
+  onResetForm,
+  onSubmit,
+}: FormActionButtonConfigProps): JSX.Element[] => {
+  const formActionButtons = formActionsButtonsConfig({ isButtonDisabled, onResetForm, onSubmit });
+
+  return formActionButtons.map(
+    ({ id, type, backgroundColor, hoverColor, color, label, onClick, disabled, fullWidth }) => (
+      <Button
+        key={id}
+        type={type}
+        fullWidth={fullWidth}
+        disabled={disabled}
+        backgroundColor={backgroundColor}
+        hoverColor={hoverColor}
+        color={color}
+        onClick={onClick}
+      >
+        {label}
+      </Button>
+    )
+  );
+};

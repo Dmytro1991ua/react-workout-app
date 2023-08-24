@@ -1,9 +1,8 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import { BmiMessageResult, WeightUnitsSelectOptions } from '../../../BMICalculator.enums';
-import { BmiImageResult } from '../../../BMICalculator.interfaces';
-import { getBmiImageResult, getBmiMessageResult } from '../../../utils';
-import { BMICalculatorFormInitialValues } from '../BMICalculator.interfaces';
+import { BMICalculatorFormInitialValues, BmiImageResult } from '../../../BMICalculator.interfaces';
+import { getBmiImageResult, getBmiMessageResult } from '../../../BMICalculator.utils';
 
 type ReturnedHookType = {
   calculatedBmiResult: string;

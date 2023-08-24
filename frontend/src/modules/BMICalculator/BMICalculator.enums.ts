@@ -60,3 +60,8 @@ export enum BmiImageAltText {
   ObeseClass2 = 'Obese(Class-2) BMI body image',
   ObeseClass3 = 'Obese(Class-3) BMI body image',
 }
+
+export enum ButtonLabel {
+  Reset = 'Reset',
+  Calculate = ' Calculate',
+}

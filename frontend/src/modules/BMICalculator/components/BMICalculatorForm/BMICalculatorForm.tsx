@@ -1,4 +1,4 @@
-import React, { Dispatch, ReactElement, SetStateAction, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 import { FormFieldName } from '../../BMICalculator.constants';
 import {
@@ -7,12 +7,11 @@ import {
   HeightUnitsSelectOptions,
   InchesSelectOptions,
 } from '../../BMICalculator.enums';
-import { BmiImageResult, FieldNameType } from '../../BMICalculator.interfaces';
-import { calculateBmiBasedOnUserPreferences } from '../../utils';
+import { BMICalculatorFormInitialValues, BmiImageResult, FieldNameType } from '../../BMICalculator.interfaces';
+import { calculateBmiBasedOnUserPreferences } from '../../BMICalculator.utils';
 import BMICalculatorFormDetails from '../BMICalculatorFormDetails/BMICalculatorFormDetails';
 import BMICalculatorFormActions from './../BMICalculatorFormActions/BMICalculatorFormActions';
 import BMICalculatorResult from './../BMICalculatorResult/BMICalculatorResult';
-import { BMICalculatorFormInitialValues } from './BMICalculator.interfaces';
 import { BMI_CALCULATOR_FORM_INITIAL_VALUES } from './BMICalculator.schema';
 import { useBMICalculations } from './hooks/useBMICalculations';
 import { useDisabledSelectOption } from './hooks/useDisabledSelectOption';
@@ -51,11 +50,9 @@ const BMICalculatorForm = (): ReactElement => {
       });
     }
   }
-  const handleFormFieldsChange = (
-    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>,
-    fieldName: FieldNameType,
-    isDefaultOptionDisabled?: Dispatch<SetStateAction<boolean>>
-  ): void => {
+  const handleFormFieldsChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
+    const fieldName = e.target.name as FieldNameType;
+
     setFormData((prev) => {
       return { ...prev, [fieldName]: e.target.value };
     });
@@ -64,8 +61,6 @@ const BMICalculatorForm = (): ReactElement => {
       clearHeightValueOnInchesSelect();
       clearInchesAndFeetValueOnCentimeterSelect();
     }
-
-    isDefaultOptionDisabled && isDefaultOptionDisabled(true);
   };
 
   function clearFormFields(): void {

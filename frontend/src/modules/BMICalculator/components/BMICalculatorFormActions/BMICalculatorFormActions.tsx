@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useMemo } from 'react';
 import { UseFormReset } from 'react-hook-form';
 
-import Button from '../../../../components/Button/Button';
-import { BMICalculatorFormInitialValues } from '../BMICalculatorForm/BMICalculator.interfaces';
-import { FormActionsWrapper, ResetButton } from './BMICalculatorFormActions.styled';
+import { BMICalculatorFormInitialValues } from '../../BMICalculator.interfaces';
+import { generateFormActionButtons } from '../../BMICalculator.utils';
+import { FormActionsWrapper } from './BMICalculatorFormActions.styled';
 
 interface BMICalculatorFormActionsProps {
   isButtonDisabled: boolean;
@@ -16,32 +16,12 @@ const BMICalculatorFormActions = ({
   onResetForm,
   onSubmit,
 }: BMICalculatorFormActionsProps): ReactElement => {
-  return (
-    <FormActionsWrapper>
-      <ResetButton
-        type='button'
-        fullWidth
-        backgroundColor='white'
-        hoverColor='lighterBlue'
-        color='mantis'
-        disabled={isButtonDisabled}
-        onClick={onResetForm}
-      >
-        Reset
-      </ResetButton>
-      <Button
-        type='submit'
-        fullWidth
-        disabled={isButtonDisabled}
-        backgroundColor='mantis'
-        hoverColor='mantisDarker'
-        color='white'
-        onClick={onSubmit}
-      >
-        Calculate
-      </Button>
-    </FormActionsWrapper>
+  const formActionButtons = useMemo(
+    () => generateFormActionButtons({ isButtonDisabled, onResetForm, onSubmit }),
+    [isButtonDisabled, onResetForm, onSubmit]
   );
+
+  return <FormActionsWrapper>{formActionButtons}</FormActionsWrapper>;
 };
 
 export default BMICalculatorFormActions;
