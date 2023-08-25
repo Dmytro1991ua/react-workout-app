@@ -1,9 +1,8 @@
 import { AppRoutes } from '../../App.enums';
+import { FormActionButtonConfig, FormInputConfig } from '../../App.types';
 import { FormHeaderLabel, FormLinkLabel } from './Auth.enums';
 import {
   ForgotPasswordInitialValues,
-  FormActinButtonConfig,
-  FormInputConfig,
   FormLinkConfig,
   LoginInitialValues,
   ResetPasswordInitialValues,
@@ -71,7 +70,7 @@ export const SIGN_UP_FORMS_INPUT_CONFIG: FormInputConfig<SignUpInitialValues>[] 
   },
 ];
 
-const commonPrimaryButtonConfig: FormActinButtonConfig = {
+const commonPrimaryButtonConfig: FormActionButtonConfig = {
   type: 'submit',
   fullWidth: true,
   backgroundColor: 'mantis',
@@ -79,7 +78,7 @@ const commonPrimaryButtonConfig: FormActinButtonConfig = {
   color: 'white',
 };
 
-const commonSecondaryButtonConfig: FormActinButtonConfig = {
+const commonSecondaryButtonConfig: FormActionButtonConfig = {
   type: 'submit',
   fullWidth: true,
   backgroundColor: 'white',
@@ -87,7 +86,7 @@ const commonSecondaryButtonConfig: FormActinButtonConfig = {
   color: 'mantis',
 };
 
-export const FORM_ACTION_BUTTONS_CONFIG: FormActinButtonConfig[] = [
+export const FORM_ACTION_BUTTONS_CONFIG: FormActionButtonConfig[] = [
   { ...commonPrimaryButtonConfig, label: FormHeaderLabel.Submit, id: FormHeaderLabel.Submit },
   { ...commonPrimaryButtonConfig, label: FormHeaderLabel.ResetPassword, id: FormHeaderLabel.ResetPassword },
   {

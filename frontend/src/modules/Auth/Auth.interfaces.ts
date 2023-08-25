@@ -1,16 +1,8 @@
-import {
-  DeepMap,
-  DeepPartial,
-  FieldError,
-  FieldValues,
-  Path,
-  UseFormHandleSubmit,
-  UseFormRegister,
-} from 'react-hook-form';
+import { DeepMap, DeepPartial, FieldError, FieldValues, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 import { AnyObjectSchema } from 'yup';
 
 import { AppRoutes } from '../../App.enums';
-import { FormHeaderLabel, FormLinkLabel } from './Auth.enums';
+import { FormLinkLabel } from './Auth.enums';
 
 export type LoginInitialValues = {
   email: string;
@@ -46,26 +38,6 @@ export type ReturnedHookType<T extends FieldValues> = {
   onSignInViaGoogle: () => Promise<void>;
   onLoginWithCredentials: (formData: T) => Promise<void>;
   onSignUpWithCredentials: (formData: T) => Promise<void>;
-};
-
-export type FormInputConfig<T extends FieldValues> = {
-  type?: 'text' | 'number' | 'password' | 'email' | 'file';
-  id: string;
-  name: Path<T>;
-  placeholder: string;
-  isRequired?: boolean;
-  borderColor?: keyof MainPalette;
-  fullWidth?: boolean;
-};
-
-export type FormActinButtonConfig = {
-  id?: FormHeaderLabel;
-  type?: 'button' | 'submit' | 'reset';
-  fullWidth?: boolean;
-  backgroundColor?: keyof MainPalette;
-  hoverColor?: keyof MainPalette;
-  color?: keyof MainPalette;
-  label?: FormHeaderLabel;
 };
 
 export type Pathname = {

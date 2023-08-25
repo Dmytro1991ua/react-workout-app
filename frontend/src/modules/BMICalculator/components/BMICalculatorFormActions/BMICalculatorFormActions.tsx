@@ -1,8 +1,9 @@
 import React, { ReactElement, useMemo } from 'react';
 import { UseFormReset } from 'react-hook-form';
 
+import { generateFormActionButtons } from '../../../../utils';
+import { formActionsButtonsConfig } from '../../BMICalculator.configs';
 import { BMICalculatorFormInitialValues } from '../../BMICalculator.interfaces';
-import { generateFormActionButtons } from '../../BMICalculator.utils';
 import { FormActionsWrapper } from './BMICalculatorFormActions.styled';
 
 interface BMICalculatorFormActionsProps {
@@ -16,10 +17,8 @@ const BMICalculatorFormActions = ({
   onResetForm,
   onSubmit,
 }: BMICalculatorFormActionsProps): ReactElement => {
-  const formActionButtons = useMemo(
-    () => generateFormActionButtons({ isButtonDisabled, onResetForm, onSubmit }),
-    [isButtonDisabled, onResetForm, onSubmit]
-  );
+  const actionButtonsConfig = formActionsButtonsConfig({ isButtonDisabled, onResetForm, onSubmit });
+  const formActionButtons = useMemo(() => generateFormActionButtons(actionButtonsConfig), [actionButtonsConfig]);
 
   return <FormActionsWrapper>{formActionButtons}</FormActionsWrapper>;
 };

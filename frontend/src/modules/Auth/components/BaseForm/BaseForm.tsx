@@ -1,10 +1,12 @@
 import React, { ReactElement } from 'react';
 import { DeepMap, FieldError, FieldValues, UseFormRegister } from 'react-hook-form';
 
+import { FormActionButtonConfig, FormInputConfig } from '../../../../App.types';
+import { generateFormInputs } from '../../../../utils';
 import { FormHeaderLabel } from '../../Auth.enums';
-import { FormActinButtonConfig, FormInputConfig, FormLinkConfig } from '../../Auth.interfaces';
-import { generateFormInputs, generateFormLinks, generateFromActionButtons } from '../../Auth.utils';
-import { Form, FormBody, FormSection, FormSectionTitle } from '../LoginForm/Login.styled';
+import { FormLinkConfig } from '../../Auth.interfaces';
+import { generateFormLinks, generateFromActionButtons } from '../../Auth.utils';
+import { Form, FormBody, FormDetails, FormSection, FormSectionTitle } from '../LoginForm/Login.styled';
 
 interface BaseFormProps<T extends FieldValues> {
   isSubmitting?: boolean;
@@ -12,7 +14,7 @@ interface BaseFormProps<T extends FieldValues> {
   loader: JSX.Element;
   title: FormHeaderLabel;
   formInputsConfig: FormInputConfig<T>[];
-  formActionButtonsConfig: FormActinButtonConfig[];
+  formActionButtonsConfig: FormActionButtonConfig[];
   formLinksConfig: FormLinkConfig[];
   register: UseFormRegister<T>;
   errors: Partial<DeepMap<T, FieldError>>;
@@ -36,6 +38,9 @@ const BaseForm = <T extends FieldValues>({
   onSubmit,
 }: BaseFormProps<T>): ReactElement => {
   const formInputs = generateFormInputs<T>(formInputsConfig, register, errors);
+  const renderedFormInputs = formInputs.map((input, index) => (
+    <FormDetails key={`${index}_${input.key}`}>{input}</FormDetails>
+  ));
 
   const formActionButtons = generateFromActionButtons({
     config: formActionButtonsConfig,
@@ -54,7 +59,7 @@ const BaseForm = <T extends FieldValues>({
           <FormSectionTitle>{title}</FormSectionTitle>
           <Form onSubmit={onSubmit}>
             <FormBody>
-              {formInputs}
+              {renderedFormInputs}
               {formActionButtons}
               {formLinks}
             </FormBody>
