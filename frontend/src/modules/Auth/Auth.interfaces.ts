@@ -41,11 +41,11 @@ export type ReturnedHookType<T extends FieldValues> = {
   isSubmitting: boolean;
   handleSubmit: UseFormHandleSubmit<T>;
   register: UseFormRegister<T>;
-  onForgotPassword: (formData: ForgotPasswordInitialValues) => Promise<void>;
-  onResetPassword: (formData: ResetPasswordInitialValues) => Promise<void>;
+  onForgotPassword: (formData: T) => Promise<void>;
+  onResetPassword: (formData: T) => Promise<void>;
   onSignInViaGoogle: () => Promise<void>;
-  onLoginWithCredentials: (formData: LoginInitialValues) => Promise<void>;
-  onSignUpWithCredentials: (formData: SignUpInitialValues) => Promise<void>;
+  onLoginWithCredentials: (formData: T) => Promise<void>;
+  onSignUpWithCredentials: (formData: T) => Promise<void>;
 };
 
 export type FormInputConfig<T extends FieldValues> = {

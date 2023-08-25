@@ -1,8 +1,6 @@
-import { yupResolver } from '@hookform/resolvers/yup';
 import React, { ReactElement } from 'react';
-import { useForm } from 'react-hook-form';
 
-import { authService } from '../../../Auth/Auth.service';
+import { useProfileFormState } from '../../hooks/useProfileFormState';
 import { ProfileChangePasswordInitialValues } from '../../Profile.interfaces';
 import {
   PROFILE_CHANGE_PASSWORD_FORM_INITIAL_VALUES,
@@ -12,29 +10,14 @@ import ProfileChangePasswordFormFields from '../ProfileChangePasswordFormFields/
 import { ProfileFormWrapper } from './../ProfileUserInformationForm/ProfileUserInformationForm.styled';
 
 const ProfileChangePasswordForm = (): ReactElement => {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors, isDirty },
-    reset,
-  } = useForm({
-    mode: 'onChange',
-    defaultValues: PROFILE_CHANGE_PASSWORD_FORM_INITIAL_VALUES,
-    resolver: yupResolver(PROFILE_CHANGE_PASSWORD_FORM_VALIDATION_SCHEMA),
-  });
-
-  async function handleFormSubmit(data: ProfileChangePasswordInitialValues): Promise<void> {
-    try {
-      await authService.changeUserPassword(data.currentPassword, data.newPassword);
-
-      reset();
-    } catch (error) {
-      throw new Error((error as Error).message);
-    }
-  }
+  const { errors, isDirty, handleSubmit, onHandlePasswordChange, register } =
+    useProfileFormState<ProfileChangePasswordInitialValues>({
+      defaultValues: PROFILE_CHANGE_PASSWORD_FORM_INITIAL_VALUES,
+      validationSchema: PROFILE_CHANGE_PASSWORD_FORM_VALIDATION_SCHEMA,
+    });
 
   return (
-    <ProfileFormWrapper onSubmit={handleSubmit(handleFormSubmit)}>
+    <ProfileFormWrapper onSubmit={handleSubmit(onHandlePasswordChange)}>
       <ProfileChangePasswordFormFields errors={errors} register={register} isDirty={isDirty} />
     </ProfileFormWrapper>
   );
