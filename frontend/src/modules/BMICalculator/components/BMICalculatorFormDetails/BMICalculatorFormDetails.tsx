@@ -1,8 +1,9 @@
-import React, { ReactElement, useMemo } from 'react';
+import React, { ReactElement } from 'react';
 
+import { generateFormInputs, generateFormSelects } from '../../../../utils';
+import { formInputsConfig, formSelectsConfig } from '../../BMICalculator.configs';
 import { HeightUnitsSelectOptions } from '../../BMICalculator.enums';
 import { BMICalculatorFormInitialValues } from '../../BMICalculator.interfaces';
-import { generateFormInputs, generateFormSelects } from '../../BMICalculator.utils';
 import { InchesSelectWrapper } from '../BMICalculatorForm/BMICalculatorForm.styled';
 import { useBMICalculations } from '../BMICalculatorForm/hooks/useBMICalculations';
 import { useDisabledSelectOption } from '../BMICalculatorForm/hooks/useDisabledSelectOption';
@@ -27,37 +28,22 @@ const BMICalculatorFormDetails = ({ formData, onHandleFormFieldsChange }: FormDe
 
   const { weightInputPlaceholder } = useBMICalculations(formData);
 
-  const formInputs = useMemo(
-    () => generateFormInputs({ formData, weightInputPlaceholder, onChange: onHandleFormFieldsChange }),
-    [formData, weightInputPlaceholder, onHandleFormFieldsChange]
-  );
-  const formSelects = useMemo(
-    () =>
-      generateFormSelects({
-        formData,
-        isFeetDefaultOptionDisabled,
-        isHeightDefaultOptionDisabled,
-        isInchesDefaultOptionDisabled,
-        isWeightDefaultOptionDisabled,
-        onChange: onHandleFormFieldsChange,
-        onIsFeetDefaultOptionDisabled,
-        onIsHeightDefaultOptionDisabled,
-        onIsInchesDefaultOptionDisabled,
-        onIsWeightDefaultOptionDisabled,
-      }),
-    [
-      formData,
-      isFeetDefaultOptionDisabled,
-      isHeightDefaultOptionDisabled,
-      isInchesDefaultOptionDisabled,
-      isWeightDefaultOptionDisabled,
-      onHandleFormFieldsChange,
-      onIsFeetDefaultOptionDisabled,
-      onIsHeightDefaultOptionDisabled,
-      onIsInchesDefaultOptionDisabled,
-      onIsWeightDefaultOptionDisabled,
-    ]
-  );
+  const inputsConfig = formInputsConfig({ formData, onChange: onHandleFormFieldsChange, weightInputPlaceholder });
+  const formInputs = generateFormInputs<BMICalculatorFormInitialValues>(inputsConfig);
+
+  const selectsConfig = formSelectsConfig({
+    formData,
+    isFeetDefaultOptionDisabled,
+    isInchesDefaultOptionDisabled,
+    isWeightDefaultOptionDisabled,
+    isHeightDefaultOptionDisabled,
+    onChange: onHandleFormFieldsChange,
+    onIsFeetDefaultOptionDisabled,
+    onIsInchesDefaultOptionDisabled,
+    onIsWeightDefaultOptionDisabled,
+    onIsHeightDefaultOptionDisabled,
+  });
+  const formSelects = generateFormSelects<BMICalculatorFormInitialValues>(selectsConfig);
 
   const heightInput = formInputs[0];
   const weightInput = formInputs[1];

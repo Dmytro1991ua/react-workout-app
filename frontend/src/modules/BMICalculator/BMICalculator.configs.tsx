@@ -1,12 +1,11 @@
+import { FormActionButtonConfig, FormInputConfig, FormSelectConfig } from '../../App.types';
 import { handleKeyDownOnInputField } from '../../utils';
 import { FEET_OPTIONS, FormFieldName, HEIGHT_OPTIONS, INCHES_OPTIONS, WEIGHT_OPTIONS } from './BMICalculator.constants';
 import { ButtonLabel, HeightUnitsSelectOptions, WeightUnitsSelectOptions } from './BMICalculator.enums';
 import {
-  FormActionButtonConfig,
+  BMICalculatorFormInitialValues,
   FormActionButtonConfigProps,
-  FormInputConfig,
   FormInputConfigProps,
-  FormSelectConfig,
   FormSelectConfigProps,
 } from './BMICalculator.interfaces';
 
@@ -14,7 +13,7 @@ export const formInputsConfig = ({
   formData,
   weightInputPlaceholder,
   onChange,
-}: FormInputConfigProps): FormInputConfig[] => {
+}: FormInputConfigProps): FormInputConfig<BMICalculatorFormInitialValues>[] => {
   return [
     {
       type: 'number',
@@ -60,7 +59,7 @@ export const formSelectsConfig = ({
   onIsInchesDefaultOptionDisabled,
   onIsWeightDefaultOptionDisabled,
   onIsHeightDefaultOptionDisabled,
-}: FormSelectConfigProps): FormSelectConfig[] => {
+}: FormSelectConfigProps): FormSelectConfig<BMICalculatorFormInitialValues>[] => {
   return [
     {
       options: FEET_OPTIONS,
