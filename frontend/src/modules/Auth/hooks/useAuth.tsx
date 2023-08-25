@@ -3,14 +3,7 @@ import { useCallback, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
 import { useQueryParams } from '../../../cdk/hooks/useQueryParams';
-import {
-  ForgotPasswordInitialValues,
-  HookProps,
-  LoginInitialValues,
-  ResetPasswordInitialValues,
-  ReturnedHookType,
-  SignUpInitialValues,
-} from '../Auth.interfaces';
+import { HookProps, ReturnedHookType } from '../Auth.interfaces';
 import { authService } from '../Auth.service';
 
 export const useAuth = <T extends FieldValues>({ validationSchema }: HookProps): ReturnedHookType<T> => {
@@ -29,7 +22,7 @@ export const useAuth = <T extends FieldValues>({ validationSchema }: HookProps):
     resolver: yupResolver(validationSchema),
   });
 
-  const onForgotPassword = useCallback(async (formData: ForgotPasswordInitialValues): Promise<void> => {
+  const onForgotPassword = useCallback(async (formData: T): Promise<void> => {
     const { email } = formData;
 
     await authService.forgotPassword(email);
@@ -37,7 +30,7 @@ export const useAuth = <T extends FieldValues>({ validationSchema }: HookProps):
     reset();
   }, []);
 
-  const onLoginWithCredentials = useCallback(async (formData: LoginInitialValues): Promise<void> => {
+  const onLoginWithCredentials = useCallback(async (formData: T): Promise<void> => {
     const { email, password } = formData;
 
     await authService.login(email, password);
@@ -57,7 +50,7 @@ export const useAuth = <T extends FieldValues>({ validationSchema }: HookProps):
     }
   }, []);
 
-  const onResetPassword = useCallback(async (formData: ResetPasswordInitialValues): Promise<void> => {
+  const onResetPassword = useCallback(async (formData: T): Promise<void> => {
     const { newPassword } = formData;
 
     const getOobCodeFromUrl = queryParams.get('oobCode');
@@ -69,7 +62,7 @@ export const useAuth = <T extends FieldValues>({ validationSchema }: HookProps):
     reset();
   }, []);
 
-  const onSignUpWithCredentials = useCallback(async (formData: SignUpInitialValues): Promise<void> => {
+  const onSignUpWithCredentials = useCallback(async (formData: T): Promise<void> => {
     const { email, password } = formData;
 
     await authService.signUp(email, password);

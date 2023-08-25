@@ -27,6 +27,15 @@ const ProfileImage = ({ register, errors, onHandleImageChange, uploadProgress }:
 
   const { onChange, ...params } = register('picture');
 
+  const onAddIconClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    e.stopPropagation();
+  };
+
+  const onImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onHandleImageChange(e);
+    onChange(e);
+  };
+
   return (
     <ProfileImageContainer>
       <ImageWrapper>
@@ -36,7 +45,7 @@ const ProfileImage = ({ register, errors, onHandleImageChange, uploadProgress }:
             size={UserImageSize.Medium}
             altText="User's profile photo"
           />
-          <ProfileAddButtonIcon onClick={(e) => e.stopPropagation()} />
+          <ProfileAddButtonIcon onClick={onAddIconClick} />
         </label>
         <ProfileInputFile
           {...params}
@@ -44,10 +53,7 @@ const ProfileImage = ({ register, errors, onHandleImageChange, uploadProgress }:
           accept='.jpg, .jpeg, .png'
           id='file'
           {...register('picture')}
-          onChange={(e) => {
-            onHandleImageChange(e);
-            onChange(e);
-          }}
+          onChange={onImageUpload}
         />
       </ImageWrapper>
       {errors.picture && <ProfileFieldErrorMessage>{errors.picture.message}</ProfileFieldErrorMessage>}

@@ -1,11 +1,9 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import React, { ReactElement, useEffect, useState } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
+import React, { ReactElement } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
-import { authService } from '../../../Auth/Auth.service';
-import { updateUserDataAction } from '../../../Auth/User.actions';
+import { useAppSelector } from '../../../../store/store.hooks';
 import { selectCurrentUser } from '../../../Auth/User.slice';
+import { useProfileFormState } from '../../hooks/useProfileFormState';
+import { ProfileUserInformationFormInitialValues } from '../../Profile.interfaces';
 import {
   PROFILE_USER_INFORMATION_FORM_INITIAL_VALUES,
   PROFILE_USER_INFORMATION_FORM_VALIDATION_SCHEMA,
@@ -16,55 +14,27 @@ import { ProfileFormWrapper } from './ProfileUserInformationForm.styled';
 
 const ProfileUserInformationForm = (): ReactElement => {
   const currentUser = useAppSelector(selectCurrentUser);
-  const dispatch = useAppDispatch();
-
-  const [imageUpload, setImageUpload] = useState<File | Blob | Uint8Array | ArrayBuffer | null>(null);
-  const [uploadProgress, setUploadProgress] = useState(0);
 
   const {
+    errors,
+    isDirty,
+    uploadProgress,
     handleSubmit,
+    onHandleUserInformationChange,
     register,
-    formState: { errors, isDirty },
-  } = useForm({
-    mode: 'onChange',
+    onHandleImageChange,
+  } = useProfileFormState<ProfileUserInformationFormInitialValues>({
     defaultValues: PROFILE_USER_INFORMATION_FORM_INITIAL_VALUES(currentUser),
-    resolver: yupResolver(PROFILE_USER_INFORMATION_FORM_VALIDATION_SCHEMA),
+    validationSchema: PROFILE_USER_INFORMATION_FORM_VALIDATION_SCHEMA,
+    currentUser,
   });
 
-  useEffect(() => {
-    uploadUserImage();
-  }, [imageUpload]);
-
-  function handleImageChange(e: React.ChangeEvent<HTMLInputElement>): void {
-    if (!e.target.files) {
-      return;
-    }
-
-    setImageUpload(e.target.files[0]);
-  }
-
-  async function uploadUserImage(): Promise<void> {
-    try {
-      imageUpload && (await authService.uploadFile(imageUpload, setUploadProgress));
-    } catch (error) {
-      throw new Error((error as Error).message);
-    }
-  }
-
-  async function handleFormSubmit(data: FieldValues): Promise<void> {
-    try {
-      dispatch(updateUserDataAction({ name: data?.name, photoURL: currentUser?.photoURL as string }));
-    } catch (err) {
-      throw new Error((err as Error).message);
-    }
-  }
-
   return (
-    <ProfileFormWrapper onSubmit={handleSubmit(handleFormSubmit)}>
+    <ProfileFormWrapper onSubmit={handleSubmit(onHandleUserInformationChange)}>
       <ProfileImage
         register={register}
         errors={errors}
-        onHandleImageChange={handleImageChange}
+        onHandleImageChange={onHandleImageChange}
         uploadProgress={uploadProgress}
       />
       <ProfileFormFields errors={errors} register={register} isEditMode={Boolean(currentUser)} isDirty={isDirty} />
