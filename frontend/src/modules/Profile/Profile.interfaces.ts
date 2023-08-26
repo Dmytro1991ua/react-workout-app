@@ -35,6 +35,7 @@ export type HookProps<T extends FieldValues> = {
 export type ReturnedHookType<T extends FieldValues> = {
   errors: DeepMap<DeepPartial<T>, FieldError>;
   isDirty: boolean;
+  isWarningPopupShown: boolean;
   uploadProgress: number;
   handleSubmit: UseFormHandleSubmit<T>;
   register: UseFormRegister<T>;

@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-import Button from '../../../../components/Button/Button';
-import Input from '../../../../components/Input/Input';
+import { generateFormActionButtons, generateFormInputs } from '../../../../utils';
+import { CHANGE_PASSWORD_FORM_INPUTS_CONFIG, formActionButtonsConfig } from '../../Profile.configs';
 import { ProfileChangePasswordInitialValues } from '../../Profile.interfaces';
 import {
   ProfileFormDetails,
@@ -20,57 +20,18 @@ const ProfileChangePasswordFormFields = ({
   errors,
   isDirty,
 }: ProfileChangePasswordFormFieldsProps): ReactElement => {
+  const formInputs = generateFormInputs(CHANGE_PASSWORD_FORM_INPUTS_CONFIG, register, errors);
+  const renderedFormInputs = formInputs.map((input, index) => (
+    <ProfileFormDetails key={`${index}_${input.key}`}>{input}</ProfileFormDetails>
+  ));
+
+  const actionButtonConfig = formActionButtonsConfig(!isDirty, true);
+  const formActionButtons = generateFormActionButtons(actionButtonConfig);
+
   return (
     <ProfileFormFieldsWrapper>
-      <ProfileFormDetails>
-        <Input<ProfileChangePasswordInitialValues>
-          type='password'
-          id='currentPassword'
-          register={register}
-          errors={errors}
-          name='currentPassword'
-          placeholder='Current Password'
-          isRequired
-          borderColor='mantis'
-          fullWidth
-        />
-      </ProfileFormDetails>
-      <ProfileFormDetails>
-        <Input<ProfileChangePasswordInitialValues>
-          type='password'
-          id='newPassword'
-          register={register}
-          errors={errors}
-          name='newPassword'
-          placeholder='New Password'
-          isRequired
-          borderColor='mantis'
-          fullWidth
-        />
-      </ProfileFormDetails>
-      <ProfileFormDetails>
-        <Input<ProfileChangePasswordInitialValues>
-          type='password'
-          id='confirmPassword'
-          register={register}
-          errors={errors}
-          name='confirmPassword'
-          placeholder='Confirm Password'
-          isRequired
-          borderColor='mantis'
-          fullWidth
-        />
-      </ProfileFormDetails>
-      <Button
-        fullWidth
-        backgroundColor='darkBlue'
-        hoverColor='mantisDarker'
-        color='white'
-        type='submit'
-        disabled={!isDirty}
-      >
-        Submit
-      </Button>
+      {renderedFormInputs}
+      {formActionButtons}
     </ProfileFormFieldsWrapper>
   );
 };
