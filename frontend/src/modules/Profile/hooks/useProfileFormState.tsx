@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
+import { usePreventReloadHook } from '../../../cdk/hooks/usePreventReload';
 import { useAppDispatch } from '../../../store/store.hooks';
 import { authService } from '../../Auth/Auth.service';
 import { updateUserDataAction } from '../../Auth/User.actions';
@@ -24,9 +25,14 @@ export const useProfileFormState = <T extends FieldValues>({
     reset,
   } = useForm<T>({
     mode: 'onChange',
+    reValidateMode: 'onBlur',
     defaultValues,
     resolver: yupResolver(validationSchema),
   });
+
+  const isWarningPopupShown = isDirty ?? false;
+
+  usePreventReloadHook(isWarningPopupShown);
 
   useEffect(() => {
     onUserImageUpload();
@@ -69,6 +75,7 @@ export const useProfileFormState = <T extends FieldValues>({
   return {
     errors,
     isDirty,
+    isWarningPopupShown,
     uploadProgress,
     handleSubmit,
     register,

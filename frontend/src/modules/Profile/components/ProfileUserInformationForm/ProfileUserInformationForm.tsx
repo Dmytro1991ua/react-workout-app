@@ -1,7 +1,9 @@
 import React, { ReactElement } from 'react';
+import { Prompt } from 'react-router-dom';
 
 import { useAppSelector } from '../../../../store/store.hooks';
 import { selectCurrentUser } from '../../../Auth/User.slice';
+import { WARNING_POPUP_CONTENT } from '../../../Workouts/Workouts.constants';
 import { useProfileFormState } from '../../hooks/useProfileFormState';
 import { ProfileUserInformationFormInitialValues } from '../../Profile.interfaces';
 import {
@@ -18,6 +20,7 @@ const ProfileUserInformationForm = (): ReactElement => {
   const {
     errors,
     isDirty,
+    isWarningPopupShown,
     uploadProgress,
     handleSubmit,
     onHandleUserInformationChange,
@@ -29,15 +32,18 @@ const ProfileUserInformationForm = (): ReactElement => {
     currentUser,
   });
 
+  console.log(PROFILE_USER_INFORMATION_FORM_INITIAL_VALUES(currentUser));
+
   return (
     <ProfileFormWrapper onSubmit={handleSubmit(onHandleUserInformationChange)}>
+      <Prompt when={isWarningPopupShown} message={WARNING_POPUP_CONTENT} />
       <ProfileImage
         register={register}
         errors={errors}
         onHandleImageChange={onHandleImageChange}
         uploadProgress={uploadProgress}
       />
-      <ProfileFormFields errors={errors} register={register} isEditMode={Boolean(currentUser)} isDirty={isDirty} />
+      <ProfileFormFields errors={errors} register={register} isDirty={isDirty} />
     </ProfileFormWrapper>
   );
 };
