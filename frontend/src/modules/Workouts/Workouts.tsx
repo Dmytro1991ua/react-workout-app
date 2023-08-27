@@ -1,20 +1,15 @@
-import { LatLngBoundsExpression, LatLngExpression } from 'leaflet';
-import { filter, reverse, sortBy } from 'lodash';
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import { reverse as _reverse } from 'lodash';
+import React, { ReactElement } from 'react';
 import { Bars } from 'react-loader-spinner';
-import { v4 as uuidv4 } from 'uuid';
 
-import useGeolocation from '../../cdk/hooks/useGeolocation';
 import { colors } from '../../global-styles/ColorsPalette';
 import { useAppSelector } from '../../store/store.hooks';
 import { selectClickedMapCoordinates } from '../Auth/User.slice';
-import FallbackMessage from './components/FallbackMessage/FallbackMessage';
-import InitialMapMarker from './components/MapMarker/InitialMapMarker';
 import { WorkoutsActionsPanel } from './components/Workout/components/WorkoutsActionsPanel/WorkoutsActionsPanel';
 import Workout from './components/Workout/Workout';
 import Form from './components/WorkoutForm/Form';
-import WorkoutsMap from './components/WorkoutsMap';
-import { SortedWorkoutsSelectOption } from './Workouts.enums';
+import WorkoutsMap from './components/WorkoutsMap/WorkoutsMap';
+import { useWorkouts } from './hooks/useWorkouts';
 import { selectAreWorkoutsLoading, selectSortedWorkoutsSelectOption, selectWorkouts } from './Workouts.slice';
 import {
   ActionsPanel,
@@ -25,6 +20,7 @@ import {
   WorkoutsSection,
   WorkoutsSectionBody,
 } from './Workouts.styled';
+import { generateWorkoutFallbackMessage } from './Workouts.utils';
 
 const Workouts = (): ReactElement => {
   const availableWorkouts = useAppSelector(selectWorkouts);
@@ -32,115 +28,45 @@ const Workouts = (): ReactElement => {
   const sortedWorkoutsSelectOption = useAppSelector(selectSortedWorkoutsSelectOption);
   const isLoading = useAppSelector(selectAreWorkoutsLoading);
 
-  const location = useGeolocation();
-  const currentPosition: LatLngExpression = useMemo(
-    () => [location.coordinates.lat, location.coordinates.lng],
-    [location.coordinates.lat, location.coordinates.lng]
-  );
+  const workoutsByLastAddedItem = _reverse([...availableWorkouts]);
 
-  const [isFormShown, setIsFormShown] = useState(false);
-  const [isFormShownOnWorkoutEdit, setIsFormShownOnWorkoutEdit] = useState(false);
+  const {
+    isFormShown,
+    editableWorkoutItemId,
+    isSubmitted,
+    onGetEditableWorkoutItemId,
+    onSetEditableWorkoutItemId,
+    onSetGroupRef,
+    onSetMapRef,
+    onSetIsSubmitted,
+    onSetIsFormShownOnWorkoutEdit,
+    onSetWorkoutMap,
+    onShowWorkoutForm,
+    onStopWorkoutFormPropagation,
+    workoutMap,
+    isFormShownOnWorkoutEdit,
+    getDefaultOrSortedWorkouts,
+    hasWorkouts,
+    onHideWorkoutForm,
+    onShowAllWorkoutMarkers,
+  } = useWorkouts({
+    workoutsByLastAddedItem,
+    availableWorkouts,
+    sortedWorkoutsSelectOption,
+  });
 
-  const [editableWorkoutItemId, setEditableWorkoutItemId] = useState<string | null>(null);
-
-  const [isSubmitted, setIsSubmitted] = useState<boolean | null>(null);
-  const [workoutMap, setWorkoutMap] = useState<L.Map | null>(null);
-
-  const [groupRef, setGroupRef] = useState<L.FeatureGroup<any> | null>(null);
-  const [mapRef, setMapRef] = useState<L.Map | null>(null);
-
-  const workoutsByLastAddedItem = reverse([...availableWorkouts]);
-
-  useEffect(() => {
-    <InitialMapMarker position={currentPosition} />;
-
-    if (!isSubmitted) {
-      setIsSubmitted(!isSubmitted);
-    }
-  }, [currentPosition, isSubmitted]);
-
-  const SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR: Record<SortedWorkoutsSelectOption, WorkoutItem[]> = {
-    [SortedWorkoutsSelectOption.Default]: workoutsByLastAddedItem,
-    [SortedWorkoutsSelectOption.LastAdded]: sortBy(availableWorkouts, 'description', 'desc'),
-    [SortedWorkoutsSelectOption.Running]: filter(availableWorkouts, (workout) => workout.selectedValue === 'running'),
-    [SortedWorkoutsSelectOption.Cycling]: filter(availableWorkouts, (workout) => workout.selectedValue === 'cycling'),
-    [SortedWorkoutsSelectOption.Favorite]: filter(availableWorkouts, (workout) => workout.isFavorite === true),
-    [SortedWorkoutsSelectOption.Distance]: sortBy(availableWorkouts, 'distance', 'desc'),
-    [SortedWorkoutsSelectOption.Duration]: sortBy(availableWorkouts, 'duration', 'desc'),
-  };
-
-  const WORKOUT_FALLBACK_MESSAGE_CONFIG: WorkoutFallbackMessage[] = [
-    {
-      id: uuidv4(),
-      message: '🏁 To save a new workout just click on the map and fill-out the details on the form',
-      title: 'You have no available workouts',
-      hasWorkouts: !availableWorkouts.length,
-    },
-    {
-      id: uuidv4(),
-      message: '🏃 To save a new running workout just click on the map and fill-out the details on the form',
-      title: 'You have no available running workouts',
-      hasWorkouts:
-        sortedWorkoutsSelectOption === SortedWorkoutsSelectOption.Running &&
-        !SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR[SortedWorkoutsSelectOption.Running].length,
-    },
-    {
-      id: uuidv4(),
-      message: '🚴‍♀️ To save a new cycling workout just click on the map and fill-out the details on the form',
-      title: 'You have no available cycling workouts',
-      hasWorkouts:
-        sortedWorkoutsSelectOption === SortedWorkoutsSelectOption.Cycling &&
-        !SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR[SortedWorkoutsSelectOption.Cycling].length,
-    },
-    {
-      id: uuidv4(),
-      message:
-        '🧡 To add a particular workout to favorite just click on a heart icon on a specific workout and keep track on your favorites later on',
-      title: 'You have no available favorite workouts',
-      hasWorkouts:
-        sortedWorkoutsSelectOption === SortedWorkoutsSelectOption.Favorite &&
-        !SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR[SortedWorkoutsSelectOption.Favorite].length,
-    },
-  ];
-
-  const getWorkoutsByWorkoutType =
-    SORTED_WORKOUTS_BY_WORKOUT_TYPE_AND_INDICATOR[sortedWorkoutsSelectOption as SortedWorkoutsSelectOption];
-
-  const getDefaultOrSortedWorkouts: WorkoutItem[] = sortedWorkoutsSelectOption
-    ? getWorkoutsByWorkoutType
-    : workoutsByLastAddedItem;
-
-  function stopWorkoutFormPropagation(e: React.MouseEvent): void {
-    e.stopPropagation();
-  }
-
-  function showWorkoutForm(): void {
-    setIsFormShown(true);
-  }
-
-  function hideWorkoutForm(): void {
-    setIsFormShown(false);
-    setIsFormShownOnWorkoutEdit(false);
-    setEditableWorkoutItemId(null);
-  }
-
-  function getEditableWorkoutItemId(id: string | null): void {
-    if (isFormShownOnWorkoutEdit) {
-      setEditableWorkoutItemId(null);
-    } else {
-      setEditableWorkoutItemId(id);
-    }
-  }
-
-  function handleShowAllWorkoutMarkers() {
-    mapRef?.fitBounds(groupRef?.getBounds() as LatLngBoundsExpression);
-  }
+  const renderFallbackMessageWhenNoWorkout = generateWorkoutFallbackMessage({
+    isLoading,
+    availableWorkouts,
+    sortedWorkoutsSelectOption,
+    workoutsByLastAddedItem,
+  });
 
   const renderActionsPanel = (
     <>
       {availableWorkouts.length && (
         <ActionsPanel>
-          <WorkoutsActionsPanel handleShowAllWorkoutMarkers={handleShowAllWorkoutMarkers} />
+          <WorkoutsActionsPanel onShowAllWorkoutMarkers={onShowAllWorkoutMarkers} />
         </ActionsPanel>
       )}
     </>
@@ -150,27 +76,16 @@ const Workouts = (): ReactElement => {
     <>
       {(isFormShown || isFormShownOnWorkoutEdit) && (
         <Form
-          onStopPropagation={stopWorkoutFormPropagation}
-          onCloseWorkoutForm={hideWorkoutForm}
+          onStopPropagation={onStopWorkoutFormPropagation}
+          onCloseWorkoutForm={onHideWorkoutForm}
           mapCoords={mapCoordinates}
-          isFormShownOnWorkoutEdit={setIsFormShownOnWorkoutEdit}
+          isFormShownOnWorkoutEdit={onSetIsFormShownOnWorkoutEdit}
           editableWorkoutItemId={editableWorkoutItemId}
           isFormShown={isFormShown}
-          onIsSubmitted={setIsSubmitted}
-          onEditableWorkoutItemId={setEditableWorkoutItemId}
+          onIsSubmitted={onSetIsSubmitted}
+          onEditableWorkoutItemId={onSetEditableWorkoutItemId}
         />
       )}
-    </>
-  );
-
-  const renderFallbackMessageWhenNoWorkout = (
-    <>
-      {!isLoading &&
-        WORKOUT_FALLBACK_MESSAGE_CONFIG.map((message) => {
-          return (
-            message.hasWorkouts && <FallbackMessage message={message.message} title={message.title} key={message.id} />
-          );
-        })}
     </>
   );
 
@@ -185,9 +100,9 @@ const Workouts = (): ReactElement => {
           <Workout
             key={workout._id}
             workout={workout}
-            isFormShownOnWorkoutEdit={setIsFormShownOnWorkoutEdit}
+            isFormShownOnWorkoutEdit={onSetIsFormShownOnWorkoutEdit}
             isFormShown={isFormShownOnWorkoutEdit}
-            setEditableWorkoutItemId={getEditableWorkoutItemId}
+            setEditableWorkoutItemId={onGetEditableWorkoutItemId}
             workoutMap={workoutMap}
           />
         ))
@@ -198,8 +113,8 @@ const Workouts = (): ReactElement => {
   return (
     <WorkoutsSection>
       <WorkoutsSectionBody>
-        <WorkoutsFeatures onClick={hideWorkoutForm}>
-          <FeaturesTitle hasWorkouts={Boolean(workoutsByLastAddedItem.length)}>Workouts Information</FeaturesTitle>
+        <WorkoutsFeatures onClick={onHideWorkoutForm}>
+          <FeaturesTitle hasWorkouts={hasWorkouts}>Workouts Information</FeaturesTitle>
           {renderActionsPanel}
           {renderWorkoutForm}
           {renderFallbackMessageWhenNoWorkout}
@@ -207,14 +122,14 @@ const Workouts = (): ReactElement => {
         </WorkoutsFeatures>
         <Map>
           <WorkoutsMap
-            onShowWorkoutForm={showWorkoutForm}
+            onShowWorkoutForm={onShowWorkoutForm}
             isFormShown={isFormShown}
             workouts={getDefaultOrSortedWorkouts}
-            setEditableWorkoutItemId={setEditableWorkoutItemId}
+            setEditableWorkoutItemId={onSetEditableWorkoutItemId}
             isSubmitted={isSubmitted}
-            setWorkoutMap={setWorkoutMap}
-            setGroupRef={setGroupRef}
-            setMapRef={setMapRef}
+            setWorkoutMap={onSetWorkoutMap}
+            setGroupRef={onSetGroupRef}
+            setMapRef={onSetMapRef}
           />
         </Map>
       </WorkoutsSectionBody>

@@ -1,41 +1,24 @@
 import 'leaflet/dist/leaflet.css';
 import '../../../leafletMap/leaflet.css';
 
-import { yupResolver } from '@hookform/resolvers/yup';
-import { LatLngTuple } from 'leaflet';
-import { find } from 'lodash';
-import React, { ReactElement, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { ReactElement} from 'react';
 import { BallTriangle } from 'react-loader-spinner';
 import { Prompt } from 'react-router-dom';
 
-import { usePreventReloadHook } from '../../../../cdk/hooks/usePreventReload';
 import Button from '../../../../components/Button/Button';
 import { Select } from '../../../../components/Select/Select';
 import { colors } from '../../../../global-styles/ColorsPalette';
-import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
+import { useAppSelector } from '../../../../store/store.hooks';
 import { handleKeyDownOnInputField } from '../../../../utils';
 import { selectWeatherDetailsBasedWorkoutCoordinates } from '../../../WeatherDetails/WeatherDetails.slice';
 import { FormAndFallbackMessageWrapper } from '../../CommonStyles.styled';
 import { WARNING_POPUP_CONTENT, WORKOUT_TYPE_SELECTION_OPTIONS } from '../../Workouts.constants';
-import { selectUpdatedWorkout, selectWorkouts, setWorkouts } from '../../Workouts.slice';
-import { createWorkoutItem } from '../../Workouts.utils';
+import { selectUpdatedWorkout, selectWorkouts, } from '../../Workouts.slice';
 import FormInput from '../FormInput/FormInput';
-import { updateWorkoutAction } from './../../Workouts.actions';
-import { WorkoutFormInitialValues, WorkoutType } from './Form.interfaces';
+import { WorkoutFormInitialValues} from './Form.interfaces';
 import { CloseBtn, FieldInputWrapper, FormLabel, FormRow, WorkoutForm } from './Form.styled';
-import { WORKOUT_FORM_INITIAL_VALUES, WORKOUT_FORM_VALIDATION_SCHEMA } from './FormValidations.schema';
-
-interface FormProps {
-  onStopPropagation: (e: React.MouseEvent) => void;
-  onCloseWorkoutForm: () => void;
-  mapCoords: LatLngTuple | null;
-  isFormShownOnWorkoutEdit: (value: boolean) => void;
-  isFormShown: boolean;
-  onIsSubmitted: (value: boolean) => void;
-  editableWorkoutItemId: string | null;
-  onEditableWorkoutItemId: (value: string | null) => void;
-}
+import { FormProps } from './Form.types';
+import { useWorkoutForm } from './hooks/useWorkoutForm';
 
 const Form = ({
   onStopPropagation,
@@ -49,73 +32,27 @@ const Form = ({
 }: FormProps): ReactElement => {
   const availableWorkouts = useAppSelector(selectWorkouts);
   const editableWorkoutItem = useAppSelector(selectUpdatedWorkout(editableWorkoutItemId));
-  const dispatch = useAppDispatch();
-
   const weatherBasedOnWorkoutCoordinates = useAppSelector(selectWeatherDetailsBasedWorkoutCoordinates);
 
   const {
+    errors,
     handleSubmit,
+    isSubmitting,
+    isWarningPopupShown,
+    onSelectChange,
+    onWorkoutFormSubmit,
     register,
-    formState: { errors, isSubmitting, isDirty },
-    reset,
-    getValues,
-    setValue,
-  } = useForm<WorkoutFormInitialValues>({
-    mode: 'all',
-    defaultValues: WORKOUT_FORM_INITIAL_VALUES(editableWorkoutItem),
-    resolver: yupResolver(WORKOUT_FORM_VALIDATION_SCHEMA),
+    selectedValue,
+  } = useWorkoutForm({
+    editableWorkoutItem,
+    availableWorkouts,
+    weatherBasedOnWorkoutCoordinates,
+    isFormShownOnWorkoutEdit,
+    onCloseWorkoutForm,
+    mapCoords,
+    onEditableWorkoutItemId,
+    onIsSubmitted,
   });
-
-  const [selectedValue, setSelectedValue] = useState('');
-
-  const isWarningPopupShown = isDirty ?? false;
-
-  usePreventReloadHook(isWarningPopupShown);
-
-  function handleSelectChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setValue('workoutType', event.target.value as WorkoutType);
-    const getSelectFieldValue = getValues('workoutType');
-
-    setSelectedValue(getSelectFieldValue as WorkoutType);
-  }
-
-  function handleUpdateWorkouts(formData: WorkoutFormInitialValues): WorkoutItem[] {
-    const updatedWorkouts = availableWorkouts.map((workout: WorkoutItem) => {
-      return workout._id === editableWorkoutItem?._id
-        ? {
-            ...workout,
-            distance: formData.distance as number,
-            duration: formData.duration as number,
-            elevationGain: formData.elevationGain,
-            cadence: formData.cadence,
-          }
-        : workout;
-    });
-
-    dispatch(setWorkouts(updatedWorkouts));
-
-    return updatedWorkouts;
-  }
-
-  function handleWorkoutFormSubmit(formData: WorkoutFormInitialValues): void {
-    if (editableWorkoutItem) {
-      const updatedWorkouts = handleUpdateWorkouts(formData);
-      const updatedWorkoutById = find(updatedWorkouts, (workout) => workout._id === editableWorkoutItem?._id);
-
-      if (updatedWorkoutById) {
-        dispatch(updateWorkoutAction(editableWorkoutItem._id!, updatedWorkoutById));
-      }
-    } else {
-      createWorkoutItem(formData, mapCoords as LatLngTuple, weatherBasedOnWorkoutCoordinates);
-    }
-
-    reset();
-
-    onIsSubmitted(true);
-    onCloseWorkoutForm();
-    isFormShownOnWorkoutEdit(false);
-    onEditableWorkoutItemId(null);
-  }
 
   return (
     <>
@@ -134,7 +71,7 @@ const Form = ({
                 id='workoutType'
                 register={register}
                 errors={errors}
-                onChange={handleSelectChange}
+                onChange={onSelectChange}
                 fullWidth
                 optionLabel='Select workout type:'
                 disabled={Boolean(editableWorkoutItem?.selectedValue)}
@@ -224,9 +161,8 @@ const Form = ({
                 backgroundColor='mantis'
                 hoverColor='mantisDarker'
                 color='white'
-                onClick={handleSubmit(handleWorkoutFormSubmit)}
-                disabled={isFormShown && selectedValue === ''}
-              >
+                onClick={handleSubmit(onWorkoutFormSubmit)}
+                disabled={isFormShown && selectedValue === ''}>
                 {editableWorkoutItemId ? 'Edit workout' : 'Add Workout'}
               </Button>
             </FormRow>
