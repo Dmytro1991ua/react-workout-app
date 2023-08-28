@@ -1,24 +1,22 @@
 import 'leaflet/dist/leaflet.css';
 import '../../../leafletMap/leaflet.css';
 
-import React, { ReactElement} from 'react';
+import React, { ReactElement } from 'react';
 import { BallTriangle } from 'react-loader-spinner';
 import { Prompt } from 'react-router-dom';
 
-import Button from '../../../../components/Button/Button';
-import { Select } from '../../../../components/Select/Select';
 import { colors } from '../../../../global-styles/ColorsPalette';
 import { useAppSelector } from '../../../../store/store.hooks';
-import { handleKeyDownOnInputField } from '../../../../utils';
+import { generateFormActionButtons, generateFormInputs, generateFormSelects } from '../../../../utils';
 import { selectWeatherDetailsBasedWorkoutCoordinates } from '../../../WeatherDetails/WeatherDetails.slice';
 import { FormAndFallbackMessageWrapper } from '../../CommonStyles.styled';
-import { WARNING_POPUP_CONTENT, WORKOUT_TYPE_SELECTION_OPTIONS } from '../../Workouts.constants';
-import { selectUpdatedWorkout, selectWorkouts, } from '../../Workouts.slice';
-import FormInput from '../FormInput/FormInput';
-import { WorkoutFormInitialValues} from './Form.interfaces';
-import { CloseBtn, FieldInputWrapper, FormLabel, FormRow, WorkoutForm } from './Form.styled';
+import { WARNING_POPUP_CONTENT } from '../../Workouts.constants';
+import { selectUpdatedWorkout, selectWorkouts } from '../../Workouts.slice';
+import { WorkoutFormInitialValues } from './Form.interfaces';
+import { CloseBtn, FormRow, WorkoutForm } from './Form.styled';
 import { FormProps } from './Form.types';
 import { useWorkoutForm } from './hooks/useWorkoutForm';
+import { workoutFormActionButtonConfig, workoutFormInputConfig, workoutFormSelectConfig } from './WorkoutForm.configs';
 
 const Form = ({
   onStopPropagation,
@@ -54,6 +52,37 @@ const Form = ({
     onIsSubmitted,
   });
 
+  const isDisabled = isFormShown && selectedValue === '';
+  const isCadenceInput = (selectedValue || editableWorkoutItem?.selectedValue) === 'running';
+  const isElevationInput = (selectedValue || editableWorkoutItem?.selectedValue) === 'cycling';
+
+  const formSelectsConfig = workoutFormSelectConfig(Boolean(editableWorkoutItem?.selectedValue), onSelectChange);
+  const formSelects = generateFormSelects<WorkoutFormInitialValues>({
+    config: formSelectsConfig,
+    isWorkoutForm: true,
+    register,
+    errors,
+  });
+
+  const formInputsConfig = workoutFormInputConfig({
+    isDisabled,
+    isCadenceInput,
+    isElevationInput,
+  });
+  const formInputs = generateFormInputs<WorkoutFormInitialValues>({
+    config: formInputsConfig,
+    errors,
+    isWorkoutForm: true,
+    register,
+  });
+
+  const formActionButtonsConfig = workoutFormActionButtonConfig({
+    editableWorkoutItemId,
+    isDisabled,
+    onClick: handleSubmit(onWorkoutFormSubmit),
+  });
+  const formActionButtons = generateFormActionButtons(formActionButtonsConfig);
+
   return (
     <>
       <FormAndFallbackMessageWrapper onClick={onStopPropagation} $isQuizFallbackMessage={false}>
@@ -63,109 +92,9 @@ const Form = ({
           <WorkoutForm>
             <Prompt when={isWarningPopupShown} message={WARNING_POPUP_CONTENT} />
             <CloseBtn onClick={onCloseWorkoutForm} />
-            <FormRow>
-              <FormLabel>Type</FormLabel>
-              <Select<WorkoutFormInitialValues>
-                options={WORKOUT_TYPE_SELECTION_OPTIONS}
-                name='workoutType'
-                id='workoutType'
-                register={register}
-                errors={errors}
-                onChange={onSelectChange}
-                fullWidth
-                optionLabel='Select workout type:'
-                disabled={Boolean(editableWorkoutItem?.selectedValue)}
-              />
-            </FormRow>
-            <FormRow>
-              <FormLabel>Distance</FormLabel>
-              <FieldInputWrapper>
-                <FormInput<WorkoutFormInitialValues>
-                  placeholder='km'
-                  name='distance'
-                  id='distance'
-                  type='number'
-                  min={0}
-                  max={10000}
-                  register={register}
-                  onKeyDown={handleKeyDownOnInputField}
-                  errors={errors}
-                  isRequired
-                  fullWidth
-                  disabled={isFormShown && selectedValue === ''}
-                />
-              </FieldInputWrapper>
-            </FormRow>
-            <FormRow>
-              <FormLabel>Duration</FormLabel>
-              <FieldInputWrapper>
-                <FormInput<WorkoutFormInitialValues>
-                  placeholder='min'
-                  name='duration'
-                  id='duration'
-                  min={0}
-                  max={10000}
-                  type='number'
-                  register={register}
-                  onKeyDown={handleKeyDownOnInputField}
-                  errors={errors}
-                  isRequired
-                  fullWidth
-                  disabled={isFormShown && selectedValue === ''}
-                />
-              </FieldInputWrapper>
-            </FormRow>
-            <FormRow>
-              {/* Render either "Cadence" or 'Elevation Gain' based on selected value */}
-              <>
-                {(selectedValue || editableWorkoutItem?.selectedValue) === 'running' && (
-                  <>
-                    <FormLabel>Cadence</FormLabel>
-                    <FormInput<WorkoutFormInitialValues>
-                      name='cadence'
-                      id='cadence'
-                      type='number'
-                      min={0}
-                      max={10000}
-                      onKeyDown={handleKeyDownOnInputField}
-                      register={register}
-                      errors={errors}
-                      fullWidth
-                      placeholder='step/min'
-                    />
-                  </>
-                )}
-                {(selectedValue || editableWorkoutItem?.selectedValue) === 'cycling' && (
-                  <>
-                    <FormLabel>Elev Gain</FormLabel>
-                    <FormInput<WorkoutFormInitialValues>
-                      name='elevationGain'
-                      id='elevationGainData'
-                      type='number'
-                      min={0}
-                      max={10000}
-                      onKeyDown={handleKeyDownOnInputField}
-                      register={register}
-                      errors={errors}
-                      fullWidth
-                      placeholder='meters'
-                    />
-                  </>
-                )}
-              </>
-            </FormRow>
-            <FormRow>
-              <Button
-                type='submit'
-                fullWidth
-                backgroundColor='mantis'
-                hoverColor='mantisDarker'
-                color='white'
-                onClick={handleSubmit(onWorkoutFormSubmit)}
-                disabled={isFormShown && selectedValue === ''}>
-                {editableWorkoutItemId ? 'Edit workout' : 'Add Workout'}
-              </Button>
-            </FormRow>
+            {formSelects}
+            {formInputs}
+            <FormRow>{formActionButtons}</FormRow>
           </WorkoutForm>
         )}
       </FormAndFallbackMessageWrapper>

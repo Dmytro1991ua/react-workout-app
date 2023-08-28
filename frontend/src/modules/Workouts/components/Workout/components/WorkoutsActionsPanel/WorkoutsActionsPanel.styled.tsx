@@ -28,6 +28,10 @@ export const ActionButton = styled('button')`
   background-color: transparent;
 `;
 
+export const SelectWrapper = styled('div')`
+  width: 100%;
+`;
+
 export const ResetButtonIcon = styled(Reset)`
   ${commonButtonStyles}
   fill: ${colors.mantisDarker};

@@ -1,24 +1,19 @@
 import { LatLngExpression } from 'leaflet';
-import React, { ReactElement, useEffect, useState } from 'react';
-import { Marker, Popup, useMap } from 'react-leaflet';
+import React, { ReactElement } from 'react';
+import { Marker, Popup } from 'react-leaflet';
 
 import { INITIAL_MAP_MARKER } from '../../Workouts.constants';
+import { useMapMarker } from './hooks/useMapMarker';
 
 interface InitialMapMarkerProps {
   position: LatLngExpression;
 }
 
 const InitialMapMarker = ({ position }: InitialMapMarkerProps): ReactElement => {
-  const workoutMap = useMap();
-
-  const [marker, setMarker] = useState<L.Marker<any> | null>(null);
-
-  useEffect(() => {
-    marker?.addTo(workoutMap).openPopup();
-  }, [marker, workoutMap]);
+  const { onSetMarker } = useMapMarker();
 
   return (
-    <Marker position={position} icon={INITIAL_MAP_MARKER} ref={(markerRef) => setMarker(markerRef)}>
+    <Marker position={position} icon={INITIAL_MAP_MARKER} ref={(markerRef) => onSetMarker(markerRef)}>
       <Popup autoClose={false} closeOnClick={false} position={position} autoPan={false}>
         You are currently here!
       </Popup>

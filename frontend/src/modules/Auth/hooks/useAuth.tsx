@@ -22,21 +22,27 @@ export const useAuth = <T extends FieldValues>({ validationSchema }: HookProps):
     resolver: yupResolver(validationSchema),
   });
 
-  const onForgotPassword = useCallback(async (formData: T): Promise<void> => {
-    const { email } = formData;
+  const onForgotPassword = useCallback(
+    async (formData: T): Promise<void> => {
+      const { email } = formData;
 
-    await authService.forgotPassword(email);
+      await authService.forgotPassword(email);
 
-    reset();
-  }, []);
+      reset();
+    },
+    [reset]
+  );
 
-  const onLoginWithCredentials = useCallback(async (formData: T): Promise<void> => {
-    const { email, password } = formData;
+  const onLoginWithCredentials = useCallback(
+    async (formData: T): Promise<void> => {
+      const { email, password } = formData;
 
-    await authService.login(email, password);
+      await authService.login(email, password);
 
-    reset();
-  }, []);
+      reset();
+    },
+    [reset]
+  );
 
   const onSignInViaGoogle = useCallback(async (): Promise<void> => {
     try {
@@ -50,25 +56,31 @@ export const useAuth = <T extends FieldValues>({ validationSchema }: HookProps):
     }
   }, []);
 
-  const onResetPassword = useCallback(async (formData: T): Promise<void> => {
-    const { newPassword } = formData;
+  const onResetPassword = useCallback(
+    async (formData: T): Promise<void> => {
+      const { newPassword } = formData;
 
-    const getOobCodeFromUrl = queryParams.get('oobCode');
+      const getOobCodeFromUrl = queryParams.get('oobCode');
 
-    if (getOobCodeFromUrl) {
-      await authService.resetPassword(getOobCodeFromUrl, newPassword);
-    }
+      if (getOobCodeFromUrl) {
+        await authService.resetPassword(getOobCodeFromUrl, newPassword);
+      }
 
-    reset();
-  }, []);
+      reset();
+    },
+    [reset, queryParams]
+  );
 
-  const onSignUpWithCredentials = useCallback(async (formData: T): Promise<void> => {
-    const { email, password } = formData;
+  const onSignUpWithCredentials = useCallback(
+    async (formData: T): Promise<void> => {
+      const { email, password } = formData;
 
-    await authService.signUp(email, password);
+      await authService.signUp(email, password);
 
-    reset();
-  }, []);
+      reset();
+    },
+    [reset]
+  );
 
   return {
     isSignInViaGoogleLoading,

@@ -6,7 +6,7 @@ import { CustomFieldError, WorkoutFormInput } from './FormInput.styled';
 type InputProps = {
   value?: string | number;
   id?: string;
-  type?: 'text' | 'number';
+  type?: 'text' | 'number' | 'password' | 'email' | 'file';
   name?: string;
   min?: number;
   max?: number;

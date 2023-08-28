@@ -1,33 +1,24 @@
 import 'leaflet/dist/leaflet.css';
 import '../../../leafletMap/leaflet.css';
 
-import L from 'leaflet'; // import Leaflet object from a library
-import React, { ReactElement, useEffect, useState } from 'react';
-import { Marker, Popup, useMap } from 'react-leaflet';
+import React, { ReactElement } from 'react';
+import { Marker, Popup } from 'react-leaflet';
 
 import { workoutMarkerIcon } from '../../Workouts.utils';
+import { useMapMarker } from './hooks/useMapMarker';
 
 interface MarkerProps {
   currentWorkout: WorkoutItem;
 }
 
 const MapMarker = React.memo(({ currentWorkout }: MarkerProps): ReactElement => {
-  const workoutMap = useMap();
-
-  const [marker, setMarker] = useState<L.Marker<any> | null>(null);
-
-  const determineStylesBasedOnWorkoutType =
-    currentWorkout.selectedValue === 'running' ? 'running-popup' : 'cycling-popup';
-
-  useEffect(() => {
-    marker?.addTo(workoutMap).openPopup();
-  }, [marker, workoutMap]);
+  const { determineStylesBasedOnWorkoutType, onSetMarker } = useMapMarker(currentWorkout.selectedValue);
 
   return (
     <Marker
       position={currentWorkout.coordinates}
       icon={workoutMarkerIcon(currentWorkout.selectedValue)}
-      ref={(markerRef) => setMarker(markerRef)}
+      ref={(markerRef) => onSetMarker(markerRef)}
     >
       <Popup
         autoClose={false}

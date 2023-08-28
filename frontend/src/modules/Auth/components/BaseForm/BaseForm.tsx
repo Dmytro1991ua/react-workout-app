@@ -37,7 +37,7 @@ const BaseForm = <T extends FieldValues>({
   onLoginOrSignUpViaGoogle,
   onSubmit,
 }: BaseFormProps<T>): ReactElement => {
-  const formInputs = generateFormInputs<T>(formInputsConfig, register, errors);
+  const formInputs = generateFormInputs<T>({ config: formInputsConfig, register, errors });
   const renderedFormInputs = formInputs.map((input, index) => (
     <FormDetails key={`${index}_${input.key}`}>{input}</FormDetails>
   ));

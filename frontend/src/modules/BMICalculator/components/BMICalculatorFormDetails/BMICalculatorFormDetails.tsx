@@ -29,7 +29,7 @@ const BMICalculatorFormDetails = ({ formData, onHandleFormFieldsChange }: FormDe
   const { weightInputPlaceholder } = useBMICalculations(formData);
 
   const inputsConfig = formInputsConfig({ formData, onChange: onHandleFormFieldsChange, weightInputPlaceholder });
-  const formInputs = generateFormInputs<BMICalculatorFormInitialValues>(inputsConfig);
+  const formInputs = generateFormInputs<BMICalculatorFormInitialValues>({ config: inputsConfig });
 
   const selectsConfig = formSelectsConfig({
     formData,
@@ -43,7 +43,7 @@ const BMICalculatorFormDetails = ({ formData, onHandleFormFieldsChange }: FormDe
     onIsWeightDefaultOptionDisabled,
     onIsHeightDefaultOptionDisabled,
   });
-  const formSelects = generateFormSelects<BMICalculatorFormInitialValues>(selectsConfig);
+  const formSelects = generateFormSelects<BMICalculatorFormInitialValues>({ config: selectsConfig });
 
   const heightInput = formInputs[0];
   const weightInput = formInputs[1];

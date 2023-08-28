@@ -26,7 +26,7 @@ type ReturnedHookType = {
   isSubmitting: boolean;
   isWarningPopupShown: boolean;
   selectedValue: string;
-  onSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onSelectChange: (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void;
   onWorkoutFormSubmit: (formData: WorkoutFormInitialValues) => void;
 };
 
@@ -51,6 +51,7 @@ export const useWorkoutForm = ({
     setValue,
   } = useForm<WorkoutFormInitialValues>({
     mode: 'all',
+    reValidateMode: 'onChange',
     defaultValues: WORKOUT_FORM_INITIAL_VALUES(editableWorkoutItem),
     resolver: yupResolver(WORKOUT_FORM_VALIDATION_SCHEMA),
   });
@@ -61,7 +62,7 @@ export const useWorkoutForm = ({
 
   const [selectedValue, setSelectedValue] = useState<string>('');
 
-  const onSelectChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+  const onSelectChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>): void => {
     setValue('workoutType', event.target.value as WorkoutType);
     const getSelectFieldValue = getValues('workoutType');
 

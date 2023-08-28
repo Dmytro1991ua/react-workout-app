@@ -20,7 +20,7 @@ const ProfileChangePasswordFormFields = ({
   errors,
   isDirty,
 }: ProfileChangePasswordFormFieldsProps): ReactElement => {
-  const formInputs = generateFormInputs(CHANGE_PASSWORD_FORM_INPUTS_CONFIG, register, errors);
+  const formInputs = generateFormInputs({ config: CHANGE_PASSWORD_FORM_INPUTS_CONFIG, register, errors });
   const renderedFormInputs = formInputs.map((input, index) => (
     <ProfileFormDetails key={`${index}_${input.key}`}>{input}</ProfileFormDetails>
   ));
