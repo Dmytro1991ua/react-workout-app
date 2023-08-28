@@ -13,7 +13,7 @@ interface ProfileFormFieldsProps {
 }
 
 const ProfileUserInformationFormFields = ({ register, errors, isDirty }: ProfileFormFieldsProps): ReactElement => {
-  const formInputs = generateFormInputs(USER_INFORMATION_FORM_INPUTS_CONFIG, register, errors);
+  const formInputs = generateFormInputs({ config: USER_INFORMATION_FORM_INPUTS_CONFIG, register, errors });
   const renderedFormInputs = formInputs.map((input, index) => (
     <ProfileFormDetails key={`${index}_${input.key}`}>{input}</ProfileFormDetails>
   ));

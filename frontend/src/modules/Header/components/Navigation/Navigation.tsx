@@ -18,7 +18,7 @@ const Navigation = ({ isOpen }: NavigationProps): ReactElement => {
 
   const navigationLinks = useMemo(
     () => generateNavigation({ isUserAuthenticated, userPhoto: currentUser?.photoURL as string, location }),
-    [isUserAuthenticated, currentUser?.photoURL]
+    [isUserAuthenticated, currentUser?.photoURL, location]
   );
 
   return (

@@ -22,7 +22,7 @@
     "ecmaVersion": 13,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "import", "simple-import-sort", "prettier"],
+  "plugins": ["react", "@typescript-eslint", "import", "simple-import-sort", "prettier", "react-hooks"],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "prettier/prettier": ["off", { "singleQuote": true }],
@@ -83,7 +83,8 @@
           "caseInsensitive": true
         }
       }
-    ]
+    ],
+    "react-hooks/exhaustive-deps": "warn"
   },
   "settings": {
     "import/resolver": {
