@@ -47,7 +47,7 @@ const WorkoutDetails = (): ReactElement => {
   }));
 
   const columns = useMemo(() => TABLE_COLUMNS, []);
-  const data = useMemo<WorkoutsDetailsItem[]>(() => workoutsDetails, []);
+  const data = useMemo<WorkoutsDetailsItem[]>(() => workoutsDetails, [workoutsDetails]);
 
   const {
     getTableProps,

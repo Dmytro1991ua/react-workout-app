@@ -30,7 +30,7 @@ export const useCountDown = ({ seconds, onQuizReset }: HookProps): ReturnedHookT
       onQuizReset();
       toastService.info(QUIZ_ENDING_MESSAGE);
     }
-  }, [countDown]);
+  }, [countDown, onQuizReset]);
 
   return { countDown };
 };
