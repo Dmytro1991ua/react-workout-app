@@ -27,7 +27,7 @@ const QuizResultsActionButtons = React.memo(
     const quizResultsActionButtons = useMemo(
       () => quizResultsActionButtonsConfig(onTryAgainButtonClick, onQuitButtonClick),
 
-      []
+      [onQuitButtonClick, onTryAgainButtonClick]
     );
 
     return (

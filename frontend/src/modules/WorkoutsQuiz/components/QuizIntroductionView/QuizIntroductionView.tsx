@@ -14,8 +14,9 @@ const QuizIntroductionView = React.memo(
   ({ title, onStartQuizButtonClick, onGoBackButtonClick }: QuizIntroductionViewProps): ReactElement => {
     const actionsButtonsConfig = useMemo(
       () => quizIntroductionActionButtonsConfig(onStartQuizButtonClick, onGoBackButtonClick),
-      []
+      [onGoBackButtonClick, onStartQuizButtonClick]
     );
+
     return (
       <QuizSection>
         <h2>{title}</h2>

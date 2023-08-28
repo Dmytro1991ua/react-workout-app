@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
 import { usePreventReloadHook } from '../../../cdk/hooks/usePreventReload';
@@ -34,9 +34,17 @@ export const useProfileFormState = <T extends FieldValues>({
 
   usePreventReloadHook(isWarningPopupShown);
 
+  const onUserImageUpload = useCallback(async (): Promise<void> => {
+    try {
+      imageUpload && (await authService.uploadFile(imageUpload, setUploadProgress));
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  }, [imageUpload]);
+
   useEffect(() => {
     onUserImageUpload();
-  }, [imageUpload]);
+  }, [onUserImageUpload]);
 
   async function onHandlePasswordChange(data: T): Promise<void> {
     try {
@@ -54,14 +62,6 @@ export const useProfileFormState = <T extends FieldValues>({
     }
 
     setImageUpload(e.target.files[0]);
-  }
-
-  async function onUserImageUpload(): Promise<void> {
-    try {
-      imageUpload && (await authService.uploadFile(imageUpload, setUploadProgress));
-    } catch (error) {
-      throw new Error((error as Error).message);
-    }
   }
 
   async function onHandleUserInformationChange(data: T): Promise<void> {

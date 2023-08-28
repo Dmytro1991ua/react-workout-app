@@ -20,7 +20,7 @@ const QuizResultsTable = React.memo((): ReactElement => {
         totalScore: `${correctAnswers} / ${totalQuestions}`,
         wrongAnswers,
       }),
-    []
+    [correctAnswers, percentage, totalQuestions, wrongAnswers]
   );
 
   return (
