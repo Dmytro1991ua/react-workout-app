@@ -140,6 +140,21 @@ export const GoToPageButton = styled(Button)`
   border-radius: 0.7rem;
 `;
 
+export const ActionButton = styled(Button)`
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  margin-left: 1rem;
+  border-radius: 0.7rem;
+
+  &:first-child {
+    margin-left: 1rem;
+  }
+
+  &:not(:first-child) {
+    margin-right: 1rem;
+  }
+`;
+
 export const SearchInputWrapper = styled('div')`
   color: ${colors.white};
   margin: 1.5rem 0;

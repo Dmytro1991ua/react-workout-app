@@ -1,17 +1,10 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useMemo } from 'react';
 import { TableState } from 'react-table';
 
 import FormInput from '../../../Workouts/components/FormInput/FormInput';
 import { TABLE_PAGE_SIZE_OPTIONS } from '../../WorkoutsDetails.constants';
-import {
-  GoToPageButton,
-  NextButton,
-  NextButtonIcon,
-  PreviousButton,
-  PreviousButtonIcon,
-  TablePaginationActions,
-  TablePaginationContainer,
-} from '../../WorkoutsDetails.styled';
+import { TablePaginationActions, TablePaginationContainer } from '../../WorkoutsDetails.styled';
+import { generateActionButtons } from '../../WorkoutsDetails.utils';
 import { Select } from './../../../../components/Select/Select';
 
 interface TablePaginationProps {
@@ -37,6 +30,20 @@ const TablePagination = ({
   previousPage,
   setPageSize,
 }: TablePaginationProps): ReactElement => {
+  const actionButtons = useMemo(
+    () =>
+      generateActionButtons({
+        isNextPage: canNextPage,
+        isPreviousPage: canPreviousPage,
+        pageCount,
+        onGoToPage: gotoPage,
+        onGoBackPage: gotoPage,
+        onNextPage: nextPage,
+        onPreviousPage: previousPage,
+      }),
+    [canNextPage, canPreviousPage, pageCount, gotoPage, nextPage, previousPage]
+  );
+
   const rowsPerPage = (
     <>
       <span style={{ marginRight: '0.7rem' }}>Rows per page:</span>
@@ -76,46 +83,7 @@ const TablePagination = ({
     </>
   );
 
-  const paginationActions = (
-    <TablePaginationActions>
-      <GoToPageButton
-        onClick={() => gotoPage(0)}
-        disabled={!canPreviousPage}
-        backgroundColor='mantisDarker'
-        hoverColor='mantis'
-        color='white'
-      >
-        <PreviousButtonIcon />
-      </GoToPageButton>
-      <PreviousButton
-        disabled={!canPreviousPage}
-        onClick={() => previousPage()}
-        backgroundColor='lighterBlue'
-        hoverColor='darkGrey'
-        color='white'
-      >
-        Previous Page
-      </PreviousButton>
-      <NextButton
-        disabled={!canNextPage}
-        onClick={() => nextPage()}
-        backgroundColor='mantisDarker'
-        hoverColor='mantis'
-        color='white'
-      >
-        Next Page
-      </NextButton>
-      <GoToPageButton
-        onClick={() => gotoPage(pageCount - 1)}
-        disabled={!canNextPage}
-        backgroundColor='lighterBlue'
-        hoverColor='darkGrey'
-        color='white'
-      >
-        <NextButtonIcon />
-      </GoToPageButton>
-    </TablePaginationActions>
-  );
+  const paginationActions = <TablePaginationActions>{actionButtons}</TablePaginationActions>;
 
   return (
     <TablePaginationContainer>

@@ -26,28 +26,31 @@ import { TableWrapper, WorkoutsDetailsSection } from './WorkoutsDetails.styled';
 const WorkoutDetails = (): ReactElement => {
   const availableWorkouts = useAppSelector(selectWorkouts);
 
-  const workoutsDetails: WorkoutsDetailsItem[] = availableWorkouts.map((workout) => ({
-    id: uuidv4(),
-    selectedValue: upperFirst(workout.selectedValue),
-    cadence: workout.cadence ?? 'N/A',
-    duration: workout.duration,
-    distance: workout.distance,
-    speed: (workout.speed as number) ?? 'N/A',
-    pace: (workout.pace as number) ?? 'N/A',
-    elevationGain: workout.elevationGain ?? 'N/A',
-    date: format(new Date(workout.createdAt as string), 'M/d/yyyy') ?? 'N/A',
-    time: format(new Date(workout.createdAt as string), 'HH:mm a') ?? 'N/A',
-    city: `${workout.weatherInfo?.city}, ${workout.weatherInfo?.countryInfo.country}` ?? 'N/A',
-    weatherInfo: workout.weatherInfo?.weatherInfo[0].main ?? 'N/A',
-    inFavorites: workout.isFavorite ? (
-      <Badge icon={<Checkmark />} backgroundColor='mantisDarker' />
-    ) : (
-      <Badge icon={<Cross />} backgroundColor='tomato' />
-    ),
-  }));
+  const workoutsDetails: WorkoutsDetailsItem[] = useMemo(
+    () =>
+      availableWorkouts.map((workout) => ({
+        id: uuidv4(),
+        selectedValue: upperFirst(workout.selectedValue),
+        cadence: workout.cadence ?? 'N/A',
+        duration: workout.duration,
+        distance: workout.distance,
+        speed: (workout.speed as number) ?? 'N/A',
+        pace: (workout.pace as number) ?? 'N/A',
+        elevationGain: workout.elevationGain ?? 'N/A',
+        date: format(new Date(workout.createdAt as string), 'M/d/yyyy') ?? 'N/A',
+        time: format(new Date(workout.createdAt as string), 'HH:mm a') ?? 'N/A',
+        city: `${workout.weatherInfo?.city}, ${workout.weatherInfo?.countryInfo.country}` ?? 'N/A',
+        weatherInfo: workout.weatherInfo?.weatherInfo[0].main ?? 'N/A',
+        inFavorites: workout.isFavorite ? (
+          <Badge icon={<Checkmark />} backgroundColor='mantisDarker' />
+        ) : (
+          <Badge icon={<Cross />} backgroundColor='tomato' />
+        ),
+      })),
+    [availableWorkouts]
+  );
 
   const columns = useMemo(() => TABLE_COLUMNS, []);
-  const data = useMemo<WorkoutsDetailsItem[]>(() => workoutsDetails, [workoutsDetails]);
 
   const {
     getTableProps,
@@ -70,11 +73,11 @@ const WorkoutDetails = (): ReactElement => {
   } = useTable<WorkoutsDetailsItem>(
     {
       columns,
-      data,
+      data: workoutsDetails,
       disableSortRemove: true,
       defaultCanSort: true,
       initialState: {
-        sortBy: [{ id: data.length ? data[0].id : '', desc: false }],
+        sortBy: [{ id: workoutsDetails.length ? workoutsDetails[0].id : '', desc: false }],
         hiddenColumns: ['id'],
       },
     },
@@ -87,7 +90,7 @@ const WorkoutDetails = (): ReactElement => {
 
   return (
     <WorkoutsDetailsSection>
-      {!data.length ? (
+      {!workoutsDetails.length ? (
         <FallbackMessage title={FALLBACK_MESSAGE_TITLE} message={FALLBACK_MESSAGE_DETAILS} />
       ) : (
         <>
@@ -99,7 +102,7 @@ const WorkoutDetails = (): ReactElement => {
           <TableWrapper>
             <table {...getTableProps()} className='table sticky'>
               <TableHeader headerGroups={headerGroups} />
-              <TableBody page={page} prepareRow={prepareRow} getTableBodyProps={getTableBodyProps} />
+              <TableBody page={page} prepareRow={prepareRow} getTableBodyProps={getTableBodyProps()} />
             </table>
           </TableWrapper>
           {rows.length >= DEFAULT_NUMBER_OF_ROWS_IN_ONE_PAGE && (
