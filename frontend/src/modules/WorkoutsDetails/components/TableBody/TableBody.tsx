@@ -1,16 +1,16 @@
 import React, { ReactElement } from 'react';
-import { Row, TableBodyPropGetter, TableBodyProps } from 'react-table';
+import { Row, TableBodyProps } from 'react-table';
 import { v4 as uuidv4 } from 'uuid';
 
 interface CustomTableBodyProps {
   page: Row<WorkoutsDetailsItem>[];
-  getTableBodyProps: (propGetter?: TableBodyPropGetter<WorkoutsDetailsItem> | undefined) => TableBodyProps;
+  getTableBodyProps: TableBodyProps;
   prepareRow: (row: Row<WorkoutsDetailsItem>) => void;
 }
 
 const TableBody = ({ page, getTableBodyProps, prepareRow }: CustomTableBodyProps): ReactElement => {
   return (
-    <tbody {...getTableBodyProps()} className='body'>
+    <tbody {...getTableBodyProps} className='body'>
       {page.map((row) => {
         prepareRow(row);
         return (
