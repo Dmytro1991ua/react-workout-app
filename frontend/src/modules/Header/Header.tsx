@@ -1,29 +1,19 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
 import { AppRoutes } from '../../App.enums';
 import LogoImg from '../../assets/images/logo.png';
-import useGeolocation from '../../cdk/hooks/useGeolocation';
 import Tooltip from '../../components/Tooltip/Tooltip';
 import { colors } from '../../global-styles/ColorsPalette';
 import { Container } from '../../global-styles/Global.styled';
-import { useAppSelector } from '../../store/store.hooks';
-import { selectWeatherDetailsBasedOnLocation } from '../WeatherDetails/WeatherDetails.slice';
 import BurgerIcon from './components/BurgerIcon/BurgerIcon';
 import Navigation from './components/Navigation/Navigation';
 import WeatherWidget from './components/WeatherWidget/WeatherWidget';
 import { HeaderSection, HeaderSectionBody, Logo, NavigationWrapper } from './Header.styled';
+import { useHeader } from './hooks/useHeader';
 
 const Header = (): ReactElement => {
-  const weatherBasedOnCurrentLocation = useAppSelector(selectWeatherDetailsBasedOnLocation);
-
-  const currentLocation: CurrentLocationData = useGeolocation();
-
-  const [isBurgerIconOpened, setIsBurgerIconOpened] = useState(false);
-
-  function handleOpenBurgerMenu(): void {
-    setIsBurgerIconOpened(!isBurgerIconOpened);
-  }
+  const { currentLocation, isBurgerIconOpened, onOpenBurgerMenu, weatherBasedOnCurrentLocation } = useHeader();
 
   return (
     <HeaderSection>
@@ -40,7 +30,7 @@ const Header = (): ReactElement => {
             borderColor={colors.white}
             arrowColor={colors.mantisDarker}
           />
-          <BurgerIcon isOpen={isBurgerIconOpened} onClick={handleOpenBurgerMenu} />
+          <BurgerIcon isOpen={isBurgerIconOpened} onClick={onOpenBurgerMenu} />
           <NavigationWrapper>
             <Navigation isOpen={isBurgerIconOpened} />
             {currentLocation.loaded && Boolean(weatherBasedOnCurrentLocation) && (

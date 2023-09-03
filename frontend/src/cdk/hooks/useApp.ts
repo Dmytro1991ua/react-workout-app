@@ -48,5 +48,5 @@ export const useApp = (): void => {
       unsubscribeFromAuth();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isUserAuthenticated]);
+  }, [isUserAuthenticated, currentLocation]);
 };
