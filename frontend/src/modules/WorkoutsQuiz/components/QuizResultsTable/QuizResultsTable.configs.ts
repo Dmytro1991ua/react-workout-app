@@ -2,9 +2,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { QuizResultsTableValue, QuizResultTable } from '../../WorkoutsQuiz.interfaces';
 
-export const quizResultsTableConfig = (payload: QuizResultsTableValue): QuizResultTable[] => {
-  const { correctAnswers, percentage, totalQuestions, totalScore, wrongAnswers } = payload;
-
+export const quizResultsTableBodyConfig = ({
+  correctAnswers,
+  percentage,
+  totalQuestions,
+  totalScore,
+  wrongAnswers,
+}: QuizResultsTableValue): QuizResultTable[] => {
   return [
     {
       id: uuidv4(),

@@ -1,22 +1,14 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import { AppRoutes } from '../../App.enums';
-import history from '../../services/History.service';
 import { BMICalculatorSection as WorkoutQuizSection } from '../BMICalculator/BMICalculator.styled';
 import QuizIntroductionView from './components/QuizIntroductionView/QuizIntroductionView';
 import QuizQuestions from './components/QuizQuestions/QuizQuestions';
+import { useWorkoutsQuiz } from './hooks/useWorkoutsQuiz';
 import { QUiZ_INTRODUCTION_TITLE } from './WorkoutQuiz.constants';
 
 const WorkoutsQuiz = (): ReactElement => {
-  const [isStartQuizButtonClicked, setIsStartQuizButtonClicked] = useState<boolean>(false);
-
-  function onStartQuizButtonClick(): void {
-    setIsStartQuizButtonClicked(true);
-  }
-
-  function onGoBackButtonClick(): void {
-    history.push(AppRoutes.Home);
-  }
+  const { isStartQuizButtonClicked, onGoBackButtonClick, onStartQuizButtonClick, onSetIsStartQuizButtonClicked } =
+    useWorkoutsQuiz();
 
   const renderWorkoutsQuiz = (
     <>
@@ -27,7 +19,7 @@ const WorkoutsQuiz = (): ReactElement => {
           onGoBackButtonClick={onGoBackButtonClick}
         />
       ) : (
-        <QuizQuestions onIsStartQuizButtonClicked={setIsStartQuizButtonClicked} />
+        <QuizQuestions onIsStartQuizButtonClicked={onSetIsStartQuizButtonClicked} />
       )}
     </>
   );

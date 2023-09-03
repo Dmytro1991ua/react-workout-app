@@ -64,13 +64,18 @@ export const QuestionText = styled('h2')`
   margin-bottom: 2rem;
 `;
 
-export const ActionButtonsWrapper = styled('div')`
+export const ActionButtonsWrapper = styled('div')<{ $isQuizResult?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1.5rem;
   padding-top: 1.2rem;
   border-top: 2px solid ${colors.mantis};
   margin-bottom: 2rem;
+
+  button {
+    flex: ${({ $isQuizResult }) => ($isQuizResult ? '0 1 45%' : '0 1 35%')};
+  }
 `;
 
 export const QuizButton = styled(Button)`
@@ -84,8 +89,4 @@ export const Timer = styled('h3')<{ $isLessThanFifteenSeconds?: boolean }>`
   span {
     color: ${({ $isLessThanFifteenSeconds }) => ($isLessThanFifteenSeconds ? `${colors.tomato}` : `${colors.mantis}`)};
   }
-`;
-
-export const FallbackMessageWrapper = styled('div')`
-  margin-bottom: 2rem;
 `;

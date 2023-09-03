@@ -1,6 +1,6 @@
 import React, { ReactElement, useMemo } from 'react';
 
-import Button from '../../../../components/Button/Button';
+import { generateFormActionButtons } from '../../../../utils';
 import { quizIntroductionActionButtonsConfig } from './QuizIntroductionView.configs';
 import { ActionsWrapper, QuizSection } from './QuizIntroductionView.styled';
 
@@ -17,22 +17,12 @@ const QuizIntroductionView = React.memo(
       [onGoBackButtonClick, onStartQuizButtonClick]
     );
 
+    const actionButtons = useMemo(() => generateFormActionButtons(actionsButtonsConfig), [actionsButtonsConfig]);
+
     return (
       <QuizSection>
         <h2>{title}</h2>
-        <ActionsWrapper>
-          {actionsButtonsConfig.map((button) => (
-            <Button
-              key={button.id}
-              backgroundColor={button.backgroundColor}
-              color={button.color}
-              hoverColor={button.hoverColor}
-              onClick={button.onClick}
-            >
-              {button.label}
-            </Button>
-          ))}
-        </ActionsWrapper>
+        <ActionsWrapper>{actionButtons}</ActionsWrapper>
       </QuizSection>
     );
   }

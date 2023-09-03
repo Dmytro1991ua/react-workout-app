@@ -1,18 +1,15 @@
-import React, { ReactElement, useMemo } from 'react';
+import React, { ReactElement } from 'react';
 
-import { useAppSelector } from '../../../../store/store.hooks';
 import { QUIZ_QUESTIONS_OPTIONS } from '../../WorkoutQuiz.constants';
-import { selectSelectedQuestionQuantity } from '../../WorkoutsQuiz.slice';
 import { ActionButtonsWrapper } from '../QuizQuestions/QuizQuestions.styled';
 import { Select } from './../../../../components/Select/Select';
-import { quizResultsActionButtonsConfig } from './QuizResultsActionButtons.config';
-import { QuizResultsButton } from './QuizResultsActionButtons.styled';
+import { useQuizResultsActionButtons } from './hooks/useQuizResultsActionButtons';
 
-interface QuizResultsActionsProps {
+export interface QuizResultsActionsProps {
   isQuestionQuantityDefaultOptionDisabled: boolean;
   onTryAgainButtonClick: () => void;
   onQuitButtonClick: () => void;
-  onHandleQuestionQuantityChange: (value: string) => void;
+  onQuestionQuantityChange: (value: string) => void;
 }
 
 const QuizResultsActionButtons = React.memo(
@@ -20,39 +17,23 @@ const QuizResultsActionButtons = React.memo(
     isQuestionQuantityDefaultOptionDisabled,
     onTryAgainButtonClick,
     onQuitButtonClick,
-    onHandleQuestionQuantityChange,
+    onQuestionQuantityChange,
   }: QuizResultsActionsProps): ReactElement => {
-    const questionQuantity = useAppSelector(selectSelectedQuestionQuantity);
-
-    const quizResultsActionButtons = useMemo(
-      () => quizResultsActionButtonsConfig(onTryAgainButtonClick, onQuitButtonClick),
-
-      [onQuitButtonClick, onTryAgainButtonClick]
-    );
+    const { quizResultsActionButtons, questionQuantity } = useQuizResultsActionButtons({
+      onQuitButtonClick,
+      onTryAgainButtonClick,
+    });
 
     return (
       <>
-        <ActionButtonsWrapper>
-          {quizResultsActionButtons.map((button) => (
-            <QuizResultsButton
-              key={button.id}
-              backgroundColor={button.backgroundColor}
-              color={button.color}
-              hoverColor={button.hoverColor}
-              onClick={button.onClick}
-              disabled={button.isDisabled}
-            >
-              {button.label}
-            </QuizResultsButton>
-          ))}
-        </ActionButtonsWrapper>
+        <ActionButtonsWrapper $isQuizResult>{quizResultsActionButtons}</ActionButtonsWrapper>
         <Select
           options={QUIZ_QUESTIONS_OPTIONS}
           actionPanelSelect
           name=''
           value={questionQuantity}
           optionLabel='Select question quantity:'
-          onChange={(e) => onHandleQuestionQuantityChange(e.target.value)}
+          onChange={(e) => onQuestionQuantityChange(e.target.value)}
           isDefaultOptionDisabled={isQuestionQuantityDefaultOptionDisabled}
           fullWidth
         />

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { toastService } from '../../../services/Toast.service';
-import { QUIZ_ENDING_MESSAGE } from '../WorkoutQuiz.constants';
+import { toastService } from '../../../../../services/Toast.service';
+import { QUIZ_ENDING_MESSAGE } from '../../../WorkoutQuiz.constants';
 
 type HookProps = {
   seconds: number;
