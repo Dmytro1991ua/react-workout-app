@@ -1,25 +1,14 @@
-import React, { ReactElement, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { ReactElement } from 'react';
 
-import { selectCurrentUser, selectIsUserAuthenticated } from '../../../Auth/User.slice';
 import { List } from '../../Header.styled';
-import { useAppSelector } from './../../../../store/store.hooks';
-import { Location } from './Navigation.interface';
-import { generateNavigation } from './Navigation.utils';
+import { useNavigation } from './hooks/useNavigation';
 
 interface NavigationProps {
   isOpen: boolean;
 }
 
 const Navigation = ({ isOpen }: NavigationProps): ReactElement => {
-  const isUserAuthenticated = useAppSelector(selectIsUserAuthenticated);
-  const location = useLocation<Location>();
-  const currentUser = useAppSelector(selectCurrentUser);
-
-  const navigationLinks = useMemo(
-    () => generateNavigation({ isUserAuthenticated, userPhoto: currentUser?.photoURL as string, location }),
-    [isUserAuthenticated, currentUser?.photoURL, location]
-  );
+  const { isUserAuthenticated, navigationLinks } = useNavigation();
 
   return (
     <List open={isOpen} isUserAuthenticated={Boolean(isUserAuthenticated)}>

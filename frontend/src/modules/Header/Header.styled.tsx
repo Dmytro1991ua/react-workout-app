@@ -70,7 +70,6 @@ export const NavigationWrapper = styled('div')`
   }
 `;
 
-// Navigation
 export const List = styled('ul')<{ open?: boolean; isUserAuthenticated: boolean }>`
   position: absolute;
   top: 6.3rem;

@@ -1,21 +1,10 @@
 import Tooltip from '../../../../components/Tooltip/Tooltip';
 import { colors } from '../../../../global-styles/ColorsPalette';
 import { ListItem, ListLink } from '../../Header.styled';
-import { navigationConfig } from './Navigation.config';
-import { Location } from './Navigation.interface';
+import { Location, NavigationConfiguration } from './Navigation.interface';
 
-export const generateNavigation = ({
-  isUserAuthenticated,
-  location,
-  userPhoto,
-}: {
-  isUserAuthenticated: boolean;
-  userPhoto: string;
-  location: Location;
-}): JSX.Element[] => {
-  const navigationLinks = navigationConfig(isUserAuthenticated, userPhoto);
-
-  return navigationLinks.map(({ id, navigationIcon, url, 'data-tip': dataTip, onClick }) => (
+export const generateNavigation = (config: NavigationConfiguration[], location: Location): JSX.Element[] =>
+  config.map(({ id, navigationIcon, url, 'data-tip': dataTip, onClick }) => (
     <ListItem key={id}>
       <ListLink
         key={id}
@@ -36,4 +25,3 @@ export const generateNavigation = ({
       />
     </ListItem>
   ));
-};
