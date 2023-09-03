@@ -1,50 +1,31 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import { loadAvailableWorkoutsQuizQuestionsAction } from '../../WorkoutsQuiz.actions';
-import { clearWorkoutQuiz, setQuestionQuantity, setTryQuizAgain } from '../../WorkoutsQuiz.slice';
 import QuizResultsActionButtons from '../QuizResultsActionButtons/QuizResultsActionButtons';
 import QuizResultsHeader from '../QuizResultsHeader/QuizResultsHeader';
 import QuizResultsTable from '../QuizResultsTable/QuizResultsTable';
-import { useAppDispatch } from './../../../../store/store.hooks';
-import { QuizResultSection } from './QuizResult.styled';
+import { useQuizResults } from './hooks/useQuizResults';
+import { QuizResultSection } from './QuizResults.styled';
 
-interface QuizResultsProps {
+export interface QuizResultsProps {
   onIsStartQuizButtonClicked: (value: boolean) => void;
 }
 
 const QuizResults = React.memo(({ onIsStartQuizButtonClicked }: QuizResultsProps): ReactElement => {
-  const dispatch = useAppDispatch();
-
-  const [isQuestionQuantityDefaultOptionDisabled, setIsQuestionQuantityDefaultOptionDisabled] =
-    useState<boolean>(false);
-
-  function handleTryAgainButtonClick(): void {
-    dispatch(setTryQuizAgain());
-    dispatch(loadAvailableWorkoutsQuizQuestionsAction());
-
-    setIsQuestionQuantityDefaultOptionDisabled(false);
-  }
-
-  function handleQuitButtonClick(): void {
-    onIsStartQuizButtonClicked(false);
-    dispatch(clearWorkoutQuiz());
-
-    setIsQuestionQuantityDefaultOptionDisabled(false);
-  }
-
-  function handleQuestionQuantityChange(value: string): void {
-    dispatch(setQuestionQuantity(value));
-    setIsQuestionQuantityDefaultOptionDisabled(true);
-  }
+  const {
+    isQuestionQuantityDefaultOptionDisabled,
+    onQuestionQuantityChange,
+    onQuitButtonClick,
+    onTryAgainButtonClick,
+  } = useQuizResults({ onIsStartQuizButtonClicked });
 
   return (
     <QuizResultSection>
       <QuizResultsHeader />
       <QuizResultsTable />
       <QuizResultsActionButtons
-        onTryAgainButtonClick={handleTryAgainButtonClick}
-        onQuitButtonClick={handleQuitButtonClick}
-        onHandleQuestionQuantityChange={handleQuestionQuantityChange}
+        onTryAgainButtonClick={onTryAgainButtonClick}
+        onQuitButtonClick={onQuitButtonClick}
+        onQuestionQuantityChange={onQuestionQuantityChange}
         isQuestionQuantityDefaultOptionDisabled={isQuestionQuantityDefaultOptionDisabled}
       />
     </QuizResultSection>

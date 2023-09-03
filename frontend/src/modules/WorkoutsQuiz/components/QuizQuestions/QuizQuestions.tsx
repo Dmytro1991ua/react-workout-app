@@ -1,102 +1,68 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 import { Circles } from 'react-loader-spinner';
 
 import { colors } from '../../../../global-styles/ColorsPalette';
-import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
-import { selectIsUserAuthenticated } from '../../../Auth/User.slice';
 import { QUIZ_FALLBACK_MESSAGE_SUBTITLE, QUIZ_FALLBACK_MESSAGE_TITLE } from '../../WorkoutQuiz.constants';
-import { loadAvailableWorkoutsQuizQuestionsAction } from '../../WorkoutsQuiz.actions';
-import {
-  clearWorkoutQuiz,
-  selectAreQuizQuestionsLoading,
-  selectIsQuizResultsShown,
-  selectWorkoutsQuizQuestions,
-  setClearQuestionQuantity,
-  setCurrentQuestion,
-  setSelectedAnswerOption,
-} from '../../WorkoutsQuiz.slice';
 import QuizActionsButtons from '../QuizActionsButtons/QuizActionButtons';
 import QuizAnswers from '../QuizAnswers/QuizAnswers';
 import QuizHeader from '../QuizHeader/QuizHeader';
 import QuizResults from '../QuizResults/QuizResults';
 import FallbackMessage from './../../../Workouts/components/FallbackMessage/FallbackMessage';
 import { LoaderWrapper } from './../../../Workouts/Workouts.styled';
-import { FallbackMessageWrapper, QuizQuestionsSection, QuizQuestionsSectionWrapper } from './QuizQuestions.styled';
+import { useQuizQuestions } from './hooks/useQuizQuestions';
+import { QuizConfigKey } from './Quiz.Questions.enums';
+import { QuizQuestionsSection, QuizQuestionsSectionWrapper } from './QuizQuestions.styled';
+import { QuizContentConfig } from './QuizQuestions.type';
 
-interface QuizQuestionsProps {
+export interface QuizQuestionsProps {
   onIsStartQuizButtonClicked: (value: boolean) => void;
 }
 
 const QuizQuestions = React.memo(({ onIsStartQuizButtonClicked }: QuizQuestionsProps): ReactElement => {
-  const isLoading = useAppSelector(selectAreQuizQuestionsLoading);
-  const isUserAuthenticated = useAppSelector(selectIsUserAuthenticated);
-  const isQuizResultsShown = useAppSelector(selectIsQuizResultsShown);
-  const quizQuestions = useAppSelector(selectWorkoutsQuizQuestions);
+  const { isLoading, isQuizResultsShown, quizQuestionsLength, onAnswerClick, onNextQuestionButtonClick, onQuizReset } =
+    useQuizQuestions({ onIsStartQuizButtonClicked });
 
-  const dispatch = useAppDispatch();
+  const QUIZ_QUESTIONS_CONFIG: QuizContentConfig = {
+    [QuizConfigKey.Loader]: (
+      <LoaderWrapper>
+        <Circles color={colors.mantis} height={150} width={150} />
+      </LoaderWrapper>
+    ),
+    [QuizConfigKey.QuizQuestionsSection]: (
+      <QuizQuestionsSection>
+        <QuizHeader />
+        <QuizAnswers onAnswerClick={onAnswerClick} />
+        <QuizActionsButtons onNextQuestionButtonClick={onNextQuestionButtonClick} onQuizReset={onQuizReset} />
+      </QuizQuestionsSection>
+    ),
+    [QuizConfigKey.FallbackMessage]: (
+      <FallbackMessage
+        message={QUIZ_FALLBACK_MESSAGE_SUBTITLE}
+        title={QUIZ_FALLBACK_MESSAGE_TITLE}
+        isQuizFallbackMessage
+      />
+    ),
+  };
 
-  useEffect(() => {
-    if (isUserAuthenticated) {
-      dispatch(loadAvailableWorkoutsQuizQuestionsAction());
+  const renderQuizContent = (): JSX.Element => {
+    if (isLoading) {
+      return QUIZ_QUESTIONS_CONFIG[QuizConfigKey.Loader];
     }
-  }, [dispatch, isUserAuthenticated]);
 
-  function handleNextQuestionButtonClick(): void {
-    dispatch(setCurrentQuestion());
-    dispatch(setClearQuestionQuantity());
-  }
+    if (!isQuizResultsShown && !quizQuestionsLength) {
+      return QUIZ_QUESTIONS_CONFIG[QuizConfigKey.FallbackMessage];
+    }
 
-  function handleQuizReset(): void {
-    onIsStartQuizButtonClicked(false);
-    dispatch(clearWorkoutQuiz());
-  }
+    if (!isQuizResultsShown) {
+      return QUIZ_QUESTIONS_CONFIG[QuizConfigKey.QuizQuestionsSection];
+    }
 
-  function handleAnswerClick(answerOption: string): void {
-    dispatch(setSelectedAnswerOption(answerOption));
-  }
+    return <QuizResults onIsStartQuizButtonClicked={onIsStartQuizButtonClicked} />;
+  };
 
-  const renderQuizAnswers = (
-    <>
-      {quizQuestions.length > 0 ? (
-        <QuizAnswers onAnswerClick={handleAnswerClick} />
-      ) : (
-        <FallbackMessageWrapper>
-          <FallbackMessage
-            message={QUIZ_FALLBACK_MESSAGE_SUBTITLE}
-            title={QUIZ_FALLBACK_MESSAGE_TITLE}
-            isQuizFallbackMessage
-          />
-        </FallbackMessageWrapper>
-      )}
-    </>
-  );
+  const renderQuizQuestionSection = <QuizQuestionsSectionWrapper>{renderQuizContent()}</QuizQuestionsSectionWrapper>;
 
-  const renderQuzQuestionSection = (
-    <QuizQuestionsSectionWrapper>
-      {isLoading ? (
-        <LoaderWrapper>
-          <Circles color={colors.mantis} height={150} width={150} />
-        </LoaderWrapper>
-      ) : (
-        <>
-          {!isQuizResultsShown ? (
-            <QuizQuestionsSection>
-              <QuizHeader />
-              {renderQuizAnswers}
-              <QuizActionsButtons
-                onNextQuestionButtonClick={handleNextQuestionButtonClick}
-                onQuizReset={handleQuizReset}
-              />
-            </QuizQuestionsSection>
-          ) : (
-            <QuizResults onIsStartQuizButtonClicked={onIsStartQuizButtonClicked} />
-          )}
-        </>
-      )}
-    </QuizQuestionsSectionWrapper>
-  );
-
-  return <>{renderQuzQuestionSection}</>;
+  return <>{renderQuizQuestionSection}</>;
 });
 
 export default QuizQuestions;
