@@ -40,10 +40,9 @@ const Workouts = (): ReactElement => {
     onSetMapRef,
     onSetIsSubmitted,
     onSetIsFormShownOnWorkoutEdit,
-    onSetWorkoutMap,
     onShowWorkoutForm,
     onStopWorkoutFormPropagation,
-    workoutMap,
+    mapRef,
     isFormShownOnWorkoutEdit,
     getDefaultOrSortedWorkouts,
     hasWorkouts,
@@ -103,7 +102,7 @@ const Workouts = (): ReactElement => {
             isFormShownOnWorkoutEdit={onSetIsFormShownOnWorkoutEdit}
             isFormShown={isFormShownOnWorkoutEdit}
             setEditableWorkoutItemId={onGetEditableWorkoutItemId}
-            workoutMap={workoutMap}
+            workoutMap={mapRef}
           />
         ))
       )}
@@ -127,7 +126,6 @@ const Workouts = (): ReactElement => {
             workouts={getDefaultOrSortedWorkouts}
             setEditableWorkoutItemId={onSetEditableWorkoutItemId}
             isSubmitted={isSubmitted}
-            setWorkoutMap={onSetWorkoutMap}
             setGroupRef={onSetGroupRef}
             setMapRef={onSetMapRef}
           />
