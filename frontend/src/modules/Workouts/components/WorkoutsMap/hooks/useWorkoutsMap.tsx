@@ -10,7 +10,7 @@ import InitialMapMarker from '../../MapMarker/InitialMapMarker';
 import MapMarker from '../../MapMarker/MapMarker';
 import { WorkoutMapProps } from '../WorkoutsMap.types';
 
-type HookProps = Omit<WorkoutMapProps, 'isFormShown' | 'setGroupRef' | 'setMapRef'>;
+type HookProps = Omit<WorkoutMapProps, 'isFormShown' | 'setGroupRef'>;
 
 type ReturnedHookType = {
   currentPosition: LatLngExpression;
@@ -24,7 +24,7 @@ export const useWorkoutsMap = ({
   workouts,
   onShowWorkoutForm,
   setEditableWorkoutItemId,
-  setWorkoutMap,
+  setMapRef,
 }: HookProps): ReturnedHookType => {
   const location = useGeolocation();
   const currentPosition: LatLngExpression = useMemo(
@@ -44,7 +44,7 @@ export const useWorkoutsMap = ({
           map.flyTo(e.latlng, map.getZoom(), { animate: true, duration: 1.2 });
         });
 
-        setWorkoutMap(map);
+        setMapRef(map);
 
         onShowWorkoutForm();
         setEditableWorkoutItemId(null);

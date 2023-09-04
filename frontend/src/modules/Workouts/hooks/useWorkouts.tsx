@@ -18,9 +18,8 @@ type ReturnedHookType = {
   hasWorkouts: boolean;
   isSubmitted: boolean | null;
   editableWorkoutItemId: string | null;
-  workoutMap: L.Map | null;
+  mapRef: L.Map | null;
   getDefaultOrSortedWorkouts: WorkoutItem[];
-  onSetWorkoutMap: (value: L.Map | null) => void;
   onSetGroupRef: (value: L.FeatureGroup<any> | null) => void;
   onSetMapRef: (value: L.Map | null) => void;
   onStopWorkoutFormPropagation: (e: React.MouseEvent) => void;
@@ -44,7 +43,6 @@ export const useWorkouts = ({
   const [isFormShownOnWorkoutEdit, setIsFormShownOnWorkoutEdit] = useState<boolean>(false);
   const [editableWorkoutItemId, setEditableWorkoutItemId] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState<boolean | null>(null);
-  const [workoutMap, setWorkoutMap] = useState<L.Map | null>(null);
   const [groupRef, setGroupRef] = useState<L.FeatureGroup<any> | null>(null);
   const [mapRef, setMapRef] = useState<L.Map | null>(null);
 
@@ -108,9 +106,8 @@ export const useWorkouts = ({
     hasWorkouts,
     isSubmitted,
     editableWorkoutItemId,
-    workoutMap,
+    mapRef,
     getDefaultOrSortedWorkouts,
-    onSetWorkoutMap: setWorkoutMap,
     onSetGroupRef: setGroupRef,
     onSetMapRef: setMapRef,
     onSetEditableWorkoutItemId: setEditableWorkoutItemId,

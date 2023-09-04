@@ -15,7 +15,6 @@ const WorkoutsMap = React.memo(
     workouts,
     setEditableWorkoutItemId,
     isSubmitted,
-    setWorkoutMap,
     setGroupRef,
     setMapRef,
   }: WorkoutMapProps): ReactElement => {
@@ -27,7 +26,7 @@ const WorkoutsMap = React.memo(
         workouts,
         onShowWorkoutForm,
         setEditableWorkoutItemId,
-        setWorkoutMap,
+        setMapRef,
       });
 
     return (
@@ -39,7 +38,8 @@ const WorkoutsMap = React.memo(
             closePopupOnClick={false}
             whenCreated={(mapInstance) => {
               setMapRef(mapInstance);
-            }}>
+            }}
+          >
             <LayersControl>
               {MAP_TILES_DETAILS_CONFIG.map((mapTile) => (
                 <BaseLayer checked={mapTile.default} name={mapTile.name} key={mapTile.id}>
