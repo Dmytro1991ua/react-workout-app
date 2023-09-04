@@ -11,7 +11,6 @@ interface PrivateRouteProps extends Omit<RouteProps, 'component'> {
   component: React.ElementType;
 }
 
-// blueprint for all private routes ==> if the user logged in a needed component will be displayed
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: Component, ...rest }) => {
   const isUserAuthenticated = useAppSelector(selectIsUserAuthenticated);
   const isUserLoading = useAppSelector(selectUserLoading);

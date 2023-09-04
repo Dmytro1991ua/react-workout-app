@@ -29,24 +29,20 @@ export function timestampToDateString(timestamp: number): string {
   return new Date(timestamp * 1000).toLocaleTimeString();
 }
 
-// calculate running pace
 export const runningPace = (duration: number, distance: number): number => {
   return Number((duration / distance).toFixed(1));
 };
 
-//calculate cycling speed
 export const cyclingSpeed = (duration: number, distance: number): number => {
   return Number((distance / (duration / 60)).toFixed(1));
 };
 
-// create a workout description based on a type of workout and current date
 export const workoutDescription = (workoutType: string, distance: number): string => {
   return `${workoutType[0].toUpperCase()}${workoutType?.slice(1)} ${distance} km on ${
     MONTHS_LIST[new Date().getMonth()]
   } ${new Date().getDate()} at ${new Date().toLocaleTimeString()}`;
 };
 
-// create a workout data from form inputs based on selected workout (either Running or Cycling)
 export function createWorkoutItem(
   formData: WorkoutFormInitialValues,
   mapCoords: LatLngTuple,

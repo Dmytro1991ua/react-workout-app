@@ -13,9 +13,6 @@ export const ProfileImageContainer = styled('div')`
 
 export const ImageWrapper = styled('figure')`
   position: relative;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
   margin-bottom: 1rem;
 `;
 

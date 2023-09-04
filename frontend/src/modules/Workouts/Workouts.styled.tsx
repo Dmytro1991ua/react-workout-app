@@ -25,7 +25,6 @@ export const WorkoutsSectionBody = styled.div`
   }
 `;
 
-//WorkoutsFeatures
 export const WorkoutsFeatures = styled.aside`
   flex: 0 1 50rem;
   min-height: 10rem;
@@ -67,7 +66,6 @@ export const FeaturesTitle = styled('h3')<{ hasWorkouts?: boolean }>`
   }
 `;
 
-//WorkoutsMap;
 export const Map = styled.div`
   background: ${colors.powderAsh};
   overflow: hidden;
