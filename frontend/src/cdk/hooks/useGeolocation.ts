@@ -3,7 +3,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { selectIsUserAuthenticated } from '../../modules/Auth/User.slice';
 import { useAppSelector } from '../../store/store.hooks';
 
-//custom hook to get a user's current location
 const useGeolocation = (): CurrentLocationData => {
   const isUserAuthenticated = useAppSelector(selectIsUserAuthenticated);
 

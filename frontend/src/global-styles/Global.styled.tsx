@@ -2,7 +2,6 @@ import styled, { createGlobalStyle, keyframes } from 'styled-components';
 
 import { colors } from './ColorsPalette';
 
-//Global styles
 export const GlobalStyles = createGlobalStyle`
   *,
   *::before,
@@ -78,7 +77,6 @@ export const Container = styled.div`
   }
 `;
 
-// Animations
 export const rotation = keyframes`
   0% {
     transform: rotate(0deg);
