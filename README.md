@@ -36,3 +36,21 @@ This project is a labor of love that stems from a deep passion for web developme
 - `Custom Backend`: Utilize a custom backend powered by `MongoDB` for data storage and retrieval.
 
 - `API Integration`: `OpenWeatherMap API` for real-time weather data.
+
+## Technologies, libraries and tools used:
+- `React`
+- `Redux Toolkit`
+- `Leaflet/React-Leaflet`
+- `Typescript`
+- `Styled-Components`
+- `Firebase`
+- `Axios`
+- `MongoDB`
+- `Mongoose`
+- `Express`
+- `React Hook Form`
+- `Yup`
+- `React Table`
+- `React Table sticky`
+- `Swiper`, 'etc
+
