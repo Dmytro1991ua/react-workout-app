@@ -32,8 +32,6 @@ const ProfileUserInformationForm = (): ReactElement => {
     currentUser,
   });
 
-  console.log(PROFILE_USER_INFORMATION_FORM_INITIAL_VALUES(currentUser));
-
   return (
     <ProfileFormWrapper onSubmit={handleSubmit(onHandleUserInformationChange)}>
       <Prompt when={isWarningPopupShown} message={WARNING_POPUP_CONTENT} />

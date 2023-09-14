@@ -13,6 +13,7 @@ export const LOGIN_FORM_INITIAL_VALUES: LoginInitialValues = {
 };
 
 export const SIGN_UP_FORM_INITIAL_VALUES: SignUpInitialValues = {
+  name: '',
   email: '',
   password: '',
   confirmedPassword: '',
@@ -31,7 +32,8 @@ export const LOGIN_VALIDATION_SCHEMA: yup.SchemaOf<LoginInitialValues> = yup.obj
   password: yup.string().label('Password').required().min(8, 'Should be at least 8 characters'),
 });
 
-export const SIGN_UP_VALIDATION_SCHEMA: yup.SchemaOf<LoginInitialValues> = yup.object().shape({
+export const SIGN_UP_VALIDATION_SCHEMA: yup.SchemaOf<SignUpInitialValues> = yup.object().shape({
+  name: yup.string().label('Name').required(),
   email: yup.string().label('Email').email().required(),
   password: yup
     .string()

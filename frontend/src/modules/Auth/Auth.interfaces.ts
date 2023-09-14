@@ -10,9 +10,10 @@ export type LoginInitialValues = {
 };
 
 export type SignUpInitialValues = {
+  name: string;
   email: string;
   password: string;
-  confirmedPassword: string;
+  confirmedPassword?: string;
 };
 
 export type ForgotPasswordInitialValues = {

@@ -55,6 +55,15 @@ export const RESET_PASSWORD_FORM_INPUTS_CONFIGS: FormInputConfig<ResetPasswordIn
 ];
 
 export const SIGN_UP_FORMS_INPUT_CONFIG: FormInputConfig<SignUpInitialValues>[] = [
+  {
+    id: 'name',
+    name: 'name',
+    type: 'text',
+    fullWidth: true,
+    placeholder: 'Name*',
+    isRequired: false,
+    borderColor: 'lighterBlue',
+  },
   ...LOGIN_FORM_INPUTS_CONFIG.map((input) => ({
     ...input,
     borderColor: 'lighterBlue' as keyof MainPalette,

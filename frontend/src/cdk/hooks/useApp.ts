@@ -27,7 +27,7 @@ export const useApp = (): void => {
 
         const userFirebaseProviders: string[] = user.providerData.map((item) => item.providerId);
 
-        dispatch(validateUserAction(userFirebaseProviders));
+        dispatch(validateUserAction(userFirebaseProviders, user));
       } else {
         dispatch(setLoadingStatus('failed'));
       }
