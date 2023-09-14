@@ -5,10 +5,10 @@ const User = require("../models/userSchema");
 
 const createNewUser = asyncHandler(async (decodedIdToken, req, res) => {
   const newUser = new User({
-    name: decodedIdToken.name,
+    name: decodedIdToken.name ?? "",
     uid: decodedIdToken.user_id,
     email: decodedIdToken.email,
-    photoURL: decodedIdToken.picture,
+    photoURL: decodedIdToken.picture ?? "",
     emailVerified: decodedIdToken.email_verified,
     authTime: decodedIdToken.auth_time,
   });

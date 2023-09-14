@@ -8,6 +8,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   updatePassword,
+  updateProfile,
   UserCredential,
 } from 'firebase/auth';
 import firebase from 'firebase/compat';
@@ -33,10 +34,16 @@ import {
 import { setUpdateUser } from './User.slice';
 
 class AuthService {
-  async signUp(email: string, password: string): Promise<void> {
+  async signUp(email: string, password: string, name: string): Promise<void> {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      history.push(AppRoutes.Login);
+      const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+
+      await updateProfile(userCredentials.user as User, {
+        displayName: name,
+        photoURL: null,
+      });
+
+      history.push(AppRoutes.Home);
       toastService.success(SUCCESSFUL_SIGN_UP_MESSAGE);
     } catch (error) {
       toastService.error((error as Error).message);

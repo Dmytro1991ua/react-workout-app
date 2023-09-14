@@ -8,7 +8,7 @@ import { authService } from './Auth.service';
 import { setLoadingStatus, setUpdateUser, setUser } from './User.slice';
 
 export const validateUserAction =
-  (firebaseProvider: string[]): AppThunk =>
+  (firebaseProvider: string[], user: User | null): AppThunk =>
   async (dispatch) => {
     try {
       const validatedUser = await authService.validateUser();
@@ -17,7 +17,7 @@ export const validateUserAction =
         dispatch(
           setUser({
             uid: validatedUser?.uid,
-            name: validatedUser?.name,
+            name: validatedUser?.name ?? user.displayName,
             email: validatedUser?.email,
             photoURL: validatedUser?.photoURL,
             phoneNumber: validatedUser?.phoneNumber,

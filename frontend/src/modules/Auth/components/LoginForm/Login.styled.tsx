@@ -36,11 +36,11 @@ export const Form = styled.form`
 
 export const FormBody = styled.div`
   border: 5px solid ${colors.lighterBlue};
-  padding: 2rem 1rem;
+  padding: 1rem;
   border-radius: 1.2rem;
 
   @media (min-width: 62em) {
-    padding: 4rem 1rem;
+    padding: 1.5rem 1rem;
   }
 `;
 
@@ -48,10 +48,10 @@ export const FormDetails = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
 
   &:last-of-type {
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
   }
 `;
 

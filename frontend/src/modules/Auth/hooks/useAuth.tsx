@@ -73,9 +73,9 @@ export const useAuth = <T extends FieldValues>({ validationSchema }: HookProps):
 
   const onSignUpWithCredentials = useCallback(
     async (formData: T): Promise<void> => {
-      const { email, password } = formData;
+      const { email, password, name } = formData;
 
-      await authService.signUp(email, password);
+      await authService.signUp(email, password, name);
 
       reset();
     },
