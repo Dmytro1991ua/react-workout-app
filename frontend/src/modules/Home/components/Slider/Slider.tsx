@@ -1,6 +1,5 @@
 import 'swiper/components/scrollbar/scrollbar.scss';
 import 'swiper/swiper-bundle.min.css';
-//swiper styles
 import 'swiper/swiper.scss';
 
 import React, { ReactElement, useMemo } from 'react';
