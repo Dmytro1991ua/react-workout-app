@@ -13,13 +13,13 @@ export const validateUserAction =
     try {
       const validatedUser = await authService.validateUser();
 
-      if (validatedUser) {
+      if (validatedUser && user) {
         dispatch(
           setUser({
             uid: validatedUser?.uid,
-            name: validatedUser?.name ?? user.displayName,
+            name: validatedUser?.name || user.displayName,
             email: validatedUser?.email,
-            photoURL: validatedUser?.photoURL,
+            photoURL: validatedUser?.photoURL || user.photoURL,
             phoneNumber: validatedUser?.phoneNumber,
             emailVerified: validatedUser?.emailVerified,
             firebaseProvider,

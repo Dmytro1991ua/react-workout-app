@@ -5,10 +5,10 @@ const User = require("../models/userSchema");
 
 const createNewUser = asyncHandler(async (decodedIdToken, req, res) => {
   const newUser = new User({
-    name: decodedIdToken.name ?? "",
+    name: decodedIdToken.name,
     uid: decodedIdToken.user_id,
     email: decodedIdToken.email,
-    photoURL: decodedIdToken.picture ?? "",
+    photoURL: decodedIdToken.picture,
     emailVerified: decodedIdToken.email_verified,
     authTime: decodedIdToken.auth_time,
   });
@@ -29,7 +29,16 @@ const updateNewUser = asyncHandler(async (decodedIdToken, req, res) => {
   };
 
   try {
-    const updatedUser = await User.findOneAndUpdate(filterUsers, { authTime: decodedIdToken.auth_time }, options);
+    const updatedUser = await User.findOneAndUpdate(
+      filterUsers,
+      {
+        emailVerified: decodedIdToken.email_verified,
+        authTime: decodedIdToken.auth_time,
+        name: decodedIdToken.name,
+        photoURL: decodedIdToken.picture,
+      },
+      options
+    );
 
     res.status(200).send(updatedUser);
   } catch (err) {
@@ -51,7 +60,9 @@ const getUser = asyncHandler(async (req, res, next) => {
     const decodedIdToken = await admin.auth.verifyIdToken(token);
 
     if (!decodedIdToken) {
-      return res.status(500).send({ success: false, message: "Unauthorized User" });
+      return res
+        .status(500)
+        .send({ success: false, message: "Unauthorized User" });
     }
 
     const userExists = await User.findOne({ uid: decodedIdToken.user_id });
@@ -76,7 +87,9 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   try {
     const update = { name: req.body.name, photoURL: req.body.photoURL };
     const filter = { uid: user.uid };
-    const updatedDocument = await User.findOneAndUpdate(filter, update, { new: true });
+    const updatedDocument = await User.findOneAndUpdate(filter, update, {
+      new: true,
+    });
 
     return res.status(200).send(updatedDocument);
   } catch (err) {
