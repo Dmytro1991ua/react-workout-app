@@ -66,7 +66,7 @@ export const useProfileFormState = <T extends FieldValues>({
 
   async function onHandleUserInformationChange(data: T): Promise<void> {
     try {
-      dispatch(updateUserDataAction({ name: data?.name ?? '', photoURL: currentUser?.photoURL as string }));
+      dispatch(updateUserDataAction({ name: data?.name ?? '', photoURL: currentUser?.photoURL ?? '' }));
     } catch (err) {
       throw new Error((err as Error).message);
     }

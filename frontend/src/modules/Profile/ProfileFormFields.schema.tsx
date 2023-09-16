@@ -25,7 +25,7 @@ export const PROFILE_USER_INFORMATION_FORM_VALIDATION_SCHEMA: yup.SchemaOf<Profi
         .mixed()
         .label('Picture')
         .when('picture', (value) => {
-          if (value && typeof value === 'string') {
+          if (!value || typeof value === 'string') {
             return yup.mixed().notRequired();
           }
 

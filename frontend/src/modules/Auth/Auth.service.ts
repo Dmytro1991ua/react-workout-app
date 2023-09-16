@@ -4,6 +4,7 @@ import {
   EmailAuthProvider,
   getIdToken,
   reauthenticateWithCredential,
+  sendEmailVerification,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -38,7 +39,8 @@ class AuthService {
     try {
       const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
 
-      await updateProfile(userCredentials.user as User, {
+      await sendEmailVerification(userCredentials.user);
+      await updateProfile(userCredentials.user, {
         displayName: name,
         photoURL: null,
       });
