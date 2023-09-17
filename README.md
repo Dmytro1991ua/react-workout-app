@@ -54,3 +54,425 @@ This project is a labor of love that stems from a deep passion for web developme
 - `React Table sticky`
 - `Swiper`, 'etc
 
+## API
+> In order to work with real weather data, I decided to leverage external APIs, such as `OpenWeatherMap`, which provides access to a wide range of weather-related data
+
+### User
+
+-
+Endpoint
+```
+GET: /api/users/me - Returns the data of the current, authenticated user
+```
+
+Example of returned data
+```
+{
+    "_id": "64fd677ed456a0975d73ed9f",
+    "uid": "Ng48H9LuUPS9ODU2DMaeqWzJl8P2",
+    "email": "alex2021new1666@gmail.com",
+    "emailVerified": false,
+    "authTime": "1694329280",
+    "createdAt": "2023-09-10T06:51:42.408Z",
+    "updatedAt": "2023-09-11T14:20:21.164Z",
+    "__v": 0
+}
+```
+
+-
+Endpoint
+```
+POST: /api/users/profile - Returns updated user's profile data, such as avatar, name, password
+```
+
+Payload
+```
+{
+    "name": "Alex Smith",
+    "photoURL": "https://firebasestorage.googleapis.com/v0/b/auth-development-a6e59.appspot.com/o/usersImages%2FNg48H9LuUPS9ODU2DMaeqWzJl8P2%2Fdt-logo-without-text.png?alt=media&token=12ba58dd-3ec0-47a2-8104-f78a3dc6539a"
+}
+```
+
+Example of returned data
+```
+{
+    "_id": "64fd677ed456a0975d73ed9f",
+    "uid": "Ng48H9LuUPS9ODU2DMaeqWzJl8P2",
+    "email": "alex2021new1666@gmail.com",
+    "emailVerified": false,
+    "authTime": "1694329280",
+    "createdAt": "2023-09-10T06:51:42.408Z",
+    "updatedAt": "2023-09-11T14:35:56.252Z",
+    "__v": 0,
+    "name": "Alex Smith",
+    "photoURL": "https://firebasestorage.googleapis.com/v0/b/auth-development-a6e59.appspot.com/o/usersImages%2FNg48H9LuUPS9ODU2DMaeqWzJl8P2%2Fdt-logo-without-text.png?alt=media&token=12ba58dd-3ec0-47a2-8104-f78a3dc6539a"
+}
+```
+
+### Workout Quiz
+
+Endpoint
+```
+GET: /api/workouts-quiz - Returns data with all available workout quiz questions
+```
+
+Example of returned data
+```
+[
+  {
+    "_id": "63c4020a2922846027f0cc8e",
+    "question": "Which of the following is a long term adaptation to muscular strength training?",
+    "answers": [
+        {
+            "answerOption": "Increased size of type II muscle fibres",
+            "isCorrect": true
+        },
+        {
+            "answerOption": "Decreased size of type II muscle fibres",
+            "isCorrect": false
+        },
+        {
+            "answerOption": "Increased number of type II muscle fibres",
+            "isCorrect": false
+        },
+        {
+            "answerOption": "Decreased number of type II muscle fibres",
+            "isCorrect": false
+        }
+    ]
+  }
+]
+```
+
+### Workouts
+-
+Endpoint
+```
+GET: /api/workouts - Returns data with all available workouts for a particular user
+```
+
+Example of returned data
+```
+[
+    {
+        "weatherInfo": {
+            "countryInfo": {
+                "country": "UA",
+                "sunrise": 1694836839,
+                "sunset": 1694882248
+            },
+            "city": "Lviv",
+            "temperature": 291.12,
+            "maxTemperature": 291.12,
+            "minTemperature": 291.12,
+            "pressure": 1025,
+            "humidity": 61,
+            "feelsLike": 290.57,
+            "weatherInfo": [
+                {
+                    "description": "clear sky",
+                    "icon": "01d",
+                    "id": 800,
+                    "main": "Clear",
+                    "_id": "6505627426385219a92dde47"
+                }
+            ],
+            "windSpeed": 5.4
+        },
+        "_id": "6505627426385219a92dde46",
+        "user": "MNs8B6HU1oc1hhJKIROTHLnIPWX2",
+        "date": "9/16/2023",
+        "coordinates": [
+            49.84607285062789,
+            24.02331923884615
+        ],
+        "selectedValue": "running",
+        "distance": 3,
+        "duration": 30,
+        "cadence": "12",
+        "pace": 10,
+        "description": "Running 3 km on September 16 at 11:08:19 AM",
+        "isFavorite": false,
+        "createdAt": "2023-09-16T08:08:20.459Z",
+        "updatedAt": "2023-09-16T08:08:20.459Z",
+        "__v": 0
+    }
+]
+```
+-
+Endpoint
+```
+POST: /api/workouts - Creates a new workout
+```
+
+Payload
+```
+{
+    "date": "9/17/2023",
+    "coordinates": [
+        49.76378217754174,
+        24.129008560936406
+    ],
+    "selectedValue": "cycling",
+    "distance": 5,
+    "duration": 180,
+    "isFavorite": false,
+    "weatherInfo": {
+        "city": "Solonka",
+        "temperature": 291.12,
+        "maxTemperature": 291.12,
+        "minTemperature": 291.12,
+        "pressure": 1021,
+        "humidity": 66,
+        "feelsLike": 290.7,
+        "weatherInfo": [
+            {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+            }
+        ],
+        "windSpeed": 4.52,
+        "countryInfo": {
+            "country": "UA",
+            "sunrise": 1694923305,
+            "sunset": 1694968488
+        }
+    },
+    "elevationGain": "12",
+    "speed": 1.7,
+    "description": "Cycling 5 km on September 17 at 10:04:06 AM"
+}
+```
+
+Example of returned data
+```
+{
+    "user": "MNs8B6HU1oc1hhJKIROTHLnIPWX2",
+    "date": "9/17/2023",
+    "coordinates": [
+        49.76378217754174,
+        24.129008560936406
+    ],
+    "selectedValue": "cycling",
+    "distance": 5,
+    "duration": 180,
+    "elevationGain": "12",
+    "description": "Cycling 5 km on September 17 at 10:04:06 AM",
+    "speed": 1.7,
+    "isFavorite": false,
+    "weatherInfo": {
+        "city": "Solonka",
+        "temperature": 291.12,
+        "maxTemperature": 291.12,
+        "minTemperature": 291.12,
+        "pressure": 1021,
+        "humidity": 66,
+        "feelsLike": 290.7,
+        "weatherInfo": [
+            {
+                "description": "clear sky",
+                "icon": "01d",
+                "id": 800,
+                "main": "Clear",
+                "_id": "6506a4e7a8c0a1b04a515880"
+            }
+        ],
+        "windSpeed": 4.52,
+        "countryInfo": {
+            "country": "UA",
+            "sunrise": 1694923305,
+            "sunset": 1694968488
+        }
+    },
+    "_id": "6506a4e7a8c0a1b04a51587f",
+    "createdAt": "2023-09-17T07:04:07.647Z",
+    "updatedAt": "2023-09-17T07:04:07.647Z",
+    "__v": 0
+}
+```
+
+-
+Endpoint
+```
+PUT: /api/workouts/:id - Updates a particular workout by its `id`
+```
+
+Payload
+```
+{
+    "weatherInfo": {
+        "countryInfo": {
+            "country": "UA",
+            "sunrise": 1694836839,
+            "sunset": 1694882248
+        },
+        "city": "Lviv",
+        "temperature": 291.12,
+        "maxTemperature": 291.12,
+        "minTemperature": 291.12,
+        "pressure": 1025,
+        "humidity": 61,
+        "feelsLike": 290.57,
+        "weatherInfo": [
+            {
+                "description": "clear sky",
+                "icon": "01d",
+                "id": 800,
+                "main": "Clear",
+                "_id": "6505627426385219a92dde47"
+            }
+        ],
+        "windSpeed": 5.4
+    },
+    "_id": "6505627426385219a92dde46",
+    "user": "MNs8B6HU1oc1hhJKIROTHLnIPWX2",
+    "date": "9/16/2023",
+    "coordinates": [
+        49.84607285062789,
+        24.02331923884615
+    ],
+    "selectedValue": "running",
+    "distance": 4,
+    "duration": 40,
+    "cadence": "19",
+    "pace": 10,
+    "description": "Running 3 km on September 16 at 11:08:19 AM",
+    "isFavorite": false,
+    "createdAt": "2023-09-16T08:08:20.459Z",
+    "updatedAt": "2023-09-16T08:08:20.459Z",
+    "__v": 0,
+    "elevationGain": ""
+}
+```
+
+Example of returned data
+```
+{
+    "weatherInfo": {
+        "countryInfo": {
+            "country": "UA",
+            "sunrise": 1694836839,
+            "sunset": 1694882248
+        },
+        "city": "Lviv",
+        "temperature": 291.12,
+        "maxTemperature": 291.12,
+        "minTemperature": 291.12,
+        "pressure": 1025,
+        "humidity": 61,
+        "feelsLike": 290.57,
+        "weatherInfo": [
+            {
+                "description": "clear sky",
+                "icon": "01d",
+                "id": 800,
+                "main": "Clear",
+                "_id": "6505627426385219a92dde47"
+            }
+        ],
+        "windSpeed": 5.4
+    },
+    "_id": "6505627426385219a92dde46",
+    "user": "MNs8B6HU1oc1hhJKIROTHLnIPWX2",
+    "date": "9/16/2023",
+    "coordinates": [
+        49.84607285062789,
+        24.02331923884615
+    ],
+    "selectedValue": "running",
+    "distance": 4,
+    "duration": 40,
+    "cadence": "19",
+    "pace": 10,
+    "description": "Running 3 km on September 16 at 11:08:19 AM",
+    "isFavorite": false,
+    "createdAt": "2023-09-16T08:08:20.459Z",
+    "updatedAt": "2023-09-17T07:07:54.053Z",
+    "__v": 0,
+    "elevationGain": ""
+}
+```
+
+-
+Endpoint
+```
+DELETE: /api/workouts/:id - Deletes a particular workout by its `id`
+```
+
+Expected returned data
+```
+6506a4e7a8c0a1b04a51587f
+```
+
+-
+Endpoint
+```
+DELETE: /api/workouts/deleteAllWorkouts - Deletes all workouts
+```
+
+Expected returned data
+```
+{
+    "success": true,
+    "message": "All workouts have been deleted successfully",
+    "deleteAllWorkouts": {
+        "acknowledged": true,
+        "deletedCount": 2
+    }
+}
+```
+
+-
+Endpoint
+```
+DELETE: /api/workouts/:id/addToFavorites - Add a particular workout to a favorites
+```
+
+Expected returned data
+```
+{
+    "weatherInfo": {
+        "countryInfo": {
+            "country": "UA",
+            "sunrise": 1694923335,
+            "sunset": 1694968525
+        },
+        "city": "Bryukhovychi",
+        "temperature": 291,
+        "maxTemperature": 291,
+        "minTemperature": 291,
+        "pressure": 1021,
+        "humidity": 66,
+        "feelsLike": 290.56,
+        "weatherInfo": [
+            {
+                "description": "clear sky",
+                "icon": "01d",
+                "id": 800,
+                "main": "Clear",
+                "_id": "6506a7c6a8c0a1b04a51588b"
+            }
+        ],
+        "windSpeed": 4.15
+    },
+    "_id": "6506a7c6a8c0a1b04a51588a",
+    "user": "MNs8B6HU1oc1hhJKIROTHLnIPWX2",
+    "date": "9/17/2023",
+    "coordinates": [
+        49.87739415432064,
+        23.98899078369141
+    ],
+    "selectedValue": "running",
+    "distance": 12,
+    "duration": 180,
+    "cadence": "12",
+    "pace": 15,
+    "description": "Running 12 km on September 17 at 10:16:22 AM",
+    "isFavorite": true,
+    "createdAt": "2023-09-17T07:16:22.949Z",
+    "updatedAt": "2023-09-17T07:16:32.852Z",
+    "__v": 0
+}
+```
