@@ -54,6 +54,87 @@ This project is a labor of love that stems from a deep passion for web developme
 - `React Table sticky`
 - `Swiper`, 'etc
 
+## Getting started
+To get started with the `Workout` project, follow these steps:
+- Clone the repository via `HTTPS` or `SSH` key:
+  > via `HTTPS`
+
+  ```
+  https://github.com/Dmytro1991ua/react-workout-app.git
+  ```
+
+  > via `SSH` key
+
+  ```
+  git@github.com:Dmytro1991ua/react-workout-app.git
+  ```
+- Install needed dependencies from the `root` directory for `frontend` and `backend` folders (or you could proceed directly to mentioned folders and install packages from there)
+  > Installing from the `root` directory
+
+  ```
+  npm run packages-install => It will install packages for frontend and backend folders at the same time
+  ```
+
+  > Installing from  `frontend` and `backend` folders individually
+
+  ```
+  cd frontend
+  npm install
+  ```
+
+  ```
+  cd backend
+  npm install
+  ```
+
+- Create a `.env` file separately for `root` and `frontend` directories and set the following environment variables:
+    > `env` file for `root` directory
+
+    ```
+    NODE_ENV=development
+    PORT=8080
+    REACT_APP_CONNECT_MONGODB_VIA_MONGOOSE="mongodb+srv://your_connection_with_mongoDB"
+    REACT_APP_FIREBASE_PROJECT_ID="your_firebase_project_id"
+    REACT_APP_FIREBASE_KEY_ID="your_firebase_key_id"
+    REACT_APP_FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY---your_key_id-----END PRIVATE KEY-----\n"
+    REACT_APP_FIREBASE_CLIENT_EMAIL="your_firebase_client_email"
+    REACT_APP_FIREBASE_CLIENT_ID="your_firebase_client_id"
+    REACT_APP_FIREBASE_AUTH_URI="your_firebase_auth_uri"
+    REACT_APP_FIREBASE_TOKEN_URI="your_firebase_token_uri"
+    REACT_APP_FIREBASE_AUTH_PROVIDER_X509_CERT_URL="your_firebase_auth_provider_cert_url"
+    REACT_APP_FIREBASE_CLIENT_X509_CERT_URL="your_firebase_client_cert_url"
+  ```
+
+  > `env` file for `frontend` directory
+
+  ```
+   REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
+   REACT_APP_AUTH_DOMAIN=auth-your_firebase_auth_domain
+   REACT_APP_PROJECT_ID=ayour_fibase_project_id
+   REACT_APP_STORAGE_BUCKET=your_firebase_storage_bucket
+   REACT_APP_MESSAGING_SENDER_ID=your_firebase_messaging_sender
+   REACT_APP_MESSAGING_APP_ID=your_firebase_messaging_app_id
+   REACT_APP_WEATHER_API_ENDPOINT=your_openweathermap_api_endpoint
+   REACT_APP_WEATHER_API_KEY=your_openweathermap_api_key
+   REACT_APP_WEATHER_API_ICON=your_openweathermap_api_icon
+   REACT_APP_API_BASE_URL=your_project_api_base_url
+  ```
+
+ - In order to run the project `locally`, run the following commands from the `root` directory  
+    > run `backend`
+
+    ```
+    npm run server
+    ```
+
+    > run `frontend`
+
+    ```
+    npm run client
+    ```
+    
+- Open your browser and navigate to `http://localhost:3000` to access the `Workout` app.
+  
 ## API
 > In order to work with real weather data, I decided to leverage external APIs, such as `OpenWeatherMap`, which provides access to a wide range of weather-related data
 
