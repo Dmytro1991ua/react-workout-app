@@ -134,7 +134,68 @@ To get started with the `Workout` project, follow these steps:
     ```
     
 - Open your browser and navigate to `http://localhost:3000` to access the `Workout` app.
-  
+
+## Screenshots
+> User Authentication
+
+![screencapture-localhost-3000-auth-login-2023-09-17-11_36_34](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/4d7ae152-2d0d-4ea0-842f-fcb6b3e44c2e)
+
+![screencapture-localhost-3000-auth-signup-2023-09-17-11_37_51](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/4b1bb75c-42fa-4d81-87cb-646d49f4c840)
+
+![screencapture-localhost-3000-auth-forgot-password-2023-09-17-11_40_05](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/9572a127-49a4-4a27-9de4-6b757ec29dc8)
+
+> Home
+> 
+![screencapture-localhost-3000-2023-09-17-11_51_12](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/db6de845-3e98-4a19-b562-b6f6b32a1886)
+
+> Workouts
+
+![screencapture-localhost-3000-workouts-2023-09-17-11_43_24](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/148c1cd1-762e-44a5-b408-5bf1190ab07f)
+
+![screencapture-localhost-3000-workouts-2023-09-17-11_45_23](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/7012e262-fe8f-4a20-8b14-29950eaa906b)
+
+![screencapture-localhost-3000-workouts-2023-09-17-11_46_05](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/6e50c6f9-6979-48b8-80f5-8025034416f6)
+
+![screencapture-localhost-3000-workouts-2023-09-17-11_48_03](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/45b0b757-97b5-4dea-a082-9a10d9b26692)
+
+![screencapture-localhost-3000-workouts-2023-09-17-11_49_04](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/ac666eaf-3326-4c06-a5a3-37d44451fec8)
+
+![screencapture-localhost-3000-workouts-2023-09-17-11_49_40](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/a3bdd270-a17b-469d-a264-7c638c8cbfbf)
+
+> Workouts Details
+
+![Untitled](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/9de91423-d56e-463d-8687-f550d0ef7100)
+
+![screencapture-localhost-3000-workouts-details-2023-09-17-11_55_09](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/117a35ad-1791-4cb1-9eae-7de5ea1cb2ec)
+
+> BMI Calculator
+
+![screencapture-localhost-3000-bmi-calculator-2023-09-17-11_57_09](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/95c64b53-75c4-4b05-bf17-fe7f8edeaaf5)
+
+![screencapture-localhost-3000-bmi-calculator-2023-09-17-11_58_24](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/cec679c2-23a0-41e0-bbff-9947fce2af36)
+
+![screencapture-localhost-3000-bmi-calculator-2023-09-17-13_42_32](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/9b239367-7738-4783-b3d1-d95b7ef91317)
+
+![screencapture-localhost-3000-bmi-calculator-2023-09-17-13_43_20](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/c081d66f-5cf5-470a-bd9f-17beb6a43627)
+
+![screencapture-localhost-3000-bmi-calculator-2023-09-17-13_44_25](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/735aa40e-e78f-48bf-b20d-79e1e0e116cf)
+
+![screencapture-localhost-3000-bmi-calculator-2023-09-17-13_46_41](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/e771c40d-086b-4bde-9d8c-7e01223cbd4f)
+
+![screencapture-localhost-3000-bmi-calculator-2023-09-17-13_47_23](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/daa1a486-105d-436f-9df2-98e6cb8799c4)
+
+> Workouts Quiz
+
+![screencapture-localhost-3000-workouts-quiz-2023-09-17-13_48_14](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/1a820b08-8b05-44a7-8e53-700255350903)
+
+![screencapture-localhost-3000-workouts-quiz-2023-09-17-13_48_41](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/199948f7-a09d-4518-96a6-e41cdf65c2ad)
+
+![screencapture-localhost-3000-workouts-quiz-2023-09-17-13_49_30](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/d446158f-2b93-4b17-a7d2-9684643bb07a)
+
+> Profile
+
+![screencapture-localhost-3000-profile-2023-09-17-13_50_26](https://github.com/Dmytro1991ua/react-workout-app/assets/61331410/fbd48884-a43f-4977-8c82-f373cb76646f)
+
 ## API
 > In order to work with real weather data, I decided to leverage external APIs, such as `OpenWeatherMap`, which provides access to a wide range of weather-related data
 
