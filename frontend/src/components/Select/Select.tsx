@@ -57,10 +57,10 @@ export const Select = <TFormValues extends Record<string, unknown>>(
         id={props.id}
         name={props.name}
         onChange={props.onChange}
-        actionPanelSelect={props.actionPanelSelect}
+        $actionPanelSelect={props.actionPanelSelect}
         value={props.value}
         disabled={props.disabled}
-        fullWidth={props.fullWidth}
+        $fullWidth={props.fullWidth}
       >
         <option value={SortedWorkoutsSelectOption.Default} disabled={props.isDefaultOptionDisabled}>
           {props.optionLabel}

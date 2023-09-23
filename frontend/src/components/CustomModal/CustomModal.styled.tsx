@@ -5,7 +5,11 @@ import { CloseCircle } from 'styled-icons/evaicons-solid';
 import { colors } from '../../global-styles/ColorsPalette';
 
 export const ModalWrapper = styled(Modal)<{ isWeatherDetailsModal?: boolean }>`
-  min-width: ${({ isWeatherDetailsModal }) => (isWeatherDetailsModal ? '45rem' : 'fit-content')}; 35rem;
+  min-width: ${({ isWeatherDetailsModal }) => (isWeatherDetailsModal ? '30rem' : 'fit-content')};
+
+  @media (width >= 30em) {
+    min-width: ${({ isWeatherDetailsModal }) => (isWeatherDetailsModal ? '45rem' : 'fit-content')};
+  }
 `;
 
 export const ModalHeader = styled('div')`

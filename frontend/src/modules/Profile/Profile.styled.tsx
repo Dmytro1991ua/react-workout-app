@@ -11,10 +11,19 @@ export const ProfileSection = styled(FormSection)`
 
 export const ProfileSectionWrapper = styled('div')<{ isEmailAndPasswordProvider?: boolean }>`
   display: grid;
-  grid-template-columns: ${({ isEmailAndPasswordProvider }) => (isEmailAndPasswordProvider ? '1fr 1fr' : '1fr')};
-  justify-items: ${({ isEmailAndPasswordProvider }) => (isEmailAndPasswordProvider ? 'flex-start' : 'center')};
+  grid-template-columns: 1fr;
+  justify-items: center;
   grid-gap: 2rem;
   width: 100%;
+  height: ${({ isEmailAndPasswordProvider }) => (isEmailAndPasswordProvider ? '72vh' : 'fit-content')}; 72vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  @media (width >= 62em) {
+    height: fit-content;
+    grid-template-columns: ${({ isEmailAndPasswordProvider }) => (isEmailAndPasswordProvider ? '1fr 1fr' : '1fr')};
+    justify-items: ${({ isEmailAndPasswordProvider }) => (isEmailAndPasswordProvider ? 'flex-start' : 'center')};
+  }
 `;
 
 export const ProfileBlockWrapper = styled('div')`

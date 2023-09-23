@@ -16,7 +16,7 @@ export const Question = styled('button')<{
 }>`
   display: inline-block;
   border: none;
-  font-size: 1.6rem;
+  font-size: clamp(1.4rem, 0.619rem + 1.9048vw, 1.6rem);
   background-color: ${colors.gray95};
   padding: 1.5rem 1rem;
   border-radius: 1.5rem;

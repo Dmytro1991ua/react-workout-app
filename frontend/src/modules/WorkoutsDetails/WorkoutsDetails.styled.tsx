@@ -70,13 +70,9 @@ export const TableWrapper = styled.div`
 
       .header {
         position: sticky;
-        z-index: 1;
-        width: fit-content;
-        color: ${colors.white};
-      }
-
-      .header {
         top: 0;
+        z-index: 1;
+        color: ${colors.white};
         box-shadow: 0px 3px 3px ${colors.mantisDarker};
       }
 
@@ -88,9 +84,19 @@ export const TableWrapper = styled.div`
       [data-sticky-td] {
         position: sticky;
         background-color: ${colors.gray95};
+        width: 10rem !important;
+
+        @media (width >= 30em) {
+          width: 15rem !important;
+        }
 
         &:nth-child(2) {
+          left: 0 !important;
           border-right: none;
+
+          @media (width >= 30em) {
+            left: 15rem !important;
+          }
         }
       }
 
@@ -113,14 +119,38 @@ export const TableCellWrapper = styled('div')`
 
 export const TablePaginationContainer = styled('div')`
   display: flex;
+  flex-direction: column;
   align-items: center;
   color: ${colors.white};
   margin-top: 1rem;
+  padding: 1rem 0;
+
+  @media (width >= 62em) {
+    flex-direction: row;
+    padding: 0;
+  }
+`;
+
+export const TablePaginationInputsWrapper = styled('div')`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  @media (width >= 62em) {
+    flex-direction: row;
+  }
 `;
 
 export const TablePaginationActions = styled(TablePaginationContainer)`
-  margin-top: 0;
-  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1rem;
+
+  @media (width >= 62em) {
+    margin-left: auto;
+    margin-top: 0;
+  }
 `;
 
 export const PreviousButton = styled(Button)`

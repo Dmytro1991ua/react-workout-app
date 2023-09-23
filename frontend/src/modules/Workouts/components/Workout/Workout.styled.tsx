@@ -7,21 +7,28 @@ import { colors } from '../../../../global-styles/ColorsPalette';
 import { FormAndFallbackMessageWrapper } from '../../CommonStyles.styled';
 
 const CommonIconStyles = `
-   width: 2.2rem;
-   height: 2.2rem;
+   width: 1.8rem;
+   height: 1.8rem;
    color: ${colors.mantis};
+   margin-right: 0.4rem;
    transition: all 0.3s ease-in-out;
    cursor: pointer;
 
    &:hover {
     transform: scale(1.1);
    }
+
+   @media(width >= 28em) {
+    width: 2.2rem;
+    height: 2.2rem;
+    margin-right: 0;
+   }
 }`;
 
 export const WorkoutSection = styled(FormAndFallbackMessageWrapper)`
   grid-template-columns: 1fr 1fr;
   border: none;
-  padding: 1.5rem 2rem;
+  padding: 1.2rem 0.5rem;
   position: relative;
   cursor: pointer;
 
@@ -48,7 +55,10 @@ export const Header = styled.ul`
   align-items: center;
   border-bottom: 1px solid ${colors.mantisDarker};
   padding-bottom: 0.5rem;
-  height: 40px;
+
+  @media (width >= 48em) {
+    height: 4rem;
+  }
 `;
 
 export const WorkoutTitle = styled.h3`
@@ -56,8 +66,12 @@ export const WorkoutTitle = styled.h3`
   font-weight: 700;
   font-family: 'Akaya Telivigala', cursive;
   color: ${colors.white};
-  letter-spacing: 0.1rem;
+  letter-spacing: 0.02rem;
   margin-right: 0.5rem;
+
+  @media (width >= 28em) {
+    letter-spacing: 0.1rem;
+  }
 
   @media (min-width: 120em) {
     font-size: 2.2rem;
@@ -95,17 +109,37 @@ export const WorkoutIcon = styled.span`
   height: 0.28rem;
 `;
 
+export const WeatherDetailsIcon = styled('img')`
+  width: 2.8rem;
+  height: 2.8rem;
+  margin-top: 0.6rem;
+  cursor: pointer;
+
+  @media (width >= 28em) {
+    width: 4rem;
+    height: 4rem;
+  }
+`;
+
 export const WorkoutValue = styled.span`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin-right: 0.5rem;
   color: ${colors.white};
+
+  @media (width >= 28em) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const WorkoutUnit = styled.span`
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   color: ${colors.powderAsh};
   text-transform: uppercase;
   font-weight: 800;
+
+  @media (width >= 28em) {
+    font-size: 1.1rem;
+  }
 `;
 
 export const ModalContentTitle = styled('h2')`

@@ -26,27 +26,23 @@ export const WorkoutsSectionBody = styled.div`
 `;
 
 export const WorkoutsFeatures = styled.aside`
-  flex: 0 1 50rem;
+  flex: 0 1 35rem;
   min-height: 10rem;
   background-color: ${colors.darkBlue};
   border-top-left-radius: 1.2rem;
   border-top-right-radius: 1.2rem;
-  padding: 0 1.2rem 10rem;
+  padding: 0 1.2rem 2rem;
   overflow: auto;
 
-  @media (min-width: 62em) {
+  @media (width >= 62em) {
+    flex: 0 1 50rem;
     height: 100vh;
+    padding: 0 1.2rem 10rem;
     border-top-right-radius: 0;
     border-bottom-left-radius: 1.2rem;
   }
 
-  @media (min-width: 62em) {
-    height: 100vh;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 1.2rem;
-  }
-
-  @media (min-width: 120em) {
+  @media (width >= 120em) {
     flex: 0 1 60rem;
   }
 `;

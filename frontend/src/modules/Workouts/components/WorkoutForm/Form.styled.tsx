@@ -13,6 +13,16 @@ export const FormRow = styled.div`
   position: relative;
   display: flex;
   align-items: baseline;
+
+  button {
+    font-size: 1.4rem;
+    padding: 0.8rem 0.5rem;
+
+    @media (width >= 28em) {
+      font-size: 1.7rem;
+      padding: 1.2rem;
+    }
+  }
 `;
 
 export const FormLabel = styled.label`
