@@ -22,7 +22,7 @@ export const FormSectionTitle = styled.h2`
 `;
 
 export const Form = styled.form`
-  max-width: 28rem;
+  max-width: 30rem;
   width: 100%;
 
   @media (min-width: 48em) {

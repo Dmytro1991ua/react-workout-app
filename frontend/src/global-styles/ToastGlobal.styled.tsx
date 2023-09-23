@@ -6,8 +6,18 @@ import { colors } from './ColorsPalette';
 export const CustomToastContainer = styled(ToastContainer)`
   &.Toastify__toast-container {
     width: fit-content;
-    min-width: 350px;
-    padding: 0;
+    min-width: 31rem;
+    padding: 0 1rem;
+
+    @media only screen and (max-width: 480px) {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    @media (width >= 48rem) {
+      min-height: 35rem;
+      padding: 0;
+    }
   }
 
   & .Toastify__toast-theme--dark {

@@ -7,7 +7,7 @@ export const FormAndFallbackMessageWrapper = styled('section')<{ $isQuizFallback
   background-color: ${({ $isQuizFallbackMessage }) =>
     $isQuizFallbackMessage ? `${colors.darkBlue}` : `${colors.lighterBlue}`};
   border-radius: 5px;
-  padding: 1.2rem;
+  padding: 1.2rem 2.3rem;
   margin-bottom: 1.75rem;
   display: grid;
   gap: 1.5rem 2.5rem;

@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { AddToFavorite, EditBtn, RemoveBtn, RemoveFromFavorite } from '../../Workout.styled';
+import { AddToFavorite, EditBtn, RemoveBtn, RemoveFromFavorite, WeatherDetailsIcon } from '../../Workout.styled';
 import { WorkoutActionConfig } from '../../Workout.types';
 import { WorkoutHeaderConfigProps } from './WorkoutHeader.types';
 
@@ -47,8 +47,7 @@ export const workoutHeaderConfig = ({
     {
       id: uuidv4(),
       icon: workout.weatherInfo ? (
-        <img
-          style={{ marginTop: '0.6rem', marginLeft: '-1rem', cursor: 'pointer' }}
+        <WeatherDetailsIcon
           src={currentWeatherIcon ?? ''}
           alt={currentWeatherIcon ? `${workout.weatherInfo?.city}'s city current weather icon` : ''}
         />

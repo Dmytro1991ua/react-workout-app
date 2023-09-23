@@ -3,7 +3,11 @@ import { TableState } from 'react-table';
 
 import FormInput from '../../../Workouts/components/FormInput/FormInput';
 import { TABLE_PAGE_SIZE_OPTIONS } from '../../WorkoutsDetails.constants';
-import { TablePaginationActions, TablePaginationContainer } from '../../WorkoutsDetails.styled';
+import {
+  TablePaginationActions,
+  TablePaginationContainer,
+  TablePaginationInputsWrapper,
+} from '../../WorkoutsDetails.styled';
 import { generateActionButtons } from '../../WorkoutsDetails.utils';
 import { Select } from './../../../../components/Select/Select';
 
@@ -45,7 +49,7 @@ const TablePagination = ({
   );
 
   const rowsPerPage = (
-    <>
+    <div>
       <span style={{ marginRight: '0.7rem' }}>Rows per page:</span>
       <Select
         name='pageSize'
@@ -53,7 +57,7 @@ const TablePagination = ({
         value={state.pageSize}
         onChange={(e) => setPageSize(Number(e.target.value))}
       />
-    </>
+    </div>
   );
 
   const pagesCount = (
@@ -66,7 +70,7 @@ const TablePagination = ({
   );
 
   const goToPage = (
-    <>
+    <div>
       <span style={{ marginLeft: '3rem', marginRight: '0.7rem' }}>Go to page:</span>
       <FormInput
         name='gotToPage'
@@ -80,16 +84,18 @@ const TablePagination = ({
           gotoPage(pageNumber);
         }}
       />
-    </>
+    </div>
   );
 
   const paginationActions = <TablePaginationActions>{actionButtons}</TablePaginationActions>;
 
   return (
     <TablePaginationContainer>
-      {rowsPerPage}
-      {pagesCount}
-      {goToPage}
+      <TablePaginationInputsWrapper>
+        {rowsPerPage}
+        {pagesCount}
+        {goToPage}
+      </TablePaginationInputsWrapper>
       {paginationActions}
     </TablePaginationContainer>
   );

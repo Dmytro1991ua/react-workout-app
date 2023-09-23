@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { colors } from '../../global-styles/ColorsPalette';
 
-export const ProgressBarContainer = styled('div')<{
+export const ProgressBarContainer = styled('section')<{
   $color?: string;
   $width?: string;
   $hasColumnDirection?: boolean;
@@ -10,6 +10,8 @@ export const ProgressBarContainer = styled('div')<{
   flex-direction: ${({ $hasColumnDirection }) => ($hasColumnDirection ? 'column' : 'row')};
   align-items: ${({ $hasColumnDirection }) => ($hasColumnDirection ? 'center' : 'end')};
   justify-content: center;
+  padding: 0 !important;
+  margin: 0 !important;
    
   progress[value] {
     width: ${({ $width }) => $width};
