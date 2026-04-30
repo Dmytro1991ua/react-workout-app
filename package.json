@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "packages-install": "npm ci && cd frontend && npm ci",
     "build": "cd frontend && npm install --only=dev && npm install && npm run predeploy",

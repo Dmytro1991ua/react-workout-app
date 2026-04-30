@@ -3,6 +3,9 @@
   "proxy": "http://localhost:8080",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "@hookform/resolvers": "^2.8.8",
     "@react-leaflet/core": "^1.0.2",
