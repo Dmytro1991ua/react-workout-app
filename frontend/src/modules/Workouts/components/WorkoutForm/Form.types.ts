@@ -1,5 +1,5 @@
 import { LatLngTuple } from 'leaflet';
-import { FieldValues, Path } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
 
 import { FormInputConfig, FormSelectConfig } from '../../../../App.types';
 import { WorkoutFormFieldLabel } from './WorkoutForm.enums';

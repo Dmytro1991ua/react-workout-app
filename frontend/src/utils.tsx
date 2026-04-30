@@ -37,11 +37,10 @@ export const generateFormInputs = <T extends FieldValues>({
     }) => {
       if (isWorkoutForm) {
         return (
-          <FormRow>
+          <FormRow key={id}>
             <FormLabel>{label}</FormLabel>
             <FieldInputWrapper>
               <FormInput<T>
-                key={id}
                 type={type}
                 min={min}
                 max={max}
@@ -107,10 +106,9 @@ export const generateFormSelects = <T extends FieldValues>({
     }) => {
       if (isWorkoutForm) {
         return (
-          <FormRow>
+          <FormRow key={id}>
             <FormLabel>{label}</FormLabel>
             <Select<T>
-              key={id}
               options={options}
               actionPanelSelect={actionPanelSelect}
               name={name}
@@ -156,8 +154,7 @@ export const generateFormActionButtons = (config: FormActionButtonConfig[]): JSX
       backgroundColor={backgroundColor}
       hoverColor={hoverColor}
       color={color}
-      onClick={onClick}
-    >
+      onClick={onClick}>
       {label}
     </Button>
   ));

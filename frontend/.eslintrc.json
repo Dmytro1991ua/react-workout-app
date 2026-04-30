@@ -32,7 +32,6 @@
     "react/no-array-index-key": "off",
     "no-else-return": "error",
     "no-implicit-coercion": "error",
-    "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "import/no-unresolved": "error",
     "lines-between-class-members": [
@@ -66,24 +65,8 @@
         "children": "never"
       }
     ],
-    "import/order": [
-      "warn",
-      {
-        "groups": ["builtin", "external", "internal"],
-        "pathGroups": [
-          {
-            "pattern": "react",
-            "group": "external",
-            "position": "before"
-          }
-        ],
-        "newlines-between": "always",
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        }
-      }
-    ],
+    "import/order": "off", 
+    "simple-import-sort/imports": "error",
     "react-hooks/exhaustive-deps": "warn"
   },
   "settings": {
